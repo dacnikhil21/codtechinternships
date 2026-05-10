@@ -2,8 +2,8 @@ import './globals.css'
 import { Toaster } from 'react-hot-toast'
 
 export const metadata = {
-  title: 'CareerPrep Pro',
-  description: 'The Professional High-Performance Career Platform.',
+  title: 'Codtech Intern',
+  description: 'The Official Codtech Internship Portal. Learn. Build. Grow.',
 }
 
 export default function RootLayout({ children }) {
