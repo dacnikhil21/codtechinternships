@@ -13,7 +13,7 @@ const DOMAINS = [
   "Data Analytics Intern", "SQL Intern", "Devops Intern", "Power BI Intern",
   "Cloud Computing Intern", "Block Chain Technology Intern", "Software Testing Intern",
   "Automation Testing Intern", "Bigdata Intern", "Dot.Net Intern", "Data Science Intern",
-  "Ul/UX Intern", "Machine Language", "Artificial Intelligence", "Internet Of things",
+  "Ul/UX Intern", "Machine Learning", "Artificial Intelligence", "Internet Of things",
   "VLSI", "Cybersecurity & Ethical Hacking"
 ];
 

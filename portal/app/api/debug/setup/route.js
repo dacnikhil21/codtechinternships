@@ -98,17 +98,84 @@ export async function GET() {
       await conn.execute('INSERT IGNORE INTO domains (name, slug) VALUES (?, ?)', [d, slug]);
     }
 
-    // 8. Master Seeder: Generate 30 Projects per Domain (Placeholder Loop)
+    // 8. INTELLIGENT FUZZY MIGRATION & SEEDER
     const [domainRows] = await conn.execute('SELECT id, name FROM domains');
+    const [allTasks] = await conn.execute('SELECT DISTINCT domain FROM task');
+    
+    const report = {
+      matched: [],
+      unmatched: allTasks.map(t => t.domain),
+      migratedCount: 0,
+      skippedDuplicates: 0,
+      placeholdersReplaced: 0
+    };
+
+    const fuzzyMatch = (oldName, newName) => {
+      const n1 = oldName.toLowerCase().replace(/[^a-z0-9]/g, '');
+      const n2 = newName.toLowerCase().replace(/[^a-z0-9]/g, '');
+      if (n1 === n2) return true;
+      // Handle common abbreviations
+      if ((n1 === 'aiml' || n1 === 'ai') && n2.includes('artificialintelligence')) return true;
+      if (n1.includes('react') && n2.includes('reactjs')) return true;
+      if (n1.includes('cybersec') && n2.includes('cybersecurity')) return true;
+      if (n1.includes('javafs') && n2.includes('java')) return true;
+      if (n1.includes('frontend') && n2.includes('frontend')) return true;
+      return n1.includes(n2) || n2.includes(n1);
+    };
+
     for (const domain of domainRows) {
-      const [existing] = await conn.execute('SELECT COUNT(*) as count FROM projects WHERE domain_id = ?', [domain.id]);
-      if (existing[0].count === 0) {
-        console.log(`Seeding projects for: ${domain.name}`);
-        for (let i = 1; i <= 30; i++) {
-          await conn.execute(
-            'INSERT INTO projects (domain_id, name, description, difficulty) VALUES (?, ?, ?, ?)',
-            [domain.id, `${domain.name} Project ${i}`, `Master ${domain.name} skills with this hands-on project module ${i}.`, i <= 10 ? 'Beginner' : i <= 20 ? 'Intermediate' : 'Advanced']
-          );
+      // 1. Find matching tasks from the old 'task' table
+      const matchingOldDomains = allTasks.filter(t => fuzzyMatch(t.domain, domain.name));
+      
+      if (matchingOldDomains.length > 0) {
+        report.matched.push(`${matchingOldDomains.map(d => d.domain).join(', ')} → ${domain.name}`);
+        
+        // Remove from unmatched list
+        matchingOldDomains.forEach(od => {
+          const idx = report.unmatched.indexOf(od.domain);
+          if (idx > -1) report.unmatched.splice(idx, 1);
+        });
+
+        // 2. Fetch real tasks for these matched domains
+        for (const oldDomainObj of matchingOldDomains) {
+          const oldDomainName = oldDomainObj.domain;
+          const [realTasks] = await conn.execute('SELECT title, description, level FROM task WHERE domain = ?', [oldDomainName]);
+          
+          // Check if we should replace placeholders
+          const [currentProjects] = await conn.execute('SELECT name FROM projects WHERE domain_id = ? LIMIT 1', [domain.id]);
+          const isPlaceholder = currentProjects.length > 0 && currentProjects[0].name.includes(' Project ');
+
+          if (currentProjects.length === 0 || isPlaceholder) {
+            if (isPlaceholder) {
+              await conn.execute('DELETE FROM projects WHERE domain_id = ?', [domain.id]);
+              report.placeholdersReplaced++;
+            }
+
+            for (const task of realTasks) {
+              // Duplicate check (by name)
+              const [dup] = await conn.execute('SELECT id FROM projects WHERE domain_id = ? AND name = ?', [domain.id, task.title]);
+              if (dup.length === 0) {
+                await conn.execute(
+                  'INSERT INTO projects (domain_id, name, description, difficulty) VALUES (?, ?, ?, ?)',
+                  [domain.id, task.title, task.description, task.level]
+                );
+                report.migratedCount++;
+              } else {
+                report.skippedDuplicates++;
+              }
+            }
+          }
+        }
+      } else {
+        // 3. Fallback to placeholders ONLY if no real tasks were ever found for this domain
+        const [existing] = await conn.execute('SELECT COUNT(*) as count FROM projects WHERE domain_id = ?', [domain.id]);
+        if (existing[0].count === 0) {
+          for (let i = 1; i <= 30; i++) {
+            await conn.execute(
+              'INSERT INTO projects (domain_id, name, description, difficulty) VALUES (?, ?, ?, ?)',
+              [domain.id, `${domain.name} Project ${i}`, `Master ${domain.name} skills with this hands-on project module ${i}.`, i <= 10 ? 'Beginner' : i <= 20 ? 'Intermediate' : 'Advanced']
+            );
+          }
         }
       }
     }
@@ -121,11 +188,9 @@ export async function GET() {
     await conn.end();
     return NextResponse.json({ 
       success: true, 
-      message: '32-DOMAIN ARCHITECTURE REBUILT SUCCESSFULLY!',
-      domainsCreated: domains.length,
-      totalProjectsSeeded: domains.length * 30,
-      adminAccount: 'admin@test.com / Admin123',
-      action: 'All systems are now database-driven. You can visit /api/debug/setup to refresh anytime.'
+      message: 'INTELLIGENT FUZZY MIGRATION COMPLETE!',
+      migrationReport: report,
+      action: 'Your real projects have been restored and mapped to the new domain system.'
     });
 
   } catch (error) {
