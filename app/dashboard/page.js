@@ -321,7 +321,7 @@ export default function Dashboard() {
                   </div>
                 ))
              ) : activeTab === 'Preparation' ? (
-                user.course === 'React.js Web Development Intern' ? (
+                (user && (user.course === 'React.js Web Development Intern' || user.course?.includes('Frontend') || user.course?.includes('React'))) ? (
                   <>
                     {[
                       {
