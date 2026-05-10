@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
+import PreparationGuide from './PreparationGuide';
 
 export default function Dashboard() {
   const router = useRouter();
@@ -321,12 +322,7 @@ export default function Dashboard() {
                   </div>
                 ))
              ) : activeTab === 'Preparation' ? (
-                ['Technical Q&A', 'System Design', 'Algorithms Masterclass', 'Database Design'].map((title, i) => (
-                  <div key={i} className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
-                    <h5 className="font-bold text-slate-800 text-sm mb-4">{title}</h5>
-                    <button className="w-full bg-blue-50 text-blue-700 text-[10px] font-bold py-2 rounded-lg">Start Practice</button>
-                  </div>
-                ))
+                <PreparationGuide courseTitle={user.course} />
              ) : (
                 <div className="col-span-full py-20 text-center bg-white rounded-3xl border border-slate-100">
                    <span className="material-symbols-outlined text-4xl text-slate-200 mb-4">lock</span>
