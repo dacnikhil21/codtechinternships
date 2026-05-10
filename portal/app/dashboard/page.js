@@ -331,7 +331,7 @@ export default function Dashboard() {
                              className="bg-slate-100 text-slate-700 px-8 py-3.5 rounded-2xl font-bold text-sm hover:bg-slate-200 transition-all flex items-center justify-center gap-2 active:scale-95"
                            >
                              <span className="material-symbols-outlined text-lg">map</span>
-                             How to Complete?
+                             How to Do Project
                            </button>
                         </div>
                       </div>
