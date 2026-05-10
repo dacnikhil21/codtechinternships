@@ -30,6 +30,21 @@ export default function Dashboard() {
     return { name: 'Beginner', icon: 'stadium', color: 'text-slate-600 bg-slate-50 border-slate-100' };
   };
 
+  // Helper to determine if a card is recommended for the user's domain
+  const isRecommended = (cardTitle) => {
+    if (!user || !user.course) return false;
+    const course = user.course.toLowerCase();
+    const title = cardTitle.toLowerCase();
+    
+    if (course.includes('react') || course.includes('frontend')) {
+      return title.includes('react') || title.includes('javascript') || title.includes('frontend') || title.includes('hooks');
+    }
+    if (course.includes('backend') || course.includes('node') || course.includes('python') || course.includes('database')) {
+      return title.includes('api') || title.includes('database') || title.includes('backend') || title.includes('system design');
+    }
+    return false;
+  };
+
   // State for total XP (initially from user object)
   const [totalXP, setTotalXP] = useState(0);
 
@@ -403,8 +418,15 @@ export default function Dashboard() {
                         desc: 'Frontend resume tips, GitHub optimization, portfolio building, and ATS-friendly guidance for React developers.',
                         btn: 'View Tips'
                       }
-                    ].map((card, i) => (
-                      <div key={i} className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:border-blue-200 transition-all flex flex-col justify-between">
+                    ]
+                    .sort((a, b) => isRecommended(b.title) - isRecommended(a.title))
+                    .map((card, i) => (
+                      <div key={i} className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:border-blue-200 transition-all flex flex-col justify-between relative group">
+                        {isRecommended(card.title) && (
+                          <div className="absolute -top-3 left-6 bg-blue-600 text-white text-[8px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg shadow-blue-200 z-10 transition-transform group-hover:scale-105">
+                             Recommended for You
+                          </div>
+                        )}
                         <div>
                           <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mb-4">
                             <span className="material-symbols-outlined text-xl">psychology</span>
@@ -437,8 +459,15 @@ export default function Dashboard() {
                     ))}
                   </>
                 ) : (
-                  ['Technical Q&A', 'System Design', 'Algorithms Masterclass', 'Database Design'].map((title, i) => (
-                    <div key={i} className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                  ['Technical Q&A', 'System Design', 'Algorithms Masterclass', 'Database Design']
+                  .sort((a, b) => isRecommended(b) - isRecommended(a))
+                  .map((title, i) => (
+                    <div key={i} className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between relative group">
+                      {isRecommended(title) && (
+                        <div className="absolute -top-3 left-6 bg-blue-600 text-white text-[8px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg shadow-blue-200 z-10 transition-transform group-hover:scale-105">
+                           Recommended for You
+                        </div>
+                      )}
                       <div>
                         <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mb-4">
                           <span className="material-symbols-outlined text-xl">menu_book</span>
