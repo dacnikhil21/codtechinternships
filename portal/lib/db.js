@@ -11,9 +11,9 @@ const pool = useUri ? mysql.createPool({
   connectionLimit: 3,
   connectTimeout: 10000,
 }) : mysql.createPool({
-  host: 'localhost',
+  host: '127.0.0.1',
   user: 'u371402898_ctadmin',
-  password: 'Admin12345',
+  password: 'Codtech2002',
   database: 'u371402898_ctintern',
   waitForConnections: true,
   connectionLimit: 3,
