@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
-import PreparationGuide from './PreparationGuide';
 
 export default function Dashboard() {
   const router = useRouter();
@@ -322,7 +321,68 @@ export default function Dashboard() {
                   </div>
                 ))
              ) : activeTab === 'Preparation' ? (
-                <PreparationGuide courseTitle={user.course} />
+                user.course === 'React.js Web Development Intern' ? (
+                  <>
+                    {[
+                      {
+                        title: 'React Interview Questions',
+                        desc: 'Practice commonly asked ReactJS interview questions including Hooks, Components, State, Props, Context API, Routing, and API handling.',
+                        btn: 'Start Practice'
+                      },
+                      {
+                        title: 'JavaScript Coding Challenges',
+                        desc: 'Practice JavaScript fundamentals, ES6 concepts, arrays, strings, async/await, and frontend logic building.',
+                        btn: 'Start Challenge'
+                      },
+                      {
+                        title: 'React Hooks Practice',
+                        desc: 'Practice useState, useEffect, useContext, custom hooks, and component lifecycle concepts.',
+                        btn: 'Practice Hooks'
+                      },
+                      {
+                        title: 'API Integration Practice',
+                        desc: 'Learn API fetching, Axios, async requests, loading states, and data rendering in ReactJS.',
+                        btn: 'Start API Practice'
+                      },
+                      {
+                        title: 'Frontend Development Roadmap',
+                        desc: 'Track learning progress for HTML, CSS, JavaScript, ReactJS, Routing, APIs, and Deployment.',
+                        btn: 'View Roadmap'
+                      },
+                      {
+                        title: 'Resume & Portfolio Preparation',
+                        desc: 'Frontend resume tips, GitHub optimization, portfolio building, and ATS-friendly guidance for React developers.',
+                        btn: 'View Tips'
+                      }
+                    ].map((card, i) => (
+                      <div key={i} className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:border-blue-200 transition-all flex flex-col justify-between">
+                        <div>
+                          <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mb-4">
+                            <span className="material-symbols-outlined text-xl">psychology</span>
+                          </div>
+                          <h5 className="font-bold text-slate-800 text-sm mb-2">{card.title}</h5>
+                          <p className="text-[10px] text-slate-500 mb-6 leading-relaxed">{card.desc}</p>
+                        </div>
+                        <button className="w-full bg-blue-50 text-blue-700 text-[10px] font-bold py-2.5 rounded-xl hover:bg-blue-100 transition-colors">
+                          {card.btn}
+                        </button>
+                      </div>
+                    ))}
+                  </>
+                ) : (
+                  ['Technical Q&A', 'System Design', 'Algorithms Masterclass', 'Database Design'].map((title, i) => (
+                    <div key={i} className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                      <div>
+                        <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mb-4">
+                          <span className="material-symbols-outlined text-xl">menu_book</span>
+                        </div>
+                        <h5 className="font-bold text-slate-800 text-sm mb-2">{title}</h5>
+                        <p className="text-[10px] text-slate-500 mb-6">General preparation materials and practice resources.</p>
+                      </div>
+                      <button className="w-full bg-blue-50 text-blue-700 text-[10px] font-bold py-2.5 rounded-xl hover:bg-blue-100 transition-colors">Start Practice</button>
+                    </div>
+                  ))
+                )
              ) : (
                 <div className="col-span-full py-20 text-center bg-white rounded-3xl border border-slate-100">
                    <span className="material-symbols-outlined text-4xl text-slate-200 mb-4">lock</span>
