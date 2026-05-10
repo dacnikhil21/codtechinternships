@@ -30,6 +30,7 @@ model Task {
   level       String     @default("Beginner")
   batch       Int        @default(1)
   points      Int        @default(10)
+  roadmap     String?    @db.Text
   createdAt   DateTime   @default(now())
   progress    Progress[]
 }

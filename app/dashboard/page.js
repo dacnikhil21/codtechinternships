@@ -10,6 +10,7 @@ export default function Dashboard() {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('Tasks');
+  const [selectedTask, setSelectedTask] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -110,7 +111,7 @@ export default function Dashboard() {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 ml-64 p-8">
+      <main className="flex-1 ml-64 p-8 relative">
         <header className="flex justify-between items-center mb-8">
           <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
             <span className="material-symbols-outlined">dashboard</span>
@@ -204,7 +205,7 @@ export default function Dashboard() {
           >
              {activeTab === 'Tasks' ? (
                 tasks.length > 0 ? tasks.map((task) => (
-                  <div key={task._id} className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:border-blue-200 transition-all">
+                  <div key={task.id} className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:border-blue-200 transition-all flex flex-col">
                      <div className="flex justify-between items-start mb-4">
                         <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center">
                            <span className="material-symbols-outlined text-xl">assignment</span>
@@ -213,16 +214,26 @@ export default function Dashboard() {
                      </div>
                      <h5 className="font-bold text-slate-800 mb-1">{task.title}</h5>
                      <p className="text-[10px] text-slate-500 mb-4 line-clamp-2">{task.description}</p>
-                     <div className="flex items-center justify-between mt-auto">
-                        <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${task.level === 'Beginner' ? 'bg-emerald-50 text-emerald-600' : 'bg-amber-50 text-amber-600'}`}>
-                           {task.level}
-                        </span>
+                     
+                     <div className="space-y-2 mt-auto">
                         <button 
-                          onClick={() => handleTaskSubmit(task._id)}
-                          className="text-blue-700 text-xs font-bold flex items-center gap-1 hover:gap-2 transition-all"
+                          onClick={() => setSelectedTask(task)}
+                          className="w-full bg-slate-50 text-slate-700 text-xs font-bold py-2 rounded-xl flex items-center justify-center gap-2 hover:bg-slate-100 transition-colors"
                         >
-                          Submit Task <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                          <span className="material-symbols-outlined text-sm">map</span> How to Complete?
                         </button>
+                        
+                        <div className="flex items-center justify-between pt-2">
+                           <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${task.level === 'Beginner' ? 'bg-emerald-50 text-emerald-600' : 'bg-amber-50 text-amber-600'}`}>
+                              {task.level}
+                           </span>
+                           <button 
+                             onClick={() => handleTaskSubmit(task.id)}
+                             className="text-blue-700 text-xs font-bold flex items-center gap-1 hover:gap-2 transition-all"
+                           >
+                             Submit Task <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                           </button>
+                        </div>
                      </div>
                   </div>
                 )) : (
@@ -238,6 +249,64 @@ export default function Dashboard() {
                 </div>
              )}
           </motion.div>
+        </AnimatePresence>
+
+        {/* Roadmap Modal */}
+        <AnimatePresence>
+          {selectedTask && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setSelectedTask(null)}
+                className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
+              />
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                className="bg-white w-full max-w-lg rounded-3xl shadow-2xl relative z-10 overflow-hidden"
+              >
+                <div className="p-8">
+                  <div className="flex justify-between items-start mb-6">
+                    <div>
+                      <span className="text-[10px] font-black uppercase text-blue-600 tracking-widest bg-blue-50 px-2 py-1 rounded">Project Roadmap</span>
+                      <h4 className="text-xl font-bold text-slate-900 mt-2">{selectedTask.title}</h4>
+                    </div>
+                    <button onClick={() => setSelectedTask(null)} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 transition-colors">
+                      <span className="material-symbols-outlined text-slate-400">close</span>
+                    </button>
+                  </div>
+
+                  <div className="space-y-6">
+                    {selectedTask.roadmap?.split('\n').map((step, index) => (
+                      <div key={index} className="flex gap-4 group">
+                        <div className="flex flex-col items-center">
+                          <div className="w-6 h-6 rounded-full bg-blue-600 text-white text-[10px] font-bold flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                            {index + 1}
+                          </div>
+                          {index !== selectedTask.roadmap.split('\n').length - 1 && (
+                            <div className="w-0.5 h-full bg-slate-100 mt-2"></div>
+                          )}
+                        </div>
+                        <div className="pb-4">
+                          <p className="text-sm text-slate-700 font-medium leading-relaxed">{step.replace(/^Step \d+: /, '')}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <button 
+                    onClick={() => setSelectedTask(null)}
+                    className="w-full bg-blue-700 text-white font-bold py-4 rounded-2xl mt-8 hover:bg-blue-800 transition-all shadow-xl shadow-blue-200"
+                  >
+                    Got it, let's start!
+                  </button>
+                </div>
+              </motion.div>
+            </div>
+          )}
         </AnimatePresence>
 
         {/* Floating Chat Button */}

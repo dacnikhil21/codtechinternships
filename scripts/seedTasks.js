@@ -16,18 +16,19 @@ const DOMAINS = [
 ];
 
 async function seed() {
-  console.log('Seeding tasks to MySQL...');
+  console.log('Seeding 32 tasks to Hostinger MySQL...');
   
-  // Clear existing tasks
+  // Clear existing tasks to avoid duplicates
   await prisma.task.deleteMany({});
 
   const tasks = DOMAINS.map(domain => ({
-    title: `Starter Project: ${domain}`,
-    description: `Welcome to your ${domain} internship. Your first task is to set up your environment and build a basic hello-world application using the core concepts of this track.`,
+    title: `Project: ${domain} (Week 1)`,
+    description: `Complete the initial setup and core features of a ${domain} application.`,
     domain: domain,
     level: 'Beginner',
     batch: 1,
-    points: 10
+    points: 10,
+    roadmap: `Step 1: Set up the development environment.\nStep 2: Initialize the project folder.\nStep 3: Create the basic UI components.\nStep 4: Implement core logic.\nStep 5: Submit the GitHub repository link.`
   }));
 
   for (const task of tasks) {
