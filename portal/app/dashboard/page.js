@@ -505,6 +505,44 @@ export default function Dashboard() {
                    <p className="text-slate-400 font-medium">{activeTab} section is being updated for your track.</p>
                 </div>
              )}
+
+             {/* Smart Recommendations Section */}
+             {(activeTab === 'Preparation') && (
+               <div className="col-span-full mt-10 bg-slate-900 p-8 rounded-[2rem] text-white overflow-hidden relative shadow-2xl">
+                 <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full -mr-32 -mt-32 blur-3xl"></div>
+                 <div className="relative z-10">
+                   <div className="flex items-center gap-3 mb-6">
+                      <div className="w-10 h-10 bg-blue-500/20 rounded-2xl flex items-center justify-center border border-blue-500/30">
+                         <span className="material-symbols-outlined text-blue-400">insights</span>
+                      </div>
+                      <div>
+                         <h3 className="text-lg font-bold tracking-tight">Personalized Growth Analysis</h3>
+                         <p className="text-xs text-slate-400">Based on your practice performance and {user.course}</p>
+                      </div>
+                   </div>
+                   
+                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="bg-white/5 border border-white/10 p-5 rounded-2xl hover:bg-white/10 transition-colors">
+                         <span className="text-[10px] font-black uppercase text-blue-400 tracking-widest mb-2 block">Weak Area Identified</span>
+                         <p className="text-sm font-medium mb-3 text-slate-200">You need more practice in <span className="text-blue-400 font-bold italic">React Hooks & API Lifecycle</span></p>
+                         <div className="flex items-center gap-2 text-[10px] text-slate-500 font-bold">
+                            <span className="material-symbols-outlined text-sm text-amber-500">warning</span>
+                            Confidence Score: 24%
+                         </div>
+                      </div>
+                      
+                      <div className="bg-white/5 border border-white/10 p-5 rounded-2xl hover:bg-white/10 transition-colors">
+                         <span className="text-[10px] font-black uppercase text-emerald-400 tracking-widest mb-2 block">Strong Performance</span>
+                         <p className="text-sm font-medium mb-3 text-slate-200">You are doing excellent in <span className="text-emerald-400 font-bold italic">JavaScript ES6 Fundamentals</span></p>
+                         <div className="flex items-center gap-2 text-[10px] text-slate-500 font-bold">
+                            <span className="material-symbols-outlined text-sm text-emerald-500">check_circle</span>
+                            Confidence Score: 92%
+                         </div>
+                      </div>
+                   </div>
+                 </div>
+               </div>
+             )}
           </motion.div>
         </AnimatePresence>
 
