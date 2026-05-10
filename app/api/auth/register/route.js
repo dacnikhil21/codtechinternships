@@ -1,38 +1,40 @@
 import { NextResponse } from 'next/server';
-import dbConnect from '@/lib/mongodb';
-import User from '@/models/User';
+import prisma from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
 import { login } from '@/lib/auth';
 
 export async function POST(req) {
   try {
-    await dbConnect();
     const { name, email, password, course } = await req.json();
 
-    // 1. Validate fields
     if (!name || !email || !password || !course) {
         return NextResponse.json({ success: false, message: 'Please provide all fields' }, { status: 400 });
     }
 
-    // 2. Check if user already exists
-    const userExists = await User.findOne({ email });
+    // 1. Check if user already exists
+    const userExists = await prisma.user.findUnique({
+      where: { email }
+    });
+
     if (userExists) {
       return NextResponse.json({ success: false, message: 'User already exists' }, { status: 400 });
     }
 
-    // 3. Hash password (Important: User model doesn't have pre-save hook currently)
+    // 2. Hash password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // 4. Create user
-    const user = await User.create({
-      name,
-      email,
-      password: hashedPassword,
-      course,
+    // 3. Create user in SQLite via Prisma
+    const user = await prisma.user.create({
+      data: {
+        name,
+        email,
+        password: hashedPassword,
+        course,
+      }
     });
 
-    // 5. Create session (Centralized)
+    // 4. Create session
     await login(user);
 
     return NextResponse.json({ 

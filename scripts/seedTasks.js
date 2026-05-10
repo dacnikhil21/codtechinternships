@@ -1,9 +1,6 @@
-import mongoose from 'mongoose';
-import Task from '../models/Task.js';
-import dotenv from 'dotenv';
-dotenv.config();
+import { PrismaClient } from '@prisma/client';
 
-const MONGO_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/internship_portal";
+const prisma = new PrismaClient();
 
 const DOMAINS = [
   "React.js Web Development Intern", "Mern Stack Web Development Intern", ".Net Web Development Intern",
@@ -13,35 +10,38 @@ const DOMAINS = [
   "App Development Intern", "Java Programming Intern", "Python Programming Intern",
   "Data Analytics Intern", "SQL Intern", "Devops Intern", "Power BI Intern",
   "Cloud Computing Intern", "Block Chain Technology Intern", "Software Testing Intern",
-  "Automation Testing Intern", "Bigdata Intern", "Big Data", "Data Science Intern", "Data Science",
-  "Ul/UX Intern", "UI/UX", "ML, AI & IoT", "Machine Language", "Artificial Intelligence", "Internet Of things",
+  "Automation Testing Intern", "Bigdata Intern", "Dot.Net Intern", "Data Science Intern",
+  "Ul/UX Intern", "Machine Language", "Artificial Intelligence", "Internet Of things",
   "VLSI", "Cybersecurity & Ethical Hacking"
 ];
 
 async function seed() {
-  try {
-    await mongoose.connect(MONGO_URI);
-    console.log("Connected to MongoDB for seeding...");
+  console.log('Seeding tasks...');
+  
+  // Clear existing tasks
+  await prisma.task.deleteMany({});
 
-    // Clear existing tasks to avoid duplicates during development
-    await Task.deleteMany({});
+  const tasks = DOMAINS.map(domain => ({
+    title: `Starter Project: ${domain}`,
+    description: `Welcome to your ${domain} internship. Your first task is to set up your environment and build a basic hello-world application using the core concepts of this track.`,
+    domain: domain,
+    level: 'Beginner',
+    batch: 1,
+    points: 10
+  }));
 
-    const tasks = DOMAINS.map(domain => ({
-      title: `Getting Started with ${domain}`,
-      description: `Complete the environment setup and follow the initial orientation guide for ${domain}. Submit your setup confirmation screenshot.`,
-      domain: domain,
-      level: 'Beginner',
-      batch: 1,
-      points: 100
-    }));
-
-    await Task.insertMany(tasks);
-    console.log(`Successfully seeded ${tasks.length} starter tasks!`);
-    process.exit();
-  } catch (err) {
-    console.error("Seeding Error:", err);
-    process.exit(1);
+  for (const task of tasks) {
+    await prisma.task.create({ data: task });
   }
+
+  console.log(`Successfully seeded ${tasks.length} tasks!`);
 }
 
-seed();
+seed()
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });

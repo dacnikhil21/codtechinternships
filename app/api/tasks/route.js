@@ -1,12 +1,9 @@
 import { NextResponse } from 'next/server';
-import dbConnect from '@/lib/mongodb';
-import Task from '@/models/Task';
-import User from '@/models/User';
+import prisma from '@/lib/prisma';
 import { getSession } from '@/lib/auth';
 
 export async function GET() {
   try {
-    await dbConnect();
     const session = await getSession();
 
     if (!session) {
@@ -14,7 +11,13 @@ export async function GET() {
     }
 
     // DOMAIN ISOLATION: Fetch tasks ONLY for the user's selected course
-    const tasks = await Task.find({ domain: session.course }).sort({ batch: 1, createdAt: 1 });
+    const tasks = await prisma.task.findMany({
+      where: { domain: session.course },
+      orderBy: [
+        { batch: 'asc' },
+        { createdAt: 'asc' }
+      ]
+    });
 
     return NextResponse.json({ 
       success: true, 
@@ -27,19 +30,19 @@ export async function GET() {
   }
 }
 
-// For Admin to create new tasks
 export async function POST(req) {
   try {
-    await dbConnect();
     const session = await getSession();
 
-    // SECURITY: Only allow Admins or Master Admin
+    // SECURITY: Only allow Admins
     if (!session || session.role !== 'admin') {
       return NextResponse.json({ success: false, message: 'Forbidden' }, { status: 403 });
     }
 
     const taskData = await req.json();
-    const task = await Task.create(taskData);
+    const task = await prisma.task.create({
+      data: taskData
+    });
 
     return NextResponse.json({ success: true, data: task }, { status: 201 });
 
