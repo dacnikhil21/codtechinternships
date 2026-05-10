@@ -1,79 +1,99 @@
 'use client';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import toast from 'react-hot-toast';
 
 export default function Home() {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        toast.success('Login successful!');
+        router.push('/dashboard');
+      } else {
+        toast.error(data.message || 'Invalid credentials');
+      }
+    } catch (err) {
+      toast.error('Something went wrong. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <div className="min-h-screen gradient-bg p-8">
-      <div className="max-w-6xl mx-auto">
-        <header className="flex justify-between items-center mb-16">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
-              <span className="material-symbols-outlined text-white text-3xl" style={{fontVariationSettings: "'FILL' 1"}}>rocket_launch</span>
-            </div>
-            <span className="text-primary font-bold tracking-tight text-2xl">CareerPrep Pro</span>
-          </div>
-          <nav className="flex gap-4">
-            <Link href="/login" className="text-primary font-bold px-6 py-2 rounded-full hover:bg-surface-container-low transition-colors">Sign In</Link>
-            <Link href="/register" className="bg-primary text-white font-bold px-6 py-2 rounded-full hover:bg-primary-container hover:shadow-lg transition-all">Enroll Now</Link>
-          </nav>
-        </header>
-
-        <div className="text-center mb-16">
-          <h1 className="text-5xl font-extrabold text-on-surface mb-4 tracking-tight">Available Internship Tracks</h1>
-          <p className="text-xl text-on-surface-variant max-w-2xl mx-auto">Select a specialized track to jumpstart your career. Gain real-world experience and connect with industry leaders.</p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {[
-            {
-              title: "Full Stack Software Engineering",
-              icon: "terminal",
-              color: "bg-primary-container/10 text-primary",
-              desc: "Master the modern web stack. From responsive frontend design using React/Next.js to robust backend APIs and database architecture.",
-              points: ["12-week intensive program", "Real-world portfolio projects", "Technical interview prep"]
-            },
-            {
-              title: "UX/UI Design & Product Strategy",
-              icon: "design_services",
-              color: "bg-tertiary-container/10 text-tertiary-container",
-              desc: "Learn to build beautiful, user-centric interfaces. Master Figma, wireframing, user research, and product strategy.",
-              points: ["Figma & Prototyping", "User Testing & Research", "Design Systems"]
-            },
-            {
-              title: "Data Science & Machine Learning",
-              icon: "analytics",
-              color: "bg-error-container/50 text-error",
-              desc: "Dive deep into data manipulation, visualization, and predictive modeling using Python, Pandas, and TensorFlow.",
-              points: ["Python & SQL Mastery", "Predictive Modeling", "AI & NLP Basics"]
-            },
-            {
-              title: "Business Development & Sales",
-              icon: "trending_up",
-              color: "bg-secondary-container/50 text-secondary",
-              desc: "Learn the art of closing. Master enterprise sales strategies, B2B lead generation, and client relationship management.",
-              points: ["B2B Sales Tactics", "CRM Management", "Negotiation Skills"]
-            }
-          ].map((course, idx) => (
-            <div key={idx} className="bg-surface-container-lowest p-8 rounded-3xl shadow-xl border border-outline-variant/30 card-hover flex flex-col justify-between">
-              <div>
-                <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 ${course.color.split(' ')[0]}`}>
-                  <span className={`material-symbols-outlined text-4xl ${course.color.split(' ')[1]}`}>{course.icon}</span>
-                </div>
-                <h2 className="text-2xl font-bold text-on-surface mb-3">{course.title}</h2>
-                <p className="text-on-surface-variant mb-6 leading-relaxed">{course.desc}</p>
-                <ul className="space-y-2 mb-8">
-                  {course.points.map((pt, i) => (
-                    <li key={i} className="flex items-center gap-2 text-sm font-medium text-on-surface-variant">
-                      <span className="material-symbols-outlined text-tertiary-container text-lg">check_circle</span> {pt}
-                    </li>
-                  ))}
-                </ul>
+    <div className="min-h-screen flex items-center justify-center p-4 md:p-8 gradient-bg">
+      <main className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-12 gap-0 overflow-hidden rounded-[2rem] shadow-2xl bg-white border border-slate-200">
+        <section className="hidden lg:flex lg:col-span-6 relative flex-col justify-between p-16 bg-blue-700 overflow-hidden">
+          <div className="absolute -top-24 -left-24 w-96 h-96 bg-emerald-400/10 rounded-full blur-3xl"></div>
+          <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl"></div>
+          <div className="relative z-10">
+            <div className="flex items-center gap-3 mb-12">
+              <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center">
+                <span className="material-symbols-outlined text-blue-700 text-2xl" style={{fontVariationSettings: "'FILL' 1"}}>rocket_launch</span>
               </div>
-              <Link href={`/register?course=${encodeURIComponent(course.title)}`} className="block text-center w-full bg-primary text-white font-bold py-4 rounded-xl hover:bg-primary-container transition-colors">Select Track</Link>
+              <span className="text-white font-bold tracking-tight text-xl">CareerPrep Pro</span>
             </div>
-          ))}
-        </div>
-      </div>
+            <h1 className="text-[48px] font-bold text-white mb-8 leading-[1.1]">Welcome Back.</h1>
+            <p className="text-lg text-blue-100 max-w-md leading-relaxed opacity-90">
+              Pick up exactly where you left off. Your career trajectory is waiting.
+            </p>
+          </div>
+        </section>
+
+        <section className="col-span-1 lg:col-span-6 flex flex-col justify-center p-8 md:p-20 bg-white">
+          <div className="mb-12">
+            <h2 className="text-3xl font-bold text-slate-900 mb-3 tracking-tight">Sign In</h2>
+            <p className="text-slate-500">Enter your credentials to access your dashboard.</p>
+          </div>
+          
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="space-y-4">
+              <div className="flex flex-col gap-2.5">
+                <label className="text-sm font-bold text-slate-700 px-1" htmlFor="email">Email Address</label>
+                <div className="relative group">
+                  <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600 transition-colors">mail</span>
+                  <input className="w-full pl-12 pr-4 py-4 rounded-2xl outline-none text-slate-900 placeholder:text-slate-300 bg-slate-50 border border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300" id="email" required placeholder="student@example.com" type="email"/>
+                </div>
+              </div>
+              <div className="flex flex-col gap-2.5">
+                <label className="text-sm font-bold text-slate-700 px-1" htmlFor="password">Password</label>
+                <div className="relative group">
+                  <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600 transition-colors">lock</span>
+                  <input className="w-full pl-12 pr-4 py-4 rounded-2xl outline-none text-slate-900 placeholder:text-slate-300 bg-slate-50 border border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300" id="password" required placeholder="••••••••" type="password"/>
+                </div>
+              </div>
+            </div>
+            
+            <button disabled={loading} className="w-full bg-blue-700 text-white font-bold py-5 rounded-2xl hover:bg-blue-800 hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.99] transition-all duration-300 flex items-center justify-center gap-3 mt-4" type="submit">
+              {loading ? 'Signing In...' : 'Sign In'}
+              {!loading && <span className="material-symbols-outlined text-xl">login</span>}
+            </button>
+          </form>
+
+          <div className="mt-16 pt-8 border-t border-slate-100 flex flex-col items-center gap-4">
+            <p className="text-sm text-slate-500">Don't have an account yet?</p>
+            <Link href="/register" className="text-blue-700 border-2 border-blue-700 px-10 py-3 rounded-full hover:bg-blue-700 hover:text-white transition-all duration-300 font-bold">
+              Create Account
+            </Link>
+          </div>
+        </section>
+      </main>
     </div>
   );
 }
