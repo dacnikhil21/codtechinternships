@@ -15,6 +15,13 @@ export default function Dashboard() {
   const [githubUrl, setGithubUrl] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  // Helper for preparation progress
+  const getPrepProgress = (title) => {
+    if (typeof window === 'undefined') return 0;
+    const progress = localStorage.getItem(`prep_progress_${title}`);
+    return progress ? parseInt(progress) : 0;
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -363,6 +370,22 @@ export default function Dashboard() {
                           <h5 className="font-bold text-slate-800 text-sm mb-2">{card.title}</h5>
                           <p className="text-[10px] text-slate-500 mb-6 leading-relaxed">{card.desc}</p>
                         </div>
+
+                        {/* Progress System */}
+                        <div className="mb-6">
+                          <div className="flex justify-between items-center mb-1.5">
+                            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Progress</span>
+                            <span className="text-[9px] font-black text-blue-600">{getPrepProgress(card.title)}%</span>
+                          </div>
+                          <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                            <motion.div 
+                              initial={{ width: 0 }}
+                              animate={{ width: `${getPrepProgress(card.title)}%` }}
+                              className="bg-blue-600 h-full rounded-full"
+                            />
+                          </div>
+                        </div>
+
                         <button className="w-full bg-blue-50 text-blue-700 text-[10px] font-bold py-2.5 rounded-xl hover:bg-blue-100 transition-colors">
                           {card.btn}
                         </button>
@@ -379,6 +402,22 @@ export default function Dashboard() {
                         <h5 className="font-bold text-slate-800 text-sm mb-2">{title}</h5>
                         <p className="text-[10px] text-slate-500 mb-6">General preparation materials and practice resources.</p>
                       </div>
+
+                      {/* Progress System */}
+                      <div className="mb-6 px-1">
+                        <div className="flex justify-between items-center mb-1.5">
+                          <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Progress</span>
+                          <span className="text-[9px] font-black text-blue-600">{getPrepProgress(title)}%</span>
+                        </div>
+                        <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                          <motion.div 
+                            initial={{ width: 0 }}
+                            animate={{ width: `${getPrepProgress(title)}%` }}
+                            className="bg-blue-600 h-full rounded-full"
+                          />
+                        </div>
+                      </div>
+
                       <button className="w-full bg-blue-50 text-blue-700 text-[10px] font-bold py-2.5 rounded-xl hover:bg-blue-100 transition-colors">Start Practice</button>
                     </div>
                   ))
