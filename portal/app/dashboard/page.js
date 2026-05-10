@@ -301,7 +301,7 @@ export default function Dashboard() {
         {/* Dynamic Content Section */}
         <AnimatePresence mode='wait'>
           <motion.div key={activeTab} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-             {activeTab === 'Projects' ? (
+              {activeTab === 'Projects' ? (
                 <div className="col-span-full">
                   <div className="bg-white p-8 rounded-[2.5rem] border border-slate-200 shadow-sm relative overflow-hidden group">
                     <div className="absolute top-0 right-0 w-96 h-96 bg-blue-50/50 rounded-full -mr-48 -mt-48 transition-transform duration-700 group-hover:scale-110"></div>
