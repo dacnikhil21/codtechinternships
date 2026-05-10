@@ -342,10 +342,10 @@ export default function Dashboard() {
                             <div key={idx} className="bg-slate-50 p-6 rounded-[2rem] border border-slate-100 hover:border-blue-200 transition-all group/card relative">
                               <button 
                                 onClick={() => toggleProject(proj)}
-                                className="absolute top-4 right-4 w-6 h-6 bg-white text-slate-400 rounded-full flex items-center justify-center hover:bg-red-50 hover:text-red-500 transition-all shadow-sm border border-slate-100 opacity-0 group-hover/card:opacity-100"
+                                className="absolute top-4 right-4 w-7 h-7 bg-white/80 backdrop-blur-sm text-slate-400 rounded-full flex items-center justify-center hover:bg-red-50 hover:text-red-500 transition-all shadow-sm border border-slate-100 z-20"
                                 title="Remove Project"
                               >
-                                 <span className="material-symbols-outlined text-[14px]">close</span>
+                                 <span className="material-symbols-outlined text-[16px] font-bold">close</span>
                               </button>
                               <div className="w-10 h-10 bg-white text-blue-600 rounded-xl flex items-center justify-center mb-4 shadow-sm group-hover/card:bg-blue-600 group-hover/card:text-white transition-colors">
                                  <span className="material-symbols-outlined text-xl">code</span>
