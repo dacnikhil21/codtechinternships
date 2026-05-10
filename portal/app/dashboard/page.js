@@ -430,15 +430,22 @@ export default function Dashboard() {
                              ))}
                           </div>
                           
-                          <div className="p-6 bg-slate-50 border-t border-slate-100 flex justify-center">
+                          <div className="p-6 bg-slate-50 border-t border-slate-100 flex flex-col items-center gap-3">
                              {selectedProjects.length >= 4 ? (
-                               <div className="flex items-center gap-2 text-amber-600 font-bold text-xs bg-amber-50 px-6 py-3 rounded-2xl border border-amber-100">
+                               <div className="flex items-center gap-2 text-amber-600 font-bold text-xs bg-amber-50 px-6 py-3 rounded-2xl border border-amber-100 mb-2">
                                   <span className="material-symbols-outlined text-sm">info</span>
-                                  You can select only 4 projects.
+                                  You have selected your 4 projects.
                                </div>
                              ) : (
-                               <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Scroll to explore more projects</p>
+                               <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-2">Scroll to explore more projects</p>
                              )}
+                             
+                             <button 
+                               onClick={() => setIsProjectModalOpen(false)}
+                               className="bg-blue-700 text-white px-10 py-3.5 rounded-2xl font-bold text-sm shadow-xl shadow-blue-100 hover:bg-blue-800 transition-all active:scale-95"
+                             >
+                               Confirm Selection
+                             </button>
                           </div>
                         </motion.div>
                       </motion.div>
