@@ -1,14 +1,23 @@
 import mysql from 'mysql2/promise';
 
 // Create a connection pool - reused across all requests, never crashes on Hostinger
-const pool = mysql.createPool({
-  uri: process.env.DATABASE_URL,
+// Helper to parse the DATABASE_URL if it's provided, otherwise use individual parts
+const dbUrl = process.env.DATABASE_URL || '';
+const useUri = dbUrl.startsWith('mysql://');
+
+const pool = useUri ? mysql.createPool({
+  uri: dbUrl,
   waitForConnections: true,
-  connectionLimit: 3, // Lower limit for Hostinger stability
-  queueLimit: 0,
-  enableKeepAlive: true,
-  keepAliveInitialDelay: 0,
-  connectTimeout: 10000, // 10s timeout
+  connectionLimit: 3,
+  connectTimeout: 10000,
+}) : mysql.createPool({
+  host: '127.0.0.1',
+  user: 'u410995534_adminct',
+  password: 'Nikhil6301',
+  database: 'u410995534_ctintern',
+  waitForConnections: true,
+  connectionLimit: 3,
+  connectTimeout: 10000,
 });
 
 export default pool;
