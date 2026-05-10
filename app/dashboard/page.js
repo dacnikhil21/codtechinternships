@@ -9,7 +9,7 @@ export default function Dashboard() {
   const [user, setUser] = useState(null);
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState('Tasks');
+  const [activeTab, setActiveTab] = useState('Projects');
   const [selectedTask, setSelectedTask] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [githubUrl, setGithubUrl] = useState('');
@@ -101,7 +101,7 @@ export default function Dashboard() {
 
         <nav className="flex-1 px-3 space-y-1 overflow-y-auto mt-16 lg:mt-0">
           {[
-            { name: 'Tasks', icon: 'list_alt' },
+            { name: 'Projects', icon: 'folder_open' },
             { name: 'Materials', icon: 'library_books' },
             { name: 'Preparation', icon: 'psychology' },
             { name: 'Placement Hub', icon: 'work' },
@@ -156,7 +156,7 @@ export default function Dashboard() {
           </div>
         </header>
 
-        {activeTab === 'Tasks' && (
+        {activeTab === 'Projects' && (
           <>
             <section className="mb-8">
               <h3 className="text-2xl font-bold text-slate-900 tracking-tight">Welcome back, {user.name.split(' ')[0]} 👋</h3>
@@ -202,7 +202,7 @@ export default function Dashboard() {
         {/* Dynamic Content Section */}
         <AnimatePresence mode='wait'>
           <motion.div key={activeTab} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-             {activeTab === 'Tasks' ? (
+             {activeTab === 'Projects' ? (
                 tasks.length > 0 ? tasks.map((task) => (
                   <div key={task.id} className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:border-blue-200 transition-all flex flex-col">
                      <div className="flex justify-between items-start mb-4">
@@ -258,33 +258,121 @@ export default function Dashboard() {
           </motion.div>
         </AnimatePresence>
 
-        {/* Roadmap Modal */}
+        {/* Roadmap Modal - Official Guide */}
         <AnimatePresence>
           {selectedTask && (
             <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setSelectedTask(null)} className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" />
               <motion.div initial={{ opacity: 0, scale: 0.95, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 20 }} className="bg-white w-full max-w-lg rounded-3xl shadow-2xl relative z-10 overflow-hidden">
-                <div className="p-8">
-                  <div className="flex justify-between items-start mb-6">
+                <div className="p-6">
+                  {/* Header */}
+                  <div className="flex justify-between items-start mb-5">
                     <div>
                       <span className="text-[10px] font-black uppercase text-blue-600 tracking-widest bg-blue-50 px-2 py-1 rounded">Official Guide</span>
-                      <h4 className="text-xl font-bold text-slate-900 mt-2">How to do CODTECH Projects 🚀</h4>
+                      <h4 className="text-lg font-bold text-slate-900 mt-2">How to Do CODTECH Internship Projects 🚀</h4>
                     </div>
-                    <button onClick={() => setSelectedTask(null)} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100"><span className="material-symbols-outlined text-slate-400">close</span></button>
+                    <button onClick={() => setSelectedTask(null)} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 flex-shrink-0"><span className="material-symbols-outlined text-slate-400">close</span></button>
                   </div>
-                  <div className="space-y-4 max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
-                    <div className="space-y-6">
-                      <div className="flex gap-4"><div className="w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center flex-shrink-0">1</div><div><p className="font-bold text-slate-900 text-sm">Select 4 Projects</p><p className="text-xs text-slate-500">Choose any 4 projects based on your domain.</p></div></div>
-                      <div className="flex gap-4"><div className="w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center flex-shrink-0">2</div><div><p className="font-bold text-slate-900 text-sm">GitHub Submission</p><p className="text-xs text-slate-500">Include Source Code, README (with InternID), and Screenshots in a unique repo.</p></div></div>
-                      <div className="flex gap-4"><div className="w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center flex-shrink-0">3</div><div><p className="font-bold text-slate-900 text-sm">Wait for Certificate</p><p className="text-xs text-slate-500">Upon duration completion, you'll receive your credentials.</p></div></div>
+
+                  {/* Scrollable guide content */}
+                  <div className="max-h-[65vh] overflow-y-auto pr-1 space-y-5">
+
+                    {/* Step 1 */}
+                    <div className="flex gap-3">
+                      <div className="w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">1</div>
+                      <div>
+                        <p className="font-bold text-slate-900 text-sm">Select Any 4 Projects</p>
+                        <p className="text-xs text-slate-500 mt-1">Go to the <span className="font-bold text-blue-600">Projects Section</span> and choose any four projects based on your enrolled domain.</p>
+                      </div>
                     </div>
+
+                    {/* Step 2 */}
+                    <div className="flex gap-3">
+                      <div className="w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">2</div>
+                      <div className="flex-1">
+                        <p className="font-bold text-slate-900 text-sm">Understand the Project & Start Working</p>
+                        <p className="text-xs text-slate-500 mt-1">Carefully read the requirements before starting.</p>
+
+                        {/* Technical */}
+                        <div className="mt-3 bg-blue-50 rounded-2xl p-3">
+                          <p className="text-[10px] font-black text-blue-700 uppercase tracking-wide mb-2">✅ For Technical / Coding Projects</p>
+                          <ul className="text-[10px] text-slate-600 space-y-1 list-disc ml-3">
+                            <li>Write complete code with comments</li>
+                            <li>Organize files neatly in folders</li>
+                            <li>Upload to a <span className="font-bold">unique GitHub repo</span> per project</li>
+                            <li>Submit the GitHub link to us</li>
+                          </ul>
+                          <p className="text-[10px] font-bold text-slate-700 mt-2">README must include:</p>
+                          <ul className="text-[10px] text-slate-600 space-y-0.5 list-disc ml-3">
+                            <li>Intern ID &amp; Full Name</li>
+                            <li>No. of Weeks, Project Name &amp; Scope</li>
+                            <li>Screenshots &amp; Output Images</li>
+                          </ul>
+                        </div>
+
+                        {/* Non-IT */}
+                        <div className="mt-2 bg-emerald-50 rounded-2xl p-3">
+                          <p className="text-[10px] font-black text-emerald-700 uppercase tracking-wide mb-2">✅ For Non-IT / Creative / Design Projects</p>
+                          <p className="text-[10px] text-slate-600">Create Images, Posters, Visuals, Presentations, Reports or UI Designs. Upload all files to GitHub and submit the link.</p>
+                        </div>
+
+                        {/* Data Science */}
+                        <div className="mt-2 bg-purple-50 rounded-2xl p-3">
+                          <p className="text-[10px] font-black text-purple-700 uppercase tracking-wide mb-2">✅ For Data Science &amp; Analytics Projects</p>
+                          <ul className="text-[10px] text-slate-600 space-y-0.5 list-disc ml-3">
+                            <li>Use dummy/public datasets (Kaggle, Gov Data)</li>
+                            <li>Include: Data Cleaning, Visualization, Analysis</li>
+                            <li>Upload: Jupyter Notebook, Graphs, Screenshots</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Step 3 */}
+                    <div className="flex gap-3">
+                      <div className="w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">3</div>
+                      <div>
+                        <p className="font-bold text-slate-900 text-sm">Wait for Internship Completion 🎓</p>
+                        <p className="text-xs text-slate-500 mt-1">After completing your duration and submissions you will receive your <span className="font-bold text-slate-700">Completion Certificate</span>, Project Recognition &amp; Experience Benefits.</p>
+                      </div>
+                    </div>
+
+                    {/* Step 4 */}
+                    <div className="flex gap-3">
+                      <div className="w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">4</div>
+                      <div>
+                        <p className="font-bold text-slate-900 text-sm">Keep Learning More 📚</p>
+                        <div className="flex flex-wrap gap-1 mt-2">
+                          {['Placement Materials','Resume Building','Mock Interviews','Aptitude Practice','Communication Skills','Career Guidance'].map(tag => (
+                            <span key={tag} className="text-[9px] font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">{tag}</span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Important Note */}
+                    <div className="bg-amber-50 border border-amber-100 rounded-2xl p-3">
+                      <p className="text-[10px] font-black text-amber-700 uppercase mb-1">⚠️ Important Note</p>
+                      <ul className="text-[10px] text-slate-600 space-y-0.5 list-disc ml-3">
+                        <li>Maintain proper GitHub repositories</li>
+                        <li>Submit projects before deadlines</li>
+                        <li>Ensure work is original and properly structured</li>
+                      </ul>
+                    </div>
+
+                    {/* Footer */}
+                    <p className="text-center text-[10px] font-bold text-blue-600 pb-1">✨ Learn • Build • Upload • Grow with CODTECH</p>
                   </div>
-                  <button onClick={() => setSelectedTask(null)} className="w-full bg-blue-700 text-white font-bold py-4 rounded-2xl mt-8 hover:bg-blue-800">I Understand!</button>
+
+                  <button onClick={() => setSelectedTask(null)} className="w-full bg-blue-700 text-white font-bold py-3.5 rounded-2xl mt-4 hover:bg-blue-800 transition-all text-sm">
+                    Got it, Let's Build! 🚀
+                  </button>
                 </div>
               </motion.div>
             </div>
           )}
         </AnimatePresence>
+
 
         {/* Submission Modal */}
         <AnimatePresence>
