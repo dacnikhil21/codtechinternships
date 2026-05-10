@@ -36,27 +36,11 @@ export default function Dashboard() {
     const course = user.course.toLowerCase();
     const title = cardTitle.toLowerCase();
     
-    if (course.includes('react') || course.includes('frontend')) {
-      return title.includes('react') || title.includes('javascript') || title.includes('frontend') || title.includes('hooks');
-    }
-    if (course.includes('backend') || course.includes('node') || course.includes('python') || course.includes('database')) {
-      return title.includes('api') || title.includes('database') || title.includes('backend') || title.includes('system design');
-    }
-    return false;
+    return title.includes(course.split(' ')[0].toLowerCase());
   };
 
-  const FRONTEND_PROJECTS = [
-    "Personal Portfolio Website", "Responsive Landing Page Builder", "Weather Forecast App",
-    "Modern To-Do Task Manager", "Expense Tracker Dashboard", "Recipe Finder App",
-    "Movie Search Application", "Notes Taking App", "Quiz Application with Timer",
-    "Currency Converter", "Digital Clock & Alarm System", "Typing Speed Tester",
-    "Password Generator Tool", "Interactive Calculator", "Image Gallery with Search & Filter",
-    "Job Portal UI Dashboard", "Student Learning Management Dashboard", "Blog Website with Categories",
-    "Music Streaming UI Clone", "E-commerce Product Listing Page", "Food Ordering Frontend Website",
-    "Admin Analytics Dashboard", "Video Streaming Platform UI", "Real-Time Chat Application UI",
-    "Event Booking Platform", "AI-Powered Interview Preparation Platform", "Frontend Bug Tracker System",
-    "Social Media Dashboard Clone", "Project Management Tool (Trello-like)", "Code Snippet Sharing Platform"
-  ];
+  const [prepContent, setPrepContent] = useState([]);
+  const [materials, setMaterials] = useState([]);
 
   // State for total XP (initially from user object)
   const [totalXP, setTotalXP] = useState(0);
@@ -122,6 +106,16 @@ export default function Dashboard() {
           if (taskData.success) {
             setTasks(taskData.data);
           }
+
+          // Fetch Prep Content
+          const prepRes = await fetch('/api/prep');
+          const prepData = await prepRes.json();
+          if (prepData.success) setPrepContent(prepData.data);
+
+          // Fetch Materials
+          const matRes = await fetch('/api/materials');
+          const matData = await matRes.json();
+          if (matData.success) setMaterials(matData.data);
         } else {
           router.push('/login');
         }
@@ -416,25 +410,29 @@ export default function Dashboard() {
                           </div>
                           
                           <div className="flex-1 overflow-y-auto p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                             {FRONTEND_PROJECTS.map((proj, i) => (
+                             {tasks.length > 0 ? tasks.map((proj, i) => (
                                <div 
                                  key={i} 
-                                 onClick={() => toggleProject(proj)}
-                                 className={`p-5 rounded-2xl border transition-all cursor-pointer group flex items-center justify-between ${selectedProjects.includes(proj) ? 'bg-blue-600 border-blue-600 text-white' : 'bg-white border-slate-200 hover:border-blue-400 text-slate-800'}`}
+                                 onClick={() => toggleProject(proj.title)}
+                                 className={`p-5 rounded-2xl border transition-all cursor-pointer group flex items-center justify-between ${selectedProjects.includes(proj.title) ? 'bg-blue-600 border-blue-600 text-white' : 'bg-white border-slate-200 hover:border-blue-400 text-slate-800'}`}
                                >
                                   <div className="flex items-center gap-4">
-                                     <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black ${selectedProjects.includes(proj) ? 'bg-white/20' : 'bg-slate-100'}`}>
+                                     <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black ${selectedProjects.includes(proj.title) ? 'bg-white/20' : 'bg-slate-100'}`}>
                                         {i + 1}
                                      </div>
-                                     <span className="text-xs font-bold leading-tight">{proj}</span>
+                                     <span className="text-xs font-bold leading-tight">{proj.title}</span>
                                   </div>
-                                  <div className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${selectedProjects.includes(proj) ? 'bg-white text-blue-600' : 'bg-slate-100 text-slate-300 group-hover:bg-blue-100'}`}>
+                                  <div className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${selectedProjects.includes(proj.title) ? 'bg-white text-blue-600' : 'bg-slate-100 text-slate-300 group-hover:bg-blue-100'}`}>
                                      <span className="material-symbols-outlined text-sm">
-                                        {selectedProjects.includes(proj) ? 'check' : 'add'}
+                                        {selectedProjects.includes(proj.title) ? 'check' : 'add'}
                                      </span>
                                   </div>
                                </div>
-                             ))}
+                             )) : (
+                               <div className="col-span-full py-10 text-center text-slate-400 font-bold">
+                                 No projects available for your domain yet.
+                               </div>
+                             )}
                           </div>
                           
                           <div className="p-6 bg-slate-50 border-t border-slate-100 flex flex-col items-center gap-3">
@@ -460,127 +458,50 @@ export default function Dashboard() {
                   </AnimatePresence>
                 </div>
               ) : activeTab === 'Materials' ? (
-                ['Project Guides', 'Technical Documentation', 'Case Studies', 'Reference Materials'].map((title, i) => (
+                materials.map((item, i) => (
                   <div key={i} className="bg-white p-6 rounded-3xl border border-slate-200 flex items-center gap-4 hover:border-blue-200 transition-all cursor-pointer">
                     <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center"><span className="material-symbols-outlined">description</span></div>
-                    <div><h5 className="font-bold text-slate-800 text-sm">{title}</h5><p className="text-[10px] text-slate-400">PDF Document • 2.4 MB</p></div>
+                    <div><h5 className="font-bold text-slate-800 text-sm">{item.name}</h5><p className="text-[10px] text-slate-400">{item.type} • Resource</p></div>
                   </div>
                 ))
-             ) : activeTab === 'Preparation' ? (
-                (user && (user.course === 'React.js Web Development Intern' || user.course?.includes('Frontend') || user.course?.includes('React'))) ? (
-                  <>
-                    {[
-                      {
-                        title: 'React Interview Questions',
-                        desc: 'Practice commonly asked ReactJS interview questions including Hooks, Components, State, Props, Context API, Routing, and API handling.',
-                        btn: 'Start Practice'
-                      },
-                      {
-                        title: 'JavaScript Coding Challenges',
-                        desc: 'Practice JavaScript fundamentals, ES6 concepts, arrays, strings, async/await, and frontend logic building.',
-                        btn: 'Start Challenge'
-                      },
-                      {
-                        title: 'React Hooks Practice',
-                        desc: 'Practice useState, useEffect, useContext, custom hooks, and component lifecycle concepts.',
-                        btn: 'Practice Hooks'
-                      },
-                      {
-                        title: 'API Integration Practice',
-                        desc: 'Learn API fetching, Axios, async requests, loading states, and data rendering in ReactJS.',
-                        btn: 'Start API Practice'
-                      },
-                      {
-                        title: 'Frontend Development Roadmap',
-                        desc: 'Track learning progress for HTML, CSS, JavaScript, ReactJS, Routing, APIs, and Deployment.',
-                        btn: 'View Roadmap'
-                      },
-                      {
-                        title: 'Resume & Portfolio Preparation',
-                        desc: 'Frontend resume tips, GitHub optimization, portfolio building, and ATS-friendly guidance for React developers.',
-                        btn: 'View Tips'
-                      }
-                    ]
-                    .sort((a, b) => isRecommended(b.title) - isRecommended(a.title))
-                    .map((card, i) => (
-                      <div key={i} className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:border-blue-200 transition-all flex flex-col justify-between relative group">
-                        {isRecommended(card.title) && (
-                          <div className="absolute -top-3 left-6 bg-blue-600 text-white text-[8px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg shadow-blue-200 z-10 transition-transform group-hover:scale-105">
-                             Recommended for You
-                          </div>
-                        )}
-                        <div>
-                          <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mb-4">
-                            <span className="material-symbols-outlined text-xl">psychology</span>
-                          </div>
-                          <h5 className="font-bold text-slate-800 text-sm mb-2">{card.title}</h5>
-                          <p className="text-[10px] text-slate-500 mb-6 leading-relaxed">{card.desc}</p>
-                        </div>
-
-                        {/* Progress System */}
-                        <div className="mb-6">
-                          <div className="flex justify-between items-center mb-1.5">
-                            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Progress</span>
-                            <span className="text-[9px] font-black text-blue-600">{getPrepProgress(card.title)}%</span>
-                          </div>
-                          <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
-                            <motion.div 
-                              initial={{ width: 0 }}
-                              animate={{ width: `${getPrepProgress(card.title)}%` }}
-                              className="bg-blue-600 h-full rounded-full"
-                            />
-                          </div>
-                        </div>
-
-                        <button 
-                          onClick={() => addXP(100)}
-                          className="w-full bg-blue-50 text-blue-700 text-[10px] font-bold py-2.5 rounded-xl hover:bg-blue-100 transition-colors">
-                          {card.btn}
-                        </button>
+              ) : activeTab === 'Preparation' ? (
+                prepContent.map((card, i) => (
+                  <div key={i} className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:border-blue-200 transition-all flex flex-col justify-between relative group">
+                    {isRecommended(card.title) && (
+                      <div className="absolute -top-3 left-6 bg-blue-600 text-white text-[8px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg shadow-blue-200 z-10 transition-transform group-hover:scale-105">
+                         Recommended for You
                       </div>
-                    ))}
-                  </>
-                ) : (
-                  ['Technical Q&A', 'System Design', 'Algorithms Masterclass', 'Database Design']
-                  .sort((a, b) => isRecommended(b) - isRecommended(a))
-                  .map((title, i) => (
-                    <div key={i} className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between relative group">
-                      {isRecommended(title) && (
-                        <div className="absolute -top-3 left-6 bg-blue-600 text-white text-[8px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg shadow-blue-200 z-10 transition-transform group-hover:scale-105">
-                           Recommended for You
-                        </div>
-                      )}
-                      <div>
-                        <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mb-4">
-                          <span className="material-symbols-outlined text-xl">menu_book</span>
-                        </div>
-                        <h5 className="font-bold text-slate-800 text-sm mb-2">{title}</h5>
-                        <p className="text-[10px] text-slate-500 mb-6">General preparation materials and practice resources.</p>
+                    )}
+                    <div>
+                      <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mb-4">
+                        <span className="material-symbols-outlined text-xl">psychology</span>
                       </div>
-
-                      {/* Progress System */}
-                      <div className="mb-6 px-1">
-                        <div className="flex justify-between items-center mb-1.5">
-                          <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Progress</span>
-                          <span className="text-[9px] font-black text-blue-600">{getPrepProgress(title)}%</span>
-                        </div>
-                        <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
-                          <motion.div 
-                            initial={{ width: 0 }}
-                            animate={{ width: `${getPrepProgress(title)}%` }}
-                            className="bg-blue-600 h-full rounded-full"
-                          />
-                        </div>
-                      </div>
-
-                      <button 
-                        onClick={() => addXP(100)}
-                        className="w-full bg-blue-50 text-blue-700 text-[10px] font-bold py-2.5 rounded-xl hover:bg-blue-100 transition-colors">
-                        Start Practice
-                      </button>
+                      <h5 className="font-bold text-slate-800 text-sm mb-2">{card.title}</h5>
+                      <p className="text-[10px] text-slate-500 mb-6 leading-relaxed">{card.content}</p>
                     </div>
-                  ))
-                )
+
+                    {/* Progress System */}
+                    <div className="mb-6">
+                      <div className="flex justify-between items-center mb-1.5">
+                        <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Progress</span>
+                        <span className="text-[9px] font-black text-blue-600">{getPrepProgress(card.title)}%</span>
+                      </div>
+                      <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                        <motion.div 
+                          initial={{ width: 0 }}
+                          animate={{ width: `${getPrepProgress(card.title)}%` }}
+                          className="bg-blue-600 h-full rounded-full"
+                        />
+                      </div>
+                    </div>
+
+                    <button 
+                      onClick={() => addXP(100)}
+                      className="w-full bg-blue-50 text-blue-700 text-[10px] font-bold py-2.5 rounded-xl hover:bg-blue-100 transition-colors">
+                      Start Learning
+                    </button>
+                  </div>
+                ))
              ) : (
                 <div className="col-span-full py-20 text-center bg-white rounded-3xl border border-slate-100">
                    <span className="material-symbols-outlined text-4xl text-slate-200 mb-4">lock</span>

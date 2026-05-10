@@ -10,17 +10,29 @@ export async function GET() {
       return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
     }
 
-    // Fetch tasks for the user's domain only
-    const [tasks] = await pool.execute(
-      'SELECT * FROM task WHERE domain = ? ORDER BY batch ASC, createdAt ASC',
+    // 1. Find the Domain ID based on student's course name
+    const [domainRows] = await pool.execute(
+      'SELECT id FROM domains WHERE name = ? LIMIT 1',
       [session.course]
     );
 
-    return NextResponse.json({ success: true, data: tasks });
+    if (domainRows.length === 0) {
+      return NextResponse.json({ success: true, data: [] }); // No domain found, return empty
+    }
+
+    const domainId = domainRows[0].id;
+
+    // 2. Fetch projects for this domain only (30 projects)
+    const [projects] = await pool.execute(
+      'SELECT id, name as title, description, difficulty as level FROM projects WHERE domain_id = ? ORDER BY id ASC',
+      [domainId]
+    );
+
+    return NextResponse.json({ success: true, data: projects });
 
   } catch (error) {
-    console.error('TASKS ERROR:', error.message);
-    return NextResponse.json({ success: false, message: `Tasks error: ${error.message}` }, { status: 500 });
+    console.error('PROJECTS API ERROR:', error.message);
+    return NextResponse.json({ success: false, message: `Error: ${error.message}` }, { status: 500 });
   }
 }
 
