@@ -109,5 +109,6 @@ async function setup() {
 
 setup().catch((err) => {
   console.error('❌ Database setup failed:', err.message);
-  process.exit(1);
+  console.log('⚠️ Server will continue to start, but database features will be disabled until DATABASE_URL is fixed.');
+  // Removed process.exit(1) to prevent 503 errors on Hostinger
 });
