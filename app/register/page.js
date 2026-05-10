@@ -81,9 +81,9 @@ function RegisterForm() {
         <div className="relative z-10">
           <div className="flex items-center gap-3 mb-12">
             <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center">
-              <span className="material-symbols-outlined text-blue-700 text-2xl" style={{fontVariationSettings: "'FILL' 1"}}>rocket_launch</span>
+              <span className="material-symbols-outlined text-blue-700 text-2xl" style={{fontVariationSettings: "'FILL' 1"}}>terminal</span>
             </div>
-            <span className="text-white font-bold tracking-tight text-xl">CareerPrep Pro</span>
+            <span className="text-white font-bold tracking-tight text-xl uppercase">Codtech Intern</span>
           </div>
           <h3 className="text-4xl font-bold text-white leading-tight mb-6">Launch Your Career Trajectory.</h3>
           <p className="text-blue-100 leading-relaxed opacity-90">Join top companies and build real-world projects that stand out on your resume.</p>
@@ -104,7 +104,7 @@ function RegisterForm() {
       <section className="col-span-1 lg:col-span-7 flex flex-col justify-center p-8 md:p-16 bg-white">
         <div className="mb-10">
           <h2 className="text-3xl font-bold text-slate-900 mb-3 tracking-tight">Create your account</h2>
-          <p className="text-slate-500">Join CareerPrep Pro to unlock your internship portal.</p>
+          <p className="text-slate-500">Join Codtech Intern to unlock your internship portal.</p>
         </div>
         
         <form onSubmit={handleSubmit} className="space-y-4">

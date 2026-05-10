@@ -45,9 +45,9 @@ export default function Login() {
           <div className="relative z-10">
             <div className="flex items-center gap-3 mb-12">
               <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center">
-                <span className="material-symbols-outlined text-blue-700 text-2xl" style={{fontVariationSettings: "'FILL' 1"}}>rocket_launch</span>
+                <span className="material-symbols-outlined text-blue-700 text-2xl" style={{fontVariationSettings: "'FILL' 1"}}>terminal</span>
               </div>
-              <span className="text-white font-bold tracking-tight text-xl">CareerPrep Pro</span>
+              <span className="text-white font-bold tracking-tight text-xl uppercase">Codtech Intern</span>
             </div>
             <h1 className="text-[48px] font-bold text-white mb-8 leading-[1.1]">Welcome Back.</h1>
             <p className="text-lg text-blue-100 max-w-md leading-relaxed opacity-90">
