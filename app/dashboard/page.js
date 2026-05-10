@@ -22,6 +22,42 @@ export default function Dashboard() {
     return progress ? parseInt(progress) : 0;
   };
 
+  // Helper for badges based on XP
+  const getBadge = (xp) => {
+    if (xp >= 3001) return { name: 'Interview Ready', icon: 'verified', color: 'text-purple-700 bg-purple-50 border-purple-100' };
+    if (xp >= 1501) return { name: 'Advanced', icon: 'grade', color: 'text-amber-700 bg-amber-50 border-amber-100' };
+    if (xp >= 501) return { name: 'Intermediate', icon: 'military_tech', color: 'text-blue-700 bg-blue-50 border-blue-100' };
+    return { name: 'Beginner', icon: 'stadium', color: 'text-slate-600 bg-slate-50 border-slate-100' };
+  };
+
+  // State for total XP (initially from user object)
+  const [totalXP, setTotalXP] = useState(0);
+
+  useEffect(() => {
+    if (user) {
+      setTotalXP(user.xp || 0);
+    }
+  }, [user]);
+
+  // Helper to add XP
+  const addXP = (amount) => {
+    setTotalXP(prev => {
+      const newXP = prev + amount;
+      localStorage.setItem('user_xp', newXP);
+      return newXP;
+    });
+    toast.success(`+${amount} XP Earned! Check your new badge!`, {
+      icon: '🚀',
+      style: {
+        borderRadius: '12px',
+        background: '#1e293b',
+        color: '#fff',
+        fontSize: '12px',
+        fontWeight: 'bold'
+      }
+    });
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -152,9 +188,15 @@ export default function Dashboard() {
             {activeTab}
           </h2>
           <div className="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end">
-             <div className="flex items-center gap-2 bg-emerald-50 text-emerald-700 px-3 py-1.5 rounded-full text-xs font-bold border border-emerald-100">
-                <span className="material-symbols-outlined text-sm" style={{fontVariationSettings: "'FILL' 1"}}>workspace_premium</span>
-                {user.xp} XP
+             <div className="flex items-center gap-3">
+               <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider border ${getBadge(totalXP).color}`}>
+                  <span className="material-symbols-outlined text-sm" style={{fontVariationSettings: "'FILL' 1"}}>{getBadge(totalXP).icon}</span>
+                  {getBadge(totalXP).name}
+               </div>
+               <div className="flex items-center gap-2 bg-emerald-50 text-emerald-700 px-3 py-1.5 rounded-full text-xs font-bold border border-emerald-100">
+                  <span className="material-symbols-outlined text-sm" style={{fontVariationSettings: "'FILL' 1"}}>workspace_premium</span>
+                  {totalXP} XP
+               </div>
              </div>
             <button className="bg-blue-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl flex items-center gap-2 shadow-lg shadow-blue-200 hover:bg-blue-800 transition-all active:scale-95">
                <span className="material-symbols-outlined text-sm">bolt</span>
@@ -386,7 +428,9 @@ export default function Dashboard() {
                           </div>
                         </div>
 
-                        <button className="w-full bg-blue-50 text-blue-700 text-[10px] font-bold py-2.5 rounded-xl hover:bg-blue-100 transition-colors">
+                        <button 
+                          onClick={() => addXP(100)}
+                          className="w-full bg-blue-50 text-blue-700 text-[10px] font-bold py-2.5 rounded-xl hover:bg-blue-100 transition-colors">
                           {card.btn}
                         </button>
                       </div>
@@ -418,7 +462,11 @@ export default function Dashboard() {
                         </div>
                       </div>
 
-                      <button className="w-full bg-blue-50 text-blue-700 text-[10px] font-bold py-2.5 rounded-xl hover:bg-blue-100 transition-colors">Start Practice</button>
+                      <button 
+                        onClick={() => addXP(100)}
+                        className="w-full bg-blue-50 text-blue-700 text-[10px] font-bold py-2.5 rounded-xl hover:bg-blue-100 transition-colors">
+                        Start Practice
+                      </button>
                     </div>
                   ))
                 )
