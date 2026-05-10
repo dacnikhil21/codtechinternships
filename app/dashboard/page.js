@@ -203,39 +203,117 @@ export default function Dashboard() {
         <AnimatePresence mode='wait'>
           <motion.div key={activeTab} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
              {activeTab === 'Projects' ? (
-                tasks.length > 0 ? tasks.map((task) => (
-                  <div key={task.id} className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:border-blue-200 transition-all flex flex-col">
-                     <div className="flex justify-between items-start mb-4">
-                        <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center">
-                           <span className="material-symbols-outlined text-xl">assignment</span>
+                <>
+                  {/* ── Featured Projects (Static) ── */}
+                  {[
+                    {
+                      id: 'feat-1',
+                      badge: 'React.js',
+                      badgeColor: 'bg-blue-50 text-blue-600',
+                      title: 'SaaS Dashboard System',
+                      description: 'Build a modern React.js dashboard with sidebar, analytics cards, progress tracking, responsive layout, and charts.',
+                      stack: ['React.js', 'Tailwind CSS', 'React Router'],
+                      progress: 60,
+                    },
+                    {
+                      id: 'feat-2',
+                      badge: 'React.js',
+                      badgeColor: 'bg-purple-50 text-purple-600',
+                      title: 'Internship Management Portal',
+                      description: 'Build a React.js internship management system with task tracking, interview scheduling, resume section, and student dashboard.',
+                      stack: ['React.js', 'Tailwind CSS', 'Firebase/API'],
+                      progress: 30,
+                    },
+                  ].map((proj) => (
+                    <div key={proj.id} className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:border-blue-300 hover:shadow-md transition-all duration-200 flex flex-col group">
+                      {/* Top row */}
+                      <div className="flex justify-between items-start mb-4">
+                        <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-colors duration-200">
+                          <span className="material-symbols-outlined text-xl">code</span>
                         </div>
-                        <span className="text-[10px] font-black uppercase text-slate-400 tracking-wider">Batch {task.batch}</span>
-                     </div>
-                     <h5 className="font-bold text-slate-800 mb-1">{task.title}</h5>
-                     <p className="text-[10px] text-slate-500 mb-4 line-clamp-2">{task.description}</p>
-                     
-                     <div className="space-y-2 mt-auto">
-                        <button onClick={() => setSelectedTask(task)} className="w-full bg-slate-50 text-slate-700 text-xs font-bold py-2.5 rounded-xl flex items-center justify-center gap-2 hover:bg-slate-100 transition-colors">
-                          <span className="material-symbols-outlined text-sm">map</span> How to Complete?
+                        <span className={`text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full ${proj.badgeColor}`}>{proj.badge}</span>
+                      </div>
+
+                      {/* Title & Description */}
+                      <h5 className="font-bold text-slate-800 mb-1 text-sm">{proj.title}</h5>
+                      <p className="text-[10px] text-slate-500 mb-3 leading-relaxed">{proj.description}</p>
+
+                      {/* Tech Stack */}
+                      <div className="flex flex-wrap gap-1 mb-4">
+                        {proj.stack.map(t => (
+                          <span key={t} className="text-[9px] font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">{t}</span>
+                        ))}
+                      </div>
+
+                      {/* Progress Bar */}
+                      <div className="mb-4">
+                        <div className="flex justify-between items-center mb-1">
+                          <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wide">Progress</span>
+                          <span className="text-[9px] font-bold text-blue-600">{proj.progress}%</span>
+                        </div>
+                        <div className="w-full bg-slate-100 rounded-full h-1.5">
+                          <div className="bg-blue-600 h-1.5 rounded-full transition-all duration-500" style={{ width: `${proj.progress}%` }}></div>
+                        </div>
+                      </div>
+
+                      {/* Buttons */}
+                      <div className="space-y-2 mt-auto">
+                        <button
+                          onClick={() => setSelectedTask({ title: proj.title })}
+                          className="w-full bg-slate-50 text-slate-700 text-xs font-bold py-2.5 rounded-xl flex items-center justify-center gap-2 hover:bg-blue-50 hover:text-blue-700 transition-colors duration-150"
+                        >
+                          <span className="material-symbols-outlined text-sm">description</span> View Requirements
                         </button>
-                        
-                        <div className="flex items-center justify-between pt-2">
-                           <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${task.level === 'Beginner' ? 'bg-emerald-50 text-emerald-600' : 'bg-amber-50 text-amber-600'}`}>
-                              {task.level}
-                           </span>
-                           <button onClick={() => setIsSubmitting(task)} className="text-blue-700 text-xs font-bold flex items-center gap-1 hover:gap-2 transition-all">
-                             Submit Task <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                           </button>
+                        <div className="flex gap-2">
+                          <button className="flex-1 bg-slate-50 text-slate-600 text-[10px] font-bold py-2 rounded-xl hover:bg-slate-100 transition-colors flex items-center justify-center gap-1">
+                            <span className="material-symbols-outlined text-xs">play_arrow</span> Continue
+                          </button>
+                          <button
+                            onClick={() => setIsSubmitting(proj)}
+                            className="flex-1 bg-blue-700 text-white text-[10px] font-bold py-2 rounded-xl hover:bg-blue-800 transition-colors flex items-center justify-center gap-1"
+                          >
+                            <span className="material-symbols-outlined text-xs">upload</span> Submit
+                          </button>
                         </div>
-                     </div>
-                  </div>
-                )) : (
-                  <div className="col-span-full py-20 text-center bg-white rounded-3xl border border-slate-100">
-                     <span className="material-symbols-outlined text-4xl text-slate-200 mb-4">hourglass_empty</span>
-                     <p className="text-slate-400 font-medium">No tasks available for this track yet.</p>
-                  </div>
-                )
-             ) : activeTab === 'Materials' ? (
+                      </div>
+                    </div>
+                  ))}
+
+                  {/* ── Database Tasks ── */}
+                  {tasks.length > 0 ? tasks.map((task) => (
+                    <div key={task.id} className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:border-blue-200 transition-all flex flex-col">
+                       <div className="flex justify-between items-start mb-4">
+                          <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center">
+                             <span className="material-symbols-outlined text-xl">assignment</span>
+                          </div>
+                          <span className="text-[10px] font-black uppercase text-slate-400 tracking-wider">Batch {task.batch}</span>
+                       </div>
+                       <h5 className="font-bold text-slate-800 mb-1">{task.title}</h5>
+                       <p className="text-[10px] text-slate-500 mb-4 line-clamp-2">{task.description}</p>
+                       
+                       <div className="space-y-2 mt-auto">
+                          <button onClick={() => setSelectedTask(task)} className="w-full bg-slate-50 text-slate-700 text-xs font-bold py-2.5 rounded-xl flex items-center justify-center gap-2 hover:bg-slate-100 transition-colors">
+                            <span className="material-symbols-outlined text-sm">map</span> How to Complete?
+                          </button>
+                          
+                          <div className="flex items-center justify-between pt-2">
+                             <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${task.level === 'Beginner' ? 'bg-emerald-50 text-emerald-600' : 'bg-amber-50 text-amber-600'}`}>
+                                {task.level}
+                             </span>
+                             <button onClick={() => setIsSubmitting(task)} className="text-blue-700 text-xs font-bold flex items-center gap-1 hover:gap-2 transition-all">
+                               Submit Task <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                             </button>
+                          </div>
+                       </div>
+                    </div>
+                  )) : (
+                    <div className="col-span-full py-20 text-center bg-white rounded-3xl border border-slate-100">
+                       <span className="material-symbols-outlined text-4xl text-slate-200 mb-4">hourglass_empty</span>
+                       <p className="text-slate-400 font-medium">No tasks available for this track yet.</p>
+                    </div>
+                  )}
+                </>
+              ) : activeTab === 'Materials' ? (
                 ['Project Guides', 'Technical Documentation', 'Case Studies', 'Reference Materials'].map((title, i) => (
                   <div key={i} className="bg-white p-6 rounded-3xl border border-slate-200 flex items-center gap-4 hover:border-blue-200 transition-all cursor-pointer">
                     <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center"><span className="material-symbols-outlined">description</span></div>
