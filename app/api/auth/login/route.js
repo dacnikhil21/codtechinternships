@@ -1,16 +1,16 @@
 import { NextResponse } from 'next/server';
-import prisma from '@/lib/prisma';
+import dbConnect from '@/lib/mongodb';
+import User from '@/models/User';
 import bcrypt from 'bcryptjs';
 import { login } from '@/lib/auth';
 
 export async function POST(req) {
   try {
+    await dbConnect();
     const { email, password } = await req.json();
 
     // 1. Find user
-    const user = await prisma.user.findUnique({
-      where: { email }
-    });
+    const user = await User.findOne({ email });
 
     if (!user) {
       return NextResponse.json({ success: false, message: 'Invalid credentials' }, { status: 401 });

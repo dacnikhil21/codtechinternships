@@ -1,27 +1,24 @@
 import { NextResponse } from 'next/server';
-import prisma from '@/lib/prisma';
+import dbConnect from '@/lib/mongodb';
+import User from '@/models/User';
 import { getSession } from '@/lib/auth';
 
 export async function GET() {
   try {
+    await dbConnect();
     const session = await getSession();
 
     if (!session) {
       return NextResponse.json({ success: false, message: 'Not logged in' }, { status: 401 });
     }
 
-    const user = await prisma.user.findUnique({
-      where: { id: session.id }
-    });
+    const user = await User.findById(session.id).select('-password');
 
     if (!user) {
        return NextResponse.json({ success: false, message: 'User not found' }, { status: 404 });
     }
 
-    // Remove password from response
-    const { password, ...userWithoutPassword } = user;
-
-    return NextResponse.json({ success: true, data: userWithoutPassword });
+    return NextResponse.json({ success: true, data: user });
 
   } catch (error) {
     console.error('Session Error:', error);

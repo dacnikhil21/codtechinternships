@@ -1,10 +1,12 @@
 import { NextResponse } from 'next/server';
-import prisma from '@/lib/prisma';
+import dbConnect from '@/lib/mongodb';
+import User from '@/models/User';
 import bcrypt from 'bcryptjs';
 import { login } from '@/lib/auth';
 
 export async function POST(req) {
   try {
+    await dbConnect();
     const { name, email, password, course } = await req.json();
 
     if (!name || !email || !password || !course) {
@@ -12,9 +14,7 @@ export async function POST(req) {
     }
 
     // 1. Check if user already exists
-    const userExists = await prisma.user.findUnique({
-      where: { email }
-    });
+    const userExists = await User.findOne({ email });
 
     if (userExists) {
       return NextResponse.json({ success: false, message: 'User already exists' }, { status: 400 });
@@ -24,14 +24,12 @@ export async function POST(req) {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // 3. Create user in SQLite via Prisma
-    const user = await prisma.user.create({
-      data: {
-        name,
-        email,
-        password: hashedPassword,
-        course,
-      }
+    // 3. Create user in MongoDB Atlas
+    const user = await User.create({
+      name,
+      email,
+      password: hashedPassword,
+      course,
     });
 
     // 4. Create session
