@@ -39,7 +39,10 @@ export async function POST(req) {
     });
 
   } catch (error) {
-    console.error('LOGIN ERROR:', error.message);
-    return NextResponse.json({ success: false, message: `Login failed: ${error.message}` }, { status: 500 });
+    console.error('LOGIN ERROR:', error);
+    return NextResponse.json({ 
+      success: false, 
+      message: `Database Connection Error: ${error.message}. Please check your DATABASE_URL in Hostinger.` 
+    }, { status: 500 });
   }
 }
