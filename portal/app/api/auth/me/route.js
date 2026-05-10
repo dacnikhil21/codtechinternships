@@ -11,7 +11,7 @@ export async function GET() {
     }
 
     const [rows] = await pool.execute(
-      'SELECT id, name, email, course, role, xp, createdAt FROM User WHERE id = ? LIMIT 1',
+      'SELECT id, name, email, course, role, xp, createdAt FROM user WHERE id = ? LIMIT 1',
       [session.id]
     );
 

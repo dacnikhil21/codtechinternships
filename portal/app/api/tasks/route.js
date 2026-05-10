@@ -12,7 +12,7 @@ export async function GET() {
 
     // Fetch tasks for the user's domain only
     const [tasks] = await pool.execute(
-      'SELECT * FROM Task WHERE domain = ? ORDER BY batch ASC, createdAt ASC',
+      'SELECT * FROM task WHERE domain = ? ORDER BY batch ASC, createdAt ASC',
       [session.course]
     );
 
@@ -35,7 +35,7 @@ export async function POST(req) {
     const { title, description, domain, batch, level, roadmap } = await req.json();
 
     const [result] = await pool.execute(
-      'INSERT INTO Task (title, description, domain, batch, level, roadmap, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW())',
+      'INSERT INTO task (title, description, domain, batch, level, roadmap, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW())',
       [title, description, domain, batch, level, roadmap]
     );
 

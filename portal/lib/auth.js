@@ -34,7 +34,13 @@ export async function login(user) {
     expires 
   });
 
-  cookies().set('session', session, { expires, httpOnly: true, secure: process.env.NODE_ENV === 'production' });
+  cookies().set('session', session, { 
+    expires, 
+    httpOnly: true, 
+    secure: false, // Changed to false for maximum compatibility on new hosting
+    sameSite: 'lax',
+    path: '/'
+  });
 }
 
 export async function logout() {
