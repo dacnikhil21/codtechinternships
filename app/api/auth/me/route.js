@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import prisma from '@/lib/prisma';
+import pool from '@/lib/db';
 import { getSession } from '@/lib/auth';
 
 export async function GET() {
@@ -10,21 +10,21 @@ export async function GET() {
       return NextResponse.json({ success: false, message: 'Not logged in' }, { status: 401 });
     }
 
-    const user = await prisma.user.findUnique({
-      where: { id: session.id }
-    });
+    const [rows] = await pool.execute(
+      'SELECT id, name, email, course, role, xp, createdAt FROM User WHERE id = ? LIMIT 1',
+      [session.id]
+    );
+
+    const user = rows[0];
 
     if (!user) {
-       return NextResponse.json({ success: false, message: 'User not found' }, { status: 404 });
+      return NextResponse.json({ success: false, message: 'User not found' }, { status: 404 });
     }
 
-    // Remove password from response
-    const { password, ...userWithoutPassword } = user;
-
-    return NextResponse.json({ success: true, data: userWithoutPassword });
+    return NextResponse.json({ success: true, data: user });
 
   } catch (error) {
-    console.error('Session Error:', error);
-    return NextResponse.json({ success: false, message: 'Server error' }, { status: 500 });
+    console.error('ME ERROR:', error.message);
+    return NextResponse.json({ success: false, message: `Session error: ${error.message}` }, { status: 500 });
   }
 }

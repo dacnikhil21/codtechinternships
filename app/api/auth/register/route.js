@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import prisma from '@/lib/prisma';
+import pool from '@/lib/db';
 import bcrypt from 'bcryptjs';
 import { login } from '@/lib/auth';
 
@@ -8,43 +8,43 @@ export async function POST(req) {
     const { name, email, password, course } = await req.json();
 
     if (!name || !email || !password || !course) {
-        return NextResponse.json({ success: false, message: 'Please provide all fields' }, { status: 400 });
+      return NextResponse.json({ success: false, message: 'Please provide all fields' }, { status: 400 });
     }
 
-    // 1. Check if user already exists
-    const userExists = await prisma.user.findUnique({
-      where: { email }
-    });
+    const cleanEmail = email.toLowerCase().trim();
 
-    if (userExists) {
-      return NextResponse.json({ success: false, message: 'User already exists' }, { status: 400 });
+    // Check if user already exists
+    const [existing] = await pool.execute(
+      'SELECT id FROM User WHERE email = ? LIMIT 1',
+      [cleanEmail]
+    );
+
+    if (existing.length > 0) {
+      return NextResponse.json({ success: false, message: 'An account with this email already exists' }, { status: 400 });
     }
 
-    // 2. Hash password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    // Hash password
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-    // 3. Create user in MySQL via Prisma
-    const user = await prisma.user.create({
-      data: {
-        name,
-        email,
-        password: hashedPassword,
-        course,
-      }
-    });
+    // Create user
+    const [result] = await pool.execute(
+      'INSERT INTO User (name, email, password, course, role, xp, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW())',
+      [name, cleanEmail, hashedPassword, course, 'student', 0]
+    );
 
-    // 4. Create session
+    const user = { id: result.insertId, name, email: cleanEmail, course, role: 'student', xp: 0 };
+
+    // Create session
     await login(user);
 
-    return NextResponse.json({ 
-      success: true, 
+    return NextResponse.json({
+      success: true,
       message: 'Registration successful',
-      data: { name: user.name, email: user.email, course: user.course } 
+      data: { name: user.name, email: user.email, course: user.course }
     }, { status: 201 });
 
   } catch (error) {
-    console.error('Registration Error:', error);
-    return NextResponse.json({ success: false, message: error.message || 'Server error' }, { status: 500 });
+    console.error('REGISTER ERROR:', error.message);
+    return NextResponse.json({ success: false, message: `Registration failed: ${error.message}` }, { status: 500 });
   }
 }

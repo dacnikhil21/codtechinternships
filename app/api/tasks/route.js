@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import prisma from '@/lib/prisma';
+import pool from '@/lib/db';
 import { getSession } from '@/lib/auth';
 
 export async function GET() {
@@ -10,23 +10,17 @@ export async function GET() {
       return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
     }
 
-    // DOMAIN ISOLATION: Fetch tasks ONLY for the user's selected course
-    const tasks = await prisma.task.findMany({
-      where: { domain: session.course },
-      orderBy: [
-        { batch: 'asc' },
-        { createdAt: 'asc' }
-      ]
-    });
+    // Fetch tasks for the user's domain only
+    const [tasks] = await pool.execute(
+      'SELECT * FROM Task WHERE domain = ? ORDER BY batch ASC, createdAt ASC',
+      [session.course]
+    );
 
-    return NextResponse.json({ 
-      success: true, 
-      data: tasks 
-    });
+    return NextResponse.json({ success: true, data: tasks });
 
   } catch (error) {
-    console.error('Fetch Tasks Error:', error);
-    return NextResponse.json({ success: false, message: 'Server error' }, { status: 500 });
+    console.error('TASKS ERROR:', error.message);
+    return NextResponse.json({ success: false, message: `Tasks error: ${error.message}` }, { status: 500 });
   }
 }
 
@@ -34,20 +28,21 @@ export async function POST(req) {
   try {
     const session = await getSession();
 
-    // SECURITY: Only allow Admins
     if (!session || session.role !== 'admin') {
       return NextResponse.json({ success: false, message: 'Forbidden' }, { status: 403 });
     }
 
-    const taskData = await req.json();
-    const task = await prisma.task.create({
-      data: taskData
-    });
+    const { title, description, domain, batch, level, roadmap } = await req.json();
 
-    return NextResponse.json({ success: true, data: task }, { status: 201 });
+    const [result] = await pool.execute(
+      'INSERT INTO Task (title, description, domain, batch, level, roadmap, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW())',
+      [title, description, domain, batch, level, roadmap]
+    );
+
+    return NextResponse.json({ success: true, data: { id: result.insertId } }, { status: 201 });
 
   } catch (error) {
-    console.error('Create Task Error:', error);
+    console.error('CREATE TASK ERROR:', error.message);
     return NextResponse.json({ success: false, message: 'Server error' }, { status: 500 });
   }
 }
