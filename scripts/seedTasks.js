@@ -1,10 +1,6 @@
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-import Task from '../models/Task.js';
+import { PrismaClient } from '@prisma/client';
 
-dotenv.config();
-
-const MONGODB_URI = process.env.MONGODB_URI;
+const prisma = new PrismaClient();
 
 const DOMAINS = [
   "React.js Web Development Intern", "Mern Stack Web Development Intern", ".Net Web Development Intern",
@@ -20,16 +16,10 @@ const DOMAINS = [
 ];
 
 async function seed() {
-  if (!MONGODB_URI) {
-    console.error('MONGODB_URI is missing in .env');
-    process.exit(1);
-  }
-
-  await mongoose.connect(MONGODB_URI);
-  console.log('Connected to MongoDB Atlas for seeding...');
-
+  console.log('Seeding tasks to MySQL...');
+  
   // Clear existing tasks
-  await Task.deleteMany({});
+  await prisma.task.deleteMany({});
 
   const tasks = DOMAINS.map(domain => ({
     title: `Starter Project: ${domain}`,
@@ -40,13 +30,18 @@ async function seed() {
     points: 10
   }));
 
-  await Task.insertMany(tasks);
+  for (const task of tasks) {
+    await prisma.task.create({ data: task });
+  }
+
   console.log(`Successfully seeded ${tasks.length} tasks!`);
-  
-  await mongoose.disconnect();
 }
 
-seed().catch(err => {
-  console.error('Seeding failed:', err);
-  process.exit(1);
-});
+seed()
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });
