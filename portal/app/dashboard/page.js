@@ -45,8 +45,43 @@ export default function Dashboard() {
     return false;
   };
 
+  const FRONTEND_PROJECTS = [
+    "Personal Portfolio Website", "Responsive Landing Page Builder", "Weather Forecast App",
+    "Modern To-Do Task Manager", "Expense Tracker Dashboard", "Recipe Finder App",
+    "Movie Search Application", "Notes Taking App", "Quiz Application with Timer",
+    "Currency Converter", "Digital Clock & Alarm System", "Typing Speed Tester",
+    "Password Generator Tool", "Interactive Calculator", "Image Gallery with Search & Filter",
+    "Job Portal UI Dashboard", "Student Learning Management Dashboard", "Blog Website with Categories",
+    "Music Streaming UI Clone", "E-commerce Product Listing Page", "Food Ordering Frontend Website",
+    "Admin Analytics Dashboard", "Video Streaming Platform UI", "Real-Time Chat Application UI",
+    "Event Booking Platform", "AI-Powered Interview Preparation Platform", "Frontend Bug Tracker System",
+    "Social Media Dashboard Clone", "Project Management Tool (Trello-like)", "Code Snippet Sharing Platform"
+  ];
+
   // State for total XP (initially from user object)
   const [totalXP, setTotalXP] = useState(0);
+  const [selectedProjects, setSelectedProjects] = useState([]);
+  const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem(`selected_projects_${user?.id || 'guest'}`);
+      if (saved) setSelectedProjects(JSON.parse(saved));
+    }
+  }, [user?.id]);
+
+  const toggleProject = (proj) => {
+    if (selectedProjects.includes(proj)) {
+      const updated = selectedProjects.filter(p => p !== proj);
+      setSelectedProjects(updated);
+      localStorage.setItem(`selected_projects_${user?.id || 'guest'}`, JSON.stringify(updated));
+    } else {
+      if (selectedProjects.length >= 4) return;
+      const updated = [...selectedProjects, proj];
+      setSelectedProjects(updated);
+      localStorage.setItem(`selected_projects_${user?.id || 'guest'}`, JSON.stringify(updated));
+    }
+  };
 
   useEffect(() => {
     if (user) {
@@ -267,116 +302,149 @@ export default function Dashboard() {
         <AnimatePresence mode='wait'>
           <motion.div key={activeTab} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
              {activeTab === 'Projects' ? (
-                <>
-                  {/* ── Featured Projects (Static) ── */}
-                  {[
-                    {
-                      id: 'feat-1',
-                      badge: 'React.js',
-                      badgeColor: 'bg-blue-50 text-blue-600',
-                      title: 'SaaS Dashboard System',
-                      description: 'Build a modern React.js dashboard with sidebar, analytics cards, progress tracking, responsive layout, and charts.',
-                      stack: ['React.js', 'Tailwind CSS', 'React Router'],
-                      progress: 60,
-                    },
-                    {
-                      id: 'feat-2',
-                      badge: 'React.js',
-                      badgeColor: 'bg-purple-50 text-purple-600',
-                      title: 'Internship Management Portal',
-                      description: 'Build a React.js internship management system with task tracking, interview scheduling, resume section, and student dashboard.',
-                      stack: ['React.js', 'Tailwind CSS', 'Firebase/API'],
-                      progress: 30,
-                    },
-                  ].map((proj) => (
-                    <div key={proj.id} className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:border-blue-300 hover:shadow-md transition-all duration-200 flex flex-col group">
-                      {/* Top row */}
-                      <div className="flex justify-between items-start mb-4">
-                        <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-colors duration-200">
-                          <span className="material-symbols-outlined text-xl">code</span>
-                        </div>
-                        <span className={`text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full ${proj.badgeColor}`}>{proj.badge}</span>
-                      </div>
-
-                      {/* Title & Description */}
-                      <h5 className="font-bold text-slate-800 mb-1 text-sm">{proj.title}</h5>
-                      <p className="text-[10px] text-slate-500 mb-3 leading-relaxed">{proj.description}</p>
-
-                      {/* Tech Stack */}
-                      <div className="flex flex-wrap gap-1 mb-4">
-                        {proj.stack.map(t => (
-                          <span key={t} className="text-[9px] font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">{t}</span>
-                        ))}
-                      </div>
-
-                      {/* Progress Bar */}
-                      <div className="mb-4">
-                        <div className="flex justify-between items-center mb-1">
-                          <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wide">Progress</span>
-                          <span className="text-[9px] font-bold text-blue-600">{proj.progress}%</span>
-                        </div>
-                        <div className="w-full bg-slate-100 rounded-full h-1.5">
-                          <div className="bg-blue-600 h-1.5 rounded-full transition-all duration-500" style={{ width: `${proj.progress}%` }}></div>
-                        </div>
-                      </div>
-
-                      {/* Buttons */}
-                      <div className="space-y-2 mt-auto">
-                        <button
-                          onClick={() => setSelectedTask({ title: proj.title })}
-                          className="w-full bg-slate-50 text-slate-700 text-xs font-bold py-2.5 rounded-xl flex items-center justify-center gap-2 hover:bg-blue-50 hover:text-blue-700 transition-colors duration-150"
-                        >
-                          <span className="material-symbols-outlined text-sm">description</span> View Requirements
-                        </button>
-                        <div className="flex gap-2">
-                          <button className="flex-1 bg-slate-50 text-slate-600 text-[10px] font-bold py-2 rounded-xl hover:bg-slate-100 transition-colors flex items-center justify-center gap-1">
-                            <span className="material-symbols-outlined text-xs">play_arrow</span> Continue
-                          </button>
-                          <button
-                            onClick={() => setIsSubmitting(proj)}
-                            className="flex-1 bg-blue-700 text-white text-[10px] font-bold py-2 rounded-xl hover:bg-blue-800 transition-colors flex items-center justify-center gap-1"
-                          >
-                            <span className="material-symbols-outlined text-xs">upload</span> Submit
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-
-                  {/* ── Database Tasks ── */}
-                  {tasks.length > 0 ? tasks.map((task) => (
-                    <div key={task.id} className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:border-blue-200 transition-all flex flex-col">
-                       <div className="flex justify-between items-start mb-4">
-                          <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center">
-                             <span className="material-symbols-outlined text-xl">assignment</span>
+                <div className="col-span-full">
+                  <div className="bg-white p-8 rounded-[2.5rem] border border-slate-200 shadow-sm relative overflow-hidden group">
+                    <div className="absolute top-0 right-0 w-96 h-96 bg-blue-50/50 rounded-full -mr-48 -mt-48 transition-transform duration-700 group-hover:scale-110"></div>
+                    
+                    <div className="relative z-10">
+                      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
+                        <div>
+                          <div className="flex items-center gap-3 mb-2">
+                             <div className="w-12 h-12 bg-blue-600 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-blue-200">
+                                <span className="material-symbols-outlined text-2xl">rocket_launch</span>
+                             </div>
+                             <h3 className="text-2xl font-black text-slate-900 tracking-tight">Internship Project Workspace</h3>
                           </div>
-                          <span className="text-[10px] font-black uppercase text-slate-400 tracking-wider">Batch {task.batch}</span>
-                       </div>
-                       <h5 className="font-bold text-slate-800 mb-1">{task.title}</h5>
-                       <p className="text-[10px] text-slate-500 mb-4 line-clamp-2">{task.description}</p>
-                       
-                       <div className="space-y-2 mt-auto">
-                          <button onClick={() => setSelectedTask(task)} className="w-full bg-slate-50 text-slate-700 text-xs font-bold py-2.5 rounded-xl flex items-center justify-center gap-2 hover:bg-slate-100 transition-colors">
-                            <span className="material-symbols-outlined text-sm">map</span> How to Complete?
-                          </button>
-                          
-                          <div className="flex items-center justify-between pt-2">
-                             <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${task.level === 'Beginner' ? 'bg-emerald-50 text-emerald-600' : 'bg-amber-50 text-amber-600'}`}>
-                                {task.level}
-                             </span>
-                             <button onClick={() => setIsSubmitting(task)} className="text-blue-700 text-xs font-bold flex items-center gap-1 hover:gap-2 transition-all">
-                               Submit Task <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                          <p className="text-sm text-slate-500 font-medium ml-15">Select and complete 4 major projects to finalize your internship.</p>
+                        </div>
+                        
+                        <div className="flex flex-col gap-2 w-full md:w-auto">
+                           <button 
+                             onClick={() => setIsProjectModalOpen(true)}
+                             className="bg-blue-700 text-white px-8 py-3.5 rounded-2xl font-bold text-sm shadow-xl shadow-blue-100 hover:bg-blue-800 transition-all flex items-center justify-center gap-2 active:scale-95"
+                           >
+                             <span className="material-symbols-outlined text-lg">add_circle</span>
+                             View Projects
+                           </button>
+                           <button 
+                             onClick={() => setSelectedTask({ title: 'Project Implementation Guide' })}
+                             className="bg-slate-100 text-slate-700 px-8 py-3.5 rounded-2xl font-bold text-sm hover:bg-slate-200 transition-all flex items-center justify-center gap-2 active:scale-95"
+                           >
+                             <span className="material-symbols-outlined text-lg">map</span>
+                             How to Complete?
+                           </button>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {selectedProjects.length > 0 ? (
+                          selectedProjects.map((proj, idx) => (
+                            <div key={idx} className="bg-slate-50 p-6 rounded-[2rem] border border-slate-100 hover:border-blue-200 transition-all group/card relative">
+                              <div className="w-10 h-10 bg-white text-blue-600 rounded-xl flex items-center justify-center mb-4 shadow-sm group-hover/card:bg-blue-600 group-hover/card:text-white transition-colors">
+                                 <span className="material-symbols-outlined text-xl">code</span>
+                              </div>
+                              <h5 className="font-bold text-slate-800 text-sm mb-2 line-clamp-2">{proj}</h5>
+                              <div className="flex items-center gap-2 text-[10px] text-slate-400 font-bold mb-6">
+                                 <span className="w-2 h-2 rounded-full bg-blue-400"></span>
+                                 ACTIVE PROJECT
+                              </div>
+                              
+                              <button 
+                                onClick={() => setIsSubmitting({ title: proj })}
+                                className="w-full bg-white text-blue-700 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest border border-blue-100 hover:bg-blue-700 hover:text-white transition-all shadow-sm"
+                              >
+                                Submit Task
+                              </button>
+                            </div>
+                          ))
+                        ) : (
+                          <div className="col-span-full py-16 text-center border-2 border-dashed border-slate-200 rounded-[2rem] bg-slate-50/50">
+                             <span className="material-symbols-outlined text-5xl text-slate-300 mb-4">folder_off</span>
+                             <h4 className="text-slate-900 font-bold">No Projects Selected</h4>
+                             <p className="text-xs text-slate-500 mt-1 mb-6">You need to select 4 projects to begin your internship work.</p>
+                             <button 
+                               onClick={() => setIsProjectModalOpen(true)}
+                               className="text-blue-700 font-black text-xs uppercase tracking-widest flex items-center gap-2 mx-auto hover:gap-3 transition-all"
+                             >
+                                Browse Projects <span className="material-symbols-outlined">arrow_forward</span>
                              </button>
                           </div>
-                       </div>
+                        )}
+                      </div>
                     </div>
-                  )) : (
-                    <div className="col-span-full py-20 text-center bg-white rounded-3xl border border-slate-100">
-                       <span className="material-symbols-outlined text-4xl text-slate-200 mb-4">hourglass_empty</span>
-                       <p className="text-slate-400 font-medium">No tasks available for this track yet.</p>
-                    </div>
-                  )}
-                </>
+                  </div>
+
+                  {/* Project Selector Modal */}
+                  <AnimatePresence>
+                    {isProjectModalOpen && (
+                      <motion.div 
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-[100] flex items-center justify-center p-4 lg:p-10"
+                      >
+                        <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-md" onClick={() => setIsProjectModalOpen(false)}></div>
+                        <motion.div 
+                          initial={{ scale: 0.9, opacity: 0, y: 20 }}
+                          animate={{ scale: 1, opacity: 1, y: 0 }}
+                          exit={{ scale: 0.9, opacity: 0, y: 20 }}
+                          className="bg-white w-full max-w-5xl h-[80vh] rounded-[3rem] shadow-2xl relative z-10 flex flex-col overflow-hidden"
+                        >
+                          <div className="p-8 border-b border-slate-100 flex justify-between items-center bg-white sticky top-0 z-20">
+                             <div>
+                                <h4 className="text-2xl font-black text-slate-900 tracking-tight">Select Your Projects</h4>
+                                <p className="text-sm text-slate-500 font-medium">Choose up to 4 projects to complete during your internship.</p>
+                             </div>
+                             <div className="flex items-center gap-4">
+                                <div className={`px-4 py-2 rounded-2xl font-black text-xs uppercase tracking-wider ${selectedProjects.length === 4 ? 'bg-amber-100 text-amber-700' : 'bg-blue-100 text-blue-700'}`}>
+                                   {selectedProjects.length}/4 Selected
+                                </div>
+                                <button 
+                                  onClick={() => setIsProjectModalOpen(false)}
+                                  className="w-10 h-10 bg-slate-100 text-slate-500 rounded-full flex items-center justify-center hover:bg-red-50 hover:text-red-500 transition-colors"
+                                >
+                                   <span className="material-symbols-outlined">close</span>
+                                </button>
+                             </div>
+                          </div>
+                          
+                          <div className="flex-1 overflow-y-auto p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                             {FRONTEND_PROJECTS.map((proj, i) => (
+                               <div 
+                                 key={i} 
+                                 onClick={() => toggleProject(proj)}
+                                 className={`p-5 rounded-2xl border transition-all cursor-pointer group flex items-center justify-between ${selectedProjects.includes(proj) ? 'bg-blue-600 border-blue-600 text-white' : 'bg-white border-slate-200 hover:border-blue-400 text-slate-800'}`}
+                               >
+                                  <div className="flex items-center gap-4">
+                                     <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black ${selectedProjects.includes(proj) ? 'bg-white/20' : 'bg-slate-100'}`}>
+                                        {i + 1}
+                                     </div>
+                                     <span className="text-xs font-bold leading-tight">{proj}</span>
+                                  </div>
+                                  <div className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${selectedProjects.includes(proj) ? 'bg-white text-blue-600' : 'bg-slate-100 text-slate-300 group-hover:bg-blue-100'}`}>
+                                     <span className="material-symbols-outlined text-sm">
+                                        {selectedProjects.includes(proj) ? 'check' : 'add'}
+                                     </span>
+                                  </div>
+                               </div>
+                             ))}
+                          </div>
+                          
+                          <div className="p-6 bg-slate-50 border-t border-slate-100 flex justify-center">
+                             {selectedProjects.length >= 4 ? (
+                               <div className="flex items-center gap-2 text-amber-600 font-bold text-xs bg-amber-50 px-6 py-3 rounded-2xl border border-amber-100">
+                                  <span className="material-symbols-outlined text-sm">info</span>
+                                  You can select only 4 projects.
+                               </div>
+                             ) : (
+                               <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Scroll to explore more projects</p>
+                             )}
+                          </div>
+                        </motion.div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
               ) : activeTab === 'Materials' ? (
                 ['Project Guides', 'Technical Documentation', 'Case Studies', 'Reference Materials'].map((title, i) => (
                   <div key={i} className="bg-white p-6 rounded-3xl border border-slate-200 flex items-center gap-4 hover:border-blue-200 transition-all cursor-pointer">
