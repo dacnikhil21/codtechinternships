@@ -13,7 +13,7 @@ export async function POST(req) {
 
     // Find user
     const [rows] = await pool.execute(
-      'SELECT * FROM User WHERE email = ? LIMIT 1',
+      'SELECT * FROM user WHERE email = ? LIMIT 1',
       [email.toLowerCase().trim()]
     );
 

@@ -13,9 +13,9 @@ async function setup() {
   const conn = await mysql.createConnection(DATABASE_URL);
   console.log('✅ Database connected.');
 
-  // Create User table
+  // Create user table
   await conn.execute(`
-    CREATE TABLE IF NOT EXISTS User (
+    CREATE TABLE IF NOT EXISTS user (
       id INT AUTO_INCREMENT PRIMARY KEY,
       name VARCHAR(255) NOT NULL,
       email VARCHAR(255) NOT NULL UNIQUE,
@@ -27,11 +27,11 @@ async function setup() {
       updatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     )
   `);
-  console.log('✅ User table ready.');
-
-  // Create Task table
+  console.log('✅ user table ready.');
+ 
+  // Create task table
   await conn.execute(`
-    CREATE TABLE IF NOT EXISTS Task (
+    CREATE TABLE IF NOT EXISTS task (
       id INT AUTO_INCREMENT PRIMARY KEY,
       title VARCHAR(255) NOT NULL,
       description TEXT,
@@ -43,10 +43,10 @@ async function setup() {
       updatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     )
   `);
-  console.log('✅ Task table ready.');
+  console.log('✅ task table ready.');
 
   // Seed tasks only if empty
-  const [taskRows] = await conn.execute('SELECT COUNT(*) as count FROM Task');
+  const [taskRows] = await conn.execute('SELECT COUNT(*) as count FROM task');
   if (taskRows[0].count === 0) {
     console.log('🌱 Seeding tasks...');
     const tasks = [
@@ -94,7 +94,7 @@ async function setup() {
 
     for (const task of tasks) {
       await conn.execute(
-        'INSERT INTO Task (title, description, domain, batch, level, roadmap) VALUES (?, ?, ?, ?, ?, ?)',
+        'INSERT INTO task (title, description, domain, batch, level, roadmap) VALUES (?, ?, ?, ?, ?, ?)',
         [task.title, task.description, task.domain, task.batch, task.level, '']
       );
     }

@@ -15,7 +15,7 @@ export async function POST(req) {
 
     // Check if user already exists
     const [existing] = await pool.execute(
-      'SELECT id FROM User WHERE email = ? LIMIT 1',
+      'SELECT id FROM user WHERE email = ? LIMIT 1',
       [cleanEmail]
     );
 
@@ -28,7 +28,7 @@ export async function POST(req) {
 
     // Create user
     const [result] = await pool.execute(
-      'INSERT INTO User (name, email, password, course, role, xp, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW())',
+      'INSERT INTO user (name, email, password, course, role, xp, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW())',
       [name, cleanEmail, hashedPassword, course, 'student', 0]
     );
 
