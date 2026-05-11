@@ -3,28 +3,26 @@ import pool from '@/lib/db';
 
 export async function GET() {
   try {
-    // 1. Total Project Count
-    const [totalRes] = await pool.execute('SELECT COUNT(*) as total FROM projects');
+    const domainsToTest = [
+      "React.js Web Development Intern",
+      "Software Development Intern",
+      "Artificial Intelligence"
+    ];
     
-    // 2. Count per Domain
-    const [domainRes] = await pool.execute(`
-      SELECT d.name as domain_name, COUNT(p.id) as project_count 
-      FROM domains d 
-      LEFT JOIN projects p ON d.id = p.domain_id 
-      GROUP BY d.id, d.name
-    `);
-    
-    // 3. Sample User Data (to check course names)
-    const [userRes] = await pool.execute('SELECT email, course FROM user LIMIT 5');
+    const results = {};
 
-    return NextResponse.json({
-      success: true,
-      audit: {
-        totalProjects: totalRes[0].total,
-        breakdown: domainRes,
-        sampleUsers: userRes
-      }
-    });
+    for (const dName of domainsToTest) {
+      const [rows] = await pool.execute(`
+        SELECT p.name 
+        FROM projects p 
+        JOIN domains d ON p.domain_id = d.id 
+        WHERE d.name = ? 
+        LIMIT 5
+      `, [dName]);
+      results[dName] = rows.map(r => r.name);
+    }
+
+    return NextResponse.json({ success: true, results });
   } catch (error) {
     return NextResponse.json({ success: false, error: error.message });
   }
