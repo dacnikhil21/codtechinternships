@@ -39,6 +39,8 @@ export default function Login() {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 md:p-8 gradient-bg">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" />
       <main className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-12 gap-0 overflow-hidden rounded-[2rem] shadow-2xl bg-white border border-slate-200">
         <section className="hidden lg:flex lg:col-span-6 relative flex-col justify-between p-16 bg-blue-700 overflow-hidden">
           <div className="absolute -top-24 -left-24 w-96 h-96 bg-emerald-400/10 rounded-full blur-3xl"></div>

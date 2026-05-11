@@ -5,8 +5,11 @@ import mysql from 'mysql2/promise';
 const DATABASE_URL = process.env.DATABASE_URL;
 
 if (!DATABASE_URL) {
-  console.error('❌ DATABASE_URL is not set. Please set it in Hostinger Environment Variables.');
-  process.exit(1);
+  console.warn('⚠️ DATABASE_URL is not set. Database features will be disabled.');
+} else {
+  setup().catch((err) => {
+    console.error('❌ Database setup failed:', err.message);
+  });
 }
 
 async function setup() {
@@ -110,8 +113,5 @@ async function setup() {
   console.log('🚀 Database setup complete.');
 }
 
-setup().catch((err) => {
-  console.error('❌ Database setup failed:', err.message);
-  console.log('⚠️ Server will continue to start, but database features will be disabled until DATABASE_URL is fixed.');
-  // Removed process.exit(1) to prevent 503 errors on Hostinger
-});
+
+
