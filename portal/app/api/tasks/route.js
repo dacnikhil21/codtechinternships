@@ -10,27 +10,25 @@ export async function GET() {
       return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
     }
 
-    // 1. Find the Domain ID based on student's course name
-    let [domainRows] = await pool.execute(
-      'SELECT id FROM domains WHERE name = ? LIMIT 1',
-      [session.course]
-    );
+    // 1. Find the Domain ID based on normalized student's course name
+    const [allDomains] = await pool.execute('SELECT id, name FROM domains');
+    
+    const normalize = (str) => str.toLowerCase().replace(/[^a-z0-9]/g, '');
+    const userCourseNorm = normalize(session.course);
+    
+    let targetDomain = allDomains.find(d => normalize(d.name) === userCourseNorm);
 
-    // Intelligent Fallback Matcher
-    if (domainRows.length === 0) {
-      const coursePrefix = session.course.split(' ')[0]; // Try matching the first word (e.g. "React")
-      [domainRows] = await pool.execute(
-        'SELECT id FROM domains WHERE name LIKE ? LIMIT 1',
-        [`%${coursePrefix}%`]
-      );
+    // If no exact normalized match, try partial match (e.g. "AI" in "Artificial Intelligence")
+    if (!targetDomain) {
+      const coursePrefix = session.course.split(/[ /]/)[0]; // Get first word
+      targetDomain = allDomains.find(d => normalize(d.name).includes(normalize(coursePrefix)));
     }
 
-    if (domainRows.length === 0) {
-      // Final safety: Return projects for "Software Development Intern" so dashboard isn't empty
-      [domainRows] = await pool.execute('SELECT id FROM domains WHERE name LIKE "%Software Development%" LIMIT 1');
+    if (!targetDomain) {
+      return NextResponse.json({ success: true, data: [], message: 'No projects available for this domain.' });
     }
 
-    const domainId = domainRows[0].id;
+    const domainId = targetDomain.id;
 
     // 2. Fetch projects for this domain only (30 projects)
     const [projects] = await pool.execute(
