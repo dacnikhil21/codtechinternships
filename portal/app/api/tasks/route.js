@@ -18,9 +18,26 @@ export async function GET() {
     
     let targetDomain = allDomains.find(d => normalize(d.name) === userCourseNorm);
 
-    // If no exact normalized match, try partial match (e.g. "AI" in "Artificial Intelligence")
+    // Intelligent Fallback Matcher
     if (!targetDomain) {
-      const coursePrefix = session.course.split(/[ /]/)[0]; // Get first word
+      // Manual overrides for common abbreviations
+      const overrides = {
+        'aiml': 'artificialintelligence',
+        'ai': 'artificialintelligence',
+        'ml': 'machinelearning',
+        'cybersec': 'cybersecurity',
+        'ux': 'uiux'
+      };
+      
+      const overrideKey = userCourseNorm;
+      if (overrides[overrideKey]) {
+        targetDomain = allDomains.find(d => normalize(d.name).includes(overrides[overrideKey]));
+      }
+    }
+
+    // If still no match, try partial match (e.g. "React" in "React.js Web Development Intern")
+    if (!targetDomain) {
+      const coursePrefix = session.course.split(/[ /]/)[0]; 
       targetDomain = allDomains.find(d => normalize(d.name).includes(normalize(coursePrefix)));
     }
 
