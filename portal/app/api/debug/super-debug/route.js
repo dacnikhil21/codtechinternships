@@ -2,13 +2,20 @@ import { NextResponse } from 'next/server';
 import pool from '@/lib/db';
 import { getSession } from '@/lib/auth';
 
-export async function GET() {
+export async function GET(req) {
   try {
-    const session = await getSession();
-    if (!session) return NextResponse.json({ error: 'Not logged in' });
-
-    // 1. What does the session think the course is?
-    const userCourse = session.course;
+    const { searchParams } = new URL(req.url);
+    const email = searchParams.get('email');
+    
+    let userCourse = '';
+    if (email) {
+      const [userRows] = await pool.execute('SELECT course FROM user WHERE email = ?', [email]);
+      if (userRows.length > 0) userCourse = userRows[0].course;
+    } else {
+      const session = await getSession();
+      if (!session) return NextResponse.json({ error: 'Not logged in' });
+      userCourse = session.course;
+    }
 
     // 2. Find the Domain ID
     const [domainRows] = await pool.execute('SELECT id, name FROM domains WHERE name = ?', [userCourse]);
