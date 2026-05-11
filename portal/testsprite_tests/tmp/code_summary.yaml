@@ -1,0 +1,54 @@
+version: "2"
+type: frontend
+tech_stack:
+  - JavaScript
+  - Next.js 14
+  - Tailwind CSS
+  - Framer Motion
+  - MySQL (mysql2)
+routes:
+  - path: /
+    file: app/page.js
+    auth_required: false
+    description: Landing page and Login form
+  - path: /login
+    file: app/login/page.js
+    auth_required: false
+    description: Dedicated login page
+  - path: /register
+    file: app/register/page.js
+    auth_required: false
+    description: User registration page
+  - path: /dashboard
+    file: app/dashboard/page.js
+    auth_required: true
+    description: User internship dashboard
+features:
+  - name: User Authentication
+    description: Login and Registration with domain-matching logic
+    files:
+      - app/page.js
+      - app/register/page.js
+      - app/api/auth/login/route.js
+    entry_route: /
+    user_interactions:
+      - Enter email and password
+      - Click Sign In or Create Account
+    api_calls:
+      - method: POST
+        endpoint: /api/auth/login
+    auth_required: false
+  - name: Internship Dashboard
+    description: Viewing assigned projects and tracking progress
+    files:
+      - app/dashboard/page.js
+      - app/api/tasks/route.js
+    entry_route: /dashboard
+    user_interactions:
+      - View project cards
+      - Browse domains
+    api_calls:
+      - method: GET
+        endpoint: /api/tasks
+    auth_required: true
+known_limitations: []

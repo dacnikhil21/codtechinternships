@@ -19,6 +19,17 @@ export default function RootLayout({ children }) {
                         radial-gradient(circle at 90% 80%, rgba(111, 251, 190, 0.1) 0%, rgba(255, 255, 255, 0) 50%);
             min-height: 100vh;
           }
+          /* Critical Branding Fallback */
+          .bg-blue-700 { background-color: #1d4ed8 !important; }
+          .text-white { color: #ffffff !important; }
+          .text-blue-700 { color: #1d4ed8 !important; }
+        `}} />
+        <script dangerouslySetInnerHTML={{ __html: `
+          window.addEventListener('error', function(e) {
+            if (e.message && e.message.includes('ChunkLoadError')) {
+              window.location.reload();
+            }
+          }, true);
         `}} />
       </head>
       <body className="antialiased">

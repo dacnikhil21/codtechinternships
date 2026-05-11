@@ -95,14 +95,14 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const userRes = await fetch('/api/auth/me');
-        const userData = await userRes.json();
-        
-        if (userData.success) {
-          setUser(userData.data);
+          const userRes = await fetch(`/api/auth/me?v=${Date.now()}`);
+          const userData = await userRes.json();
           
-          const taskRes = await fetch('/api/tasks');
-          const taskData = await taskRes.json();
+          if (userData && userData.success) {
+            setUser(userData.data);
+            
+            const taskRes = await fetch(`/api/tasks?v=${Date.now()}`);
+            const taskData = await taskRes.json();
           if (taskData.success) {
             setTasks(taskData.data);
           }
@@ -211,11 +211,11 @@ export default function Dashboard() {
         <div className="p-4 border-t border-slate-100">
           <div className="flex items-center gap-3 p-2">
             <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold border border-blue-200">
-              {user.name.charAt(0).toUpperCase()}
+              {user?.name?.charAt(0).toUpperCase() || 'U'}
             </div>
             <div className="overflow-hidden">
-              <p className="text-xs font-bold text-slate-900 truncate">{user.name}</p>
-              <p className="text-[10px] text-slate-500 truncate">{user.course}</p>
+              <p className="text-xs font-bold text-slate-900 truncate">{user?.name || 'Loading...'}</p>
+              <p className="text-[10px] text-slate-500 truncate">{user?.course || 'Student'}</p>
             </div>
           </div>
           <button onClick={handleLogout} className="w-full text-left px-4 py-2 text-xs font-bold text-red-500 hover:bg-red-50 rounded-lg mt-2 transition-colors flex items-center gap-2">
@@ -252,8 +252,8 @@ export default function Dashboard() {
         {activeTab === 'Projects' && (
           <>
             <section className="mb-8">
-              <h3 className="text-2xl font-bold text-slate-900 tracking-tight">Welcome back, {user.name.split(' ')[0]} 👋</h3>
-              <p className="text-sm text-slate-500 font-medium mt-1">You're currently in the <span className="text-blue-600 font-bold">{user.course}</span> track.</p>
+              <h3 className="text-2xl font-bold text-slate-900 tracking-tight">Welcome back, {user?.name?.split(' ')[0] || 'Intern'} 👋</h3>
+              <p className="text-sm text-slate-500 font-medium mt-1">You're currently in the <span className="text-blue-600 font-bold">{user?.course || 'Assigned'}</span> track.</p>
             </section>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
