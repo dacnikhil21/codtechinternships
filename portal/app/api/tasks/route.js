@@ -16,29 +16,44 @@ export async function GET() {
     const normalize = (str) => str.toLowerCase().replace(/[^a-z0-9]/g, '');
     const userCourseNorm = normalize(session.course);
     
+    // 1. Try Exact Match
     let targetDomain = allDomains.find(d => normalize(d.name) === userCourseNorm);
 
-    // Intelligent Fallback Matcher
+    // 2. Intelligent Overrides & Substring Match
     if (!targetDomain) {
-      // Manual overrides for common abbreviations
       const overrides = {
         'aiml': 'artificialintelligence',
         'ai': 'artificialintelligence',
         'ml': 'machinelearning',
         'cybersec': 'cybersecurity',
-        'ux': 'uiux'
+        'ux': 'uiux',
+        'softwaretesting': 'softwaretestingintern',
+        'automationtesting': 'automationtestingintern',
+        'figmaapp': 'figmaappdevelopmentintern',
+        'figmaweb': 'figmawebdevelopmentintern',
+        'fullstack': 'fullstackwebdevelopmentintern',
+        'frontend': 'frontendwebdevelopmentintern',
+        'backend': 'backendwebdevelopmentintern',
+        'datascience': 'datascienceintern'
       };
       
-      const overrideKey = userCourseNorm;
-      if (overrides[overrideKey]) {
-        targetDomain = allDomains.find(d => normalize(d.name).includes(overrides[overrideKey]));
+      // Check for direct override match
+      for (const [key, val] of Object.entries(overrides)) {
+        if (userCourseNorm.includes(key)) {
+          targetDomain = allDomains.find(d => normalize(d.name).includes(val));
+          if (targetDomain) break;
+        }
       }
     }
 
-    // If still no match, try partial match (e.g. "React" in "React.js Web Development Intern")
+    // 3. Last resort: Partial match but prioritize longer domain names to avoid broad matches
     if (!targetDomain) {
-      const coursePrefix = session.course.split(/[ /]/)[0]; 
-      targetDomain = allDomains.find(d => normalize(d.name).includes(normalize(coursePrefix)));
+      const coursePrefix = session.course.split(/[ /]/)[0].toLowerCase();
+      if (coursePrefix.length > 2) {
+        // Sort domains by length descending to match most specific first
+        const sortedDomains = [...allDomains].sort((a, b) => b.name.length - a.name.length);
+        targetDomain = sortedDomains.find(d => normalize(d.name).includes(normalize(coursePrefix)));
+      }
     }
 
     if (!targetDomain) {
