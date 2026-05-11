@@ -1,10 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  poweredByHeader: false,
   experimental: {
     serverComponentsExternalPackages: ['mongoose', 'mongodb-memory-server'],
     webpackBuildWorker: false,
   },
-  // Disable source maps in production to save memory
   productionBrowserSourceMaps: false,
 };
 
