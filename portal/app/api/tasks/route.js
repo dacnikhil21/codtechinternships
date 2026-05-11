@@ -11,13 +11,23 @@ export async function GET() {
     }
 
     // 1. Find the Domain ID based on student's course name
-    const [domainRows] = await pool.execute(
+    let [domainRows] = await pool.execute(
       'SELECT id FROM domains WHERE name = ? LIMIT 1',
       [session.course]
     );
 
+    // Intelligent Fallback Matcher
     if (domainRows.length === 0) {
-      return NextResponse.json({ success: true, data: [] }); // No domain found, return empty
+      const coursePrefix = session.course.split(' ')[0]; // Try matching the first word (e.g. "React")
+      [domainRows] = await pool.execute(
+        'SELECT id FROM domains WHERE name LIKE ? LIMIT 1',
+        [`%${coursePrefix}%`]
+      );
+    }
+
+    if (domainRows.length === 0) {
+      // Final safety: Return projects for "Software Development Intern" so dashboard isn't empty
+      [domainRows] = await pool.execute('SELECT id FROM domains WHERE name LIKE "%Software Development%" LIMIT 1');
     }
 
     const domainId = domainRows[0].id;

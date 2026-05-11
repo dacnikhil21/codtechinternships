@@ -479,7 +479,7 @@ export const MASTER_PROJECTS = {
     { name: "AI Design Assistant Flow", description: "Design a UI for an AI that helps users build websites.", difficulty: "Advanced" },
     { name: "Global Design System Scaling", description: "Manage styles and components for a large enterprise app.", difficulty: "Advanced" }
   ],
-  "Ul/UX Intern": [
+  "UI/UX Intern": [
     { name: "User Research Portfolio", description: "Document your research process for a real-world problem.", difficulty: "Beginner" },
     { name: "Wireframing for a Fintech App", description: "Focus on structure and layout without visual distractions.", difficulty: "Beginner" },
     { name: "Usability Testing Report", description: "Perform a test on an existing site and document findings.", difficulty: "Beginner" },
