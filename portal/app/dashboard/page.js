@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
+import { CURRICULUM, DEFAULT_MODULES } from '@/lib/curriculum';
 
 export default function Dashboard() {
   const router = useRouter();
@@ -19,6 +20,10 @@ export default function Dashboard() {
   const [totalXP, setTotalXP] = useState(0);
   const [selectedProjects, setSelectedProjects] = useState([]);
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
+  
+  // Learning Portal States
+  const [selectedModule, setSelectedModule] = useState(null);
+  const [selectedLesson, setSelectedLesson] = useState(null);
 
   const getBadge = (xp) => {
     if (xp >= 3001) return { name: 'INTERVIEW READY', icon: 'verified', color: 'text-indigo-600 bg-indigo-50/50 border-indigo-100/50' };
@@ -256,6 +261,137 @@ export default function Dashboard() {
                  </div>
                )}
             </section>
+          </motion.div>
+        )}
+
+        {activeTab === 'Materials' && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-8">
+            {/* Materials Header */}
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-slate-100 pb-8">
+               <div>
+                  <h3 className="text-2xl font-bold text-slate-900 tracking-tight mb-1 uppercase">{user?.course} Curriculum</h3>
+                  <p className="text-[13px] text-slate-400 font-medium">Your personalized learning path for the internship.</p>
+               </div>
+               <div className="flex items-center gap-6 bg-white p-4 rounded-2xl border border-slate-200/60 shadow-sm">
+                  <div className="text-center px-4 border-r border-slate-100">
+                     <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Modules</p>
+                     <p className="text-lg font-black text-primary">{(CURRICULUM[user?.course.toUpperCase()] || DEFAULT_MODULES).length}</p>
+                  </div>
+                  <div className="text-center px-4">
+                     <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Your Progress</p>
+                     <p className="text-lg font-black text-emerald-500">0%</p>
+                  </div>
+               </div>
+            </div>
+
+            {/* Modules Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+               {(CURRICULUM[user?.course.toUpperCase()] || DEFAULT_MODULES).map((mod, idx) => (
+                 <motion.div 
+                   key={mod.id} 
+                   whileHover={{ y: -4 }}
+                   onClick={() => setSelectedModule(mod)}
+                   className="bg-white p-6 rounded-[32px] border border-slate-200/60 shadow-sm hover:shadow-xl hover:shadow-indigo-100/40 transition-all cursor-pointer group"
+                 >
+                    <div className="flex justify-between items-start mb-6">
+                       <div className="w-10 h-10 bg-primary/5 text-primary rounded-xl flex items-center justify-center border border-primary/10 group-hover:bg-primary group-hover:text-white transition-all">
+                          <span className="material-symbols-outlined text-xl">import_contacts</span>
+                       </div>
+                       <div className="flex flex-col items-end">
+                          <span className="text-[9px] font-bold text-slate-400 uppercase tracking-[0.2em]">{mod.difficulty}</span>
+                          <span className="text-[10px] font-bold text-primary mt-1">{mod.time}</span>
+                       </div>
+                    </div>
+                    <h4 className="text-base font-bold text-slate-900 tracking-tight mb-2 group-hover:text-primary transition-colors">{mod.title}</h4>
+                    <p className="text-[12px] text-slate-400 font-medium leading-relaxed mb-6 line-clamp-2">{mod.description}</p>
+                    <div className="flex items-center justify-between pt-4 border-t border-slate-50">
+                       <span className="text-[10px] font-bold text-slate-300 uppercase tracking-widest">{mod.lessons.length} Lessons</span>
+                       <button className="text-primary font-bold text-[11px] uppercase tracking-widest flex items-center gap-1">Start <span className="material-symbols-outlined text-sm">arrow_forward</span></button>
+                    </div>
+                 </motion.div>
+               ))}
+            </div>
+
+            {/* Lesson Viewer Overlay */}
+            <AnimatePresence>
+               {selectedModule && (
+                 <div className="fixed inset-0 z-[120] flex items-center justify-center p-0 lg:p-10 bg-slate-900/40 backdrop-blur-sm">
+                    <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 30 }} className="bg-white w-full h-full lg:max-w-6xl lg:rounded-[48px] shadow-2xl flex overflow-hidden border border-slate-200/60">
+                       {/* Lesson Sidebar */}
+                       <div className="w-80 bg-slate-50/50 border-r border-slate-200/60 flex flex-col hidden lg:flex">
+                          <div className="p-8 border-b border-slate-100 bg-white">
+                             <button onClick={() => setSelectedModule(null)} className="flex items-center gap-2 text-[11px] font-bold text-slate-400 uppercase tracking-widest hover:text-primary transition-all mb-4">
+                                <span className="material-symbols-outlined text-sm">arrow_back</span> Back to Modules
+                             </button>
+                             <h5 className="font-bold text-slate-900 text-sm leading-tight tracking-tight uppercase">{selectedModule.title}</h5>
+                          </div>
+                          <div className="flex-1 overflow-y-auto p-4 space-y-1">
+                             {selectedModule.lessons.map((lesson, i) => (
+                               <button 
+                                 key={lesson.id} 
+                                 onClick={() => setSelectedLesson(lesson)}
+                                 className={`w-full text-left p-4 rounded-2xl transition-all flex items-center gap-3 group ${selectedLesson?.id === lesson.id ? 'bg-white border border-primary/10 shadow-sm text-primary' : 'text-slate-500 hover:bg-white/50'}`}
+                               >
+                                  <div className={`w-6 h-6 rounded-lg flex items-center justify-center text-[10px] font-bold ${selectedLesson?.id === lesson.id ? 'bg-primary text-white' : 'bg-slate-100 text-slate-400'}`}>{i + 1}</div>
+                                  <span className="text-[12px] font-bold tracking-tight">{lesson.title}</span>
+                               </button>
+                             ))}
+                          </div>
+                       </div>
+
+                       {/* Content Area */}
+                       <div className="flex-1 flex flex-col bg-white">
+                          <div className="p-4 lg:p-8 flex justify-between items-center border-b border-slate-50 lg:hidden">
+                             <button onClick={() => setSelectedModule(null)} className="material-symbols-outlined">arrow_back</button>
+                             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{selectedModule.title}</span>
+                             <div className="w-6"></div>
+                          </div>
+                          
+                          <div className="flex-1 overflow-y-auto p-8 lg:p-20">
+                             {selectedLesson ? (
+                               <div className="max-w-3xl mx-auto space-y-10">
+                                  <div>
+                                     <span className="text-[10px] font-bold text-primary uppercase tracking-[0.4em] mb-4 block">Current Lesson</span>
+                                     <h2 className="text-4xl font-black text-slate-900 tracking-tight leading-tight">{selectedLesson.title}</h2>
+                                  </div>
+                                  <div className="prose prose-slate max-w-none">
+                                     <p className="text-lg text-slate-500 font-medium leading-relaxed">{selectedLesson.content}</p>
+                                     <div className="bg-slate-50 border border-slate-100 rounded-3xl p-10 mt-10">
+                                        <h6 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                                           <span className="material-symbols-outlined text-sm">lightbulb</span> Key Concepts
+                                        </h6>
+                                        <p className="text-slate-600 font-medium">This lesson covers the foundational architecture of the {user?.course} ecosystem. Focus on understanding the core design patterns and implementation strategies discussed above.</p>
+                                     </div>
+                                  </div>
+                                  <div className="flex justify-between items-center pt-10 border-t border-slate-100">
+                                     <button className="text-[11px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2 hover:text-slate-600 transition-all">
+                                        <span className="material-symbols-outlined text-sm">west</span> Previous
+                                     </button>
+                                     <button className="bg-primary text-white px-10 py-4 rounded-2xl font-bold text-[11px] uppercase tracking-widest shadow-xl shadow-primary/20 hover:scale-105 transition-all">Mark Complete</button>
+                                     <button className="text-[11px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2 hover:text-slate-600 transition-all">
+                                        Next <span className="material-symbols-outlined text-sm">east</span>
+                                     </button>
+                                  </div>
+                               </div>
+                             ) : (
+                               <div className="h-full flex flex-col items-center justify-center text-center">
+                                  <div className="w-16 h-16 bg-slate-50 text-slate-200 rounded-3xl flex items-center justify-center mb-6">
+                                     <span className="material-symbols-outlined text-4xl">auto_stories</span>
+                                  </div>
+                                  <h4 className="text-xl font-bold text-slate-900 mb-2">Select a lesson to start learning</h4>
+                                  <p className="text-[13px] text-slate-400 font-medium max-w-xs">Pick a topic from the sidebar to begin your professional training in {user?.course}.</p>
+                               </div>
+                             )}
+                          </div>
+                          
+                          <div className="p-6 border-t border-slate-50 bg-slate-50/30 flex justify-center lg:hidden">
+                             <button onClick={() => setSelectedModule(null)} className="bg-primary text-white px-10 py-4 rounded-2xl font-bold text-[11px] uppercase tracking-widest w-full">Back to Modules</button>
+                          </div>
+                       </div>
+                    </motion.div>
+                 </div>
+               )}
+            </AnimatePresence>
           </motion.div>
         )}
 
