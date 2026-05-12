@@ -22,8 +22,6 @@ export default function Dashboard() {
   const [prepContent, setPrepContent] = useState([]);
   const [materials, setMaterials] = useState([]);
   const [totalXP, setTotalXP] = useState(0);
-  const [selectedTask, setSelectedTask] = useState(null);
-  const [tasks, setTasks] = useState([]);
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
   const [selectedProjects, setSelectedProjects] = useState([]);
   const [tempSelectedProjects, setTempSelectedProjects] = useState([]);
@@ -135,14 +133,26 @@ export default function Dashboard() {
         ]);
         
         const userData = await userRes.json();
-          if (prepData.success) setPrepContent(prepData.data);
-          const matRes = await fetch('/api/materials');
-          const matData = await matRes.json();
-          if (matData.success) setMaterials(matData.data);
-        } else { router.push('/login'); }
-      } catch (err) { router.push('/login'); } finally { setLoading(false); }
+        const materialsData = await materialsRes.json();
+        const tasksData = await tasksRes.json();
+
+        if (userData.success) {
+          setUser(userData.user);
+        } else {
+          router.push('/login');
+          return;
+        }
+
+        if (materialsData.success) setMaterials(materialsData.data);
+        if (tasksData.success) setTasks(tasksData.data);
+      } catch (err) {
+        toast.error('Failed to load session');
+        router.push('/login');
+      } finally {
+        setLoading(false);
+      }
     };
-    fetchData();
+    fetchDashboardData();
   }, [router]);
 
   const handleLogout = async () => {
@@ -557,7 +567,6 @@ export default function Dashboard() {
             </div>
           )}
         </AnimatePresence>
->
 
         {/* ROADMAP MODAL - PREMIUM GUIDE */}
         <AnimatePresence>
