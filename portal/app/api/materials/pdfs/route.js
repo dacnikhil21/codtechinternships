@@ -37,7 +37,29 @@ export async function GET(request) {
       const courseWords = courseName.toLowerCase().split(/[\s-]+/);
       const fileWords = rawFileName.toLowerCase().split(/[\s-]+/);
       
-      const importantKeywords = ['react', 'python', 'java', 'sql', 'figma', 'uiux', 'aiml', 'data', 'web', 'backend', 'frontend', 'mern', 'fullstack', 'devops', 'cloud', 'cybersecurity'];
+      // Strict Mapping for Web Development
+      const webKeywords = ['react', 'web', 'frontend', 'backend', 'mern', 'fullstack', 'full', 'stack'];
+      const isWebCourse = courseWords.some(w => webKeywords.includes(w));
+      const isWebFile = fileWords.some(w => webKeywords.includes(w));
+      
+      if (isWebCourse && isWebFile) return true;
+      
+      // Strict Mapping for Python/Software
+      const pythonKeywords = ['python', 'software', 'backend'];
+      const isPythonCourse = courseWords.some(w => pythonKeywords.includes(w));
+      const isPythonFile = fileWords.some(w => pythonKeywords.includes(w));
+      
+      if (isPythonCourse && isPythonFile && !isWebFile) return true;
+      
+      // Strict Mapping for UI/UX
+      const uiKeywords = ['ui', 'ux', 'uiux', 'figma', 'design'];
+      const isUiCourse = courseWords.some(w => uiKeywords.includes(w));
+      const isUiFile = fileWords.some(w => uiKeywords.includes(w));
+      
+      if (isUiCourse && isUiFile) return true;
+      
+      // Fallback exact keyword match
+      const importantKeywords = ['java', 'sql', 'aiml', 'data', 'devops', 'cloud', 'cybersecurity', 'powerbi', 'vlsi', 'testing', 'marketing', 'embedded', 'blockchain', 'digital', 'c'];
       
       for (const word of courseWords) {
         if (importantKeywords.includes(word) && fileWords.includes(word)) {

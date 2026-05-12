@@ -11,7 +11,7 @@ export async function GET(request) {
   }
 
   // Security: Prevent directory traversal attacks
-  const cleanFileName = path.basename(decodeURIComponent(file));
+  const cleanFileName = path.basename(file);
   const filePath = path.join(process.cwd(), 'materials', 'raw_pdfs', cleanFileName);
 
   if (!fs.existsSync(filePath)) {

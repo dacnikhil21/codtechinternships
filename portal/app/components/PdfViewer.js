@@ -20,7 +20,7 @@ export default function PdfViewer({ pdf, onClose }) {
 
   const handleDownload = () => {
     const link = document.createElement('a');
-    link.href = `/api/materials/file?file=${pdf.filename}`;
+    link.href = `/api/materials/file?file=${encodeURIComponent(pdf.filename)}`;
     link.download = pdf.filename;
     document.body.appendChild(link);
     link.click();
@@ -87,12 +87,12 @@ export default function PdfViewer({ pdf, onClose }) {
           <div className="flex-1 bg-slate-100/50 w-full relative">
             {/* Native browser PDF viewer provides the best performance, Zoom, Search, and Pagination out of the box */}
             <iframe
-              src={`/api/materials/file?file=${pdf.filename}#toolbar=1&navpanes=0&scrollbar=1`}
+              src={`/api/materials/file?file=${encodeURIComponent(pdf.filename)}#toolbar=1&navpanes=0&scrollbar=1`}
               className="w-full h-full border-none"
               title={pdf.name}
               style={{ backgroundColor: '#f1f5f9' }}
             >
-              <p>Your browser does not support PDFs. <a href={`/api/materials/file?file=${pdf.filename}`}>Download the PDF</a>.</p>
+              <p>Your browser does not support PDFs. <a href={`/api/materials/file?file=${encodeURIComponent(pdf.filename)}`}>Download the PDF</a>.</p>
             </iframe>
           </div>
         </motion.div>

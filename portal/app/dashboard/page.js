@@ -235,7 +235,7 @@ export default function Dashboard() {
             </div>
             <div className="overflow-hidden">
               <p className="text-[12px] font-bold text-slate-900 truncate leading-tight">{user?.name || 'Intern'}</p>
-              <p className="text-[10px] font-medium text-slate-400 truncate uppercase tracking-tight">{user?.course}</p>
+              <p className="text-[10px] font-medium text-slate-400 truncate capitalize tracking-tight">{user?.course} Intern</p>
             </div>
           </div>
           <button onClick={handleLogout} className="w-full py-2 text-[10px] font-bold text-slate-400 hover:text-red-500 hover:bg-red-50/50 rounded-lg transition-all flex items-center justify-center gap-2 uppercase tracking-widest">
@@ -402,7 +402,7 @@ export default function Dashboard() {
                      <span className="text-[9px] font-black text-red-500 uppercase tracking-[0.4em]">Official Resources</span>
                   </div>
                   <h3 className="text-3xl font-black text-slate-900 tracking-tighter uppercase leading-tight italic italic-shorthand">Learning <span className="text-red-500">Materials</span></h3>
-                  <p className="text-[14px] text-slate-400 font-medium mt-3 max-w-lg">Access your internship study guides and technical references.</p>
+                  <p className="text-[14px] text-slate-400 font-medium mt-3 max-w-lg">Curated study materials for your {user?.course} internship.</p>
                </div>
                <div className="flex items-center gap-6 bg-white p-6 rounded-3xl border border-slate-100 shadow-xl shadow-red-100/10">
                   <div className="text-center">
@@ -457,7 +457,7 @@ export default function Dashboard() {
             ) : (
               <div className="bg-slate-50/50 border-2 border-dashed border-slate-200 rounded-[2rem] py-16 px-8 text-center flex flex-col items-center justify-center">
                  <h4 className="text-xl font-black text-slate-900 uppercase tracking-tight mb-2 italic">No Materials Found</h4>
-                 <p className="text-[12px] font-bold text-slate-400 uppercase tracking-widest">We could not find specific study guides for your domain.</p>
+                 <p className="text-[12px] font-bold text-slate-400 uppercase tracking-widest">No study materials available for your internship domain yet.</p>
               </div>
             )}
 
