@@ -8,6 +8,7 @@ import { CURRICULUM, DEFAULT_MODULES } from '@/lib/curriculum';
 import CourseViewer from '@/app/components/CourseViewer';
 import PreparationGuide from '@/app/dashboard/PreparationGuide';
 import ProjectImplementationGuide from '@/app/components/ProjectImplementationGuide';
+import PdfViewer from '@/app/components/PdfViewer';
 
 export default function Dashboard() {
   const router = useRouter();
@@ -20,7 +21,7 @@ export default function Dashboard() {
   const [githubUrl, setGithubUrl] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [prepContent, setPrepContent] = useState([]);
-  const [materials, setMaterials] = useState([]);
+  const [materials, setMaterials] = useState([]); // This will now hold PDF objects
   const [totalXP, setTotalXP] = useState(0);
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
   const [selectedProjects, setSelectedProjects] = useState([]);
@@ -29,8 +30,9 @@ export default function Dashboard() {
   const [countdown, setCountdown] = useState('');
   
   // Learning Portal States
-  const [selectedModule, setSelectedModule] = useState(null);
+  const [selectedModule, setSelectedModule] = useState(null); // Used by Prep tab
   const [selectedLesson, setSelectedLesson] = useState(null);
+  const [selectedPdf, setSelectedPdf] = useState(null); // Used by Materials tab
 
   useEffect(() => {
     const updateCountdown = () => {
@@ -126,24 +128,33 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-        const [userRes, materialsRes, tasksRes] = await Promise.all([
+        const [userRes, tasksRes] = await Promise.all([
           fetch('/api/auth/me'),
-          fetch('/api/materials'),
           fetch('/api/tasks')
         ]);
         
         const userData = await userRes.json();
-        const materialsData = await materialsRes.json();
         const tasksData = await tasksRes.json();
 
         if (userData.success) {
           setUser(userData.data);
+          
+          // Fetch domain-specific PDFs
+          try {
+            const materialsRes = await fetch(`/api/materials/pdfs?courseName=${encodeURIComponent(userData.data.course)}`);
+            if (materialsRes.ok) {
+               const pdfsData = await materialsRes.json();
+               setMaterials(pdfsData);
+            }
+          } catch (e) {
+            console.error("Failed to fetch PDFs", e);
+          }
+          
         } else {
           router.push('/login');
           return;
         }
 
-        if (materialsData.success) setMaterials(materialsData.data);
         if (tasksData.success) setTasks(tasksData.data);
       } catch (err) {
         toast.error('Failed to load session');
@@ -387,65 +398,68 @@ export default function Dashboard() {
             <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 py-4 px-2">
                <div>
                   <div className="flex items-center gap-2 mb-2">
-                     <div className="w-1.5 h-1.5 rounded-full bg-indigo-600 animate-pulse"></div>
-                     <span className="text-[9px] font-black text-indigo-600 uppercase tracking-[0.4em]">Education Portal</span>
+                     <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></div>
+                     <span className="text-[9px] font-black text-red-500 uppercase tracking-[0.4em]">Official Resources</span>
                   </div>
-                  <h3 className="text-3xl font-black text-slate-900 tracking-tighter uppercase leading-tight italic italic-shorthand">{user?.course} <br/><span className="text-indigo-600">Curriculum</span></h3>
-                  <p className="text-[14px] text-slate-400 font-medium mt-3 max-w-lg">A professional-grade learning path designed to bridge the gap between academic theory and industry implementation.</p>
+                  <h3 className="text-3xl font-black text-slate-900 tracking-tighter uppercase leading-tight italic italic-shorthand">Learning <span className="text-red-500">Materials</span></h3>
+                  <p className="text-[14px] text-slate-400 font-medium mt-3 max-w-lg">Access your internship study guides and technical references.</p>
                </div>
-               <div className="flex items-center gap-6 bg-white p-6 rounded-3xl border border-slate-100 shadow-xl shadow-indigo-100/10">
+               <div className="flex items-center gap-6 bg-white p-6 rounded-3xl border border-slate-100 shadow-xl shadow-red-100/10">
                   <div className="text-center">
-                     <p className="text-[9px] font-black text-slate-300 uppercase tracking-widest mb-1">Modules</p>
-                     <p className="text-2xl font-black text-slate-900 tracking-tighter">{(materials.length > 0 ? materials : DEFAULT_MODULES).length}</p>
-                  </div>
-                  <div className="w-px h-10 bg-slate-100"></div>
-                  <div className="text-center">
-                     <p className="text-[9px] font-black text-slate-300 uppercase tracking-widest mb-1">Mastery</p>
-                     <p className="text-2xl font-black text-emerald-500 tracking-tighter">
-                        {Math.round((completedLessons.length / (((materials.length > 0 ? materials : DEFAULT_MODULES).length) * 4)) * 100) || 0}%
-                     </p>
+                     <p className="text-[9px] font-black text-slate-300 uppercase tracking-widest mb-1">Available PDFs</p>
+                     <p className="text-2xl font-black text-slate-900 tracking-tighter">{materials.length}</p>
                   </div>
                </div>
             </div>
 
-            {/* Modules Grid - REFINED */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-               {(materials.length > 0 ? materials : DEFAULT_MODULES).map((mod, idx) => (
-                 <motion.div 
-                   key={mod.id} 
-                   whileHover={{ y: -8, scale: 1.01 }}
-                   onClick={() => setSelectedModule(mod)}
-                   className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-xl hover:shadow-indigo-100/40 transition-all cursor-pointer group flex flex-col h-full relative overflow-hidden"
-                 >
-                    <div className="absolute top-0 right-0 p-6 opacity-0 group-hover:opacity-100 transition-opacity">
-                       <span className="material-symbols-outlined text-indigo-600 text-xl">arrow_forward_ios</span>
-                    </div>
-                    <div className="flex justify-between items-start mb-8">
-                       <div className="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center border border-indigo-100 group-hover:bg-indigo-600 group-hover:text-white transition-all shadow-sm">
-                          <span className="material-symbols-outlined text-2xl">auto_stories</span>
-                       </div>
-                       <div className="flex flex-col items-end">
-                          <div className="px-3 py-1 bg-slate-50 text-[9px] font-black text-slate-400 uppercase tracking-widest rounded-lg border border-slate-100">{mod.difficulty}</div>
-                          <span className="text-[10px] font-black text-indigo-600 mt-2 uppercase tracking-widest">⏱ {mod.time}</span>
-                       </div>
-                    </div>
-                    <div className="flex-1">
-                       <span className="text-[9px] font-black text-indigo-600/40 uppercase tracking-[0.3em] mb-2 block">Module {idx + 1}</span>
-                       <h4 className="text-lg font-black text-slate-900 tracking-tight mb-3 group-hover:text-indigo-600 transition-colors uppercase leading-tight">{mod.title}</h4>
-                       <p className="text-[12px] text-slate-400 font-medium leading-relaxed mb-4 line-clamp-2">{mod.description}</p>
-                    </div>
-                    <div className="flex items-center justify-between pt-4 border-t border-slate-50">
-                       <div className="flex items-center gap-2">
-                          <span className="material-symbols-outlined text-slate-300 text-xs">list_alt</span>
-                          <span className="text-[9px] font-black text-slate-300 uppercase tracking-widest">{mod.lessons.length} LESSONS</span>
-                       </div>
-                       <button className="w-8 h-8 rounded-full bg-slate-50 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all shadow-sm">
-                          <span className="material-symbols-outlined text-xs">arrow_forward</span>
-                       </button>
-                    </div>
-                 </motion.div>
-               ))}
-            </div>
+            {/* PDF Cards Grid - COMPACT PREMIUM */}
+            {materials.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+                 {materials.map((pdf, idx) => (
+                   <motion.div 
+                     key={pdf.id} 
+                     whileHover={{ y: -4, scale: 1.01 }}
+                     onClick={() => setSelectedPdf(pdf)}
+                     className="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:shadow-red-100/30 transition-all cursor-pointer group flex flex-col relative overflow-hidden"
+                   >
+                      <div className="absolute top-0 right-0 p-5 opacity-0 group-hover:opacity-100 transition-opacity">
+                         <span className="material-symbols-outlined text-red-500 text-lg">open_in_new</span>
+                      </div>
+                      
+                      <div className="flex items-start gap-4 mb-5">
+                         <div className="w-12 h-14 bg-red-50 text-red-500 rounded-xl flex items-center justify-center border border-red-100 group-hover:bg-red-500 group-hover:text-white transition-all shadow-sm shrink-0">
+                            <span className="material-symbols-outlined text-3xl">picture_as_pdf</span>
+                         </div>
+                         <div className="flex-1 pt-1">
+                            <h4 className="text-[14px] font-black text-slate-900 tracking-tight leading-snug group-hover:text-red-500 transition-colors uppercase line-clamp-2">{pdf.name}</h4>
+                         </div>
+                      </div>
+                      
+                      <div className="flex items-center justify-between mt-auto pt-4 border-t border-slate-50">
+                         <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-1.5">
+                               <span className="material-symbols-outlined text-slate-300 text-[14px]">schedule</span>
+                               <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">{pdf.readingTime}</span>
+                            </div>
+                            <div className="w-1 h-1 rounded-full bg-slate-200"></div>
+                            <div className="flex items-center gap-1.5">
+                               <span className="material-symbols-outlined text-slate-300 text-[14px]">data_usage</span>
+                               <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">{pdf.size}</span>
+                            </div>
+                         </div>
+                         <button className="text-[10px] font-black text-red-500 uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+                            Open
+                         </button>
+                      </div>
+                   </motion.div>
+                 ))}
+              </div>
+            ) : (
+              <div className="bg-slate-50/50 border-2 border-dashed border-slate-200 rounded-[2rem] py-16 px-8 text-center flex flex-col items-center justify-center">
+                 <h4 className="text-xl font-black text-slate-900 uppercase tracking-tight mb-2 italic">No Materials Found</h4>
+                 <p className="text-[12px] font-bold text-slate-400 uppercase tracking-widest">We could not find specific study guides for your domain.</p>
+              </div>
+            )}
 
             {/* Course Viewer is now moved outside for global access */}
           </motion.div>
@@ -489,7 +503,14 @@ export default function Dashboard() {
               onClose={() => { setSelectedModule(null); setSelectedLesson(null); }} 
             />
           )}
-        </AnimatePresence>        {/* MODAL - COMPACT PROJECT SELECTION */}
+        </AnimatePresence>
+        
+        {/* PDF VIEWER MODAL */}
+        {selectedPdf && (
+           <PdfViewer pdf={selectedPdf} onClose={() => setSelectedPdf(null)} />
+        )}
+        
+        {/* MODAL - COMPACT PROJECT SELECTION */}
         <AnimatePresence>
           {isProjectModalOpen && (
             <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
