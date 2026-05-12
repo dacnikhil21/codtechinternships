@@ -375,24 +375,97 @@ export default function Dashboard() {
                           <span className="material-symbols-outlined">close</span>
                        </button>
                     </div>
-                    <div className="p-10 space-y-8 overflow-y-auto max-h-[70vh]">
-                       {[
-                         { step: '01', title: 'Browse & Select Tasks', desc: 'Click "View Projects" to browse the task library and select up to 4 major projects for your track.' },
-                         { step: '02', title: 'Learn & Build', desc: 'Follow the technical requirements. Focus on code quality, organization, and documentation.' },
-                         { step: '03', title: 'GitHub Submission', desc: 'Create a unique repo per project. Include a detailed README with your Intern ID and name.' },
-                         { step: '04', title: 'Verify & Submit', desc: 'Click "Submit Project" on your dashboard and provide the GitHub link for mentor review.' },
-                         { step: '05', title: 'Get Certified', desc: 'Upon successful review and duration completion, your certificates will be generated.' },
-                       ].map((item, i) => (
-                         <div key={i} className="flex gap-6 group">
-                            <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center font-black text-sm shrink-0 group-hover:bg-primary group-hover:text-white transition-all shadow-sm">
-                               {item.step}
-                            </div>
-                            <div>
-                               <h5 className="font-black text-slate-900 text-lg mb-1 tracking-tight">{item.title}</h5>
-                               <p className="text-sm text-slate-500 leading-relaxed font-medium">{item.desc}</p>
-                            </div>
-                         </div>
-                       ))}
+                    <div className="p-8 space-y-10 overflow-y-auto max-h-[70vh]">
+                       {/* Step 1 */}
+                       <div className="flex gap-6 group">
+                          <div className="w-12 h-12 rounded-2xl bg-primary text-white flex items-center justify-center font-black text-sm shrink-0 shadow-lg shadow-primary/20 transition-transform group-hover:scale-110">01</div>
+                          <div>
+                             <h5 className="font-black text-slate-900 text-lg mb-1 tracking-tight">Select Any 4 Projects</h5>
+                             <p className="text-sm text-slate-500 leading-relaxed font-medium">Go to the <strong>Projects Section</strong> and choose <strong>any four projects</strong> based on your enrolled domain!</p>
+                          </div>
+                       </div>
+
+                       {/* Step 2 */}
+                       <div className="flex gap-6 group">
+                          <div className="w-12 h-12 rounded-2xl bg-primary text-white flex items-center justify-center font-black text-sm shrink-0 shadow-lg shadow-primary/20 transition-transform group-hover:scale-110">02</div>
+                          <div className="flex-1">
+                             <h5 className="font-black text-slate-900 text-lg mb-1 tracking-tight">Understand & Start Working</h5>
+                             <p className="text-sm text-slate-500 mb-6 font-medium">Carefully read and understand the project requirements before starting.</p>
+
+                             {/* Technical */}
+                             <div className="bg-indigo-50/50 rounded-3xl p-6 border border-indigo-100 mb-4">
+                                <h6 className="text-[10px] font-mono font-bold text-indigo-700 uppercase tracking-widest mb-3 flex items-center gap-2">
+                                   <span className="material-symbols-outlined text-xs">code</span> Technical / Coding Projects
+                                </h6>
+                                <ul className="text-xs text-slate-600 space-y-2 font-medium list-disc ml-4">
+                                   <li>Create the complete project code properly with <strong>comments</strong>.</li>
+                                   <li>Organize all files neatly in folders.</li>
+                                   <li>Upload to a <strong>unique GitHub repo</strong> per project.</li>
+                                   <li>In README: mention InternID, Full Name, No. of Weeks, Project Name & Scope.</li>
+                                   <li>Include: Source Code, README, Screenshots, Output Images.</li>
+                                </ul>
+                             </div>
+
+                             {/* Non-IT */}
+                             <div className="bg-emerald-50/50 rounded-3xl p-6 border border-emerald-100 mb-4">
+                                <h6 className="text-[10px] font-mono font-bold text-emerald-700 uppercase tracking-widest mb-3 flex items-center gap-2">
+                                   <span className="material-symbols-outlined text-xs">brush</span> Non-IT / Creative / Design
+                                </h6>
+                                <p className="text-xs text-slate-600 font-medium leading-relaxed">
+                                   Create project-related: Images, Posters, Visuals, Presentations, Datasets, Research Materials, UI Designs, or Reports. Upload all files to GitHub and submit the repository link.
+                                </p>
+                             </div>
+
+                             {/* Data Science */}
+                             <div className="bg-purple-50/50 rounded-3xl p-6 border border-purple-100">
+                                <h6 className="text-[10px] font-mono font-bold text-purple-700 uppercase tracking-widest mb-3 flex items-center gap-2">
+                                   <span className="material-symbols-outlined text-xs">analytics</span> Data Science & Analytics
+                                </h6>
+                                <ul className="text-xs text-slate-600 space-y-2 font-medium list-disc ml-4">
+                                   <li>Use dummy/public datasets (Kaggle, Govt Data).</li>
+                                   <li>Perform: Data Cleaning, Visualization, Analysis, Prediction Models, Dashboard Creation.</li>
+                                   <li>Upload: Dataset Files, Jupyter Notebook/Code, Graphs & Charts, Final Output Screenshots.</li>
+                                </ul>
+                             </div>
+                          </div>
+                       </div>
+
+                       {/* Step 3 */}
+                       <div className="flex gap-6 group">
+                          <div className="w-12 h-12 rounded-2xl bg-primary text-white flex items-center justify-center font-black text-sm shrink-0 shadow-lg shadow-primary/20 transition-transform group-hover:scale-110">03</div>
+                          <div>
+                             <h5 className="font-black text-slate-900 text-lg mb-1 tracking-tight">Wait for Internship Completion</h5>
+                             <p className="text-sm text-slate-500 leading-relaxed font-medium">After successfully completing your internship duration and project submissions, you will receive your <strong>Completion Certificate</strong>, Project Recognition & Experience Benefits.</p>
+                          </div>
+                       </div>
+
+                       {/* Step 4 */}
+                       <div className="flex gap-6 group">
+                          <div className="w-12 h-12 rounded-2xl bg-primary text-white flex items-center justify-center font-black text-sm shrink-0 shadow-lg shadow-primary/20 transition-transform group-hover:scale-110">04</div>
+                          <div>
+                             <h5 className="font-black text-slate-900 text-lg mb-1 tracking-tight">Keep Learning More 📚</h5>
+                             <p className="text-sm text-slate-500 leading-relaxed font-medium mb-4">Don’t stop with project submission. Continue learning through the platform modules:</p>
+                             <div className="flex flex-wrap gap-2">
+                                {['Placement Materials','Domain Knowledge','Resume Building','Mock Interviews','Aptitude Practice','Technical Preparation'].map(tag => (
+                                   <span key={tag} className="text-[9px] font-mono font-bold bg-slate-100 text-slate-600 px-3 py-1.5 rounded-xl uppercase tracking-widest">{tag}</span>
+                                ))}
+                             </div>
+                          </div>
+                       </div>
+
+                       {/* Important Note */}
+                       <div className="bg-amber-50 rounded-[32px] p-8 border border-amber-100">
+                          <h6 className="text-[10px] font-mono font-bold text-amber-700 uppercase tracking-widest mb-4 flex items-center gap-2">
+                             <span className="material-symbols-outlined text-xs">verified_user</span> Important Note
+                          </h6>
+                          <ul className="text-xs text-slate-600 space-y-2 font-bold list-disc ml-4">
+                             <li>Maintain proper GitHub repositories.</li>
+                             <li>Submit projects before deadlines.</li>
+                             <li>Ensure your work is original and properly structured.</li>
+                             <li>Keep learning consistently throughout the internship.</li>
+                          </ul>
+                          <p className="text-center text-[10px] font-mono font-black text-primary mt-8 uppercase tracking-[0.3em]">✨ Learn • Build • Upload • Grow with CODTECH</p>
+                       </div>
                     </div>
                     <div className="p-8 bg-slate-50 border-t border-slate-100 flex justify-center">
                        <button onClick={() => setSelectedTask(null)} className="bg-primary text-white px-10 py-4 rounded-2xl font-black text-xs shadow-xl shadow-primary/20 hover:scale-105 transition-all uppercase tracking-widest">
