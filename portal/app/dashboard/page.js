@@ -137,7 +137,7 @@ export default function Dashboard() {
         const tasksData = await tasksRes.json();
 
         if (userData.success) {
-          setUser(userData.user);
+          setUser(userData.data);
         } else {
           router.push('/login');
           return;
