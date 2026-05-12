@@ -359,16 +359,32 @@ export default function Dashboard() {
                             </div>
                           ))
                         ) : (
+                          // SHOW AVAILABLE PROJECTS BY DEFAULT IF NONE SELECTED
+                          tasks.slice(0, 4).map((proj, idx) => (
+                            <div key={idx} className="bg-white p-6 rounded-[2rem] border border-slate-100 hover:border-blue-200 transition-all group/card relative shadow-sm">
+                              <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mb-4 shadow-sm group-hover/card:bg-blue-600 group-hover/card:text-white transition-colors">
+                                 <span className="material-symbols-outlined text-xl">rocket_launch</span>
+                              </div>
+                              <h5 className="font-bold text-slate-800 text-sm mb-2 line-clamp-2">{proj.title}</h5>
+                              <div className="flex items-center gap-2 text-[10px] text-emerald-600 font-bold mb-6">
+                                 <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+                                 RECOMMENDED
+                              </div>
+                              
+                              <button 
+                                onClick={() => toggleProject(proj.title)}
+                                className="w-full bg-blue-600 text-white py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-blue-700 transition-all shadow-md"
+                              >
+                                Select Project
+                              </button>
+                            </div>
+                          ))
+                        )}
+                        {tasks.length === 0 && (
                           <div className="col-span-full py-16 text-center border-2 border-dashed border-slate-200 rounded-[2rem] bg-slate-50/50">
                              <span className="material-symbols-outlined text-5xl text-slate-300 mb-4">folder_off</span>
-                             <h4 className="text-slate-900 font-bold">No Projects Selected</h4>
-                             <p className="text-xs text-slate-500 mt-1 mb-6">You need to select 4 projects to begin your internship work.</p>
-                             <button 
-                               onClick={() => setIsProjectModalOpen(true)}
-                               className="text-blue-700 font-black text-xs uppercase tracking-widest flex items-center gap-2 mx-auto hover:gap-3 transition-all"
-                             >
-                                Browse Projects <span className="material-symbols-outlined">arrow_forward</span>
-                             </button>
+                             <h4 className="text-slate-900 font-bold">Connecting to Database...</h4>
+                             <p className="text-xs text-slate-500 mt-1 mb-6">We are retrieving the latest projects for your domain.</p>
                           </div>
                         )}
                       </div>
