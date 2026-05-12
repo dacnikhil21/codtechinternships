@@ -3,9 +3,10 @@ import './globals.css';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
 
-export default function Home() {
+export default function Login() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
@@ -38,65 +39,82 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 md:p-8 gradient-bg">
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" />
-      <main className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-12 gap-0 overflow-hidden rounded-[2rem] shadow-2xl bg-white border border-slate-200">
-        <section className="hidden lg:flex lg:col-span-6 relative flex-col justify-between p-16 bg-blue-700 overflow-hidden">
-          <div className="absolute -top-24 -left-24 w-96 h-96 bg-emerald-400/10 rounded-full blur-3xl"></div>
-          <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl"></div>
+    <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+         <motion.div animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }} transition={{ duration: 10, repeat: Infinity }} className="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] bg-indigo-600/20 rounded-full blur-[120px]" />
+         <motion.div animate={{ scale: [1, 1.5, 1], opacity: [0.2, 0.4, 0.2] }} transition={{ duration: 15, repeat: Infinity }} className="absolute -bottom-[20%] -right-[10%] w-[70%] h-[70%] bg-purple-600/10 rounded-full blur-[140px]" />
+      </div>
+
+      <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-12 gap-0 relative z-10 bg-slate-900/40 backdrop-blur-3xl rounded-[3rem] border border-white/5 shadow-[0_32px_64px_rgba(0,0,0,0.4)] overflow-hidden">
+        
+        {/* Left Side: Impact */}
+        <section className="hidden lg:flex lg:col-span-6 p-16 flex-col justify-between bg-gradient-to-br from-indigo-600 to-violet-800 relative">
+          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20" />
           <div className="relative z-10">
-            <div className="flex items-center gap-3 mb-12">
-              <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center">
-                <span className="material-symbols-outlined text-blue-700 text-2xl" style={{fontVariationSettings: "'FILL' 1"}}>terminal</span>
+            <div className="flex items-center gap-3 mb-20">
+              <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-2xl">
+                <span className="material-symbols-outlined text-indigo-600 text-2xl font-black">terminal</span>
               </div>
-              <span className="text-white font-bold tracking-tight text-xl uppercase">Codtech Intern</span>
+              <span className="text-white font-black tracking-tight text-xl uppercase italic">Codtech Intern</span>
             </div>
-            <h1 className="text-[48px] font-bold text-white mb-8 leading-[1.1]">Welcome Back.</h1>
-            <p className="text-lg text-blue-100 max-w-md leading-relaxed opacity-90">
-              Pick up exactly where you left off. Your career trajectory is waiting.
+            <h1 className="text-6xl font-black text-white mb-8 tracking-tighter leading-[0.9] uppercase">
+              Fuel Your <br /> 
+              <span className="text-indigo-200/60 italic">Career.</span>
+            </h1>
+            <p className="text-lg text-indigo-100/80 max-w-xs font-medium leading-relaxed">
+              Step back into the world's most advanced internship ecosystem.
             </p>
           </div>
+          <div className="relative z-10 flex items-center gap-4">
+             <div className="flex -space-x-4">
+                {[1,2,3].map(i => <div key={i} className="w-10 h-10 rounded-full border-2 border-indigo-500 bg-indigo-400 overflow-hidden shadow-xl" />)}
+             </div>
+             <p className="text-[11px] text-white/60 font-black uppercase tracking-[0.2em]">Join 10k+ Elite Interns</p>
+          </div>
         </section>
 
-        <section className="col-span-1 lg:col-span-6 flex flex-col justify-center p-8 md:p-20 bg-white">
-          <div className="mb-12">
-            <h2 className="text-3xl font-bold text-slate-900 mb-3 tracking-tight">Sign In</h2>
-            <p className="text-slate-500">Enter your credentials to access your dashboard.</p>
-          </div>
-          
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="space-y-4">
-              <div className="flex flex-col gap-2.5">
-                <label className="text-sm font-bold text-slate-700 px-1" htmlFor="email">Email Address</label>
-                <div className="relative group">
-                  <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600 transition-colors">mail</span>
-                  <input className="w-full pl-12 pr-4 py-4 rounded-2xl outline-none text-slate-900 placeholder:text-slate-300 bg-slate-50 border border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300" id="email" required placeholder="student@example.com" type="email"/>
-                </div>
-              </div>
-              <div className="flex flex-col gap-2.5">
-                <label className="text-sm font-bold text-slate-700 px-1" htmlFor="password">Password</label>
-                <div className="relative group">
-                  <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600 transition-colors">lock</span>
-                  <input className="w-full pl-12 pr-4 py-4 rounded-2xl outline-none text-slate-900 placeholder:text-slate-300 bg-slate-50 border border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300" id="password" required placeholder="••••••••" type="password"/>
-                </div>
-              </div>
+        {/* Right Side: Form */}
+        <section className="col-span-1 lg:col-span-6 p-10 md:p-20 bg-transparent flex flex-col justify-center">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+            <div className="mb-12">
+              <h2 className="text-4xl font-black text-white mb-2 tracking-tight uppercase">Login</h2>
+              <p className="text-slate-400 font-medium uppercase text-[11px] tracking-[0.3em]">Credentials Required</p>
             </div>
             
-            <button disabled={loading} className="w-full bg-blue-700 text-white font-bold py-5 rounded-2xl hover:bg-blue-800 hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.99] transition-all duration-300 flex items-center justify-center gap-3 mt-4" type="submit">
-              {loading ? 'Signing In...' : 'Sign In'}
-              {!loading && <span className="material-symbols-outlined text-xl">login</span>}
-            </button>
-          </form>
+            <form onSubmit={handleSubmit} className="space-y-8">
+              <div className="space-y-6">
+                <div className="group">
+                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] ml-1 mb-2 block" htmlFor="email">Identity</label>
+                  <div className="relative">
+                    <span className="material-symbols-outlined absolute left-5 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-indigo-400 transition-colors text-xl">mail</span>
+                    <input className="w-full pl-14 pr-6 py-5 rounded-2xl outline-none text-white placeholder:text-slate-600 bg-white/5 border border-white/5 focus:border-indigo-500/50 focus:bg-white/[0.08] transition-all duration-300 font-medium" id="email" required placeholder="intern@codtech.edu" type="email" name="email"/>
+                  </div>
+                </div>
+                <div className="group">
+                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] ml-1 mb-2 block" htmlFor="password">Security</label>
+                  <div className="relative">
+                    <span className="material-symbols-outlined absolute left-5 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-indigo-400 transition-colors text-xl">lock</span>
+                    <input className="w-full pl-14 pr-6 py-5 rounded-2xl outline-none text-white placeholder:text-slate-600 bg-white/5 border border-white/5 focus:border-indigo-500/50 focus:bg-white/[0.08] transition-all duration-300 font-medium" id="password" required placeholder="••••••••" type="password" name="password"/>
+                  </div>
+                </div>
+              </div>
+              
+              <button disabled={loading} className="w-full bg-white text-slate-900 font-black py-5 rounded-2xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-3 uppercase text-[12px] tracking-[0.2em] shadow-2xl shadow-white/10" type="submit">
+                {loading ? 'Authenticating...' : 'Establish Connection'}
+                {!loading && <span className="material-symbols-outlined text-xl">arrow_right_alt</span>}
+              </button>
+            </form>
 
-          <div className="mt-16 pt-8 border-t border-slate-100 flex flex-col items-center gap-4">
-            <p className="text-sm text-slate-500">Don't have an account yet?</p>
-            <Link href="/register" className="text-blue-700 border-2 border-blue-700 px-10 py-3 rounded-full hover:bg-blue-700 hover:text-white transition-all duration-300 font-bold">
-              Create Account
-            </Link>
-          </div>
+            <div className="mt-16 pt-10 border-t border-white/5 flex flex-col items-center gap-6">
+              <p className="text-[11px] text-slate-500 font-black uppercase tracking-[0.2em]">New to the platform?</p>
+              <Link href="/register" className="text-white hover:text-indigo-400 transition-all font-black uppercase text-[12px] tracking-[0.3em]">
+                Create Elite Account
+              </Link>
+            </div>
+          </motion.div>
         </section>
-      </main>
+      </div>
     </div>
   );
 }

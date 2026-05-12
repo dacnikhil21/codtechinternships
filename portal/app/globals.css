@@ -4,9 +4,11 @@
 
 @layer base {
   body {
-    background-color: #faf8ff;
-    color: #1e293b;
+    background-color: #020617 !important; /* Dark Slate 950 */
+    color: #ffffff !important;
     @apply font-inter;
+    margin: 0;
+    min-height: 100vh;
   }
 }
 

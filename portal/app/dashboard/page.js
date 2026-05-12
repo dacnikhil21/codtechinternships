@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import '../globals.css';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
