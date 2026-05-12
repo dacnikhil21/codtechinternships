@@ -4,17 +4,28 @@ import mysql from 'mysql2/promise';
 
 const DATABASE_URL = process.env.DATABASE_URL;
 
-if (!DATABASE_URL) {
-  console.warn('⚠️ DATABASE_URL is not set. Database features will be disabled.');
-} else {
-  setup().catch((err) => {
-    console.error('❌ Database setup failed:', err.message);
-  });
-}
+setup().catch((err) => {
+  console.error('❌ Database setup failed:', err.message);
+});
 
 async function setup() {
-  const conn = await mysql.createConnection(DATABASE_URL);
-  console.log('✅ Database connected.');
+  let conn;
+  try {
+    if (DATABASE_URL) {
+      conn = await mysql.createConnection(DATABASE_URL);
+    } else {
+      conn = await mysql.createConnection({
+        host: '127.0.0.1',
+        user: 'u371402898_ctadmin',
+        password: 'Codtech2002',
+        database: 'u371402898_ctintern'
+      });
+    }
+    console.log('✅ Database connected.');
+  } catch (err) {
+    console.error('❌ Database connection failed:', err.message);
+    return;
+  }
 
   // Create user table
   await conn.execute(`
@@ -108,6 +119,73 @@ async function setup() {
     ];
     // For brevity, we'll only seed a few or skip if domains/projects are the primary focus
   }
+
+  // Create preparation table
+  await conn.execute(`
+    CREATE TABLE IF NOT EXISTS preparation (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      domain_id INT,
+      category VARCHAR(100) NOT NULL,
+      title VARCHAR(255) NOT NULL,
+      description TEXT,
+      content TEXT,
+      level VARCHAR(50) DEFAULT 'Beginner',
+      FOREIGN KEY (domain_id) REFERENCES domains(id) ON DELETE CASCADE
+    )
+  `);
+  console.log('✅ preparation table ready.');
+
+  // Seed preparation if empty
+  const [prepRows] = await conn.execute('SELECT COUNT(*) as count FROM preparation');
+  if (prepRows[0].count === 0) {
+    console.log('🌱 Seeding preparation materials...');
+    const { MASTER_PREP } = await import('../lib/masterPrep.js');
+    
+    for (const domainName in MASTER_PREP) {
+      // Find domain id (assuming domains are already seeded)
+      const [domainResult] = await conn.execute('SELECT id FROM domains WHERE name = ?', [domainName]);
+      if (domainResult.length > 0) {
+        const domainId = domainResult[0].id;
+        const preps = MASTER_PREP[domainName];
+        for (const prep of preps) {
+          await conn.execute(
+            'INSERT INTO preparation (domain_id, category, title, description, content, level) VALUES (?, ?, ?, ?, ?, ?)',
+            [domainId, prep.category, prep.title, prep.description, prep.content, prep.level]
+          );
+        }
+      }
+    }
+    console.log('✅ Preparation materials seeded.');
+  }
+
+  // Create curriculum modules table
+  await conn.execute(`
+    CREATE TABLE IF NOT EXISTS curriculum_modules (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      domain_id INT,
+      title VARCHAR(255) NOT NULL,
+      description TEXT,
+      time_estimate VARCHAR(50),
+      difficulty VARCHAR(50),
+      order_index INT DEFAULT 0,
+      FOREIGN KEY (domain_id) REFERENCES domains(id) ON DELETE CASCADE
+    )
+  `);
+  console.log('✅ curriculum_modules table ready.');
+
+  // Create curriculum lessons table
+  await conn.execute(`
+    CREATE TABLE IF NOT EXISTS curriculum_lessons (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      module_id INT,
+      title VARCHAR(255) NOT NULL,
+      content LONGTEXT,
+      key_points JSON,
+      order_index INT DEFAULT 0,
+      FOREIGN KEY (module_id) REFERENCES curriculum_modules(id) ON DELETE CASCADE
+    )
+  `);
+  console.log('✅ curriculum_lessons table ready.');
 
   await conn.end();
   console.log('🚀 Database setup complete.');

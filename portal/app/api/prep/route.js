@@ -7,20 +7,51 @@ export async function GET() {
     const session = await getSession();
     if (!session) return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
 
-    const [domainRows] = await pool.execute('SELECT id FROM domains WHERE name = ? LIMIT 1', [session.course]);
-    if (domainRows.length === 0) return NextResponse.json({ success: true, data: [] });
-
-    const [rows] = await pool.execute('SELECT * FROM preparation WHERE domain_id = ?', [domainRows[0].id]);
+    // 1. Find the Domain ID based on normalized student's course name (Sync with tasks API)
+    const [allDomains] = await pool.execute('SELECT id, name FROM domains');
     
-    // Fallback placeholders if no content yet
-    const data = rows.length > 0 ? rows : [
-      { title: `${session.course} Interview Q&A`, content: 'Essential questions for your upcoming technical rounds.', category: 'Interview' },
-      { title: `${session.course} Master Roadmap`, content: 'A step-by-step guide to mastering this domain.', category: 'Roadmap' },
-      { title: `${session.course} Best Practices`, content: 'Industry standards and professional tips.', category: 'Basics' }
-    ];
+    const normalize = (str) => str.toLowerCase().replace(/[^a-z0-9]/g, '');
+    const userCourseNorm = normalize(session.course);
+    
+    let targetDomain = allDomains.find(d => normalize(d.name) === userCourseNorm);
 
-    return NextResponse.json({ success: true, data });
+    if (!targetDomain) {
+      const overrides = {
+        'aiml': 'artificialintelligence',
+        'ai': 'artificialintelligence',
+        'ml': 'machinelearning',
+        'cybersec': 'cybersecurity',
+        'ux': 'uiux',
+        'softwaretesting': 'softwaretestingintern',
+        'automationtesting': 'automationtestingintern',
+        'fullstack': 'fullstackwebdevelopmentintern',
+        'frontend': 'frontendwebdevelopmentintern',
+        'backend': 'backendwebdevelopmentintern',
+        'datascience': 'datascienceintern'
+      };
+      for (const [key, val] of Object.entries(overrides)) {
+        if (userCourseNorm.includes(key)) {
+          targetDomain = allDomains.find(d => normalize(d.name).includes(val));
+          if (targetDomain) break;
+        }
+      }
+    }
+
+    if (!targetDomain) {
+      const coursePrefix = session.course.split(/[ /]/)[0].toLowerCase();
+      if (coursePrefix.length > 2) {
+        const sortedDomains = [...allDomains].sort((a, b) => b.name.length - a.name.length);
+        targetDomain = sortedDomains.find(d => normalize(d.name).includes(normalize(coursePrefix)));
+      }
+    }
+
+    if (!targetDomain) return NextResponse.json({ success: true, data: [] });
+
+    const [rows] = await pool.execute('SELECT id, category, title, description, content, level FROM preparation WHERE domain_id = ?', [targetDomain.id]);
+    
+    return NextResponse.json({ success: true, data: rows });
   } catch (error) {
+    console.error('PREP API ERROR:', error.message);
     return NextResponse.json({ success: false, message: error.message }, { status: 500 });
   }
 }
