@@ -46,10 +46,10 @@ export default function Login() {
          <motion.div animate={{ scale: [1, 1.5, 1], opacity: [0.2, 0.4, 0.2] }} transition={{ duration: 15, repeat: Infinity }} className="absolute -bottom-[20%] -right-[10%] w-[70%] h-[70%] bg-purple-600/10 rounded-full blur-[140px]" />
       </div>
 
-      <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-12 gap-0 relative z-10 bg-slate-900/40 backdrop-blur-3xl rounded-[3rem] border border-white/5 shadow-[0_32px_64px_rgba(0,0,0,0.4)] overflow-hidden">
+      <div className="w-full max-w-4xl grid grid-cols-1 lg:grid-cols-12 gap-0 relative z-10 bg-slate-900/40 backdrop-blur-3xl rounded-[2.5rem] border border-white/5 shadow-[0_32px_64px_rgba(0,0,0,0.4)] overflow-hidden">
         
         {/* Left Side: Impact */}
-        <section className="hidden lg:flex lg:col-span-6 p-16 flex-col justify-between bg-gradient-to-br from-indigo-600 to-violet-800 relative">
+        <section className="hidden lg:flex lg:col-span-6 p-12 flex-col justify-between bg-gradient-to-br from-indigo-600 to-violet-800 relative">
           <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20" />
           <div className="relative z-10">
             <div className="flex items-center gap-3 mb-20">
@@ -58,7 +58,7 @@ export default function Login() {
               </div>
               <span className="text-white font-black tracking-tight text-xl uppercase italic">Codtech Intern</span>
             </div>
-            <h1 className="text-6xl font-black text-white mb-8 tracking-tighter leading-[0.9] uppercase">
+            <h1 className="text-4xl font-black text-white mb-6 tracking-tighter leading-[0.95] uppercase">
               Fuel Your <br /> 
               <span className="text-indigo-200/60 italic">Career.</span>
             </h1>
@@ -77,9 +77,9 @@ export default function Login() {
         {/* Right Side: Form */}
         <section className="col-span-1 lg:col-span-6 p-10 md:p-20 bg-transparent flex flex-col justify-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-            <div className="mb-12">
-              <h2 className="text-4xl font-black text-white mb-2 tracking-tight uppercase">Login</h2>
-              <p className="text-slate-400 font-medium uppercase text-[11px] tracking-[0.3em]">Credentials Required</p>
+            <div className="mb-10">
+              <h2 className="text-2xl font-black text-white mb-1 tracking-tight uppercase">Login</h2>
+              <p className="text-slate-500 font-bold uppercase text-[9px] tracking-[0.2em]">Credentials Required</p>
             </div>
             
             <form onSubmit={handleSubmit} className="space-y-8">
@@ -106,9 +106,9 @@ export default function Login() {
               </button>
             </form>
 
-            <div className="mt-16 pt-10 border-t border-white/5 flex flex-col items-center gap-6">
-              <p className="text-[11px] text-slate-500 font-black uppercase tracking-[0.2em]">New to the platform?</p>
-              <Link href="/register" className="text-white hover:text-indigo-400 transition-all font-black uppercase text-[12px] tracking-[0.3em]">
+            <div className="mt-12 pt-8 border-t border-white/5 flex flex-col items-center gap-4">
+              <p className="text-[10px] text-slate-500 font-black uppercase tracking-[0.2em]">New here?</p>
+              <Link href="/register" className="text-white hover:text-indigo-400 transition-all font-black uppercase text-[11px] tracking-[0.2em]">
                 Create Elite Account
               </Link>
             </div>

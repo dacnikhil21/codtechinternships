@@ -22,8 +22,10 @@ export default function Dashboard() {
   const [prepContent, setPrepContent] = useState([]);
   const [materials, setMaterials] = useState([]);
   const [totalXP, setTotalXP] = useState(0);
-  const [selectedProjects, setSelectedProjects] = useState([]);
+  const [selectedTask, setSelectedTask] = useState(null);
+  const [tasks, setTasks] = useState([]);
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
+  const [selectedProjects, setSelectedProjects] = useState([]);
   const [tempSelectedProjects, setTempSelectedProjects] = useState([]);
   const [completedLessons, setCompletedLessons] = useState([]);
   const [countdown, setCountdown] = useState('');
@@ -124,17 +126,15 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchDashboardData = async () => {
       try {
-        const userRes = await fetch(`/api/auth/me?v=${Date.now()}`);
+        const [userRes, materialsRes, tasksRes] = await Promise.all([
+          fetch('/api/auth/me'),
+          fetch('/api/materials'),
+          fetch('/api/tasks')
+        ]);
+        
         const userData = await userRes.json();
-        if (userData && userData.success) {
-          setUser(userData.data);
-          const taskRes = await fetch(`/api/tasks?v=${Date.now()}`);
-          const taskData = await taskRes.json();
-          if (taskData.success) setTasks(taskData.data);
-          const prepRes = await fetch('/api/prep');
-          const prepData = await prepRes.json();
           if (prepData.success) setPrepContent(prepData.data);
           const matRes = await fetch('/api/materials');
           const matData = await matRes.json();
@@ -251,186 +251,153 @@ export default function Dashboard() {
         {activeTab === 'Projects' && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-12">
             
-            {/* Onboarding - NEW */}
-            <section className="bg-gradient-to-br from-slate-900 to-indigo-950 p-10 rounded-[3rem] border border-white/5 shadow-2xl relative overflow-hidden group">
-               <div className="absolute top-0 right-0 p-20 opacity-10 blur-3xl bg-indigo-500 rounded-full -mr-20 -mt-20 group-hover:scale-150 transition-all duration-1000"></div>
-               <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-12 relative z-10">
-                  <div className="max-w-md">
-                     <div className="flex items-center gap-2 mb-4">
-                        <span className="text-[10px] font-black text-indigo-400 uppercase tracking-[0.4em]">Success Roadmap</span>
+            {/* Onboarding - COMPACT */}
+            <section className="bg-slate-900 p-6 rounded-[2rem] border border-white/5 shadow-xl relative overflow-hidden group">
+               <div className="flex flex-col lg:flex-row justify-between items-center gap-6 relative z-10">
+                  <div className="max-w-sm">
+                     <div className="flex items-center gap-2 mb-2">
+                        <span className="text-[9px] font-black text-indigo-400 uppercase tracking-[0.3em]">Quick Guide</span>
                         <div className="w-1 h-1 rounded-full bg-white/20"></div>
-                        <span className="text-[10px] font-black text-white/40 uppercase tracking-[0.4em]">v2.0</span>
+                        <span className="text-[9px] font-black text-white/40 uppercase tracking-[0.3em]">Workflow</span>
                      </div>
-                     <h3 className="text-3xl font-black text-white tracking-tighter uppercase mb-4 leading-none italic italic-shorthand">Internship <span className="text-indigo-400">Accelerator</span></h3>
-                     <p className="text-[14px] text-indigo-100/60 font-medium leading-relaxed">Follow the professional pipeline to validate your skills and earn industry-recognized certification.</p>
+                     <h3 className="text-xl font-black text-white tracking-tight uppercase leading-none italic">Internship <span className="text-indigo-400">Accelerator</span></h3>
                   </div>
-                  <div className="flex flex-wrap gap-3">
+                  <div className="flex flex-wrap gap-2">
                      {[
                         { step: 1, label: 'Orientation', done: true },
-                        { step: 2, label: 'Curriculum', done: completedLessons.length > 0 },
-                        { step: 3, label: 'Project Select', done: selectedProjects.length > 0 },
-                        { step: 4, label: 'Submission', done: false },
-                        { step: 5, label: 'Certification', done: false }
+                        { step: 2, label: 'Read Materials', done: completedLessons.length > 0 },
+                        { step: 3, label: 'Select 4 Projects', done: selectedProjects.length > 0 },
+                        { step: 4, label: 'Submit GitHub', done: false },
+                        { step: 5, label: 'Get Certified', done: false }
                      ].map((item, i) => (
-                        <div key={i} className={`flex items-center gap-4 px-6 py-4 rounded-3xl border transition-all hover:translate-y-[-4px] ${item.done ? 'bg-white/10 border-white/10 text-white' : 'bg-white/5 border-white/5 text-white/30'}`}>
-                           <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-[11px] font-black ${item.done ? 'bg-indigo-500 text-white shadow-lg shadow-indigo-500/30' : 'bg-white/5 text-white/20'}`}>
-                              {item.done ? <span className="material-symbols-outlined text-[16px]">verified</span> : i + 1}
+                        <div key={i} className={`flex items-center gap-3 px-4 py-2 rounded-2xl border transition-all ${item.done ? 'bg-white/10 border-white/10 text-white' : 'bg-white/5 border-white/5 text-white/20'}`}>
+                           <div className={`w-6 h-6 rounded-lg flex items-center justify-center text-[9px] font-black ${item.done ? 'bg-indigo-500 text-white' : 'bg-white/5 text-white/20'}`}>
+                              {item.done ? <span className="material-symbols-outlined text-[12px]">check</span> : i + 1}
                            </div>
-                           <span className="text-[11px] font-black uppercase tracking-widest">{item.label}</span>
+                           <span className="text-[9px] font-black uppercase tracking-widest">{item.label}</span>
                         </div>
                      ))}
                   </div>
                </div>
             </section>
 
-            {/* Greeting - PREMIUM & SPACIOUS */}
-            <div className="py-8 px-2 flex flex-col md:flex-row justify-between items-end gap-8">
+            {/* Greeting - COMPACT */}
+            <div className="py-4 px-2 flex flex-col md:flex-row justify-between items-end gap-6">
                <div>
-                  <div className="flex items-center gap-3 mb-6">
-                     <div className="w-1.5 h-1.5 rounded-full bg-indigo-600 animate-pulse"></div>
-                     <span className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.4em]">Active Session</span>
+                  <div className="flex items-center gap-2 mb-3">
+                     <div className="w-1 h-1 rounded-full bg-indigo-600 animate-pulse"></div>
+                     <span className="text-[9px] font-black text-indigo-600 uppercase tracking-[0.3em]">Active Session</span>
                   </div>
-                  <h3 className="text-7xl font-black text-slate-900 tracking-tighter mb-6 leading-[0.85] uppercase italic italic-shorthand">{getGreeting()}, <br/>{user?.name?.split(' ')[0]}</h3>
-                  <p className="text-[18px] text-slate-400 font-medium tracking-tight max-w-lg">Accelerate your <span className="text-indigo-600 font-black underline decoration-indigo-200 underline-offset-8">career trajectory</span> with hands-on technical implementation.</p>
+                  <h3 className="text-4xl font-black text-slate-900 tracking-tighter mb-3 leading-tight uppercase italic">{getGreeting()}, {user?.name?.split(' ')[0]}</h3>
+                  <p className="text-[14px] text-slate-400 font-medium tracking-tight">Step into your <span className="text-indigo-600 font-bold">professional roadmap</span> and complete your tasks.</p>
                </div>
-               <div className="hidden lg:flex items-center gap-12 bg-white px-10 py-8 rounded-[3rem] border border-slate-100 shadow-xl shadow-indigo-100/20">
+               <div className="hidden lg:flex items-center gap-8 bg-white px-8 py-4 rounded-[2rem] border border-slate-100 shadow-lg shadow-indigo-100/10">
                   <div className="text-center">
-                     <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest mb-2">Projects</p>
-                     <p className="text-3xl font-black text-slate-900 tracking-tighter">{selectedProjects.length}<span className="text-slate-300">/4</span></p>
+                     <p className="text-[9px] font-black text-slate-300 uppercase tracking-widest mb-1">Projects</p>
+                     <p className="text-2xl font-black text-slate-900 tracking-tighter">{selectedProjects.length}<span className="text-slate-300">/4</span></p>
                   </div>
-                  <div className="w-px h-10 bg-slate-100"></div>
+                  <div className="w-px h-8 bg-slate-100"></div>
                   <div className="text-center">
-                     <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest mb-2">Lessons</p>
-                     <p className="text-3xl font-black text-slate-900 tracking-tighter">{completedLessons.length}</p>
+                     <p className="text-[9px] font-black text-slate-300 uppercase tracking-widest mb-1">Lessons</p>
+                     <p className="text-2xl font-black text-slate-900 tracking-tighter">{completedLessons.length}</p>
                   </div>
                </div>
             </div>
 
-            {/* Analytics & Orientation - BALANCED */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-              <div className="lg:col-span-8 bg-white p-12 rounded-[3.5rem] border border-slate-200/60 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.05)] relative group overflow-hidden flex flex-col justify-between">
+            {/* Analytics & Orientation - COMPACT */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+              <div className="lg:col-span-8 bg-white p-8 rounded-[2rem] border border-slate-200/60 shadow-sm relative overflow-hidden flex flex-col justify-between">
                 <div className="flex justify-between items-start relative z-10">
                   <div>
-                    <h4 className="text-[11px] font-black text-slate-400 uppercase tracking-[0.3em] mb-2">Technical Proficiency Index</h4>
-                    <p className="text-2xl font-black text-slate-900 uppercase tracking-tight">Skill readiness <span className="text-indigo-600">analysis</span></p>
+                    <h4 className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Proficiency Index</h4>
+                    <p className="text-lg font-black text-slate-900 uppercase tracking-tight">Skill <span className="text-indigo-600">Analysis</span></p>
                   </div>
                   <div className="flex flex-col items-end">
                     <div className="flex items-baseline gap-1">
-                       <span className="text-6xl font-black text-slate-900 tracking-tighter italic">{getReadinessScore()}</span>
-                       <span className="text-xs text-slate-300 font-black tracking-widest uppercase">/100</span>
+                       <span className="text-4xl font-black text-slate-900 tracking-tighter italic">{getReadinessScore()}</span>
+                       <span className="text-[10px] text-slate-300 font-black tracking-widest uppercase">/100</span>
                     </div>
-                    <span className="text-[10px] font-black text-emerald-500 uppercase tracking-widest mt-2">Top 5% Intern</span>
                   </div>
                 </div>
                 
-                <div className="mt-12 flex items-end justify-between h-40 gap-4 relative z-10">
+                <div className="mt-8 flex items-end justify-between h-24 gap-2 relative z-10">
                    {[30, 45, 35, 60, 50, 75, 100].map((h, i) => (
                      <motion.div 
                         initial={{ height: 0 }} 
                         animate={{ height: `${(getReadinessScore() / 100) * h}%` }} 
                         transition={{ delay: i * 0.1, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                         key={i} 
-                        className={`flex-1 rounded-[1.25rem] transition-all cursor-pointer relative group ${i === 6 ? 'bg-indigo-600 shadow-2xl shadow-indigo-600/30' : 'bg-slate-50 hover:bg-indigo-50'}`} 
-                     >
-                        <div className="absolute -top-10 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all bg-slate-900 text-white text-[9px] px-2 py-1 rounded-md font-black">
-                           WEEk {i+1}
-                        </div>
-                     </motion.div>
+                        className={`flex-1 rounded-lg transition-all cursor-pointer relative group ${i === 6 ? 'bg-indigo-600 shadow-lg shadow-indigo-600/20' : 'bg-slate-50 hover:bg-indigo-50'}`} 
+                     />
                    ))}
                 </div>
               </div>
 
-              <div className="lg:col-span-4 bg-[#0B0E14] p-12 rounded-[3.5rem] text-white shadow-2xl shadow-indigo-950/20 flex flex-col justify-between relative overflow-hidden group border border-white/5">
-                <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-600/20 rounded-full blur-[100px] group-hover:bg-indigo-600/40 transition-all duration-1000 -mr-20 -mt-20"></div>
+              <div className="lg:col-span-4 bg-slate-900 p-8 rounded-[2rem] text-white shadow-xl flex flex-col justify-between relative overflow-hidden group border border-white/5">
                 <div className="relative z-10">
-                   <div className="flex justify-between items-center mb-12">
-                      <div className="w-14 h-14 bg-white/5 rounded-3xl flex items-center justify-center border border-white/10 shadow-inner">
-                         <span className="material-symbols-outlined text-indigo-400 text-3xl">hub</span>
+                   <div className="flex justify-between items-center mb-6">
+                      <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center border border-white/10">
+                         <span className="material-symbols-outlined text-indigo-400 text-xl">hub</span>
                       </div>
-                      <div className="px-4 py-1.5 bg-indigo-500/10 border border-indigo-500/30 rounded-full text-[10px] font-black text-indigo-400 uppercase tracking-[0.2em] animate-pulse">Live Session</div>
+                      <div className="px-3 py-1 bg-indigo-500/10 border border-indigo-500/30 rounded-full text-[8px] font-black text-indigo-400 uppercase tracking-[0.2em]">Live</div>
                    </div>
-                   <h4 className="text-3xl font-black tracking-tighter uppercase mb-8 leading-[0.95] italic italic-shorthand">Tech <br/><span className="text-indigo-500">Orientation</span></h4>
-                   <div className="space-y-6">
-                      <div className="flex items-center gap-4 text-[13px] text-slate-400 font-black uppercase tracking-widest">
-                         <div className="w-10 h-10 rounded-2xl bg-white/5 flex items-center justify-center border border-white/5">
-                            <span className="material-symbols-outlined text-indigo-500">schedule</span>
-                         </div>
-                         Friday, 2:00 PM IST
-                      </div>
-                      <div className="flex items-center gap-4 text-[13px] text-emerald-400 font-black uppercase tracking-widest">
-                         <div className="w-10 h-10 rounded-2xl bg-emerald-500/5 flex items-center justify-center border border-emerald-500/10">
-                            <span className="material-symbols-outlined">timer</span>
-                         </div>
-                         Starts in {countdown}
+                   <h4 className="text-xl font-black tracking-tighter uppercase mb-4 italic">Tech <span className="text-indigo-500">Orientation</span></h4>
+                   <div className="space-y-3">
+                      <div className="flex items-center gap-3 text-[11px] text-slate-400 font-black uppercase tracking-widest">
+                         <span className="material-symbols-outlined text-indigo-500 text-sm">schedule</span>
+                         Fri, 2:00 PM IST
                       </div>
                    </div>
                 </div>
-                <button className="w-full bg-white text-slate-950 font-black py-6 rounded-[1.75rem] hover:bg-indigo-500 hover:text-white transition-all text-[12px] uppercase tracking-[0.3em] relative z-10 shadow-2xl shadow-black/40 mt-12 hover:scale-[1.02] active:scale-[0.98]">Launch Classroom</button>
+                <button className="w-full bg-white text-slate-950 font-black py-4 rounded-xl hover:bg-indigo-500 hover:text-white transition-all text-[10px] uppercase tracking-[0.2em] mt-6">Enter Classroom</button>
               </div>
             </div>
 
-            {/* PROJECT WORKSPACE - RESTORED ORIGINAL FLOW */}
-            <section className="bg-white p-12 rounded-[3.5rem] border border-slate-200/60 shadow-[0_8px_30px_rgb(0,0,0,0.01)]">
-               <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-12 mb-16">
-                  <div className="flex items-center gap-8">
-                     <div className="w-20 h-20 bg-indigo-50 text-indigo-600 rounded-[2rem] flex items-center justify-center border border-indigo-100 shadow-sm shrink-0">
-                        <span className="material-symbols-outlined text-4xl">terminal</span>
+            {/* PROJECT WORKSPACE - COMPACT & FUNCTIONAL */}
+            <section className="bg-white p-8 rounded-[2rem] border border-slate-200/60">
+               <div className="flex flex-col lg:flex-row justify-between items-center gap-8 mb-10">
+                  <div className="flex items-center gap-5">
+                     <div className="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center border border-indigo-100 shrink-0">
+                        <span className="material-symbols-outlined text-2xl">terminal</span>
                      </div>
                      <div>
-                        <div className="flex items-center gap-2 mb-2">
-                           <span className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.4em]">Development Phase</span>
-                           <div className="w-1 h-1 rounded-full bg-slate-200"></div>
-                           <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em]">Selected: {selectedProjects.length}/4</span>
-                        </div>
-                        <h3 className="text-3xl font-black text-slate-900 tracking-tighter uppercase leading-none italic italic-shorthand">Project <span className="text-indigo-600">Workspace</span></h3>
-                        <p className="text-[14px] text-slate-400 font-medium mt-3">Select and implement 4 domain-specific engineering tasks.</p>
+                        <h3 className="text-xl font-black text-slate-900 tracking-tight uppercase italic leading-none">Project <span className="text-indigo-600">Workspace</span></h3>
+                        <p className="text-[12px] text-slate-400 font-medium mt-1">Select 4 core projects for your domain.</p>
                      </div>
                   </div>
-                  <div className="flex gap-4 w-full lg:w-auto">
-                    <button onClick={() => { setTempSelectedProjects(selectedProjects); setIsProjectModalOpen(true); }} className="flex-1 lg:flex-none bg-indigo-600 text-white px-10 py-5 rounded-[1.5rem] font-black text-[12px] uppercase tracking-[0.3em] hover:bg-indigo-700 transition-all shadow-2xl shadow-indigo-200 flex items-center justify-center gap-3 hover:scale-105 active:scale-95">
-                       <span className="material-symbols-outlined text-lg">add_circle</span> Browse Library
+                  <div className="flex gap-3 w-full lg:w-auto">
+                    <button onClick={() => { setTempSelectedProjects(selectedProjects); setIsProjectModalOpen(true); }} className="flex-1 lg:flex-none bg-indigo-600 text-white px-8 py-3.5 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200 flex items-center justify-center gap-2">
+                       <span className="material-symbols-outlined text-base">add_circle</span> Browse Projects
                     </button>
-                    <button onClick={() => setSelectedTask({ title: 'Project Implementation Guide' })} className="flex-1 lg:flex-none bg-slate-50 text-slate-500 border border-slate-200/60 px-10 py-5 rounded-[1.5rem] font-black text-[12px] uppercase tracking-[0.3em] hover:bg-slate-100 transition-all flex items-center justify-center gap-3">
-                       <span className="material-symbols-outlined text-lg">auto_awesome</span> View Guide
+                    <button onClick={() => setSelectedTask({ title: 'Project Implementation Guide' })} className="flex-1 lg:flex-none bg-slate-50 text-slate-500 border border-slate-200/60 px-8 py-3.5 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-slate-100 transition-all flex items-center justify-center gap-2">
+                       <span className="material-symbols-outlined text-base">auto_awesome</span> View Guide
                     </button>
                   </div>
                </div>
 
                {selectedProjects.length > 0 ? (
-                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     {selectedProjects.map((proj, idx) => (
-                      <motion.div key={idx} whileHover={{ y: -10 }} className="bg-white p-8 rounded-[3rem] border border-slate-100 group relative transition-all hover:shadow-[0_32px_64px_-12px_rgba(0,0,0,0.08)] hover:border-indigo-200">
-                        <button onClick={() => removeProject(proj)} className="absolute top-6 right-6 w-10 h-10 bg-red-50 text-red-300 rounded-2xl flex items-center justify-center hover:text-red-500 hover:bg-red-100 transition-all z-10 border border-red-100 opacity-0 group-hover:opacity-100">
-                           <span className="material-symbols-outlined text-[18px]">delete_sweep</span>
+                      <motion.div key={idx} className="bg-white p-5 rounded-2xl border border-slate-100 group relative transition-all hover:border-indigo-200 shadow-sm">
+                        <button onClick={() => removeProject(proj)} className="absolute top-4 right-4 text-slate-300 hover:text-red-500 transition-all z-10">
+                           <span className="material-symbols-outlined text-[18px]">close</span>
                         </button>
-                        <div className="w-14 h-14 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center mb-10 border border-indigo-100 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-500 shadow-sm">
-                           <span className="material-symbols-outlined text-[28px]">code_blocks</span>
+                        <div className="flex items-center gap-4 mb-4">
+                           <div className="w-10 h-10 bg-slate-50 text-indigo-600 rounded-lg flex items-center justify-center border border-slate-100">
+                              <span className="material-symbols-outlined text-xl">code</span>
+                           </div>
+                           <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Task {idx + 1}</span>
                         </div>
-                        <div className="mb-10">
-                           <span className="text-[10px] font-black text-indigo-600/40 uppercase tracking-[0.3em] mb-3 block">Task {idx + 1}</span>
-                           <h5 className="font-black text-slate-900 text-[15px] line-clamp-2 h-12 leading-[1.2] tracking-tight uppercase group-hover:text-indigo-600 transition-colors">{proj}</h5>
-                        </div>
-                        <button onClick={() => setIsSubmitting({ title: proj })} className="w-full bg-slate-900 text-white border border-slate-900 py-4.5 rounded-2xl text-[11px] font-black uppercase tracking-[0.2em] hover:bg-indigo-600 hover:border-indigo-600 transition-all active:scale-95 shadow-xl shadow-black/10">Submit Work</button>
+                        <h5 className="font-black text-slate-900 text-[13px] line-clamp-2 h-8 leading-tight tracking-tight uppercase mb-4">{proj}</h5>
+                        <button onClick={() => setIsSubmitting({ title: proj })} className="w-full bg-slate-900 text-white py-3 rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-indigo-600 transition-all">Submit</button>
                       </motion.div>
                     ))}
-                    {selectedProjects.length < 4 && (
-                      <div onClick={() => setIsProjectModalOpen(true)} className="bg-slate-50/50 border-2 border-dashed border-slate-200 rounded-[3rem] p-10 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-white hover:border-indigo-400/40 transition-all group min-h-[320px]">
-                         <div className="w-14 h-14 bg-white rounded-3xl flex items-center justify-center text-slate-300 group-hover:text-indigo-600 transition-all mb-6 shadow-sm border border-slate-100 group-hover:scale-110">
-                            <span className="material-symbols-outlined text-3xl">add</span>
-                         </div>
-                         <h6 className="text-[12px] font-black text-slate-900 uppercase tracking-widest mb-2">Assign Project</h6>
-                         <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">Available slot</p>
-                      </div>
-                    )}
                  </div>
                ) : (
-                 <div className="bg-slate-50/50 border-2 border-dashed border-slate-200 rounded-[3.5rem] py-32 px-12 text-center flex flex-col items-center justify-center group transition-all hover:bg-white hover:border-indigo-400/20">
-                    <div className="w-24 h-24 bg-white text-slate-200 rounded-[2.5rem] flex items-center justify-center mb-10 shadow-xl shadow-black/5 group-hover:text-indigo-600 transition-all rotate-6 group-hover:rotate-0 group-hover:scale-110 border border-slate-100">
-                       <span className="material-symbols-outlined text-5xl">work_history</span>
-                    </div>
-                    <h4 className="text-2xl font-black text-slate-900 uppercase tracking-tighter mb-4 italic italic-shorthand">No Projects <span className="text-indigo-600">Assigned</span></h4>
-                    <p className="text-[15px] font-bold text-slate-400 uppercase tracking-widest mb-12 max-w-sm leading-relaxed">Initialize your workspace by selecting up to 4 core projects from the technical library.</p>
-                    <button onClick={() => setIsProjectModalOpen(true)} className="bg-indigo-600 text-white px-16 py-5 rounded-2xl font-black text-[12px] uppercase tracking-[0.3em] shadow-[0_20px_40px_rgba(79,70,229,0.3)] hover:scale-105 transition-all hover:bg-indigo-700">Browse Project Library</button>
+                 <div className="bg-slate-50/50 border-2 border-dashed border-slate-200 rounded-[2rem] py-16 px-8 text-center flex flex-col items-center justify-center">
+                    <h4 className="text-xl font-black text-slate-900 uppercase tracking-tight mb-2 italic">No Projects Selected</h4>
+                    <p className="text-[12px] font-bold text-slate-400 uppercase tracking-widest mb-8">Choose up to 4 projects for your internship.</p>
+                    <button onClick={() => setIsProjectModalOpen(true)} className="bg-indigo-600 text-white px-10 py-4 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] shadow-lg shadow-indigo-100 hover:bg-indigo-700">Browse Projects</button>
                  </div>
                )}
             </section>
@@ -545,80 +512,52 @@ export default function Dashboard() {
               onClose={() => { setSelectedModule(null); setSelectedLesson(null); }} 
             />
           )}
-        </AnimatePresence>
-
-        {/* MODAL - REFINED PROJECT SELECTION */}
+        </AnimatePresence>        {/* MODAL - COMPACT PROJECT SELECTION */}
         <AnimatePresence>
           {isProjectModalOpen && (
-            <div className="fixed inset-0 z-[100] flex items-center justify-center p-5">
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setIsProjectModalOpen(false)} className="absolute inset-0 bg-slate-900/60 backdrop-blur-md" />
-              <motion.div initial={{ opacity: 0, scale: 0.98, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.98, y: 20 }} className="bg-white w-full max-w-5xl h-[85vh] rounded-[2.5rem] shadow-2xl relative z-10 flex flex-col overflow-hidden border border-slate-200/60">
-                <div className="p-8 border-b border-slate-100 flex justify-between items-center bg-white">
+            <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setIsProjectModalOpen(false)} className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" />
+              <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} className="bg-white w-full max-w-2xl h-[70vh] rounded-3xl shadow-2xl relative z-10 flex flex-col overflow-hidden border border-slate-200/60">
+                <div className="p-6 border-b border-slate-100 flex justify-between items-center bg-white">
                    <div>
-                      <h4 className="text-xl font-black text-slate-900 tracking-tight uppercase">Project Library</h4>
-                      <p className="text-[11px] text-slate-400 font-bold mt-1 uppercase tracking-widest">Select exactly 4 projects for your internship.</p>
+                      <h4 className="text-lg font-black text-slate-900 tracking-tight uppercase">Project Library</h4>
+                      <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Select 4 projects ({tempSelectedProjects.length}/4)</p>
                    </div>
-                   <div className="flex items-center gap-4">
-                      <div className="bg-primary/5 text-primary px-5 py-2 rounded-2xl font-black text-[11px] border border-primary/10 tracking-[0.1em]">
-                         {tempSelectedProjects.length}/4 SELECTED
-                      </div>
-                      <button onClick={() => setIsProjectModalOpen(false)} className="w-10 h-10 bg-slate-50 text-slate-400 rounded-xl flex items-center justify-center hover:text-red-500 transition-all border border-slate-200/60"><span className="material-symbols-outlined text-base">close</span></button>
-                   </div>
+                   <button onClick={() => setIsProjectModalOpen(false)} className="text-slate-400 hover:text-red-500 transition-all"><span className="material-symbols-outlined">close</span></button>
                 </div>
                 
-                <div className="flex-1 overflow-y-auto p-10 bg-slate-50/50">
-                   {tasks.length === 0 ? (
-                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {[1,2,3,4,5,6].map(i => (
-                          <div key={i} className="h-48 bg-white border border-slate-100 rounded-[2rem] animate-pulse flex flex-col p-6 gap-4">
-                             <div className="w-10 h-10 bg-slate-100 rounded-xl" />
-                             <div className="w-2/3 h-4 bg-slate-100 rounded" />
-                             <div className="w-full h-8 bg-slate-100 rounded-xl mt-auto" />
-                          </div>
-                        ))}
-                     </div>
-                   ) : (
-                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {tasks.map((proj, i) => (
-                           <motion.div 
-                             key={i} 
-                             initial={{ opacity: 0, y: 10 }}
-                             animate={{ opacity: 1, y: 0 }}
-                             transition={{ delay: i * 0.05 }}
-                             onClick={() => toggleProject(proj.title)} 
-                             className={`p-8 rounded-[2.5rem] border transition-all cursor-pointer group flex flex-col gap-6 relative overflow-hidden ${tempSelectedProjects.includes(proj.title) ? 'bg-indigo-600 border-indigo-600 text-white shadow-2xl shadow-indigo-200' : 'bg-white border-slate-200/60 hover:border-indigo-400/40 text-slate-800 hover:shadow-2xl hover:shadow-indigo-100/30'}`}
-                           >
-                              <div className="flex justify-between items-start">
-                                 <div className={`w-12 h-12 rounded-2xl flex items-center justify-center font-black text-sm shrink-0 transition-all ${tempSelectedProjects.includes(proj.title) ? 'bg-white/20 text-white' : 'bg-slate-50 text-slate-400'}`}>
-                                    {i + 1}
-                                 </div>
-                                 <span className={`material-symbols-outlined text-[28px] transition-all ${tempSelectedProjects.includes(proj.title) ? 'text-white' : 'text-slate-200 group-hover:text-indigo-600'}`}>{tempSelectedProjects.includes(proj.title) ? 'check_circle' : 'add_circle'}</span>
-                              </div>
-                              <div>
-                                 <span className={`text-[10px] font-black uppercase tracking-[0.3em] mb-2 block ${tempSelectedProjects.includes(proj.title) ? 'text-white/60' : 'text-indigo-600'}`}>{proj.level || 'Intermediate'}</span>
-                                 <h5 className="font-black text-[16px] leading-snug tracking-tight uppercase line-clamp-2 h-12">{proj.title}</h5>
-                              </div>
-                              <p className={`text-[12px] font-medium leading-relaxed line-clamp-2 ${tempSelectedProjects.includes(proj.title) ? 'text-white/80' : 'text-slate-400'}`}>{proj.description || 'Professional technical implementation following industry best practices and standards.'}</p>
-                           </motion.div>
-                        ))}
-                     </div>
-                   )}
+                <div className="flex-1 overflow-y-auto p-6 bg-slate-50/30">
+                   <div className="grid grid-cols-1 gap-3">
+                      {tasks.map((proj, i) => (
+                         <div 
+                           key={i} 
+                           onClick={() => toggleProject(proj.title)} 
+                           className={`p-4 rounded-xl border transition-all cursor-pointer flex items-center justify-between ${tempSelectedProjects.includes(proj.title) ? 'bg-indigo-600 border-indigo-600 text-white shadow-md' : 'bg-white border-slate-100 hover:border-indigo-200 text-slate-800'}`}
+                         >
+                            <div className="flex items-center gap-4">
+                               <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-black text-[10px] ${tempSelectedProjects.includes(proj.title) ? 'bg-white/20' : 'bg-slate-50 text-slate-400'}`}>{i + 1}</div>
+                               <h5 className="font-black text-[13px] uppercase tracking-tight">{proj.title}</h5>
+                            </div>
+                            <span className="material-symbols-outlined text-lg">{tempSelectedProjects.includes(proj.title) ? 'check_circle' : 'add_circle'}</span>
+                         </div>
+                      ))}
+                   </div>
                 </div>
 
-                <div className="p-8 border-t border-slate-100 bg-white flex flex-col items-center gap-4">
+                <div className="p-6 border-t border-slate-100 bg-white flex justify-center">
                    <button 
                       onClick={confirmProjectSelection} 
                       disabled={tempSelectedProjects.length === 0}
-                      className={`px-16 py-4 rounded-2xl font-black text-[12px] shadow-2xl transition-all uppercase tracking-[0.2em] ${tempSelectedProjects.length === 0 ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : 'bg-primary text-white shadow-primary/30 hover:scale-105 active:scale-95'}`}
+                      className={`px-12 py-3 rounded-xl font-black text-[10px] transition-all uppercase tracking-widest ${tempSelectedProjects.length === 0 ? 'bg-slate-100 text-slate-400' : 'bg-primary text-white hover:bg-primary-dark shadow-lg shadow-primary/20'}`}
                    >
                       Confirm Selection
                    </button>
-                   <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">You can change your selection anytime before submission</p>
                 </div>
               </motion.div>
             </div>
           )}
         </AnimatePresence>
+>
 
         {/* ROADMAP MODAL - PREMIUM GUIDE */}
         <AnimatePresence>

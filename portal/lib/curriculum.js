@@ -3,8 +3,22 @@ export const CURRICULUM = {
     {
       id:"j1", title:"Introduction to Java", description:"History, features, JDK/JRE/JVM setup and your first Java program.", time:"20 mins", difficulty:"Beginner",
       lessons:[
-        { id:"j1l1", title:"History & Platform Independence", content:"Java was created by James Gosling at Sun Microsystems in 1995. Its core promise is 'Write Once, Run Anywhere' — Java source code is compiled into bytecode that runs on any device with a JVM.\n\nKey Features:\n• Object-Oriented\n• Platform Independent\n• Strongly Typed\n• Automatic Memory Management (Garbage Collection)\n• Rich Standard Library", keyPoints:["JDK = Development Kit (compiler + JRE)","JRE = Runtime Environment","JVM = Virtual Machine that executes bytecode","Bytecode is NOT machine code — it's platform-neutral"] },
-        { id:"j1l2", title:"Your First Java Program", content:"Every Java program starts with a class definition. The entry point is the main method.\n\npublic class HelloWorld {\n  public static void main(String[] args) {\n    System.out.println(\"Hello, World!\");\n  }\n}\n\nBreakdown:\n• public — accessible from anywhere\n• class — defines a class named HelloWorld\n• static — belongs to the class, not an instance\n• void — returns nothing\n• String[] args — command-line arguments array", keyPoints:["File name must match class name","Java is case-sensitive","Every statement ends with ;","main() is mandatory entry point"] },
+        { 
+          id:"j1l1", 
+          title:"History & Platform Independence", 
+          explanation: "Java was created by James Gosling in 1995 with a revolutionary goal: 'Write Once, Run Anywhere'. Unlike other languages that need to be rewritten for every OS, Java code runs on a 'Virtual Machine' (JVM), making it perfectly portable across Windows, Mac, and Linux.",
+          example: "// No setup needed to understand this concept!\n// Think of JVM as a universal translator.",
+          summary: "Java is an Object-Oriented, platform-independent language that powers everything from Android apps to enterprise servers.",
+          practiceTask: "Research why 'strongly typed' languages like Java are safer for large-scale applications."
+        },
+        { 
+          id:"j1l2", 
+          title:"Your First Java Program", 
+          explanation: "Every Java program is built inside a 'Class'. The entry point—where the computer starts reading—is always the 'main' method. Think of the class as a house and the main method as the front door.",
+          example: "public class HelloWorld {\n  public static void main(String[] args) {\n    System.out.println(\"Hello, Intern!\");\n  }\n}",
+          summary: "Classes wrap your code, and the main() method launches it.",
+          practiceTask: "Try writing a program that prints your name and your Intern ID."
+        },
       ]
     },
     {
@@ -46,7 +60,14 @@ export const CURRICULUM = {
     {
       id:"p1", title:"Python Basics", description:"Syntax, variables, input/output and control flow.", time:"20 mins", difficulty:"Beginner",
       lessons:[
-        { id:"p1l1", title:"Variables & Data Types", content:"Python is dynamically typed — no need to declare types.\n\n# Variables\nname = \"Alice\"\nage = 20\nsalary = 75000.50\nis_active = True\n\n# Multiple assignment\nx, y, z = 1, 2, 3\n\n# Type checking\nprint(type(name))  # <class 'str'>\n\n# String operations\nprint(name.upper())\nprint(f\"Name: {name}, Age: {age}\")", keyPoints:["Python uses indentation instead of braces","No semicolons needed","Variables are dynamically typed","f-strings are the modern way to format strings"] },
+        { 
+          id:"p1l1", 
+          title:"The Zen of Python", 
+          explanation: "Python was designed by Guido van Rossum with a simple philosophy: 'Readability counts'. It uses indentation instead of curly braces, making it look almost like plain English. It's the most beginner-friendly language because it focuses on *what* you want to do, not complex syntax.",
+          example: "# Python is clean and elegant\ndef greet(name):\n    print(f\"Hello, {name}! Welcome to CodTech.\")\n\ngreet(\"Intern\")",
+          summary: "Python is a high-level, interpreted language that prioritizes human-readable code and rapid development.",
+          practiceTask: "Open a terminal and run 'import this' to see the 19 principles of Python's design."
+        },
         { id:"p1l2", title:"Control Flow", content:"if-elif-else and loops.\n\n# If-elif-else\nscore = 85\nif score >= 90:\n    print(\"A\")\nelif score >= 80:\n    print(\"B\")\nelse:\n    print(\"C\")\n\n# for loop\nfor i in range(5):\n    print(i)  # 0,1,2,3,4\n\n# while loop\ncount = 0\nwhile count < 3:\n    print(count)\n    count += 1\n\n# List comprehension\nsquares = [x**2 for x in range(10)]", keyPoints:["range(start, stop, step)","break exits loop, continue skips iteration","List comprehensions are Pythonic","Indentation defines code blocks"] },
       ]
     },
@@ -100,7 +121,14 @@ export const CURRICULUM = {
     {
       id:"w4", title:"React Fundamentals", description:"Components, props, state, hooks and lifecycle.", time:"50 mins", difficulty:"Intermediate",
       lessons:[
-        { id:"w4l1", title:"Components & Hooks", content:"import { useState, useEffect } from 'react';\n\nfunction Counter() {\n  const [count, setCount] = useState(0);\n\n  useEffect(() => {\n    document.title = `Count: ${count}`;\n    return () => { document.title = 'App'; }; // cleanup\n  }, [count]);\n\n  return (\n    <div>\n      <p>Count: {count}</p>\n      <button onClick={() => setCount(c => c + 1)}>\n        Increment\n      </button>\n    </div>\n  );\n}\n\nexport default Counter;", keyPoints:["useState manages local state","useEffect runs after render","Cleanup function prevents memory leaks","Props are read-only"] },
+        { 
+          id:"w4l1", 
+          title:"Components & Hooks", 
+          explanation: "In React, everything is a 'Component'—a reusable piece of UI. 'Hooks' like useState allow these components to 'remember' things, like how many times a button was clicked. It's like giving your UI a memory.",
+          example: "import { useState } from 'react';\n\nfunction Counter() {\n  const [count, setCount] = useState(0);\n  return (\n    <button onClick={() => setCount(count + 1)}>\n      Clicked {count} times\n    </button>\n  );\n}",
+          summary: "Components are building blocks, and Hooks manage their internal state.",
+          practiceTask: "Create a simple component that toggles between 'ON' and 'OFF' when clicked."
+        },
       ]
     },
   ],
@@ -109,7 +137,14 @@ export const CURRICULUM = {
     {
       id:"ds1", title:"Data Analysis Foundations", description:"Statistics, data types, and exploratory data analysis.", time:"30 mins", difficulty:"Beginner",
       lessons:[
-        { id:"ds1l1", title:"Descriptive Statistics", content:"import pandas as pd\nimport numpy as np\n\ndf = pd.read_csv('dataset.csv')\n\n# Basic stats\nprint(df.describe())\nprint(df['salary'].mean())\nprint(df['salary'].median())\nprint(df['salary'].std())\n\n# Distribution\nprint(df['category'].value_counts())\n\n# Correlation\nprint(df.corr())\n\n# Missing values\nprint(df.isnull().sum())\ndf.fillna(df.mean(), inplace=True)", keyPoints:["Mean is sensitive to outliers — use median for skewed data","std measures data spread","Correlation: 1=perfect positive, -1=perfect negative","Always check for nulls before modeling"] },
+        { 
+          id:"p4l1", 
+          title:"Pandas DataFrames", 
+          explanation: "In Data Science, a 'DataFrame' is just a fancy table—like an Excel sheet inside your code. Pandas allows you to slice, dice, and analyze thousands of rows of data with just a single line of code.",
+          example: "import pandas as pd\n\n# Creating a simple dataset\ndata = {\"Name\": [\"Alice\", \"Bob\"], \"Score\": [95, 88]}\ndf = pd.DataFrame(data)\n\nprint(df.describe()) # Instant math summary!",
+          summary: "Pandas DataFrames are the industry standard for handling and cleaning structured data.",
+          practiceTask: "Try loading a small CSV file and printing the first 5 rows using df.head()."
+        },
       ]
     },
     {
