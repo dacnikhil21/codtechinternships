@@ -182,7 +182,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <nav className="flex-1 px-4 py-6 space-y-1.5 overflow-y-auto">
+        <nav className="flex-1 px-4 py-8 space-y-3 overflow-y-auto">
           {[
             { name: 'Projects', icon: 'grid_view' },
             { name: 'Materials', icon: 'menu_book' },
@@ -196,12 +196,12 @@ export default function Dashboard() {
             <button 
               key={item.name} 
               onClick={() => { setActiveTab(item.name); setIsMobileMenuOpen(false); }}
-              className={`w-full flex items-center gap-3.5 px-4 py-2.5 rounded-xl transition-all font-bold text-[13px] group relative ${activeTab === item.name ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-slate-500 hover:bg-slate-50 hover:text-primary'}`}
+              className={`w-full flex items-center gap-3.5 px-5 py-3 rounded-2xl transition-all font-bold text-[13px] group relative ${activeTab === item.name ? 'bg-primary text-white shadow-xl shadow-primary/20' : 'text-slate-500 hover:bg-slate-50 hover:text-primary'}`}
             >
-              <span className={`material-symbols-outlined text-[20px] transition-colors ${activeTab === item.name ? 'text-white' : 'text-slate-400 group-hover:text-primary'}`}>{item.icon}</span>
+              <span className={`material-symbols-outlined text-[22px] transition-colors ${activeTab === item.name ? 'text-white' : 'text-slate-400 group-hover:text-primary'}`}>{item.icon}</span>
               {item.name}
               {activeTab === item.name && (
-                <motion.div layoutId="active-pill" className="absolute left-0 w-1 h-6 bg-white rounded-r-full" />
+                <motion.div layoutId="active-pill" className="absolute left-0 w-1.5 h-6 bg-white rounded-r-full" />
               )}
             </button>
           ))}
@@ -249,120 +249,188 @@ export default function Dashboard() {
         </header>
 
         {activeTab === 'Projects' && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-8">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-12">
             
+            {/* Onboarding - NEW */}
+            <section className="bg-gradient-to-br from-slate-900 to-indigo-950 p-10 rounded-[3rem] border border-white/5 shadow-2xl relative overflow-hidden group">
+               <div className="absolute top-0 right-0 p-20 opacity-10 blur-3xl bg-indigo-500 rounded-full -mr-20 -mt-20 group-hover:scale-150 transition-all duration-1000"></div>
+               <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-12 relative z-10">
+                  <div className="max-w-md">
+                     <div className="flex items-center gap-2 mb-4">
+                        <span className="text-[10px] font-black text-indigo-400 uppercase tracking-[0.4em]">Success Roadmap</span>
+                        <div className="w-1 h-1 rounded-full bg-white/20"></div>
+                        <span className="text-[10px] font-black text-white/40 uppercase tracking-[0.4em]">v2.0</span>
+                     </div>
+                     <h3 className="text-3xl font-black text-white tracking-tighter uppercase mb-4 leading-none italic italic-shorthand">Internship <span className="text-indigo-400">Accelerator</span></h3>
+                     <p className="text-[14px] text-indigo-100/60 font-medium leading-relaxed">Follow the professional pipeline to validate your skills and earn industry-recognized certification.</p>
+                  </div>
+                  <div className="flex flex-wrap gap-3">
+                     {[
+                        { step: 1, label: 'Orientation', done: true },
+                        { step: 2, label: 'Curriculum', done: completedLessons.length > 0 },
+                        { step: 3, label: 'Project Select', done: selectedProjects.length > 0 },
+                        { step: 4, label: 'Submission', done: false },
+                        { step: 5, label: 'Certification', done: false }
+                     ].map((item, i) => (
+                        <div key={i} className={`flex items-center gap-4 px-6 py-4 rounded-3xl border transition-all hover:translate-y-[-4px] ${item.done ? 'bg-white/10 border-white/10 text-white' : 'bg-white/5 border-white/5 text-white/30'}`}>
+                           <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-[11px] font-black ${item.done ? 'bg-indigo-500 text-white shadow-lg shadow-indigo-500/30' : 'bg-white/5 text-white/20'}`}>
+                              {item.done ? <span className="material-symbols-outlined text-[16px]">verified</span> : i + 1}
+                           </div>
+                           <span className="text-[11px] font-black uppercase tracking-widest">{item.label}</span>
+                        </div>
+                     ))}
+                  </div>
+               </div>
+            </section>
+
             {/* Greeting - PREMIUM & SPACIOUS */}
-            <div className="py-2">
-               <h3 className="text-3xl font-black text-slate-900 tracking-tight mb-2">{getGreeting()}, {user?.name?.split(' ')[0]} 👋</h3>
-               <p className="text-[14px] text-slate-400 font-medium tracking-tight">Continue your <span className="text-primary font-bold">{user?.course} internship</span> journey.</p>
+            <div className="py-8 px-2 flex flex-col md:flex-row justify-between items-end gap-8">
+               <div>
+                  <div className="flex items-center gap-3 mb-6">
+                     <div className="w-1.5 h-1.5 rounded-full bg-indigo-600 animate-pulse"></div>
+                     <span className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.4em]">Active Session</span>
+                  </div>
+                  <h3 className="text-7xl font-black text-slate-900 tracking-tighter mb-6 leading-[0.85] uppercase italic italic-shorthand">{getGreeting()}, <br/>{user?.name?.split(' ')[0]}</h3>
+                  <p className="text-[18px] text-slate-400 font-medium tracking-tight max-w-lg">Accelerate your <span className="text-indigo-600 font-black underline decoration-indigo-200 underline-offset-8">career trajectory</span> with hands-on technical implementation.</p>
+               </div>
+               <div className="hidden lg:flex items-center gap-12 bg-white px-10 py-8 rounded-[3rem] border border-slate-100 shadow-xl shadow-indigo-100/20">
+                  <div className="text-center">
+                     <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest mb-2">Projects</p>
+                     <p className="text-3xl font-black text-slate-900 tracking-tighter">{selectedProjects.length}<span className="text-slate-300">/4</span></p>
+                  </div>
+                  <div className="w-px h-10 bg-slate-100"></div>
+                  <div className="text-center">
+                     <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest mb-2">Lessons</p>
+                     <p className="text-3xl font-black text-slate-900 tracking-tighter">{completedLessons.length}</p>
+                  </div>
+               </div>
             </div>
 
             {/* Analytics & Orientation - BALANCED */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-              <div className="lg:col-span-8 bg-white p-10 rounded-[2.5rem] border border-slate-200/60 shadow-[0_8px_30px_rgb(0,0,0,0.02)] relative group overflow-hidden">
-                <div className="flex justify-between items-start mb-10 relative z-10">
+              <div className="lg:col-span-8 bg-white p-12 rounded-[3.5rem] border border-slate-200/60 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.05)] relative group overflow-hidden flex flex-col justify-between">
+                <div className="flex justify-between items-start relative z-10">
                   <div>
-                    <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest">Career Readiness Score</h4>
-                    <p className="text-[11px] text-slate-300 font-bold mt-1 uppercase">Holistic Performance Analysis</p>
+                    <h4 className="text-[11px] font-black text-slate-400 uppercase tracking-[0.3em] mb-2">Technical Proficiency Index</h4>
+                    <p className="text-2xl font-black text-slate-900 uppercase tracking-tight">Skill readiness <span className="text-indigo-600">analysis</span></p>
                   </div>
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-4xl font-black text-primary tracking-tighter">{getReadinessScore()}</span>
-                    <span className="text-xs text-slate-300 font-black tracking-widest uppercase">/100</span>
+                  <div className="flex flex-col items-end">
+                    <div className="flex items-baseline gap-1">
+                       <span className="text-6xl font-black text-slate-900 tracking-tighter italic">{getReadinessScore()}</span>
+                       <span className="text-xs text-slate-300 font-black tracking-widest uppercase">/100</span>
+                    </div>
+                    <span className="text-[10px] font-black text-emerald-500 uppercase tracking-widest mt-2">Top 5% Intern</span>
                   </div>
                 </div>
-                <div className="flex items-end justify-between h-32 gap-3 relative z-10">
-                   {[40, 55, 65, 80, 70, 85, 100].map((h, i) => (
+                
+                <div className="mt-12 flex items-end justify-between h-40 gap-4 relative z-10">
+                   {[30, 45, 35, 60, 50, 75, 100].map((h, i) => (
                      <motion.div 
-                        initial={{ height: 0, opacity: 0 }} 
-                        animate={{ height: `${(getReadinessScore() / 100) * (h + 20)}%`, opacity: 1 }} 
-                        transition={{ delay: i * 0.1, duration: 0.8, ease: "circOut" }}
+                        initial={{ height: 0 }} 
+                        animate={{ height: `${(getReadinessScore() / 100) * h}%` }} 
+                        transition={{ delay: i * 0.1, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                         key={i} 
-                        className={`flex-1 rounded-2xl transition-all cursor-pointer ${i === 6 ? 'bg-primary shadow-[0_10px_20px_rgba(124,58,237,0.3)]' : 'bg-primary/5 hover:bg-primary/10'}`} 
-                     />
+                        className={`flex-1 rounded-[1.25rem] transition-all cursor-pointer relative group ${i === 6 ? 'bg-indigo-600 shadow-2xl shadow-indigo-600/30' : 'bg-slate-50 hover:bg-indigo-50'}`} 
+                     >
+                        <div className="absolute -top-10 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all bg-slate-900 text-white text-[9px] px-2 py-1 rounded-md font-black">
+                           WEEk {i+1}
+                        </div>
+                     </motion.div>
                    ))}
                 </div>
               </div>
 
-              <div className="lg:col-span-4 bg-slate-900 p-10 rounded-[2.5rem] text-white shadow-2xl shadow-slate-200/50 flex flex-col justify-between relative overflow-hidden group border border-slate-800">
-                <div className="absolute -top-12 -right-12 w-48 h-48 bg-primary/10 rounded-full blur-3xl group-hover:bg-primary/20 transition-all duration-700"></div>
+              <div className="lg:col-span-4 bg-[#0B0E14] p-12 rounded-[3.5rem] text-white shadow-2xl shadow-indigo-950/20 flex flex-col justify-between relative overflow-hidden group border border-white/5">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-600/20 rounded-full blur-[100px] group-hover:bg-indigo-600/40 transition-all duration-1000 -mr-20 -mt-20"></div>
                 <div className="relative z-10">
-                   <div className="flex items-center gap-3 mb-6">
-                      <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center border border-white/10">
-                         <span className="material-symbols-outlined text-primary text-lg">broadcast_on_personal</span>
+                   <div className="flex justify-between items-center mb-12">
+                      <div className="w-14 h-14 bg-white/5 rounded-3xl flex items-center justify-center border border-white/10 shadow-inner">
+                         <span className="material-symbols-outlined text-indigo-400 text-3xl">hub</span>
                       </div>
-                      <h4 className="text-base font-black tracking-tight uppercase">Tech Orientation</h4>
+                      <div className="px-4 py-1.5 bg-indigo-500/10 border border-indigo-500/30 rounded-full text-[10px] font-black text-indigo-400 uppercase tracking-[0.2em] animate-pulse">Live Session</div>
                    </div>
-                   <div className="flex flex-col gap-2">
-                      <div className="flex items-center gap-3 text-[11px] text-slate-400 font-bold uppercase tracking-widest">
-                         <span className="material-symbols-outlined text-sm text-primary">calendar_month</span>
-                         Friday, 2:00 PM
+                   <h4 className="text-3xl font-black tracking-tighter uppercase mb-8 leading-[0.95] italic italic-shorthand">Tech <br/><span className="text-indigo-500">Orientation</span></h4>
+                   <div className="space-y-6">
+                      <div className="flex items-center gap-4 text-[13px] text-slate-400 font-black uppercase tracking-widest">
+                         <div className="w-10 h-10 rounded-2xl bg-white/5 flex items-center justify-center border border-white/5">
+                            <span className="material-symbols-outlined text-indigo-500">schedule</span>
+                         </div>
+                         Friday, 2:00 PM IST
                       </div>
-                      <div className="flex items-center gap-3 text-[11px] text-emerald-400 font-bold uppercase tracking-widest">
-                         <span className="material-symbols-outlined text-sm">schedule</span>
+                      <div className="flex items-center gap-4 text-[13px] text-emerald-400 font-black uppercase tracking-widest">
+                         <div className="w-10 h-10 rounded-2xl bg-emerald-500/5 flex items-center justify-center border border-emerald-500/10">
+                            <span className="material-symbols-outlined">timer</span>
+                         </div>
                          Starts in {countdown}
                       </div>
                    </div>
                 </div>
-                <button className="w-full bg-white text-slate-900 font-black py-4 rounded-2xl hover:bg-primary hover:text-white transition-all text-[11px] uppercase tracking-[0.2em] relative z-10 shadow-xl shadow-black/10 mt-10">Join Live Session</button>
+                <button className="w-full bg-white text-slate-950 font-black py-6 rounded-[1.75rem] hover:bg-indigo-500 hover:text-white transition-all text-[12px] uppercase tracking-[0.3em] relative z-10 shadow-2xl shadow-black/40 mt-12 hover:scale-[1.02] active:scale-[0.98]">Launch Classroom</button>
               </div>
             </div>
 
             {/* PROJECT WORKSPACE - RESTORED ORIGINAL FLOW */}
-            <section className="bg-white p-10 rounded-[2.5rem] border border-slate-200/60 shadow-[0_8px_30px_rgb(0,0,0,0.02)]">
-               <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-12">
-                  <div className="flex items-center gap-6">
-                     <div className="w-16 h-16 bg-primary/5 text-primary rounded-[1.5rem] flex items-center justify-center border border-primary/10 shadow-sm shrink-0">
-                        <span className="material-symbols-outlined text-3xl">rocket_launch</span>
+            <section className="bg-white p-12 rounded-[3.5rem] border border-slate-200/60 shadow-[0_8px_30px_rgb(0,0,0,0.01)]">
+               <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-12 mb-16">
+                  <div className="flex items-center gap-8">
+                     <div className="w-20 h-20 bg-indigo-50 text-indigo-600 rounded-[2rem] flex items-center justify-center border border-indigo-100 shadow-sm shrink-0">
+                        <span className="material-symbols-outlined text-4xl">terminal</span>
                      </div>
                      <div>
-                        <h3 className="text-xl font-black text-slate-900 tracking-tight uppercase">Project Workspace</h3>
-                        <p className="text-[13px] text-slate-400 font-bold mt-1 uppercase tracking-tight">Select up to 4 major tasks to complete your internship.</p>
+                        <div className="flex items-center gap-2 mb-2">
+                           <span className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.4em]">Development Phase</span>
+                           <div className="w-1 h-1 rounded-full bg-slate-200"></div>
+                           <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em]">Selected: {selectedProjects.length}/4</span>
+                        </div>
+                        <h3 className="text-3xl font-black text-slate-900 tracking-tighter uppercase leading-none italic italic-shorthand">Project <span className="text-indigo-600">Workspace</span></h3>
+                        <p className="text-[14px] text-slate-400 font-medium mt-3">Select and implement 4 domain-specific engineering tasks.</p>
                      </div>
                   </div>
-                  <div className="flex gap-4 w-full md:w-auto">
-                    <button onClick={() => { setTempSelectedProjects(selectedProjects); setIsProjectModalOpen(true); }} className="flex-1 md:flex-none bg-primary text-white px-8 py-3.5 rounded-2xl font-black text-[11px] uppercase tracking-[0.2em] hover:bg-primary-dark transition-all shadow-xl shadow-primary/20 flex items-center justify-center gap-2">
-                       <span className="material-symbols-outlined text-sm">add</span> Browse Library
+                  <div className="flex gap-4 w-full lg:w-auto">
+                    <button onClick={() => { setTempSelectedProjects(selectedProjects); setIsProjectModalOpen(true); }} className="flex-1 lg:flex-none bg-indigo-600 text-white px-10 py-5 rounded-[1.5rem] font-black text-[12px] uppercase tracking-[0.3em] hover:bg-indigo-700 transition-all shadow-2xl shadow-indigo-200 flex items-center justify-center gap-3 hover:scale-105 active:scale-95">
+                       <span className="material-symbols-outlined text-lg">add_circle</span> Browse Library
                     </button>
-                    <button onClick={() => setSelectedTask({ title: 'Project Implementation Guide' })} className="flex-1 md:flex-none bg-slate-50 text-slate-500 border border-slate-200/60 px-8 py-3.5 rounded-2xl font-black text-[11px] uppercase tracking-[0.2em] hover:bg-slate-100 transition-all flex items-center justify-center gap-2">
-                       <span className="material-symbols-outlined text-sm">help_outline</span> Guide
+                    <button onClick={() => setSelectedTask({ title: 'Project Implementation Guide' })} className="flex-1 lg:flex-none bg-slate-50 text-slate-500 border border-slate-200/60 px-10 py-5 rounded-[1.5rem] font-black text-[12px] uppercase tracking-[0.3em] hover:bg-slate-100 transition-all flex items-center justify-center gap-3">
+                       <span className="material-symbols-outlined text-lg">auto_awesome</span> View Guide
                     </button>
                   </div>
                </div>
 
                {selectedProjects.length > 0 ? (
-                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     {selectedProjects.map((proj, idx) => (
-                      <motion.div key={idx} whileHover={{ y: -6 }} className="bg-white p-6 rounded-[2rem] border border-slate-100 group relative transition-all hover:shadow-2xl hover:shadow-indigo-100/40 hover:border-primary/20">
-                        <button onClick={() => removeProject(proj)} className="absolute top-4 right-4 w-8 h-8 bg-red-50 text-red-300 rounded-xl flex items-center justify-center hover:text-red-500 transition-all z-10 border border-red-100 opacity-0 group-hover:opacity-100">
-                           <span className="material-symbols-outlined text-[16px]">close</span>
+                      <motion.div key={idx} whileHover={{ y: -10 }} className="bg-white p-8 rounded-[3rem] border border-slate-100 group relative transition-all hover:shadow-[0_32px_64px_-12px_rgba(0,0,0,0.08)] hover:border-indigo-200">
+                        <button onClick={() => removeProject(proj)} className="absolute top-6 right-6 w-10 h-10 bg-red-50 text-red-300 rounded-2xl flex items-center justify-center hover:text-red-500 hover:bg-red-100 transition-all z-10 border border-red-100 opacity-0 group-hover:opacity-100">
+                           <span className="material-symbols-outlined text-[18px]">delete_sweep</span>
                         </button>
-                        <div className="w-12 h-12 bg-primary/5 text-primary rounded-2xl flex items-center justify-center mb-6 border border-primary/10 group-hover:bg-primary group-hover:text-white transition-all">
-                           <span className="material-symbols-outlined text-[24px]">terminal</span>
+                        <div className="w-14 h-14 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center mb-10 border border-indigo-100 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-500 shadow-sm">
+                           <span className="material-symbols-outlined text-[28px]">code_blocks</span>
                         </div>
-                        <div className="mb-6">
-                           <span className="text-[9px] font-black text-primary/40 uppercase tracking-[0.2em] mb-1 block">Project {idx + 1}</span>
-                           <h5 className="font-black text-slate-900 text-[13px] line-clamp-2 h-10 leading-tight tracking-tight uppercase">{proj}</h5>
+                        <div className="mb-10">
+                           <span className="text-[10px] font-black text-indigo-600/40 uppercase tracking-[0.3em] mb-3 block">Task {idx + 1}</span>
+                           <h5 className="font-black text-slate-900 text-[15px] line-clamp-2 h-12 leading-[1.2] tracking-tight uppercase group-hover:text-indigo-600 transition-colors">{proj}</h5>
                         </div>
-                        <button onClick={() => setIsSubmitting({ title: proj })} className="w-full bg-slate-50 text-primary border border-primary/5 py-3.5 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-primary hover:text-white transition-all active:scale-95 shadow-sm">Submit Project</button>
+                        <button onClick={() => setIsSubmitting({ title: proj })} className="w-full bg-slate-900 text-white border border-slate-900 py-4.5 rounded-2xl text-[11px] font-black uppercase tracking-[0.2em] hover:bg-indigo-600 hover:border-indigo-600 transition-all active:scale-95 shadow-xl shadow-black/10">Submit Work</button>
                       </motion.div>
                     ))}
                     {selectedProjects.length < 4 && (
-                      <div onClick={() => setIsProjectModalOpen(true)} className="bg-slate-50/50 border-2 border-dashed border-slate-200 rounded-[2rem] p-6 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-white hover:border-primary/40 transition-all group">
-                         <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center text-slate-300 group-hover:text-primary transition-all mb-3 shadow-sm">
-                            <span className="material-symbols-outlined">add</span>
+                      <div onClick={() => setIsProjectModalOpen(true)} className="bg-slate-50/50 border-2 border-dashed border-slate-200 rounded-[3rem] p-10 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-white hover:border-indigo-400/40 transition-all group min-h-[320px]">
+                         <div className="w-14 h-14 bg-white rounded-3xl flex items-center justify-center text-slate-300 group-hover:text-indigo-600 transition-all mb-6 shadow-sm border border-slate-100 group-hover:scale-110">
+                            <span className="material-symbols-outlined text-3xl">add</span>
                          </div>
-                         <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Add Project</p>
+                         <h6 className="text-[12px] font-black text-slate-900 uppercase tracking-widest mb-2">Assign Project</h6>
+                         <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">Available slot</p>
                       </div>
                     )}
                  </div>
                ) : (
-                 <div className="bg-slate-50/50 border-2 border-dashed border-slate-200 rounded-[2.5rem] py-20 px-10 text-center flex flex-col items-center justify-center group transition-all hover:bg-white hover:border-primary/20">
-                    <div className="w-20 h-20 bg-white text-slate-200 rounded-3xl flex items-center justify-center mb-6 shadow-sm group-hover:text-primary transition-all rotate-3 group-hover:rotate-0">
-                       <span className="material-symbols-outlined text-4xl">work_outline</span>
+                 <div className="bg-slate-50/50 border-2 border-dashed border-slate-200 rounded-[3.5rem] py-32 px-12 text-center flex flex-col items-center justify-center group transition-all hover:bg-white hover:border-indigo-400/20">
+                    <div className="w-24 h-24 bg-white text-slate-200 rounded-[2.5rem] flex items-center justify-center mb-10 shadow-xl shadow-black/5 group-hover:text-indigo-600 transition-all rotate-6 group-hover:rotate-0 group-hover:scale-110 border border-slate-100">
+                       <span className="material-symbols-outlined text-5xl">work_history</span>
                     </div>
-                    <h4 className="text-lg font-black text-slate-900 uppercase tracking-tight mb-2">No Projects Selected</h4>
-                    <p className="text-[13px] font-bold text-slate-400 uppercase tracking-widest mb-8 max-w-xs leading-relaxed">Choose up to 4 projects for your internship to get started.</p>
-                    <button onClick={() => setIsProjectModalOpen(true)} className="bg-primary text-white px-10 py-4 rounded-2xl font-black text-[11px] uppercase tracking-[0.2em] shadow-xl shadow-primary/20 hover:scale-105 transition-all">Browse Library</button>
+                    <h4 className="text-2xl font-black text-slate-900 uppercase tracking-tighter mb-4 italic italic-shorthand">No Projects <span className="text-indigo-600">Assigned</span></h4>
+                    <p className="text-[15px] font-bold text-slate-400 uppercase tracking-widest mb-12 max-w-sm leading-relaxed">Initialize your workspace by selecting up to 4 core projects from the technical library.</p>
+                    <button onClick={() => setIsProjectModalOpen(true)} className="bg-indigo-600 text-white px-16 py-5 rounded-2xl font-black text-[12px] uppercase tracking-[0.3em] shadow-[0_20px_40px_rgba(79,70,229,0.3)] hover:scale-105 transition-all hover:bg-indigo-700">Browse Project Library</button>
                  </div>
                )}
             </section>
@@ -370,26 +438,26 @@ export default function Dashboard() {
         )}
 
         {activeTab === 'Materials' && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-12">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-16">
             {/* Materials Header - PREMIUM */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 py-4">
+            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-12 py-8 px-2">
                <div>
-                  <div className="flex items-center gap-3 mb-2">
-                     <span className="text-[10px] font-black text-primary uppercase tracking-[0.4em]">Curriculum</span>
-                     <div className="w-1.5 h-1.5 rounded-full bg-slate-200"></div>
-                     <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em]">Domain Specific</span>
+                  <div className="flex items-center gap-3 mb-4">
+                     <div className="w-1.5 h-1.5 rounded-full bg-indigo-600 animate-pulse"></div>
+                     <span className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.5em]">Education Portal</span>
                   </div>
-                  <h3 className="text-4xl font-black text-slate-900 tracking-tighter uppercase">{user?.course} Track</h3>
-                  <p className="text-[14px] text-slate-400 font-medium mt-2">Professional learning path designed by industry experts.</p>
+                  <h3 className="text-7xl font-black text-slate-900 tracking-tighter uppercase leading-[0.85] italic italic-shorthand">{user?.course} <br/><span className="text-indigo-600">Curriculum</span></h3>
+                  <p className="text-[18px] text-slate-400 font-medium mt-6 max-w-xl">A professional-grade learning path designed to bridge the gap between academic theory and industry implementation.</p>
                </div>
-               <div className="flex items-center gap-4 bg-white p-6 rounded-[2rem] border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.02)]">
-                  <div className="text-center px-6 border-r border-slate-100">
-                     <p className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2">Modules</p>
-                     <p className="text-2xl font-black text-primary tracking-tighter">{(materials.length > 0 ? materials : DEFAULT_MODULES).length}</p>
+               <div className="flex items-center gap-8 bg-white p-10 rounded-[3rem] border border-slate-100 shadow-xl shadow-indigo-100/20">
+                  <div className="text-center">
+                     <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest mb-2">Modules</p>
+                     <p className="text-4xl font-black text-slate-900 tracking-tighter">{(materials.length > 0 ? materials : DEFAULT_MODULES).length}</p>
                   </div>
-                  <div className="text-center px-6">
-                     <p className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2">Completion</p>
-                     <p className="text-2xl font-black text-emerald-500 tracking-tighter">
+                  <div className="w-px h-12 bg-slate-100"></div>
+                  <div className="text-center">
+                     <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest mb-2">Mastery</p>
+                     <p className="text-4xl font-black text-emerald-500 tracking-tighter">
                         {Math.round((completedLessons.length / (((materials.length > 0 ? materials : DEFAULT_MODULES).length) * 4)) * 100) || 0}%
                      </p>
                   </div>
@@ -397,26 +465,29 @@ export default function Dashboard() {
             </div>
 
             {/* Modules Grid - REFINED */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                {(materials.length > 0 ? materials : DEFAULT_MODULES).map((mod, idx) => (
                  <motion.div 
                    key={mod.id} 
-                   whileHover={{ y: -8, scale: 1.02 }}
+                   whileHover={{ y: -12, scale: 1.02 }}
                    onClick={() => setSelectedModule(mod)}
-                   className="bg-white p-8 rounded-[2.5rem] border border-slate-200/50 shadow-[0_8px_30px_rgb(0,0,0,0.02)] hover:shadow-2xl hover:shadow-indigo-100/50 transition-all cursor-pointer group flex flex-col h-full"
+                   className="bg-white p-10 rounded-[3.5rem] border border-slate-100 shadow-[0_8px_40px_rgba(0,0,0,0.02)] hover:shadow-[0_40px_80px_-12px_rgba(79,70,229,0.12)] transition-all cursor-pointer group flex flex-col h-full relative overflow-hidden"
                  >
-                    <div className="flex justify-between items-start mb-8">
-                       <div className="w-14 h-14 bg-primary/5 text-primary rounded-[1.25rem] flex items-center justify-center border border-primary/10 group-hover:bg-primary group-hover:text-white transition-all duration-500">
-                          <span className="material-symbols-outlined text-2xl">auto_stories</span>
+                    <div className="absolute top-0 right-0 p-8 opacity-0 group-hover:opacity-100 transition-opacity">
+                       <span className="material-symbols-outlined text-indigo-600 text-3xl">arrow_forward_ios</span>
+                    </div>
+                    <div className="flex justify-between items-start mb-12">
+                       <div className="w-16 h-16 bg-indigo-50 text-indigo-600 rounded-3xl flex items-center justify-center border border-indigo-100 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-700 shadow-sm">
+                          <span className="material-symbols-outlined text-3xl">auto_stories</span>
                        </div>
                        <div className="flex flex-col items-end">
-                          <div className="px-3 py-1 bg-slate-50 text-[9px] font-black text-slate-400 uppercase tracking-widest rounded-lg border border-slate-100">{mod.difficulty}</div>
-                          <span className="text-[10px] font-black text-primary mt-2 uppercase tracking-widest">{mod.time}</span>
+                          <div className="px-4 py-1.5 bg-slate-50 text-[10px] font-black text-slate-400 uppercase tracking-widest rounded-xl border border-slate-100">{mod.difficulty}</div>
+                          <span className="text-[11px] font-black text-indigo-600 mt-3 uppercase tracking-widest">⏱ {mod.time}</span>
                        </div>
                     </div>
                     <div className="flex-1">
-                       <span className="text-[10px] font-black text-primary/40 uppercase tracking-[0.3em] mb-2 block">Module {idx + 1}</span>
-                       <h4 className="text-lg font-black text-slate-900 tracking-tight mb-3 group-hover:text-primary transition-colors uppercase leading-tight">{mod.title}</h4>
+                       <span className="text-[10px] font-black text-indigo-600/40 uppercase tracking-[0.4em] mb-3 block">Module {idx + 1}</span>
+                       <h4 className="text-2xl font-black text-slate-900 tracking-tight mb-4 group-hover:text-indigo-600 transition-colors uppercase leading-[1.1]">{mod.title}</h4>
                        <p className="text-[13px] text-slate-400 font-medium leading-relaxed mb-8 line-clamp-3">{mod.description}</p>
                     </div>
                     <div className="flex items-center justify-between pt-6 border-t border-slate-50">
@@ -495,22 +566,43 @@ export default function Dashboard() {
                    </div>
                 </div>
                 
-                <div className="flex-1 overflow-y-auto p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 bg-slate-50/30">
-                   {tasks.map((proj, i) => (
-                      <div key={i} onClick={() => toggleProject(proj.title)} className={`p-6 rounded-[2rem] border transition-all cursor-pointer group flex flex-col gap-4 relative overflow-hidden ${tempSelectedProjects.includes(proj.title) ? 'bg-primary border-primary text-white shadow-xl shadow-primary/20' : 'bg-white border-slate-200/60 hover:border-primary/40 text-slate-800 hover:shadow-xl hover:shadow-indigo-100/30'}`}>
-                         <div className="flex justify-between items-start">
-                            <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-black text-[12px] shrink-0 transition-all ${tempSelectedProjects.includes(proj.title) ? 'bg-white/20 text-white' : 'bg-slate-50 text-slate-400'}`}>
-                               {i + 1}
-                            </div>
-                            <span className={`material-symbols-outlined text-[22px] transition-all ${tempSelectedProjects.includes(proj.title) ? 'text-white' : 'text-slate-200 group-hover:text-primary'}`}>{tempSelectedProjects.includes(proj.title) ? 'check_circle' : 'add_circle'}</span>
-                         </div>
-                         <div>
-                            <span className={`text-[9px] font-black uppercase tracking-[0.2em] mb-1 block ${tempSelectedProjects.includes(proj.title) ? 'text-white/60' : 'text-primary'}`}>{proj.level || 'Intermediate'}</span>
-                            <h5 className="font-black text-[14px] leading-tight tracking-tight uppercase line-clamp-2 h-10">{proj.title}</h5>
-                         </div>
-                         <p className={`text-[11px] font-medium leading-relaxed line-clamp-2 ${tempSelectedProjects.includes(proj.title) ? 'text-white/80' : 'text-slate-400'}`}>{proj.description || 'Advanced technical implementation project with industry standards.'}</p>
-                      </div>
-                   ))}
+                <div className="flex-1 overflow-y-auto p-10 bg-slate-50/50">
+                   {tasks.length === 0 ? (
+                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {[1,2,3,4,5,6].map(i => (
+                          <div key={i} className="h-48 bg-white border border-slate-100 rounded-[2rem] animate-pulse flex flex-col p-6 gap-4">
+                             <div className="w-10 h-10 bg-slate-100 rounded-xl" />
+                             <div className="w-2/3 h-4 bg-slate-100 rounded" />
+                             <div className="w-full h-8 bg-slate-100 rounded-xl mt-auto" />
+                          </div>
+                        ))}
+                     </div>
+                   ) : (
+                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {tasks.map((proj, i) => (
+                           <motion.div 
+                             key={i} 
+                             initial={{ opacity: 0, y: 10 }}
+                             animate={{ opacity: 1, y: 0 }}
+                             transition={{ delay: i * 0.05 }}
+                             onClick={() => toggleProject(proj.title)} 
+                             className={`p-8 rounded-[2.5rem] border transition-all cursor-pointer group flex flex-col gap-6 relative overflow-hidden ${tempSelectedProjects.includes(proj.title) ? 'bg-indigo-600 border-indigo-600 text-white shadow-2xl shadow-indigo-200' : 'bg-white border-slate-200/60 hover:border-indigo-400/40 text-slate-800 hover:shadow-2xl hover:shadow-indigo-100/30'}`}
+                           >
+                              <div className="flex justify-between items-start">
+                                 <div className={`w-12 h-12 rounded-2xl flex items-center justify-center font-black text-sm shrink-0 transition-all ${tempSelectedProjects.includes(proj.title) ? 'bg-white/20 text-white' : 'bg-slate-50 text-slate-400'}`}>
+                                    {i + 1}
+                                 </div>
+                                 <span className={`material-symbols-outlined text-[28px] transition-all ${tempSelectedProjects.includes(proj.title) ? 'text-white' : 'text-slate-200 group-hover:text-indigo-600'}`}>{tempSelectedProjects.includes(proj.title) ? 'check_circle' : 'add_circle'}</span>
+                              </div>
+                              <div>
+                                 <span className={`text-[10px] font-black uppercase tracking-[0.3em] mb-2 block ${tempSelectedProjects.includes(proj.title) ? 'text-white/60' : 'text-indigo-600'}`}>{proj.level || 'Intermediate'}</span>
+                                 <h5 className="font-black text-[16px] leading-snug tracking-tight uppercase line-clamp-2 h-12">{proj.title}</h5>
+                              </div>
+                              <p className={`text-[12px] font-medium leading-relaxed line-clamp-2 ${tempSelectedProjects.includes(proj.title) ? 'text-white/80' : 'text-slate-400'}`}>{proj.description || 'Professional technical implementation following industry best practices and standards.'}</p>
+                           </motion.div>
+                        ))}
+                     </div>
+                   )}
                 </div>
 
                 <div className="p-8 border-t border-slate-100 bg-white flex flex-col items-center gap-4">
