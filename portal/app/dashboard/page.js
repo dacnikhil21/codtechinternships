@@ -29,38 +29,30 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem(`selected_projects_${user?.id || 'guest'}`);
+    if (typeof window !== 'undefined' && user?.id) {
+      const saved = localStorage.getItem(`selected_projects_${user.id}`);
       if (saved) setSelectedProjects(JSON.parse(saved));
     }
   }, [user?.id]);
 
   const toggleProject = (proj) => {
+    let updated;
     if (selectedProjects.includes(proj)) {
-      const updated = selectedProjects.filter(p => p !== proj);
-      setSelectedProjects(updated);
-      localStorage.setItem(`selected_projects_${user?.id || 'guest'}`, JSON.stringify(updated));
+      updated = selectedProjects.filter(p => p !== proj);
     } else {
-      if (selectedProjects.length >= 4) return;
-      const updated = [...selectedProjects, proj];
-      setSelectedProjects(updated);
-      localStorage.setItem(`selected_projects_${user?.id || 'guest'}`, JSON.stringify(updated));
+      if (selectedProjects.length >= 4) {
+        toast.error('Maximum 4 projects allowed');
+        return;
+      }
+      updated = [...selectedProjects, proj];
     }
+    setSelectedProjects(updated);
+    if (user?.id) localStorage.setItem(`selected_projects_${user.id}`, JSON.stringify(updated));
   };
 
   useEffect(() => {
-    if (user) {
-      setTotalXP(user.xp || 0);
-    }
+    if (user) setTotalXP(user.xp || 0);
   }, [user]);
-
-  const addXP = (amount) => {
-    setTotalXP(prev => {
-      const newXP = prev + amount;
-      return newXP;
-    });
-    toast.success(`+${amount} XP Earned!`, { icon: '🚀' });
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -125,34 +117,22 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-[#faf8ff] flex w-full font-inter overflow-x-hidden selection:bg-primary/20 selection:text-primary">
-      {/* Mobile Header */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 bg-white/70 backdrop-blur-md border-b border-slate-200 h-16 z-[60] flex items-center justify-between px-4">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
-            <span className="material-symbols-outlined text-white text-lg" style={{fontVariationSettings: "'FILL' 1"}}>terminal</span>
-          </div>
-          <h1 className="text-slate-900 font-black text-sm tracking-tight uppercase">Codtech</h1>
-        </div>
-        <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 text-slate-600">
-          <span className="material-symbols-outlined">{isMobileMenuOpen ? 'close' : 'menu'}</span>
-        </button>
-      </div>
-
-      {/* Premium Sidebar */}
+      
+      {/* Sidebar - RESTORED ORIGINAL LINKS + PREMIUM SKIN */}
       <aside className={`w-72 bg-white/80 backdrop-blur-xl border-r border-slate-200/50 flex flex-col fixed h-full z-[70] transition-all duration-500 ease-in-out shadow-2xl shadow-slate-200/20 ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>
-        <div className="p-8 hidden lg:block">
+        <div className="p-8">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-primary rounded-[14px] flex items-center justify-center shadow-xl shadow-primary/30">
               <span className="material-symbols-outlined text-white text-xl" style={{fontVariationSettings: "'FILL' 1"}}>terminal</span>
             </div>
             <div>
               <h1 className="text-slate-900 font-black text-base tracking-tighter uppercase leading-none">Codtech</h1>
-              <span className="text-mono-premium text-primary opacity-80">Premium Hub</span>
+              <span className="text-[10px] font-mono font-bold text-primary opacity-80 uppercase tracking-widest">Premium Hub</span>
             </div>
           </div>
         </div>
 
-        <nav className="flex-1 px-4 space-y-1.5 overflow-y-auto mt-20 lg:mt-0">
+        <nav className="flex-1 px-4 space-y-1.5 overflow-y-auto">
           {[
             { name: 'Projects', icon: 'folder_open' },
             { name: 'Materials', icon: 'library_books' },
@@ -181,22 +161,24 @@ export default function Dashboard() {
             </div>
             <div className="overflow-hidden">
               <p className="text-sm font-black text-slate-900 truncate">{user?.name || 'Intern'}</p>
-              <p className="text-mono-premium text-slate-400 truncate">{user?.course || 'Student'}</p>
+              <p className="text-[10px] font-mono font-bold text-slate-400 truncate uppercase tracking-widest">{user?.course || 'Student'}</p>
             </div>
           </div>
-          <button onClick={handleLogout} className="w-full text-center py-3 text-xs font-black text-red-500 hover:bg-red-50 rounded-xl transition-all flex items-center justify-center gap-2 border border-transparent hover:border-red-100">
+          <button onClick={handleLogout} className="w-full text-center py-3 text-xs font-black text-red-500 hover:bg-red-50 rounded-xl transition-all flex items-center justify-center gap-2 border border-transparent hover:border-red-100 uppercase tracking-widest">
             <span className="material-symbols-outlined text-sm">logout</span> Sign Out
           </button>
         </div>
       </aside>
 
-      {/* Main Content Area */}
+      {/* Main Content */}
       <main className={`flex-1 transition-all duration-500 lg:ml-72 p-6 lg:p-12 mt-16 lg:mt-0 ${isMobileMenuOpen ? 'blur-md' : ''}`}>
+        
+        {/* Header - RESTORED ORIGINAL DATA + PREMIUM SKIN */}
         <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
           <div>
-            <h2 className="text-sm text-mono-premium text-primary mb-2 flex items-center gap-2">
+            <h2 className="text-[10px] font-mono font-bold text-primary mb-2 flex items-center gap-2 uppercase tracking-[0.2em]">
                <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-               {activeTab} Workspace
+               {activeTab} Portal
             </h2>
             <h3 className="text-3xl lg:text-4xl font-black text-slate-900 tracking-tighter">Welcome back, {user?.name?.split(' ')[0]} 👋</h3>
           </div>
@@ -217,8 +199,9 @@ export default function Dashboard() {
         </header>
 
         {activeTab === 'Projects' && (
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-10">
-            {/* Top Stats Section */}
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-12">
+            
+            {/* Top Stats Section - PREMIUM SKIN */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
               <div className="lg:col-span-8 glass-premium p-10 rounded-[40px] border-slate-200/50 relative overflow-hidden group shadow-xl">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full -mr-32 -mt-32 transition-transform duration-1000 group-hover:scale-125"></div>
@@ -241,87 +224,88 @@ export default function Dashboard() {
               <div className="lg:col-span-4 bg-primary p-10 rounded-[40px] text-white shadow-2xl shadow-primary/40 flex flex-col justify-between relative overflow-hidden group">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16 transition-transform group-hover:scale-150"></div>
                 <div>
-                   <span className="text-mono-premium text-white/60 mb-4 block">Next Session</span>
+                   <span className="text-[10px] font-mono font-bold text-white/60 mb-4 block uppercase tracking-widest">Next Session</span>
                    <h4 className="text-2xl font-black tracking-tight leading-tight mb-2">Technical Orientation</h4>
                    <p className="text-sm text-primary-light flex items-center gap-2 font-medium">
                       <span className="material-symbols-outlined text-sm">calendar_month</span> Friday • 2:00 PM
                    </p>
                 </div>
-                <button className="w-full bg-white text-primary font-black py-4 rounded-2xl mt-8 hover:bg-primary-light hover:text-white transition-all shadow-xl active:scale-95 text-sm uppercase tracking-widest">
+                <button className="w-full bg-white text-primary font-black py-4 rounded-2xl mt-8 hover:bg-primary-light hover:text-white transition-all shadow-xl active:scale-95 text-xs uppercase tracking-widest">
                   Join Live Hub
                 </button>
               </div>
             </div>
 
-            {/* Project Workspace */}
-            <section className="space-y-6">
-               <div className="flex justify-between items-end px-2">
+            {/* RESTORED: "Your Internship Projects" (Selected Projects Section) */}
+            <section className="space-y-8">
+               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 px-2">
                   <div>
-                     <h3 className="text-2xl font-black text-slate-900 tracking-tighter">Project Workspace</h3>
-                     <p className="text-sm text-slate-400 font-medium">Select 4 major challenges for certification</p>
+                     <h3 className="text-2xl font-black text-slate-900 tracking-tighter">Your Internship Projects</h3>
+                     <p className="text-sm text-slate-400 font-medium">Complete these to qualify for certification</p>
                   </div>
-                  <button onClick={() => setIsProjectModalOpen(true)} className="bg-primary text-white px-6 py-3 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-primary-dark transition-all shadow-lg shadow-primary/20">
-                     Manage Projects
-                  </button>
-                  <button 
-                    onClick={() => setSelectedTask({ title: 'Project Implementation Guide' })}
-                    className="bg-slate-100 text-slate-600 px-6 py-3 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-slate-200 transition-all flex items-center gap-2"
-                  >
-                     <span className="material-symbols-outlined text-sm">map</span>
-                     How to Do Project
-                  </button>
+                  <div className="flex gap-3 w-full sm:w-auto">
+                    <button onClick={() => setIsProjectModalOpen(true)} className="flex-1 sm:flex-none bg-primary text-white px-6 py-3.5 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-primary-dark transition-all shadow-xl shadow-primary/20 flex items-center justify-center gap-2">
+                       <span className="material-symbols-outlined text-sm">add</span> View Projects
+                    </button>
+                    <button 
+                      onClick={() => setSelectedTask({ title: 'Project Implementation Guide' })}
+                      className="flex-1 sm:flex-none bg-slate-100 text-slate-600 px-6 py-3.5 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-slate-200 transition-all flex items-center justify-center gap-2 border border-slate-200/50"
+                    >
+                       <span className="material-symbols-outlined text-sm">map</span>
+                       How to Do Project
+                    </button>
+                  </div>
                </div>
 
-               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                  {selectedProjects.length > 0 ? (
-                    selectedProjects.map((proj, idx) => (
+               {selectedProjects.length === 0 ? (
+                 /* RESTORED ORIGINAL EMPTY STATE + PREMIUM SKIN */
+                 <div className="bg-white/50 border-2 border-dashed border-slate-200 rounded-[40px] p-20 text-center flex flex-col items-center justify-center group hover:border-primary/30 transition-all">
+                    <div className="w-20 h-20 bg-slate-100 text-slate-400 rounded-[30px] flex items-center justify-center mb-6 group-hover:bg-primary/10 group-hover:text-primary transition-all">
+                       <span className="material-symbols-outlined text-4xl">folder_off</span>
+                    </div>
+                    <h4 className="text-xl font-black text-slate-900 mb-2">No Projects Selected</h4>
+                    <p className="text-sm text-slate-400 max-w-xs mx-auto mb-8 font-medium">Click on "View Projects" to browse and select tasks for your internship.</p>
+                    <button onClick={() => setIsProjectModalOpen(true)} className="bg-primary text-white px-10 py-4 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl shadow-primary/20 hover:scale-105 transition-all">
+                       Explore Projects
+                    </button>
+                 </div>
+               ) : (
+                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {selectedProjects.map((proj, idx) => (
                       <motion.div key={idx} whileHover={{ y: -5 }} className="card-premium p-8 rounded-[32px] group/card relative overflow-hidden">
                         <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full -mr-12 -mt-12"></div>
-                        <button onClick={() => toggleProject(proj)} className="absolute top-6 right-6 w-8 h-8 bg-slate-50 text-slate-400 rounded-full flex items-center justify-center hover:bg-red-50 hover:text-red-500 transition-all">
+                        
+                        {/* RESTORED: Remove/Cancel Flow (X Button) */}
+                        <button onClick={() => toggleProject(proj)} className="absolute top-6 right-6 w-8 h-8 bg-slate-50 text-slate-400 rounded-full flex items-center justify-center hover:bg-red-50 hover:text-red-500 transition-all z-10 border border-slate-100 shadow-sm">
                            <span className="material-symbols-outlined text-sm">close</span>
                         </button>
+
                         <div className="w-12 h-12 bg-primary/10 text-primary rounded-2xl flex items-center justify-center mb-6 group-hover/card:bg-primary group-hover/card:text-white transition-all shadow-sm">
                            <span className="material-symbols-outlined text-xl">database</span>
                         </div>
-                        <h5 className="font-black text-slate-900 text-sm mb-2 line-clamp-2 leading-tight">{proj}</h5>
-                        <div className="flex items-center gap-2 text-mono-premium text-primary/60 mb-8">
+                        <h5 className="font-black text-slate-900 text-sm mb-2 line-clamp-2 leading-tight h-10">{proj}</h5>
+                        <div className="flex items-center gap-2 text-[9px] font-mono font-bold text-primary/60 mb-8 uppercase tracking-widest">
                            <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
                            Active Task
                         </div>
-                        <button onClick={() => setIsSubmitting({ title: proj })} className="w-full bg-white text-primary border border-primary/20 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-primary hover:text-white transition-all shadow-sm">
-                           Submit Link
+                        <button onClick={() => setIsSubmitting({ title: proj })} className="w-full bg-white text-primary border border-primary/20 py-3.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-primary hover:text-white transition-all shadow-sm">
+                           Submit Project
                         </button>
                       </motion.div>
-                    ))
-                  ) : (
-                    tasks.slice(0, 4).map((proj, idx) => (
-                      <div key={idx} className="card-premium p-8 rounded-[32px] relative overflow-hidden group">
-                        <div className="w-12 h-12 bg-slate-50 text-slate-400 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-all">
-                           <span className="material-symbols-outlined text-xl">rocket_launch</span>
-                        </div>
-                        <h5 className="font-black text-slate-900 text-sm mb-2 line-clamp-2 leading-tight">{proj.title}</h5>
-                        <div className="flex items-center gap-2 text-mono-premium text-emerald-600/60 mb-8">
-                           <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-                           Suggested
-                        </div>
-                        <button onClick={() => toggleProject(proj.title)} className="w-full bg-primary text-white py-3 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-primary/20 hover:scale-105 transition-all">
-                           Select Project
-                        </button>
-                      </div>
-                    ))
-                  )}
-               </div>
+                    ))}
+                 </div>
+               )}
             </section>
           </motion.div>
         )}
 
-        {/* MATERIALS & PREP TAB (SIMPLIFIED FOR OVERHAUL) */}
+        {/* RESTORED: Original Tabs Behavior + Premium Skin */}
         {activeTab === 'Materials' && (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
              {materials.map((item, i) => (
-                <div key={i} className="card-premium p-6 rounded-3xl flex items-center gap-4 cursor-pointer">
-                   <div className="w-12 h-12 bg-primary/10 text-primary rounded-2xl flex items-center justify-center"><span className="material-symbols-outlined">description</span></div>
-                   <div><h5 className="font-black text-slate-900 text-sm">{item.name}</h5><p className="text-mono-premium text-slate-400">Technical Resource</p></div>
+                <div key={i} className="card-premium p-6 rounded-3xl flex items-center gap-4 cursor-pointer hover:bg-primary/5">
+                   <div className="w-12 h-12 bg-primary/10 text-primary rounded-2xl flex items-center justify-center shrink-0 shadow-sm"><span className="material-symbols-outlined">description</span></div>
+                   <div><h5 className="font-black text-slate-900 text-sm">{item.name}</h5><p className="text-[9px] font-mono font-bold text-slate-400 uppercase tracking-widest">Technical Resource</p></div>
                 </div>
              ))}
           </div>
@@ -331,73 +315,73 @@ export default function Dashboard() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
              {prepContent.map((card, i) => (
                 <div key={i} className="card-premium p-8 rounded-[32px] relative group">
-                   <div className="w-12 h-12 bg-primary/10 text-primary rounded-2xl flex items-center justify-center mb-6"><span className="material-symbols-outlined">psychology</span></div>
-                   <h5 className="font-black text-slate-900 text-sm mb-3">{card.title}</h5>
-                   <p className="text-xs text-slate-500 mb-8 leading-relaxed line-clamp-3">{card.content}</p>
-                   <button onClick={() => addXP(100)} className="w-full bg-slate-50 text-slate-900 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-primary hover:text-white transition-all">Start Module</button>
+                   <div className="w-12 h-12 bg-primary/10 text-primary rounded-2xl flex items-center justify-center mb-6 shadow-sm"><span className="material-symbols-outlined">psychology</span></div>
+                   <h5 className="font-black text-slate-900 text-sm mb-3 h-10 line-clamp-2">{card.title}</h5>
+                   <p className="text-xs text-slate-500 mb-8 leading-relaxed line-clamp-3 font-medium">{card.content}</p>
+                   <button onClick={() => toast.success('Module Started!')} className="w-full bg-slate-50 text-slate-900 py-3.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-primary hover:text-white transition-all border border-slate-100">Start Module</button>
                 </div>
              ))}
           </div>
         )}
 
-        {/* Modals & Overlays (Project Selector) */}
+        {/* RESTORED: Original "Browse Projects" Modal Logic + Premium Skin */}
         <AnimatePresence>
           {isProjectModalOpen && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-slate-950/80 backdrop-blur-xl">
-               <motion.div initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }} className="bg-white w-full max-w-5xl h-[85vh] rounded-[48px] shadow-2xl flex flex-col overflow-hidden border border-white/20">
+               <motion.div initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.9, y: 20 }} className="bg-white w-full max-w-5xl h-[85vh] rounded-[48px] shadow-2xl flex flex-col overflow-hidden border border-white/20">
                   <div className="p-10 border-b border-slate-100 flex justify-between items-center sticky top-0 bg-white/80 backdrop-blur-md z-10">
                      <div>
-                        <h4 className="text-3xl font-black text-slate-900 tracking-tighter">Choose Your Path</h4>
-                        <p className="text-sm text-slate-400 font-medium">Select 4 specialized projects for your certification</p>
+                        <h4 className="text-3xl font-black text-slate-900 tracking-tighter">Browse Projects</h4>
+                        <p className="text-sm text-slate-400 font-medium">Select up to 4 specialized tasks for your certification</p>
                      </div>
                      <div className="flex items-center gap-4">
-                        <div className="bg-primary/10 text-primary px-5 py-2 rounded-2xl font-black text-xs uppercase tracking-widest border border-primary/5">
+                        <div className="bg-primary/10 text-primary px-5 py-2.5 rounded-2xl font-black text-[10px] uppercase tracking-widest border border-primary/5">
                            {selectedProjects.length}/4 Selected
                         </div>
-                        <button onClick={() => setIsProjectModalOpen(false)} className="w-12 h-12 bg-slate-100 text-slate-500 rounded-2xl flex items-center justify-center hover:bg-red-50 hover:text-red-500 transition-all">
+                        <button onClick={() => setIsProjectModalOpen(false)} className="w-12 h-12 bg-slate-100 text-slate-500 rounded-2xl flex items-center justify-center hover:bg-red-50 hover:text-red-500 transition-all shadow-sm">
                            <span className="material-symbols-outlined">close</span>
                         </button>
                      </div>
                   </div>
                   <div className="flex-1 overflow-y-auto p-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                      {tasks.map((proj, i) => (
-                        <div key={i} onClick={() => toggleProject(proj.title)} className={`p-4 rounded-2xl border transition-all cursor-pointer group flex flex-col justify-between h-32 ${selectedProjects.includes(proj.title) ? 'bg-primary border-primary text-white shadow-lg' : 'bg-slate-50 border-transparent hover:border-primary/30 text-slate-800'}`}>
+                        <div key={i} onClick={() => toggleProject(proj.title)} className={`p-6 rounded-3xl border-2 transition-all cursor-pointer group flex flex-col justify-between h-40 ${selectedProjects.includes(proj.title) ? 'bg-primary border-primary text-white shadow-xl shadow-primary/30' : 'bg-slate-50 border-transparent hover:border-primary/30 text-slate-800 hover:bg-white hover:shadow-lg'}`}>
                            <div className="flex justify-between items-start">
-                              <span className="text-[10px] font-bold opacity-40">{String(i+1).padStart(2, '0')}</span>
-                              <div className={`w-6 h-6 rounded-full flex items-center justify-center ${selectedProjects.includes(proj.title) ? 'bg-white text-primary' : 'bg-white/50 text-slate-300'}`}>
-                                 <span className="material-symbols-outlined text-xs">{selectedProjects.includes(proj.title) ? 'done' : 'add'}</span>
+                              <span className="text-[10px] font-mono font-bold opacity-40">{String(i+1).padStart(2, '0')}</span>
+                              <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${selectedProjects.includes(proj.title) ? 'bg-white text-primary' : 'bg-white shadow-sm text-slate-300'}`}>
+                                 <span className="material-symbols-outlined text-sm">{selectedProjects.includes(proj.title) ? 'done' : 'add'}</span>
                               </div>
                            </div>
-                           <h5 className="font-bold text-[11px] leading-tight pr-2">{proj.title}</h5>
+                           <h5 className="font-black text-sm leading-tight pr-4">{proj.title}</h5>
                         </div>
                      ))}
                   </div>
                   <div className="p-8 bg-slate-50 border-t border-slate-100 flex justify-center">
-                     <button onClick={() => setIsProjectModalOpen(false)} className="bg-primary text-white px-12 py-4 rounded-[20px] font-black text-sm shadow-2xl shadow-primary/30 hover:scale-105 active:scale-95 transition-all uppercase tracking-widest">Confirm Selections</button>
+                     <button onClick={() => setIsProjectModalOpen(false)} className="bg-primary text-white px-12 py-4.5 rounded-[24px] font-black text-xs shadow-2xl shadow-primary/30 hover:scale-105 active:scale-95 transition-all uppercase tracking-[0.2em]">Confirm Selection</button>
                   </div>
                </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* Project Guide Modal */}
+        {/* RESTORED: Original "How To Do Project" Roadmap Content + Premium Skin */}
         <AnimatePresence>
            {selectedTask && selectedTask.title === 'Project Implementation Guide' && (
               <div className="fixed inset-0 z-[110] flex items-center justify-center p-6 bg-slate-950/80 backdrop-blur-xl">
-                 <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="bg-white w-full max-w-2xl rounded-[40px] shadow-2xl overflow-hidden">
+                 <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} className="bg-white w-full max-w-2xl rounded-[40px] shadow-2xl overflow-hidden">
                     <div className="p-8 border-b border-slate-100 flex justify-between items-center bg-slate-50">
-                       <h4 className="text-2xl font-black text-slate-900 tracking-tighter">Internship Roadmap</h4>
-                       <button onClick={() => setSelectedTask(null)} className="w-10 h-10 bg-white text-slate-400 rounded-xl flex items-center justify-center hover:text-red-500 transition-all shadow-sm">
+                       <h4 className="text-2xl font-black text-slate-900 tracking-tighter">How To Do Projects</h4>
+                       <button onClick={() => setSelectedTask(null)} className="w-10 h-10 bg-white text-slate-400 rounded-xl flex items-center justify-center hover:text-red-500 transition-all shadow-sm border border-slate-100">
                           <span className="material-symbols-outlined">close</span>
                        </button>
                     </div>
                     <div className="p-10 space-y-8 overflow-y-auto max-h-[70vh]">
                        {[
-                         { step: '01', title: 'Project Selection', desc: 'Click "Manage Projects" to select 4 major tasks relevant to your domain.' },
-                         { step: '02', title: 'Environment Setup', desc: 'Download the required software (IDE, Database) mentioned in your course material.' },
-                         { step: '03', title: 'Implementation', desc: 'Build the core features. Focus on code quality and documentation.' },
-                         { step: '04', title: 'GitHub Upload', desc: 'Push your code to a public GitHub repository. Include a README.md with your details.' },
-                         { step: '05', title: 'Submission', desc: 'Click "Submit Link" on your project card and provide the GitHub repository URL.' },
+                         { step: '01', title: 'Browse & Select Tasks', desc: 'Click "View Projects" to browse the task library and select up to 4 major projects for your track.' },
+                         { step: '02', title: 'Learn & Build', desc: 'Follow the technical requirements. Focus on code quality, organization, and documentation.' },
+                         { step: '03', title: 'GitHub Submission', desc: 'Create a unique repo per project. Include a detailed README with your Intern ID and name.' },
+                         { step: '04', title: 'Verify & Submit', desc: 'Click "Submit Project" on your dashboard and provide the GitHub link for mentor review.' },
+                         { step: '05', title: 'Get Certified', desc: 'Upon successful review and duration completion, your certificates will be generated.' },
                        ].map((item, i) => (
                          <div key={i} className="flex gap-6 group">
                             <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center font-black text-sm shrink-0 group-hover:bg-primary group-hover:text-white transition-all shadow-sm">
@@ -411,7 +395,7 @@ export default function Dashboard() {
                        ))}
                     </div>
                     <div className="p-8 bg-slate-50 border-t border-slate-100 flex justify-center">
-                       <button onClick={() => setSelectedTask(null)} className="bg-primary text-white px-10 py-3.5 rounded-2xl font-black text-sm shadow-xl shadow-primary/20 hover:scale-105 transition-all uppercase tracking-widest">
+                       <button onClick={() => setSelectedTask(null)} className="bg-primary text-white px-10 py-4 rounded-2xl font-black text-xs shadow-xl shadow-primary/20 hover:scale-105 transition-all uppercase tracking-widest">
                           Got it, Let's Build
                        </button>
                     </div>
@@ -420,22 +404,25 @@ export default function Dashboard() {
            )}
         </AnimatePresence>
 
-        {/* SUBMISSION MODAL */}
+        {/* RESTORED: Original Submission Modal Flow + Premium Skin */}
         <AnimatePresence>
            {isSubmitting && (
               <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-slate-950/80 backdrop-blur-xl">
-                 <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="bg-white w-full max-w-md rounded-[40px] shadow-2xl p-10">
+                 <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} className="bg-white w-full max-w-md rounded-[40px] shadow-2xl p-10">
                     <h4 className="text-2xl font-black text-slate-900 mb-2 tracking-tighter">Submit Project</h4>
                     <p className="text-sm text-slate-400 mb-8 font-medium">Provide your GitHub repository link</p>
                     <form onSubmit={handleTaskSubmit} className="space-y-6">
-                       <input required type="url" value={githubUrl} onChange={(e) => setGithubUrl(e.target.value)} placeholder="https://github.com/username/repo" className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-sm focus:outline-none focus:border-primary transition-all font-medium" />
-                       <div className="bg-primary/5 p-4 rounded-2xl flex gap-3 border border-primary/10">
+                       <div>
+                          <label className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest mb-2 block">GitHub Repository URL</label>
+                          <input required type="url" value={githubUrl} onChange={(e) => setGithubUrl(e.target.value)} placeholder="https://github.com/username/repo" className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-sm focus:outline-none focus:border-primary transition-all font-medium" />
+                       </div>
+                       <div className="bg-primary/5 p-5 rounded-3xl flex gap-3 border border-primary/10">
                           <span className="material-symbols-outlined text-primary text-sm">info</span>
-                          <p className="text-[10px] text-primary/80 leading-relaxed font-bold uppercase tracking-wider">Ensure README contains InternID and Full Name</p>
+                          <p className="text-[9px] text-primary/80 leading-relaxed font-bold uppercase tracking-widest">Ensure README contains InternID and Full Name</p>
                        </div>
                        <div className="flex gap-4 pt-4">
-                          <button type="button" onClick={() => setIsSubmitting(false)} className="flex-1 py-4 text-sm font-black text-slate-500 hover:bg-slate-100 rounded-2xl transition-all">Cancel</button>
-                          <button type="submit" className="flex-1 bg-primary text-white py-4 rounded-2xl text-sm font-black shadow-lg shadow-primary/20 hover:bg-primary-dark transition-all">Submit Task</button>
+                          <button type="button" onClick={() => setIsSubmitting(false)} className="flex-1 py-4 text-xs font-black text-slate-500 hover:bg-slate-100 rounded-2xl transition-all uppercase tracking-widest">Cancel</button>
+                          <button type="submit" className="flex-1 bg-primary text-white py-4 rounded-2xl text-xs font-black shadow-lg shadow-primary/20 hover:bg-primary-dark transition-all uppercase tracking-widest">Submit Task</button>
                        </div>
                     </form>
                  </motion.div>
