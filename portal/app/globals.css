@@ -4,35 +4,29 @@
 
 @layer base {
   body {
-    background-color: #f8f9ff;
-    font-family: 'Inter', sans-serif;
+    background-color: #faf8ff;
+    color: #1e293b;
+    @apply font-inter;
   }
 }
 
 @layer utilities {
-  .glass-effect {
-    background: rgba(255, 255, 255, 0.85);
+  .glass-premium {
+    background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
   }
-  .glass-card { 
-    background: rgba(255, 255, 255, 0.95); 
-    backdrop-filter: blur(12px); 
-    border: 1px solid rgba(226, 232, 240, 0.8);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  .card-premium { 
+    @apply bg-white/80 backdrop-blur-md border border-slate-200/60 shadow-sm transition-all duration-500;
   }
-  .glass-card:hover {
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02);
-    transform: translateY(-2px);
+  .card-premium:hover {
+    @apply border-primary/30 shadow-xl shadow-primary/5 -translate-y-1;
   }
-  .sidebar-active {
-    background: linear-gradient(90deg, rgba(30, 64, 175, 0.08) 0%, rgba(30, 64, 175, 0) 100%);
-    border-left-width: 4px;
-    border-color: #00288e;
+  .text-mono-premium {
+    @apply font-mono uppercase tracking-wider text-[10px] font-bold;
   }
-  .gradient-bg {
-    background: radial-gradient(circle at 10% 20%, rgba(215, 223, 255, 0.4) 0%, rgba(255, 255, 255, 0) 50%),
-                radial-gradient(circle at 90% 80%, rgba(111, 251, 190, 0.1) 0%, rgba(255, 255, 255, 0) 50%);
+  .sidebar-gradient {
+    background: linear-gradient(180deg, #faf8ff 0%, #ffffff 100%);
   }
 }

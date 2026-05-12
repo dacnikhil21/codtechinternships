@@ -7,6 +7,20 @@ export default {
   ],
   theme: {
     extend: {
+      colors: {
+        primary: {
+          DEFAULT: "#4f46e5", // Electric Indigo
+          dark: "#4338ca",
+          light: "#818cf8",
+        },
+        slate: {
+          950: "#020617",
+        },
+      },
+      fontFamily: {
+        inter: ["Inter", "sans-serif"],
+        mono: ["JetBrains Mono", "monospace"],
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
