@@ -47,23 +47,23 @@ export default function Login() {
          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-[0.03]" />
       </div>
 
-      <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-12 gap-0 relative z-10 bg-slate-900/40 backdrop-blur-3xl rounded-[3rem] border border-white/5 shadow-[0_32px_64px_rgba(0,0,0,0.4)] overflow-hidden">
+      <div className="w-full max-w-4xl grid grid-cols-1 lg:grid-cols-12 gap-0 relative z-10 bg-slate-900/40 backdrop-blur-3xl rounded-[2.5rem] border border-white/5 shadow-[0_32px_64px_rgba(0,0,0,0.4)] overflow-hidden">
         
         {/* Left Side: Impact */}
-        <section className="hidden lg:flex lg:col-span-6 p-16 flex-col justify-between bg-gradient-to-br from-indigo-600 to-violet-800 relative">
+        <section className="hidden lg:flex lg:col-span-6 p-12 flex-col justify-between bg-gradient-to-br from-indigo-600 to-violet-800 relative">
           <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20" />
           <div className="relative z-10">
-            <div className="flex items-center gap-3 mb-20">
-              <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-2xl">
-                <span className="material-symbols-outlined text-indigo-600 text-2xl font-black">terminal</span>
+            <div className="flex items-center gap-3 mb-12">
+              <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-2xl">
+                <span className="material-symbols-outlined text-indigo-600 text-xl font-black">terminal</span>
               </div>
-              <span className="text-white font-black tracking-tight text-xl uppercase italic">Codtech Intern</span>
+              <span className="text-white font-black tracking-tight text-lg uppercase italic">Codtech</span>
             </div>
-            <h1 className="text-6xl font-black text-white mb-8 tracking-tighter leading-[0.9] uppercase">
+            <h1 className="text-4xl font-black text-white mb-6 tracking-tighter leading-tight uppercase">
               Fuel Your <br /> 
               <span className="text-indigo-200/60 italic">Career.</span>
             </h1>
-            <p className="text-lg text-indigo-100/80 max-w-xs font-medium leading-relaxed">
+            <p className="text-base text-indigo-100/80 max-w-xs font-medium leading-relaxed">
               Step back into the world's most advanced internship ecosystem.
             </p>
           </div>
@@ -76,40 +76,40 @@ export default function Login() {
         </section>
 
         {/* Right Side: Form */}
-        <section className="col-span-1 lg:col-span-6 p-10 md:p-20 bg-transparent flex flex-col justify-center">
+        <section className="col-span-1 lg:col-span-6 p-8 md:p-12 bg-transparent flex flex-col justify-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-            <div className="mb-12">
-              <h2 className="text-4xl font-black text-white mb-2 tracking-tight uppercase">Login</h2>
-              <p className="text-slate-400 font-medium uppercase text-[11px] tracking-[0.3em]">Credentials Required</p>
+            <div className="mb-8">
+              <h2 className="text-3xl font-black text-white mb-1 tracking-tight uppercase">Login</h2>
+              <p className="text-slate-400 font-medium uppercase text-[10px] tracking-[0.3em]">Credentials Required</p>
             </div>
             
-            <form onSubmit={handleSubmit} className="space-y-8">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-6">
                 <div className="group">
                   <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] ml-1 mb-2 block" htmlFor="email">Identity</label>
                   <div className="relative">
-                    <span className="material-symbols-outlined absolute left-5 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-indigo-400 transition-colors text-xl">mail</span>
-                    <input className="w-full pl-14 pr-6 py-5 rounded-2xl outline-none text-white placeholder:text-slate-600 bg-white/5 border border-white/5 focus:border-indigo-500/50 focus:bg-white/[0.08] transition-all duration-300 font-medium" id="email" required placeholder="intern@codtech.edu" type="email" name="email"/>
+                    <span className="material-symbols-outlined absolute left-5 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-indigo-400 transition-colors text-lg">mail</span>
+                    <input className="w-full pl-12 pr-6 py-4 rounded-xl outline-none text-white placeholder:text-slate-600 bg-white/5 border border-white/5 focus:border-indigo-500/50 focus:bg-white/[0.08] transition-all duration-300 font-medium text-sm" id="email" required placeholder="intern@codtech.edu" type="email" name="email"/>
                   </div>
                 </div>
                 <div className="group">
                   <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] ml-1 mb-2 block" htmlFor="password">Security</label>
                   <div className="relative">
-                    <span className="material-symbols-outlined absolute left-5 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-indigo-400 transition-colors text-xl">lock</span>
-                    <input className="w-full pl-14 pr-6 py-5 rounded-2xl outline-none text-white placeholder:text-slate-600 bg-white/5 border border-white/5 focus:border-indigo-500/50 focus:bg-white/[0.08] transition-all duration-300 font-medium" id="password" required placeholder="••••••••" type="password" name="password"/>
+                    <span className="material-symbols-outlined absolute left-5 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-indigo-400 transition-colors text-lg">lock</span>
+                    <input className="w-full pl-12 pr-6 py-4 rounded-xl outline-none text-white placeholder:text-slate-600 bg-white/5 border border-white/5 focus:border-indigo-500/50 focus:bg-white/[0.08] transition-all duration-300 font-medium text-sm" id="password" required placeholder="••••••••" type="password" name="password"/>
                   </div>
                 </div>
               </div>
               
-              <button disabled={loading} className="w-full bg-white text-slate-900 font-black py-5 rounded-2xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-3 uppercase text-[12px] tracking-[0.2em] shadow-2xl shadow-white/10" type="submit">
+              <button disabled={loading} className="w-full bg-white text-slate-900 font-black py-4 rounded-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-3 uppercase text-[11px] tracking-[0.2em] shadow-2xl shadow-white/10" type="submit">
                 {loading ? 'Authenticating...' : 'Establish Connection'}
-                {!loading && <span className="material-symbols-outlined text-xl">arrow_right_alt</span>}
+                {!loading && <span className="material-symbols-outlined text-lg">arrow_right_alt</span>}
               </button>
             </form>
 
-            <div className="mt-16 pt-10 border-t border-white/5 flex flex-col items-center gap-6">
-              <p className="text-[11px] text-slate-500 font-black uppercase tracking-[0.2em]">New to the platform?</p>
-              <Link href="/register" className="text-white hover:text-indigo-400 transition-all font-black uppercase text-[12px] tracking-[0.3em]">
+            <div className="mt-12 pt-8 border-t border-white/5 flex flex-col items-center gap-4">
+              <p className="text-[10px] text-slate-500 font-black uppercase tracking-[0.2em]">New to the platform?</p>
+              <Link href="/register" className="text-white hover:text-indigo-400 transition-all font-black uppercase text-[11px] tracking-[0.3em]">
                 Create Elite Account
               </Link>
             </div>

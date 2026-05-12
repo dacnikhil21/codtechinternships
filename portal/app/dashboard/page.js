@@ -234,10 +234,10 @@ export default function Dashboard() {
       </aside>
 
       {/* Main Content - TIGHTER PADDING (Productive) */}
-      <main className={`flex-1 transition-all lg:ml-60 p-5 lg:p-8 mt-16 lg:mt-0`}>
+      <main className={`flex-1 transition-all lg:ml-60 p-4 lg:p-6 mt-16 lg:mt-0`}>
         
         {/* Header - REFINED & COMPACT */}
-        <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+        <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
           <div className="flex items-center gap-3">
              <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
              <h2 className="text-sm font-bold text-slate-400 tracking-tight uppercase">{activeTab}</h2>
@@ -259,7 +259,7 @@ export default function Dashboard() {
         </header>
 
         {activeTab === 'Projects' && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-12">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-8">
             
             {/* Onboarding - COMPACT */}
             <section className="bg-slate-900 p-6 rounded-[2rem] border border-white/5 shadow-xl relative overflow-hidden group">
@@ -298,7 +298,7 @@ export default function Dashboard() {
                      <div className="w-1 h-1 rounded-full bg-indigo-600 animate-pulse"></div>
                      <span className="text-[9px] font-black text-indigo-600 uppercase tracking-[0.3em]">Active Session</span>
                   </div>
-                  <h3 className="text-4xl font-black text-slate-900 tracking-tighter mb-3 leading-tight uppercase italic">{getGreeting()}, {user?.name?.split(' ')[0]}</h3>
+                  <h3 className="text-2xl font-black text-slate-900 tracking-tighter mb-1 leading-tight uppercase italic">{getGreeting()}, {user?.name?.split(' ')[0]}</h3>
                   <p className="text-[14px] text-slate-400 font-medium tracking-tight">Step into your <span className="text-indigo-600 font-bold">professional roadmap</span> and complete your tasks.</p>
                </div>
                <div className="hidden lg:flex items-center gap-8 bg-white px-8 py-4 rounded-[2rem] border border-slate-100 shadow-lg shadow-indigo-100/10">
@@ -315,12 +315,11 @@ export default function Dashboard() {
             </div>
 
             {/* Analytics & Orientation - COMPACT */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-              <div className="lg:col-span-8 bg-white p-8 rounded-[2rem] border border-slate-200/60 shadow-sm relative overflow-hidden flex flex-col justify-between">
+              <div className="lg:col-span-12 bg-white p-6 rounded-3xl border border-slate-200/60 shadow-sm relative overflow-hidden flex flex-col justify-between">
                 <div className="flex justify-between items-start relative z-10">
                   <div>
                     <h4 className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Proficiency Index</h4>
-                    <p className="text-lg font-black text-slate-900 uppercase tracking-tight">Skill <span className="text-indigo-600">Analysis</span></p>
+                    <p className="text-base font-black text-slate-900 uppercase tracking-tight">Skill <span className="text-indigo-600">Analysis</span></p>
                   </div>
                   <div className="flex flex-col items-end">
                     <div className="flex items-baseline gap-1">
@@ -329,58 +328,26 @@ export default function Dashboard() {
                     </div>
                   </div>
                 </div>
-                
-                <div className="mt-8 flex items-end justify-between h-24 gap-2 relative z-10">
-                   {[30, 45, 35, 60, 50, 75, 100].map((h, i) => (
-                     <motion.div 
-                        initial={{ height: 0 }} 
-                        animate={{ height: `${(getReadinessScore() / 100) * h}%` }} 
-                        transition={{ delay: i * 0.1, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                        key={i} 
-                        className={`flex-1 rounded-lg transition-all cursor-pointer relative group ${i === 6 ? 'bg-indigo-600 shadow-lg shadow-indigo-600/20' : 'bg-slate-50 hover:bg-indigo-50'}`} 
-                     />
-                   ))}
-                </div>
               </div>
-
-              <div className="lg:col-span-4 bg-slate-900 p-8 rounded-[2rem] text-white shadow-xl flex flex-col justify-between relative overflow-hidden group border border-white/5">
-                <div className="relative z-10">
-                   <div className="flex justify-between items-center mb-6">
-                      <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center border border-white/10">
-                         <span className="material-symbols-outlined text-indigo-400 text-xl">hub</span>
-                      </div>
-                      <div className="px-3 py-1 bg-indigo-500/10 border border-indigo-500/30 rounded-full text-[8px] font-black text-indigo-400 uppercase tracking-[0.2em]">Live</div>
-                   </div>
-                   <h4 className="text-xl font-black tracking-tighter uppercase mb-4 italic">Tech <span className="text-indigo-500">Orientation</span></h4>
-                   <div className="space-y-3">
-                      <div className="flex items-center gap-3 text-[11px] text-slate-400 font-black uppercase tracking-widest">
-                         <span className="material-symbols-outlined text-indigo-500 text-sm">schedule</span>
-                         Fri, 2:00 PM IST
-                      </div>
-                   </div>
-                </div>
-                <button className="w-full bg-white text-slate-950 font-black py-4 rounded-xl hover:bg-indigo-500 hover:text-white transition-all text-[10px] uppercase tracking-[0.2em] mt-6">Enter Classroom</button>
-              </div>
-            </div>
 
             {/* PROJECT WORKSPACE - COMPACT & FUNCTIONAL */}
-            <section className="bg-white p-8 rounded-[2rem] border border-slate-200/60">
-               <div className="flex flex-col lg:flex-row justify-between items-center gap-8 mb-10">
-                  <div className="flex items-center gap-5">
-                     <div className="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center border border-indigo-100 shrink-0">
-                        <span className="material-symbols-outlined text-2xl">terminal</span>
+            <section className="bg-white p-6 rounded-3xl border border-slate-200/60 shadow-sm">
+               <div className="flex flex-col lg:flex-row justify-between items-center gap-8 mb-6">
+                  <div className="flex items-center gap-4">
+                     <div className="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-lg flex items-center justify-center border border-indigo-100 shrink-0">
+                        <span className="material-symbols-outlined text-xl">terminal</span>
                      </div>
                      <div>
-                        <h3 className="text-xl font-black text-slate-900 tracking-tight uppercase italic leading-none">Project <span className="text-indigo-600">Workspace</span></h3>
-                        <p className="text-[12px] text-slate-400 font-medium mt-1">Select 4 core projects for your domain.</p>
+                        <h3 className="text-lg font-black text-slate-900 tracking-tight uppercase italic leading-none">Project <span className="text-indigo-600">Workspace</span></h3>
+                        <p className="text-[11px] text-slate-400 font-medium mt-1">Select 4 core projects for your domain.</p>
                      </div>
                   </div>
-                  <div className="flex gap-3 w-full lg:w-auto">
-                    <button onClick={() => { setTempSelectedProjects(selectedProjects); setIsProjectModalOpen(true); }} className="flex-1 lg:flex-none bg-indigo-600 text-white px-8 py-3.5 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200 flex items-center justify-center gap-2">
-                       <span className="material-symbols-outlined text-base">add_circle</span> Browse Projects
+                  <div className="flex gap-2 w-full lg:w-auto">
+                    <button onClick={() => { setTempSelectedProjects(selectedProjects); setIsProjectModalOpen(true); }} className="flex-1 lg:flex-none bg-indigo-600 text-white px-6 py-3 rounded-lg font-black text-[9px] uppercase tracking-[0.2em] hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 flex items-center justify-center gap-2">
+                       <span className="material-symbols-outlined text-sm">add_circle</span> Browse Projects
                     </button>
-                    <button onClick={() => setSelectedTask({ title: 'Project Implementation Guide' })} className="flex-1 lg:flex-none bg-slate-50 text-slate-500 border border-slate-200/60 px-8 py-3.5 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-slate-100 transition-all flex items-center justify-center gap-2">
-                       <span className="material-symbols-outlined text-base">auto_awesome</span> View Guide
+                    <button onClick={() => setSelectedTask({ title: 'Project Implementation Guide' })} className="flex-1 lg:flex-none bg-slate-50 text-slate-500 border border-slate-200/60 px-6 py-3 rounded-lg font-black text-[9px] uppercase tracking-[0.2em] hover:bg-slate-100 transition-all flex items-center justify-center gap-2">
+                       <span className="material-symbols-outlined text-sm">auto_awesome</span> View Guide
                     </button>
                   </div>
                </div>
@@ -415,26 +382,26 @@ export default function Dashboard() {
         )}
 
         {activeTab === 'Materials' && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-16">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-8">
             {/* Materials Header - PREMIUM */}
-            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-12 py-8 px-2">
+            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 py-4 px-2">
                <div>
-                  <div className="flex items-center gap-3 mb-4">
+                  <div className="flex items-center gap-2 mb-2">
                      <div className="w-1.5 h-1.5 rounded-full bg-indigo-600 animate-pulse"></div>
-                     <span className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.5em]">Education Portal</span>
+                     <span className="text-[9px] font-black text-indigo-600 uppercase tracking-[0.4em]">Education Portal</span>
                   </div>
-                  <h3 className="text-7xl font-black text-slate-900 tracking-tighter uppercase leading-[0.85] italic italic-shorthand">{user?.course} <br/><span className="text-indigo-600">Curriculum</span></h3>
-                  <p className="text-[18px] text-slate-400 font-medium mt-6 max-w-xl">A professional-grade learning path designed to bridge the gap between academic theory and industry implementation.</p>
+                  <h3 className="text-3xl font-black text-slate-900 tracking-tighter uppercase leading-tight italic italic-shorthand">{user?.course} <br/><span className="text-indigo-600">Curriculum</span></h3>
+                  <p className="text-[14px] text-slate-400 font-medium mt-3 max-w-lg">A professional-grade learning path designed to bridge the gap between academic theory and industry implementation.</p>
                </div>
-               <div className="flex items-center gap-8 bg-white p-10 rounded-[3rem] border border-slate-100 shadow-xl shadow-indigo-100/20">
+               <div className="flex items-center gap-6 bg-white p-6 rounded-3xl border border-slate-100 shadow-xl shadow-indigo-100/10">
                   <div className="text-center">
-                     <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest mb-2">Modules</p>
-                     <p className="text-4xl font-black text-slate-900 tracking-tighter">{(materials.length > 0 ? materials : DEFAULT_MODULES).length}</p>
+                     <p className="text-[9px] font-black text-slate-300 uppercase tracking-widest mb-1">Modules</p>
+                     <p className="text-2xl font-black text-slate-900 tracking-tighter">{(materials.length > 0 ? materials : DEFAULT_MODULES).length}</p>
                   </div>
-                  <div className="w-px h-12 bg-slate-100"></div>
+                  <div className="w-px h-10 bg-slate-100"></div>
                   <div className="text-center">
-                     <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest mb-2">Mastery</p>
-                     <p className="text-4xl font-black text-emerald-500 tracking-tighter">
+                     <p className="text-[9px] font-black text-slate-300 uppercase tracking-widest mb-1">Mastery</p>
+                     <p className="text-2xl font-black text-emerald-500 tracking-tighter">
                         {Math.round((completedLessons.length / (((materials.length > 0 ? materials : DEFAULT_MODULES).length) * 4)) * 100) || 0}%
                      </p>
                   </div>
@@ -442,38 +409,38 @@ export default function Dashboard() {
             </div>
 
             {/* Modules Grid - REFINED */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                {(materials.length > 0 ? materials : DEFAULT_MODULES).map((mod, idx) => (
                  <motion.div 
                    key={mod.id} 
-                   whileHover={{ y: -12, scale: 1.02 }}
+                   whileHover={{ y: -8, scale: 1.01 }}
                    onClick={() => setSelectedModule(mod)}
-                   className="bg-white p-10 rounded-[3.5rem] border border-slate-100 shadow-[0_8px_40px_rgba(0,0,0,0.02)] hover:shadow-[0_40px_80px_-12px_rgba(79,70,229,0.12)] transition-all cursor-pointer group flex flex-col h-full relative overflow-hidden"
+                   className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-xl hover:shadow-indigo-100/40 transition-all cursor-pointer group flex flex-col h-full relative overflow-hidden"
                  >
-                    <div className="absolute top-0 right-0 p-8 opacity-0 group-hover:opacity-100 transition-opacity">
-                       <span className="material-symbols-outlined text-indigo-600 text-3xl">arrow_forward_ios</span>
+                    <div className="absolute top-0 right-0 p-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                       <span className="material-symbols-outlined text-indigo-600 text-xl">arrow_forward_ios</span>
                     </div>
-                    <div className="flex justify-between items-start mb-12">
-                       <div className="w-16 h-16 bg-indigo-50 text-indigo-600 rounded-3xl flex items-center justify-center border border-indigo-100 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-700 shadow-sm">
-                          <span className="material-symbols-outlined text-3xl">auto_stories</span>
+                    <div className="flex justify-between items-start mb-8">
+                       <div className="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center border border-indigo-100 group-hover:bg-indigo-600 group-hover:text-white transition-all shadow-sm">
+                          <span className="material-symbols-outlined text-2xl">auto_stories</span>
                        </div>
                        <div className="flex flex-col items-end">
-                          <div className="px-4 py-1.5 bg-slate-50 text-[10px] font-black text-slate-400 uppercase tracking-widest rounded-xl border border-slate-100">{mod.difficulty}</div>
-                          <span className="text-[11px] font-black text-indigo-600 mt-3 uppercase tracking-widest">⏱ {mod.time}</span>
+                          <div className="px-3 py-1 bg-slate-50 text-[9px] font-black text-slate-400 uppercase tracking-widest rounded-lg border border-slate-100">{mod.difficulty}</div>
+                          <span className="text-[10px] font-black text-indigo-600 mt-2 uppercase tracking-widest">⏱ {mod.time}</span>
                        </div>
                     </div>
                     <div className="flex-1">
-                       <span className="text-[10px] font-black text-indigo-600/40 uppercase tracking-[0.4em] mb-3 block">Module {idx + 1}</span>
-                       <h4 className="text-2xl font-black text-slate-900 tracking-tight mb-4 group-hover:text-indigo-600 transition-colors uppercase leading-[1.1]">{mod.title}</h4>
-                       <p className="text-[13px] text-slate-400 font-medium leading-relaxed mb-8 line-clamp-3">{mod.description}</p>
+                       <span className="text-[9px] font-black text-indigo-600/40 uppercase tracking-[0.3em] mb-2 block">Module {idx + 1}</span>
+                       <h4 className="text-lg font-black text-slate-900 tracking-tight mb-3 group-hover:text-indigo-600 transition-colors uppercase leading-tight">{mod.title}</h4>
+                       <p className="text-[12px] text-slate-400 font-medium leading-relaxed mb-4 line-clamp-2">{mod.description}</p>
                     </div>
-                    <div className="flex items-center justify-between pt-6 border-t border-slate-50">
+                    <div className="flex items-center justify-between pt-4 border-t border-slate-50">
                        <div className="flex items-center gap-2">
-                          <span className="material-symbols-outlined text-slate-300 text-sm">list_alt</span>
-                          <span className="text-[10px] font-black text-slate-300 uppercase tracking-widest">{mod.lessons.length} LESSONS</span>
+                          <span className="material-symbols-outlined text-slate-300 text-xs">list_alt</span>
+                          <span className="text-[9px] font-black text-slate-300 uppercase tracking-widest">{mod.lessons.length} LESSONS</span>
                        </div>
-                       <button className="w-10 h-10 rounded-full bg-slate-50 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all shadow-sm">
-                          <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                       <button className="w-8 h-8 rounded-full bg-slate-50 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all shadow-sm">
+                          <span className="material-symbols-outlined text-xs">arrow_forward</span>
                        </button>
                     </div>
                  </motion.div>
