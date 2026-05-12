@@ -9,11 +9,11 @@
     "projectName": "portal",
     "projectPath": "c:\\Users\\ABHINAYA BEDGUM\\Desktop\\ct 2.0\\portal",
     "testIds": [],
-    "additionalInstruction": "Verify the Login page styling (Blue UI) and ensure the Dashboard loads correctly after login. Ensure no ChunkLoadErrors or 404s for CSS/JS assets.",
-    "serverMode": "development",
+    "additionalInstruction": "Hey, test this project with TestSprite. Focus on verifying the Blue UI branding on the Login page and ensuring the Dashboard loads without 'Application Error' crashes. Verify that all 30 domain-specific projects are visible.",
+    "serverMode": "production",
     "envs": {
       "API_KEY": "sk-user-0YG_yywp6m8RM7eLMFUBqfvWYGfbN0Kc-uO4LESDF-0RT4xi2vm7cbzfOtyb9DBSMKd3CkkB7QZZFzwHqiEJf4v3mSpttRyOTi27tXJlyLBHGYH5Ir8sY3M6k0FgrfYUvdU"
     }
   },
-  "serverPort": 65220
+  "serverPort": 62485
 }

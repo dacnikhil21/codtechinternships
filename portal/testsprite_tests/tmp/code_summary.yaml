@@ -10,43 +10,44 @@ routes:
   - path: /
     file: app/page.js
     auth_required: false
-    description: Landing page and Login form
+    description: Landing page and Login form with critical branding fallbacks
   - path: /login
     file: app/login/page.js
     auth_required: false
-    description: Dedicated login page
+    description: Dedicated login page with blue UI stabilization
   - path: /register
     file: app/register/page.js
     auth_required: false
-    description: User registration page
+    description: User registration page with domain selection
   - path: /dashboard
     file: app/dashboard/page.js
     auth_required: true
-    description: User internship dashboard
+    description: Protected user dashboard with null-safe data fetching and cache-busting
 features:
   - name: User Authentication
-    description: Login and Registration with domain-matching logic
+    description: Login and Registration with domain-matching logic and visual stability
     files:
       - app/page.js
       - app/register/page.js
-      - app/api/auth/login/route.js
+      - app/layout.js
     entry_route: /
     user_interactions:
       - Enter email and password
       - Click Sign In or Create Account
+      - Observe immediate rendering of blue theme
     api_calls:
       - method: POST
         endpoint: /api/auth/login
     auth_required: false
   - name: Internship Dashboard
-    description: Viewing assigned projects and tracking progress
+    description: Viewing assigned projects and tracking progress with error resilience
     files:
       - app/dashboard/page.js
       - app/api/tasks/route.js
     entry_route: /dashboard
     user_interactions:
       - View project cards
-      - Browse domains
+      - Observe no client-side exceptions during data load
     api_calls:
       - method: GET
         endpoint: /api/tasks

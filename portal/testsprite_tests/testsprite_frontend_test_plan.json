@@ -1,0 +1,280 @@
+[
+  {
+    "id": "TC001",
+    "title": "Sign in and reach a personalized dashboard",
+    "description": "A returning user can sign in with valid credentials and land on a dashboard that shows personalized internship information.",
+    "category": "User Authentication",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the sign-in form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a personalized dashboard is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify assigned course information is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC002",
+    "title": "Create an account and arrive on the dashboard",
+    "description": "A new registrant can create an account with a selected internship domain and reach the dashboard in the correct onboarding state.",
+    "category": "User Authentication",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /register"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with a new valid email address"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with a valid password"
+      },
+      {
+        "type": "action",
+        "description": "Select an internship domain"
+      },
+      {
+        "type": "action",
+        "description": "Submit the account creation form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a personalized dashboard is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the onboarding state reflects the selected domain"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC003",
+    "title": "Block dashboard access for unauthenticated users",
+    "description": "An unauthenticated visitor cannot view protected dashboard progress data when opening the dashboard route directly.",
+    "category": "User Authentication",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /dashboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify protected-route behavior is shown"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify user progress data is not displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC004",
+    "title": "Show the landing sign-in experience",
+    "description": "A visitor opening the portal landing page sees the sign-in experience with the expected blue themed branding.",
+    "category": "User Authentication",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the sign-in experience is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the blue-themed branding is visible"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC005",
+    "title": "Load personalized project cards on the dashboard",
+    "description": "An authenticated user can open the dashboard and see assigned project cards together with personalized greeting and course information.",
+    "category": "Intern Dashboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /dashboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a personalized greeting is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify assigned project cards are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify assigned course information is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC006",
+    "title": "Select and track active projects on the dashboard",
+    "description": "An authenticated user can select active projects and see completion status update across the selected project cards.",
+    "category": "Intern Dashboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /dashboard"
+      },
+      {
+        "type": "action",
+        "description": "Select an active project"
+      },
+      {
+        "type": "action",
+        "description": "Select another active project"
+      },
+      {
+        "type": "action",
+        "description": "Select up to four active projects"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the selected projects are marked as active"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify completion status is displayed for the active projects"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC007",
+    "title": "Show XP and badge progress on the dashboard",
+    "description": "An authenticated user can review XP and badge progress alongside project information on the dashboard.",
+    "category": "Intern Dashboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /dashboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify XP progress is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify badge progress is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC008",
+    "title": "Reject invalid sign-in details with clear feedback",
+    "description": "A user who enters invalid credentials sees validation feedback and stays on the sign-in experience without breaking the UI.",
+    "category": "User Authentication",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with an invalid email address"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with an invalid password"
+      },
+      {
+        "type": "action",
+        "description": "Submit the sign-in form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify validation feedback is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the blue-themed sign-in interface remains visible"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC009",
+    "title": "Keep the authentication pages visually consistent",
+    "description": "The landing, login, and registration pages all present a stable blue-themed interface for a consistent entry experience.",
+    "category": "User Authentication",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the blue-themed interface is visible"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the blue-themed interface is visible"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /register"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the blue-themed interface is visible"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC010",
+    "title": "Render the dashboard safely when user data is incomplete",
+    "description": "The dashboard remains usable and does not break when some personalized user or project data is missing.",
+    "category": "Intern Dashboard",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /dashboard"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the dashboard remains visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a fallback state is displayed for missing data"
+      }
+    ],
+    "priority": "Low"
+  }
+]
