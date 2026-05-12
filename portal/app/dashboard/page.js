@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { CURRICULUM, DEFAULT_MODULES } from '@/lib/curriculum';
 import LessonViewer from '@/app/components/LessonViewer';
 import PreparationGuide from '@/app/dashboard/PreparationGuide';
+import ProjectImplementationGuide from '@/app/components/ProjectImplementationGuide';
 
 export default function Dashboard() {
   const router = useRouter();
@@ -395,36 +396,10 @@ export default function Dashboard() {
           )}
         </AnimatePresence>
 
-        {/* ROADMAP MODAL - TIGHT & DETAILED */}
+        {/* ROADMAP MODAL - PREMIUM GUIDE */}
         <AnimatePresence>
            {selectedTask && selectedTask.title === 'Project Implementation Guide' && (
-              <div className="fixed inset-0 z-[110] flex items-center justify-center p-5 bg-slate-900/40 backdrop-blur-sm">
-                 <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.98 }} className="bg-white w-full max-w-xl rounded-3xl shadow-2xl overflow-hidden border border-slate-200/60">
-                    <div className="p-6 border-b border-slate-100 bg-slate-50 flex justify-between items-center">
-                       <h4 className="text-base font-bold text-slate-900 uppercase tracking-tight">How To Do Project</h4>
-                       <button onClick={() => setSelectedTask(null)} className="w-8 h-8 bg-white text-slate-400 rounded-lg flex items-center justify-center hover:text-red-500 transition-all border border-slate-200/60"><span className="material-symbols-outlined text-sm">close</span></button>
-                    </div>
-                    <div className="p-6 space-y-6 overflow-y-auto max-h-[60vh]">
-                       {[
-                         { step: '01', title: 'Select Projects', desc: 'Choose 4 major tasks based on your domain.' },
-                         { step: '02', title: 'Technical Build', desc: 'Complete code with comments and a unique repo.' },
-                         { step: '03', title: 'Documentation', desc: 'Include InternID, Name, and Scope in README.' },
-                         { step: '04', title: 'Final Review', desc: 'Submit repository link to finalize certification.' },
-                       ].map((item, i) => (
-                         <div key={i} className="flex gap-4">
-                            <div className="w-8 h-8 rounded-lg bg-primary text-white flex items-center justify-center font-bold text-[10px] shrink-0 shadow-sm">{item.step}</div>
-                            <div>
-                               <h5 className="font-bold text-slate-900 text-[13px] tracking-tight mb-0.5 uppercase">{item.title}</h5>
-                               <p className="text-[11px] text-slate-500 font-medium leading-relaxed">{item.desc}</p>
-                            </div>
-                         </div>
-                       ))}
-                    </div>
-                    <div className="p-6 bg-slate-50 border-t border-slate-100 flex justify-center">
-                       <button onClick={() => setSelectedTask(null)} className="bg-primary text-white px-10 py-3 rounded-xl font-bold text-[11px] shadow-lg shadow-primary/20 hover:bg-primary-dark transition-all uppercase tracking-widest">Start Building</button>
-                    </div>
-                 </motion.div>
-              </div>
+              <ProjectImplementationGuide onClose={() => setSelectedTask(null)} />
            )}
         </AnimatePresence>
 
