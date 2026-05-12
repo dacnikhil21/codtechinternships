@@ -260,8 +260,15 @@ export default function Dashboard() {
                      <h3 className="text-2xl font-black text-slate-900 tracking-tighter">Project Workspace</h3>
                      <p className="text-sm text-slate-400 font-medium">Select 4 major challenges for certification</p>
                   </div>
-                  <button onClick={() => setIsProjectModalOpen(true)} className="bg-primary/10 text-primary px-6 py-3 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-primary hover:text-white transition-all shadow-sm">
+                  <button onClick={() => setIsProjectModalOpen(true)} className="bg-primary text-white px-6 py-3 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-primary-dark transition-all shadow-lg shadow-primary/20">
                      Manage Projects
+                  </button>
+                  <button 
+                    onClick={() => setSelectedTask({ title: 'Project Implementation Guide' })}
+                    className="bg-slate-100 text-slate-600 px-6 py-3 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-slate-200 transition-all flex items-center gap-2"
+                  >
+                     <span className="material-symbols-outlined text-sm">map</span>
+                     How to Do Project
                   </button>
                </div>
 
@@ -354,14 +361,14 @@ export default function Dashboard() {
                   </div>
                   <div className="flex-1 overflow-y-auto p-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                      {tasks.map((proj, i) => (
-                        <div key={i} onClick={() => toggleProject(proj.title)} className={`p-6 rounded-[28px] border-2 transition-all cursor-pointer group flex flex-col justify-between h-48 ${selectedProjects.includes(proj.title) ? 'bg-primary border-primary text-white shadow-xl shadow-primary/30' : 'bg-slate-50 border-transparent hover:border-primary/30 text-slate-800'}`}>
+                        <div key={i} onClick={() => toggleProject(proj.title)} className={`p-4 rounded-2xl border transition-all cursor-pointer group flex flex-col justify-between h-32 ${selectedProjects.includes(proj.title) ? 'bg-primary border-primary text-white shadow-lg' : 'bg-slate-50 border-transparent hover:border-primary/30 text-slate-800'}`}>
                            <div className="flex justify-between items-start">
-                              <span className="text-mono-premium opacity-50">{String(i+1).padStart(2, '0')}</span>
-                              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${selectedProjects.includes(proj.title) ? 'bg-white text-primary' : 'bg-white/50 text-slate-300'}`}>
-                                 <span className="material-symbols-outlined text-sm">{selectedProjects.includes(proj.title) ? 'done' : 'add'}</span>
+                              <span className="text-[10px] font-bold opacity-40">{String(i+1).padStart(2, '0')}</span>
+                              <div className={`w-6 h-6 rounded-full flex items-center justify-center ${selectedProjects.includes(proj.title) ? 'bg-white text-primary' : 'bg-white/50 text-slate-300'}`}>
+                                 <span className="material-symbols-outlined text-xs">{selectedProjects.includes(proj.title) ? 'done' : 'add'}</span>
                               </div>
                            </div>
-                           <h5 className="font-black text-sm leading-tight pr-4">{proj.title}</h5>
+                           <h5 className="font-bold text-[11px] leading-tight pr-2">{proj.title}</h5>
                         </div>
                      ))}
                   </div>
@@ -371,6 +378,46 @@ export default function Dashboard() {
                </motion.div>
             </motion.div>
           )}
+        </AnimatePresence>
+
+        {/* Project Guide Modal */}
+        <AnimatePresence>
+           {selectedTask && selectedTask.title === 'Project Implementation Guide' && (
+              <div className="fixed inset-0 z-[110] flex items-center justify-center p-6 bg-slate-950/80 backdrop-blur-xl">
+                 <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="bg-white w-full max-w-2xl rounded-[40px] shadow-2xl overflow-hidden">
+                    <div className="p-8 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+                       <h4 className="text-2xl font-black text-slate-900 tracking-tighter">Internship Roadmap</h4>
+                       <button onClick={() => setSelectedTask(null)} className="w-10 h-10 bg-white text-slate-400 rounded-xl flex items-center justify-center hover:text-red-500 transition-all shadow-sm">
+                          <span className="material-symbols-outlined">close</span>
+                       </button>
+                    </div>
+                    <div className="p-10 space-y-8 overflow-y-auto max-h-[70vh]">
+                       {[
+                         { step: '01', title: 'Project Selection', desc: 'Click "Manage Projects" to select 4 major tasks relevant to your domain.' },
+                         { step: '02', title: 'Environment Setup', desc: 'Download the required software (IDE, Database) mentioned in your course material.' },
+                         { step: '03', title: 'Implementation', desc: 'Build the core features. Focus on code quality and documentation.' },
+                         { step: '04', title: 'GitHub Upload', desc: 'Push your code to a public GitHub repository. Include a README.md with your details.' },
+                         { step: '05', title: 'Submission', desc: 'Click "Submit Link" on your project card and provide the GitHub repository URL.' },
+                       ].map((item, i) => (
+                         <div key={i} className="flex gap-6 group">
+                            <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center font-black text-sm shrink-0 group-hover:bg-primary group-hover:text-white transition-all shadow-sm">
+                               {item.step}
+                            </div>
+                            <div>
+                               <h5 className="font-black text-slate-900 text-lg mb-1 tracking-tight">{item.title}</h5>
+                               <p className="text-sm text-slate-500 leading-relaxed font-medium">{item.desc}</p>
+                            </div>
+                         </div>
+                       ))}
+                    </div>
+                    <div className="p-8 bg-slate-50 border-t border-slate-100 flex justify-center">
+                       <button onClick={() => setSelectedTask(null)} className="bg-primary text-white px-10 py-3.5 rounded-2xl font-black text-sm shadow-xl shadow-primary/20 hover:scale-105 transition-all uppercase tracking-widest">
+                          Got it, Let's Build
+                       </button>
+                    </div>
+                 </motion.div>
+              </div>
+           )}
         </AnimatePresence>
 
         {/* SUBMISSION MODAL */}
