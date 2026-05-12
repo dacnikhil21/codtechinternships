@@ -4,6 +4,22 @@ import { motion, AnimatePresence } from 'framer-motion';
 export default function LessonViewer({ selectedModule, selectedLesson, setSelectedLesson, setSelectedModule }) {
   if (!selectedModule) return null;
 
+  let structuredContent = null;
+  if (selectedLesson) {
+    try {
+      structuredContent = JSON.parse(selectedLesson.content);
+    } catch (e) {
+      if (selectedLesson.explanation) {
+        structuredContent = {
+          simpleExplanation: selectedLesson.explanation,
+          example: selectedLesson.example,
+          summary: selectedLesson.summary,
+          practiceTask: selectedLesson.practiceTask
+        };
+      }
+    }
+  }
+
   return (
     <AnimatePresence>
       <div className="fixed inset-0 z-[120] flex items-center justify-center p-0 lg:p-10 bg-slate-900/40 backdrop-blur-sm">
@@ -63,18 +79,82 @@ export default function LessonViewer({ selectedModule, selectedLesson, setSelect
                     <h2 className="text-2xl font-black text-slate-900 tracking-tight leading-tight">{selectedLesson.title}</h2>
                   </div>
 
-                  {/* Code/Content Block */}
-                  <div className="bg-slate-900 rounded-2xl overflow-hidden">
-                    <div className="flex items-center gap-2 px-4 py-3 border-b border-slate-700">
-                      <div className="w-3 h-3 rounded-full bg-red-400"></div>
-                      <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
-                      <div className="w-3 h-3 rounded-full bg-green-400"></div>
-                      <span className="text-[10px] text-slate-500 font-mono ml-2 uppercase tracking-widest">lesson content</span>
+                  {/* Structured Content Block */}
+                  {structuredContent ? (
+                    <div className="space-y-8">
+                      {/* Simple Explanation */}
+                      {structuredContent.simpleExplanation && (
+                        <div className="prose prose-slate max-w-none">
+                          <p className="text-slate-700 text-[15px] leading-relaxed">{structuredContent.simpleExplanation}</p>
+                        </div>
+                      )}
+
+                      {/* Why It Matters */}
+                      {structuredContent.whyItMatters && structuredContent.whyItMatters.length > 0 && (
+                        <div className="bg-indigo-50/50 border border-indigo-100 rounded-2xl p-6">
+                          <h6 className="text-[10px] font-bold text-indigo-600 uppercase tracking-widest mb-4 flex items-center gap-2">
+                            <span className="material-symbols-outlined text-sm">psychology</span> Why It Matters
+                          </h6>
+                          <ul className="space-y-3">
+                            {structuredContent.whyItMatters.map((point, i) => (
+                              <li key={i} className="flex items-start gap-3 text-[13px] text-slate-700 font-medium leading-relaxed">
+                                <span className="w-5 h-5 rounded-full bg-indigo-100 text-indigo-600 text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">{i + 1}</span>
+                                {point}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      {/* Code / Example */}
+                      {structuredContent.example && (
+                        <div className="bg-slate-900 rounded-2xl overflow-hidden shadow-lg shadow-slate-900/10">
+                          <div className="flex items-center gap-2 px-4 py-3 border-b border-slate-700">
+                            <div className="w-3 h-3 rounded-full bg-red-400"></div>
+                            <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
+                            <div className="w-3 h-3 rounded-full bg-green-400"></div>
+                            <span className="text-[10px] text-slate-500 font-mono ml-2 uppercase tracking-widest">Example Snippet</span>
+                          </div>
+                          <div className="p-6 overflow-x-auto">
+                            <pre className="text-[13px] text-slate-100 font-mono leading-relaxed whitespace-pre-wrap">{structuredContent.example}</pre>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Summary & Practice */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {structuredContent.summary && (
+                          <div className="bg-emerald-50/50 border border-emerald-100 rounded-2xl p-5">
+                            <h6 className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest mb-2 flex items-center gap-2">
+                              <span className="material-symbols-outlined text-sm">bolt</span> Quick Summary
+                            </h6>
+                            <p className="text-[13px] text-slate-700 font-medium leading-relaxed">{structuredContent.summary}</p>
+                          </div>
+                        )}
+                        {structuredContent.practiceTask && (
+                          <div className="bg-amber-50/50 border border-amber-100 rounded-2xl p-5">
+                            <h6 className="text-[10px] font-bold text-amber-600 uppercase tracking-widest mb-2 flex items-center gap-2">
+                              <span className="material-symbols-outlined text-sm">edit_note</span> Mini Practice
+                            </h6>
+                            <p className="text-[13px] text-slate-700 font-medium leading-relaxed">{structuredContent.practiceTask}</p>
+                          </div>
+                        )}
+                      </div>
                     </div>
-                    <div className="p-6 overflow-x-auto">
-                      <pre className="text-sm text-slate-100 font-mono leading-relaxed whitespace-pre-wrap">{selectedLesson.content}</pre>
+                  ) : (
+                    /* Fallback Raw Content Block */
+                    <div className="bg-slate-900 rounded-2xl overflow-hidden">
+                      <div className="flex items-center gap-2 px-4 py-3 border-b border-slate-700">
+                        <div className="w-3 h-3 rounded-full bg-red-400"></div>
+                        <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
+                        <div className="w-3 h-3 rounded-full bg-green-400"></div>
+                        <span className="text-[10px] text-slate-500 font-mono ml-2 uppercase tracking-widest">lesson content</span>
+                      </div>
+                      <div className="p-6 overflow-x-auto">
+                        <pre className="text-sm text-slate-100 font-mono leading-relaxed whitespace-pre-wrap">{selectedLesson.content}</pre>
+                      </div>
                     </div>
-                  </div>
+                  )}
 
                   {/* Key Takeaways */}
                   {selectedLesson.keyPoints && selectedLesson.keyPoints.length > 0 && (
