@@ -353,11 +353,11 @@ export default function Dashboard() {
             <div className="py-4 px-2 flex flex-col md:flex-row justify-between items-end gap-6">
                <div>
                   <div className="flex items-center gap-2 mb-3">
-                     <div className="w-1 h-1 rounded-full bg-indigo-600 animate-pulse"></div>
-                     <span className="text-[9px] font-black text-indigo-600 uppercase tracking-[0.3em]">Active Session</span>
+                     <div className="w-1.5 h-1.5 rounded-full bg-indigo-600 animate-pulse"></div>
+                     <span className="text-[9px] md:text-[10px] font-black text-indigo-600 uppercase tracking-[0.2em]">Domain: {user?.course || 'Tech'} Internship</span>
                   </div>
-                  <h3 className="text-2xl font-black text-slate-900 tracking-tighter mb-1 leading-tight uppercase italic">{getGreeting()}, {user?.name?.split(' ')[0]}</h3>
-                  <p className="text-[14px] text-slate-400 font-medium tracking-tight">Step into your <span className="text-indigo-600 font-bold">professional roadmap</span> and complete your tasks.</p>
+                  <h3 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tighter mb-1 leading-tight uppercase italic">{getGreeting()}, {user?.name?.split(' ')[0]}</h3>
+                  <p className="text-[13px] md:text-[14px] text-slate-400 font-medium tracking-tight">Step into your <span className="text-indigo-600 font-bold">{user?.course || 'professional'}</span> roadmap and complete your tasks.</p>
                </div>
                <div className="hidden lg:flex items-center gap-8 bg-white px-8 py-4 rounded-[2rem] border border-slate-100 shadow-lg shadow-indigo-100/10">
                   <div className="text-center">
@@ -592,11 +592,11 @@ export default function Dashboard() {
              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 px-2 md:px-0">
                 <div className="bg-white p-5 md:p-8 rounded-[2rem] md:rounded-[2.5rem] border border-slate-100 shadow-sm space-y-6 overflow-hidden">
                    <h4 className="text-base md:text-lg font-black text-slate-900 uppercase tracking-tight italic text-center md:text-left">Active <span className="text-indigo-600">Drives</span></h4>
-                   <div className="space-y-3">
+                   <div className="space-y-2">
                       {['Google APAC', 'Microsoft IDC', 'Amazon SDE', 'Zomato Dev'].map(drive => (
-                         <div key={drive} className="p-3 md:p-5 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-between group hover:bg-white hover:shadow-xl transition-all">
+                         <div key={drive} className="px-3 py-2 md:px-5 md:py-3 rounded-xl md:rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-between group hover:bg-white hover:shadow-xl transition-all">
                             <span className="font-bold text-slate-700 text-[11px] md:text-sm truncate mr-2">{drive}</span>
-                            <span className="text-[8px] md:text-[9px] font-black text-indigo-600 uppercase tracking-widest bg-indigo-50 px-3 py-1.5 rounded-lg border border-indigo-100 shrink-0">Live</span>
+                            <span className="text-[8px] md:text-[9px] font-black text-indigo-600 uppercase tracking-widest bg-indigo-50 px-2 py-1 md:px-3 md:py-1.5 rounded-lg border border-indigo-100 shrink-0">Live</span>
                          </div>
                       ))}
                    </div>
