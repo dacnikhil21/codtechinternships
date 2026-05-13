@@ -16,25 +16,25 @@ export default function ProjectImplementationGuide({ onClose }) {
   ];
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-0 md:p-4 bg-slate-900/60 backdrop-blur-md">
       <motion.div 
         initial={{ opacity: 0, scale: 0.9, y: 20 }} 
         animate={{ opacity: 1, scale: 1, y: 0 }} 
-        className="bg-white w-full max-w-4xl h-[80vh] rounded-[2.5rem] shadow-2xl relative z-10 flex flex-col overflow-hidden border border-slate-200/60"
+        className="bg-white w-full h-full md:max-w-4xl md:h-[80vh] md:rounded-[2.5rem] shadow-2xl relative z-10 flex flex-col overflow-hidden border border-slate-200/60"
       >
         {/* Compact Header */}
-        <div className="p-6 border-b border-slate-100 flex justify-between items-center bg-white">
-           <div className="flex items-center gap-4">
-              <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-200">
-                 <span className="material-symbols-outlined text-white text-xl">auto_awesome</span>
+        <div className="p-5 md:p-6 border-b border-slate-100 flex justify-between items-center bg-white shrink-0 pt-10 md:pt-6">
+           <div className="flex items-center gap-3 md:gap-4">
+              <div className="w-9 h-9 md:w-10 md:h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-200">
+                 <span className="material-symbols-outlined text-white text-lg md:text-xl">auto_awesome</span>
               </div>
               <div>
-                 <h3 className="text-lg font-black text-slate-900 tracking-tight uppercase leading-none italic">Implementation <span className="text-indigo-600">Roadmap</span></h3>
-                 <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Project Execution & Submission Protocol</p>
+                 <h3 className="text-sm md:text-lg font-black text-slate-900 tracking-tight uppercase leading-none italic">Implementation <span className="text-indigo-600">Roadmap</span></h3>
+                 <p className="text-[9px] md:text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Submission Protocol</p>
               </div>
            </div>
-           <button onClick={onClose} className="w-10 h-10 rounded-full hover:bg-red-50 text-slate-400 hover:text-red-500 transition-all flex items-center justify-center border border-slate-100">
-              <span className="material-symbols-outlined text-xl">close</span>
+           <button onClick={onClose} className="w-9 h-9 md:w-10 md:h-10 rounded-full hover:bg-red-50 text-slate-400 hover:text-red-500 transition-all flex items-center justify-center border border-slate-100">
+              <span className="material-symbols-outlined text-lg md:text-xl">close</span>
            </button>
         </div>
 
@@ -95,12 +95,12 @@ export default function ProjectImplementationGuide({ onClose }) {
           </section>
 
           {/* Submission Example - NEW */}
-          <section className="bg-slate-900 rounded-[2rem] p-8 text-white relative overflow-hidden border border-slate-800 shadow-xl">
+          <section className="bg-slate-900 rounded-[1.5rem] md:rounded-[2rem] p-6 md:p-8 text-white relative overflow-hidden border border-slate-800 shadow-xl">
              <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
                 <div>
-                   <h4 className="text-xl font-black tracking-tight uppercase mb-4 leading-tight">GitHub Submission <br/><span className="text-indigo-400">Process Example</span></h4>
-                   <p className="text-slate-400 text-[13px] font-medium leading-relaxed mb-6">Follow this standard to ensure your project is accepted immediately.</p>
-                   <div className="space-y-3">
+                   <h4 className="text-lg md:text-xl font-black tracking-tight uppercase mb-4 leading-tight">GitHub Submission <br/><span className="text-indigo-400 text-sm md:text-xl">Process Example</span></h4>
+                   <p className="text-slate-400 text-[11px] md:text-[13px] font-medium leading-relaxed mb-6">Follow this standard to ensure your project is accepted immediately.</p>
+                   <div className="space-y-2 md:space-y-3">
                       {[
                         { step: '01', text: 'Create Repo: codtech-task-1' },
                         { step: '02', text: 'Push Source Code + Assets' },
@@ -108,13 +108,13 @@ export default function ProjectImplementationGuide({ onClose }) {
                         { step: '04', text: 'Submit Public URL' }
                       ].map((item, i) => (
                         <div key={i} className="flex items-center gap-3 bg-white/5 border border-white/5 p-3 rounded-xl">
-                           <span className="text-indigo-400 font-black text-[10px]">{item.step}</span>
-                           <p className="text-[11px] font-bold uppercase tracking-widest">{item.text}</p>
+                           <span className="text-indigo-400 font-black text-[9px] md:text-[10px]">{item.step}</span>
+                           <p className="text-[10px] md:text-[11px] font-bold uppercase tracking-widest">{item.text}</p>
                         </div>
                       ))}
                    </div>
                 </div>
-                <div className="bg-white/5 rounded-3xl p-8 border border-white/10 font-mono text-[12px] text-emerald-400">
+                <div className="bg-white/5 rounded-2xl md:rounded-3xl p-5 md:p-8 border border-white/10 font-mono text-[10px] md:text-[12px] text-emerald-400 overflow-x-auto">
                    <p className="text-slate-500 mb-4"># Project README Example</p>
                    <p className="mb-2">## INTERN NAME: John Doe</p>
                    <p className="mb-2">## ID: CT/MAY/1234</p>

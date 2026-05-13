@@ -142,18 +142,18 @@ export default function PreparationGuide({ courseTitle, prepContent, onView }) {
     <div className="col-span-full max-w-5xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700 pb-20">
       
       {/* Header & Progress */}
-      <div className="bg-white rounded-[2.5rem] p-10 shadow-sm border border-slate-100 space-y-6">
+      <div className="bg-white rounded-[1.5rem] md:rounded-[2.5rem] p-6 md:p-10 shadow-sm border border-slate-100 space-y-6">
          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            <div>
-               <h2 className="text-3xl font-black text-slate-900 uppercase tracking-tight italic">Interview <span className="text-primary">Preparation Portal</span></h2>
-               <p className="text-slate-400 text-sm font-medium mt-1 uppercase tracking-widest">Follow the GeeksforGeeks Master Roadmap</p>
+            <div className="text-center md:text-left">
+               <h2 className="text-2xl md:text-3xl font-black text-slate-900 uppercase tracking-tight italic">Interview <span className="text-primary">Preparation Portal</span></h2>
+               <p className="text-slate-400 text-[10px] md:text-sm font-medium mt-1 uppercase tracking-widest">Follow the GeeksforGeeks Master Roadmap</p>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 w-full md:w-auto justify-center md:justify-end">
                <div className="text-right">
-                  <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Preparation Progress</div>
-                  <div className="text-xl font-black text-slate-900 italic">{( (expandedSection + 1) / ROADMAP.length * 100 ).toFixed(0)}%</div>
+                  <div className="text-[9px] md:text-[10px] font-black text-slate-400 uppercase tracking-widest">Progress</div>
+                  <div className="text-lg md:text-xl font-black text-slate-900 italic">{( (expandedSection + 1) / ROADMAP.length * 100 ).toFixed(0)}%</div>
                </div>
-               <div className="w-32 h-3 bg-slate-100 rounded-full overflow-hidden">
+               <div className="w-24 md:w-32 h-2.5 md:h-3 bg-slate-100 rounded-full overflow-hidden">
                   <div className="h-full bg-primary transition-all duration-500" style={{ width: `${((expandedSection + 1) / ROADMAP.length) * 100}%` }}></div>
                </div>
             </div>
@@ -167,20 +167,20 @@ export default function PreparationGuide({ courseTitle, prepContent, onView }) {
             {/* Section Header */}
             <button 
               onClick={() => setExpandedSection(expandedSection === index ? -1 : index)}
-              className={`w-full p-8 flex items-center justify-between transition-colors ${expandedSection === index ? 'bg-slate-50' : 'hover:bg-slate-50/50'}`}
+              className={`w-full p-5 md:p-8 flex items-center justify-between transition-colors ${expandedSection === index ? 'bg-slate-50' : 'hover:bg-slate-50/50'}`}
             >
-              <div className="flex items-center gap-6">
-                 <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shadow-sm ${expandedSection === index ? 'bg-primary text-white shadow-primary/20' : 'bg-slate-100 text-slate-400'}`}>
-                    <span className="material-symbols-outlined text-2xl">{section.icon}</span>
+              <div className="flex items-center gap-4 md:gap-6">
+                 <div className={`w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl flex items-center justify-center shadow-sm shrink-0 ${expandedSection === index ? 'bg-primary text-white shadow-primary/20' : 'bg-slate-100 text-slate-400'}`}>
+                    <span className="material-symbols-outlined text-xl md:text-2xl">{section.icon}</span>
                  </div>
                  <div className="text-left">
-                    <h3 className={`text-xl font-black uppercase tracking-tight italic leading-tight ${expandedSection === index ? 'text-slate-900' : 'text-slate-500'}`}>
+                    <h3 className={`text-sm md:text-xl font-black uppercase tracking-tight italic leading-tight ${expandedSection === index ? 'text-slate-900' : 'text-slate-500'}`}>
                        {section.title}
                     </h3>
-                    <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">{section.subtitle}</p>
+                    <p className="text-[9px] md:text-[11px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">{section.subtitle}</p>
                  </div>
               </div>
-              <span className={`material-symbols-outlined text-3xl transition-transform duration-300 ${expandedSection === index ? 'rotate-180 text-primary' : 'text-slate-300'}`}>
+              <span className={`material-symbols-outlined text-2xl md:text-3xl transition-transform duration-300 shrink-0 ${expandedSection === index ? 'rotate-180 text-primary' : 'text-slate-300'}`}>
                  expand_more
               </span>
             </button>
@@ -194,7 +194,7 @@ export default function PreparationGuide({ courseTitle, prepContent, onView }) {
                     exit={{ height: 0, opacity: 0 }}
                     className="overflow-hidden"
                   >
-                     <div className="p-10 pt-4 border-t border-slate-100 bg-white space-y-10">
+                     <div className="p-5 md:p-10 pt-4 border-t border-slate-100 bg-white space-y-8 md:space-y-10">
                         {/* Section Introduction */}
                         <div className="bg-slate-50 p-6 rounded-3xl border border-slate-100">
                            <p className="text-slate-600 text-sm font-medium leading-relaxed italic">"{section.content.intro}"</p>
@@ -235,14 +235,14 @@ export default function PreparationGuide({ courseTitle, prepContent, onView }) {
                                    </div>
                                 ))}
                              </div>
-                             <div className="bg-slate-900 p-8 rounded-[2.5rem] relative overflow-hidden">
+                             <div className="bg-slate-900 p-6 md:p-8 rounded-[1.5rem] md:rounded-[2.5rem] relative overflow-hidden">
                                 <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-3xl"></div>
-                                <div className="relative z-10 flex flex-col md:flex-row items-center gap-8">
-                                   <div className="flex-1 space-y-4">
-                                      <h4 className="text-xl font-black text-white uppercase italic tracking-tight">Master {section.content.videoResource.title}</h4>
-                                      <p className="text-white/40 text-[12px] font-medium leading-relaxed">Watch the complete roadmap video inside the platform to understand the priority and sequence of DSA topics.</p>
+                                <div className="relative z-10 flex flex-col md:flex-row items-center gap-6 md:gap-8">
+                                   <div className="flex-1 space-y-3 md:space-y-4">
+                                      <h4 className="text-lg md:text-xl font-black text-white uppercase italic tracking-tight">Master {section.content.videoResource.title}</h4>
+                                      <p className="text-white/40 text-[11px] md:text-[12px] font-medium leading-relaxed">Watch the complete roadmap video inside the platform to understand the priority and sequence of DSA topics.</p>
                                    </div>
-                                   <div className="w-full md:w-64 aspect-video bg-black rounded-2xl overflow-hidden border border-white/10">
+                                   <div className="w-full md:w-64 aspect-video bg-black rounded-xl md:rounded-2xl overflow-hidden border border-white/10">
                                       <iframe className="w-full h-full" src={`https://www.youtube.com/embed/${section.content.videoResource.id}`} frameBorder="0" allowFullScreen></iframe>
                                    </div>
                                 </div>
@@ -366,29 +366,29 @@ export default function PreparationGuide({ courseTitle, prepContent, onView }) {
 
       {/* Domain Content Tracker - Maintaining existing logic */}
       {prepContent && prepContent.length > 0 && (
-         <div className="bg-slate-50/50 rounded-[3rem] p-12 border border-slate-100">
-            <div className="flex items-center gap-6 mb-12">
-               <div className="w-2 h-16 bg-primary rounded-full"></div>
+         <div className="bg-slate-50/50 rounded-[1.5rem] md:rounded-[3rem] p-6 md:p-12 border border-slate-100">
+            <div className="flex items-center gap-4 md:gap-6 mb-8 md:mb-12">
+               <div className="w-1.5 md:w-2 h-10 md:h-16 bg-primary rounded-full"></div>
                <div>
-                  <h3 className="text-3xl font-black text-slate-900 uppercase tracking-tight leading-none italic">Internship <span className="text-primary">Materials</span></h3>
-                  <p className="text-[11px] text-slate-400 font-bold uppercase tracking-[0.4em] mt-2">Specialized tracks for {courseTitle}</p>
+                  <h3 className="text-xl md:text-3xl font-black text-slate-900 uppercase tracking-tight leading-none italic">Internship <span className="text-primary">Materials</span></h3>
+                  <p className="text-[10px] md:text-[11px] text-slate-400 font-bold uppercase tracking-[0.4em] mt-2">Specialized tracks for {courseTitle}</p>
                </div>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                {prepContent.map((item, idx) => (
-                  <div key={idx} className="bg-white p-8 rounded-[3rem] border border-slate-100 shadow-sm flex items-center justify-between group hover:border-primary/30 hover:shadow-xl transition-all">
-                     <div className="flex items-center gap-6">
-                        <div className="w-14 h-14 bg-slate-50 text-primary rounded-2xl flex items-center justify-center border border-slate-100 group-hover:bg-primary group-hover:text-white transition-all">
-                           <span className="material-symbols-outlined text-2xl">school</span>
+                  <div key={idx} className="bg-white p-6 md:p-8 rounded-[1.5rem] md:rounded-[3rem] border border-slate-100 shadow-sm flex items-center justify-between group hover:border-primary/30 hover:shadow-xl transition-all">
+                     <div className="flex items-center gap-4 md:gap-6">
+                        <div className="w-10 h-10 md:w-14 md:h-14 bg-slate-50 text-primary rounded-xl md:rounded-2xl flex items-center justify-center border border-slate-100 group-hover:bg-primary group-hover:text-white transition-all shrink-0">
+                           <span className="material-symbols-outlined text-xl md:text-2xl">school</span>
                         </div>
                         <div>
-                           <h4 className="font-black text-slate-900 text-sm uppercase tracking-tight italic leading-none">{item.title}</h4>
-                           <p className="text-[11px] text-slate-400 font-medium mt-1 line-clamp-1">{item.description}</p>
+                           <h4 className="font-black text-slate-900 text-[12px] md:text-sm uppercase tracking-tight italic leading-none">{item.title}</h4>
+                           <p className="text-[10px] md:text-[11px] text-slate-400 font-medium mt-1 line-clamp-1">{item.description}</p>
                         </div>
                      </div>
-                     <button onClick={() => onView(item)} className="w-12 h-12 rounded-full border border-slate-100 flex items-center justify-center text-slate-300 hover:bg-primary hover:text-white hover:border-primary transition-all">
-                        <span className="material-symbols-outlined text-xl">arrow_forward</span>
+                     <button onClick={() => onView(item)} className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-slate-100 flex items-center justify-center text-slate-300 hover:bg-primary hover:text-white hover:border-primary transition-all shrink-0">
+                        <span className="material-symbols-outlined text-lg md:text-xl">arrow_forward</span>
                      </button>
                   </div>
                ))}

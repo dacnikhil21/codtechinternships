@@ -190,20 +190,61 @@ export default function Dashboard() {
   if (!user) return null;
 
   return (
-    <div className="min-h-screen bg-[#FDFDFF] flex w-full font-inter overflow-x-hidden text-slate-900">
+    <div className="min-h-screen bg-[#FDFDFF] flex w-full font-inter overflow-x-hidden text-slate-900 relative">
       
-      {/* Sidebar - COMPACT & ALIGNED (Linear Style) */}
-      <aside className={`w-60 bg-white border-r border-slate-200/60 flex flex-col fixed h-full z-[70] transition-transform duration-300 ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>
-        <div className="p-5 mb-2">
+      {/* Mobile Top Bar - NEW */}
+      <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-white border-b border-slate-200/60 z-[80] flex items-center justify-between px-6 backdrop-blur-md bg-white/80">
+        <div className="flex items-center gap-2.5">
+          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center shadow-md shadow-primary/10">
+            <span className="material-symbols-outlined text-white text-base" style={{fontVariationSettings: "'FILL' 1"}}>terminal</span>
+          </div>
+          <h1 className="text-slate-900 font-bold text-xs tracking-tight uppercase">Codtech</h1>
+        </div>
+        <button 
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-600 border border-slate-200/60 transition-all hover:bg-slate-100"
+        >
+          <span className="material-symbols-outlined">{isMobileMenuOpen ? 'close' : 'menu'}</span>
+        </button>
+      </div>
+
+      {/* Mobile Sidebar Backdrop */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="lg:hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[65]"
+          />
+        )}
+      </AnimatePresence>
+      
+      <aside className={`w-64 bg-white border-r border-slate-200/60 flex flex-col fixed h-full z-[70] transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'} lg:left-0`}>
+        <div className="p-6 mb-2 hidden lg:block">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center shadow-md shadow-primary/10">
-              <span className="material-symbols-outlined text-white text-base" style={{fontVariationSettings: "'FILL' 1"}}>terminal</span>
+            <div className="w-9 h-9 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
+              <span className="material-symbols-outlined text-white text-lg" style={{fontVariationSettings: "'FILL' 1"}}>terminal</span>
             </div>
-            <h1 className="text-slate-900 font-bold text-xs tracking-tight uppercase">Codtech Intern</h1>
+            <h1 className="text-slate-900 font-black text-[13px] tracking-tighter uppercase">Codtech Intern</h1>
           </div>
         </div>
 
-        <nav className="flex-1 px-4 py-8 space-y-3 overflow-y-auto">
+        {/* Mobile Header in Sidebar */}
+        <div className="p-6 lg:hidden flex items-center justify-between border-b border-slate-50 mb-4">
+           <div className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                 <span className="material-symbols-outlined text-white text-sm">terminal</span>
+              </div>
+              <span className="font-black text-[11px] uppercase tracking-tight">Navigation</span>
+           </div>
+           <button onClick={() => setIsMobileMenuOpen(false)} className="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center text-slate-400">
+              <span className="material-symbols-outlined text-sm">close</span>
+           </button>
+        </div>
+
+        <nav className="flex-1 px-4 py-2 space-y-2 overflow-y-auto custom-scrollbar">
           {[
             { name: 'Projects', icon: 'grid_view' },
             { name: 'Materials', icon: 'menu_book' },
@@ -211,7 +252,7 @@ export default function Dashboard() {
             { name: 'Placement Hub', icon: 'hub' },
             { name: 'Job Hunting', icon: 'work' },
             { name: 'Mock Interviews', icon: 'forum' },
-            { name: 'Resume Building', icon: 'description', path: '/resume' },
+            { name: 'Resume Builder', icon: 'description', path: '/resume' },
             { name: 'LinkedIn Profile', icon: 'person_search' },
           ].map((item) => (
             <button 
@@ -251,11 +292,10 @@ export default function Dashboard() {
         </div>
       </aside>
 
-      {/* Main Content - TIGHTER PADDING (Productive) */}
-      <main className={`flex-1 transition-all lg:ml-60 p-4 lg:p-6 mt-16 lg:mt-0`}>
+      <main className={`flex-1 transition-all lg:ml-64 p-4 md:p-8 lg:p-10 pt-20 lg:pt-10 min-h-screen`}>
         
         {/* Header - REFINED & COMPACT */}
-        <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
+        <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
           <div className="flex items-center gap-3">
              <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
              <h2 className="text-sm font-bold text-slate-400 tracking-tight uppercase">{activeTab}</h2>
@@ -333,20 +373,57 @@ export default function Dashboard() {
             </div>
 
             {/* Analytics & Orientation - COMPACT */}
-              <div className="lg:col-span-12 bg-white p-6 rounded-3xl border border-slate-200/60 shadow-sm relative overflow-hidden flex flex-col justify-between">
-                <div className="flex justify-between items-start relative z-10">
-                  <div>
-                    <h4 className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Proficiency Index</h4>
-                    <p className="text-base font-black text-slate-900 uppercase tracking-tight">Skill <span className="text-indigo-600">Analysis</span></p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+               <div className="bg-white p-6 rounded-3xl border border-slate-200/60 shadow-sm relative overflow-hidden flex flex-col justify-between group">
+                 <div className="flex justify-between items-start relative z-10">
+                   <div>
+                     <h4 className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Proficiency Index</h4>
+                     <p className="text-base font-black text-slate-900 uppercase tracking-tight">Skill <span className="text-indigo-600">Analysis</span></p>
+                   </div>
+                   <div className="flex flex-col items-end">
+                     <div className="flex items-baseline gap-1">
+                        <span className="text-4xl font-black text-slate-900 tracking-tighter italic">{getReadinessScore()}</span>
+                        <span className="text-[10px] text-slate-300 font-black tracking-widest uppercase">/100</span>
+                     </div>
+                   </div>
+                 </div>
+                 <div className="mt-6 h-1 bg-slate-100 rounded-full overflow-hidden">
+                    <motion.div initial={{ width: 0 }} animate={{ width: `${getReadinessScore()}%` }} className="h-full bg-indigo-600" />
+                 </div>
+               </div>
+
+               <div className="bg-white p-6 rounded-3xl border border-slate-200/60 shadow-sm relative overflow-hidden group">
+                  <div className="flex justify-between items-start">
+                     <div>
+                        <h4 className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Time Remaining</h4>
+                        <p className="text-base font-black text-slate-900 uppercase tracking-tight">Project <span className="text-indigo-600">Deadline</span></p>
+                     </div>
+                     <div className="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center">
+                        <span className="material-symbols-outlined text-xl">schedule</span>
+                     </div>
                   </div>
-                  <div className="flex flex-col items-end">
-                    <div className="flex items-baseline gap-1">
-                       <span className="text-4xl font-black text-slate-900 tracking-tighter italic">{getReadinessScore()}</span>
-                       <span className="text-[10px] text-slate-300 font-black tracking-widest uppercase">/100</span>
-                    </div>
+                  <div className="mt-4 flex items-center gap-3">
+                     <span className="text-2xl font-black text-slate-900 tracking-tighter italic">{countdown}</span>
+                     <span className="text-[10px] text-slate-300 font-black tracking-widest uppercase">remaining</span>
                   </div>
-                </div>
-              </div>
+               </div>
+
+               <div className="bg-white p-6 rounded-3xl border border-slate-200/60 shadow-sm relative overflow-hidden group md:col-span-2 lg:col-span-1">
+                  <div className="flex justify-between items-start">
+                     <div>
+                        <h4 className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Learning Status</h4>
+                        <p className="text-base font-black text-slate-900 uppercase tracking-tight">Module <span className="text-indigo-600">Mastery</span></p>
+                     </div>
+                     <div className="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center">
+                        <span className="material-symbols-outlined text-xl">menu_book</span>
+                     </div>
+                  </div>
+                  <div className="mt-4 flex items-center gap-3">
+                     <span className="text-2xl font-black text-slate-900 tracking-tighter italic">{completedLessons.length}</span>
+                     <span className="text-[10px] text-slate-300 font-black tracking-widest uppercase">Units Complete</span>
+                  </div>
+               </div>
+            </div>
 
             {/* PROJECT WORKSPACE - COMPACT & FUNCTIONAL */}
             <section className="bg-white p-6 rounded-3xl border border-slate-200/60 shadow-sm">
@@ -494,7 +571,85 @@ export default function Dashboard() {
           </motion.div>
         )}
 
-        {activeTab === 'LinkedIn Profile' && (
+        {activeTab === 'Placement Hub' && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-12 max-w-5xl mx-auto py-10">
+             <div className="text-center space-y-4">
+                <div className="w-20 h-20 bg-indigo-600 text-white rounded-[2rem] flex items-center justify-center mx-auto shadow-2xl shadow-indigo-200 mb-6">
+                   <span className="material-symbols-outlined text-4xl">hub</span>
+                </div>
+                <h3 className="text-3xl font-black text-slate-900 uppercase tracking-tighter italic">Placement <span className="text-indigo-600">Command Center</span></h3>
+                <p className="text-slate-400 text-sm font-medium max-w-md mx-auto">Your portal to top-tier internship and job opportunities in the tech industry.</p>
+             </div>
+             
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm space-y-6">
+                   <h4 className="text-lg font-black text-slate-900 uppercase tracking-tight italic">Active <span className="text-indigo-600">Drives</span></h4>
+                   <div className="space-y-4">
+                      {['Google APAC', 'Microsoft IDC', 'Amazon SDE', 'Zomato Dev'].map(drive => (
+                         <div key={drive} className="p-5 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-between group hover:bg-white hover:shadow-xl transition-all">
+                            <span className="font-bold text-slate-700 text-sm">{drive}</span>
+                            <span className="text-[9px] font-black text-indigo-600 uppercase tracking-widest bg-indigo-50 px-3 py-1.5 rounded-lg border border-indigo-100">Live</span>
+                         </div>
+                      ))}
+                   </div>
+                </div>
+                <div className="bg-slate-900 p-8 rounded-[2.5rem] border border-white/5 shadow-2xl text-white flex flex-col justify-center items-center text-center space-y-6">
+                   <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center">
+                      <span className="material-symbols-outlined text-3xl text-indigo-400">verified_user</span>
+                   </div>
+                   <h4 className="text-xl font-black uppercase tracking-tight italic">Become <span className="text-indigo-400">Placement Ready</span></h4>
+                   <p className="text-white/40 text-[12px] font-medium leading-relaxed">Complete your 4 projects and materials to unlock 1-on-1 career coaching sessions.</p>
+                   <button className="w-full py-4 bg-indigo-600 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] shadow-lg shadow-indigo-500/20">Apply for Evaluation</button>
+                </div>
+             </div>
+          </motion.div>
+        )}
+
+        {activeTab === 'Job Hunting' && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-8 max-w-5xl mx-auto py-10">
+             <div className="flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
+                <div className="text-center md:text-left">
+                   <h3 className="text-3xl font-black text-slate-900 uppercase tracking-tighter italic">Job <span className="text-indigo-600">Hunting Suite</span></h3>
+                   <p className="text-slate-400 text-sm font-medium mt-2 italic">Strategize, Apply, and Win.</p>
+                </div>
+                <button className="px-8 py-4 bg-slate-900 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-xl hover:bg-indigo-600 transition-all">Upload New Resume</button>
+             </div>
+
+             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {[
+                  { title: 'Resume Quality', score: '84%', color: 'text-emerald-500' },
+                  { title: 'Job Matches', score: '12', color: 'text-indigo-600' },
+                  { title: 'Referral Credits', score: '03', color: 'text-amber-500' }
+                ].map(stat => (
+                  <div key={stat.title} className="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm text-center">
+                     <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest mb-2">{stat.title}</p>
+                     <p className={`text-4xl font-black ${stat.color} tracking-tighter italic`}>{stat.score}</p>
+                  </div>
+                ))}
+             </div>
+          </motion.div>
+        )}
+
+        {activeTab === 'Mock Interviews' && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-8 max-w-5xl mx-auto py-10">
+             <div className="bg-indigo-600 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl shadow-indigo-200">
+                <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-[100px]"></div>
+                <div className="relative z-10 flex flex-col md:flex-row items-center gap-12">
+                   <div className="flex-1 space-y-6 text-center md:text-left">
+                      <h3 className="text-4xl font-black uppercase tracking-tighter italic leading-none">Schedule your <br/><span className="text-indigo-200">Mock Interview</span></h3>
+                      <p className="text-indigo-100/60 text-sm font-medium leading-relaxed max-w-md">Practice with industry experts from Amazon, Google, and Meta before your real technical rounds.</p>
+                      <div className="flex flex-col md:flex-row gap-4 pt-4">
+                         <button className="px-10 py-4 bg-white text-indigo-600 rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-xl hover:scale-105 transition-all">Book Technical Round</button>
+                         <button className="px-10 py-4 bg-indigo-500 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest border border-indigo-400 hover:bg-indigo-400 transition-all">Book HR Mock</button>
+                      </div>
+                   </div>
+                   <div className="w-48 h-48 bg-white/10 rounded-[2.5rem] backdrop-blur-md border border-white/10 flex items-center justify-center shrink-0">
+                      <span className="material-symbols-outlined text-8xl opacity-40">forum</span>
+                   </div>
+                </div>
+             </div>
+          </motion.div>
+        )}
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-8 max-w-4xl mx-auto">
             {/* LinkedIn Header */}
             <div className="flex flex-col items-center text-center space-y-4 py-8">
