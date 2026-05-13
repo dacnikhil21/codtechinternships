@@ -28,110 +28,45 @@ export default function TemplateGallery({ selectedTemplateId, onSelect }) {
               : 'border-slate-100 hover:border-slate-200 bg-white'
             }`}
           >
-            {/* Template Card Visual Representation */}
-            <div className={`w-full aspect-[1/1.414] rounded-xl mb-4 overflow-hidden border border-slate-100 shadow-sm transition-all group-hover:shadow-md ${
+            {/* Template Card Visual Preview */}
+            <div className={`w-full aspect-[1/1.414] rounded-xl mb-4 overflow-hidden border border-slate-100 shadow-sm transition-all group-hover:shadow-md relative ${
               selectedTemplateId === template.id ? 'ring-2 ring-primary ring-offset-2' : ''
             }`}>
-              <div className={`w-full h-full bg-white p-4 relative flex flex-col gap-2 ${template.id === 'ats-jake' ? 'bg-slate-50' : ''}`}>
-                 {/* CSS Based Mini Preview */}
-                 {template.id === 'ats-jake' && (
-                    <div className="space-y-1">
-                       <div className="h-1.5 w-3/4 bg-slate-800 mx-auto rounded-full"></div>
-                       <div className="h-1 w-1/2 bg-slate-200 mx-auto rounded-full"></div>
-                       <div className="h-0.5 w-full bg-slate-100 mt-2"></div>
-                       <div className="space-y-1 mt-1">
-                          <div className="h-1 w-full bg-slate-200 rounded-full"></div>
-                          <div className="h-1 w-5/6 bg-slate-100 rounded-full"></div>
-                       </div>
-                    </div>
-                 )}
-                 {template.id === 'indian-iit' && (
-                    <div className="space-y-1">
-                       <div className="flex justify-between items-center">
-                          <div className="h-2 w-1/3 bg-slate-800 rounded-sm"></div>
-                          <div className="h-2 w-1/4 bg-slate-200 rounded-sm"></div>
-                       </div>
-                       <div className="h-0.5 w-full bg-slate-900 mt-1"></div>
-                       <div className="grid grid-cols-4 gap-0.5 mt-2">
-                          {[...Array(4)].map((_, i) => <div key={i} className="h-1.5 bg-slate-100 border border-slate-200"></div>)}
-                          {[...Array(8)].map((_, i) => <div key={i} className="h-1 bg-slate-50 border border-slate-200"></div>)}
-                       </div>
-                    </div>
-                 )}
-                 {template.id === 'corporate-orange' && (
-                    <div className="space-y-1">
-                       <div className="h-3 w-1/2 bg-slate-900 rounded-sm"></div>
-                       <div className="h-2 w-1/3 bg-orange-500 rounded-sm"></div>
-                       <div className="h-4 w-full bg-slate-800 rounded-sm mt-1"></div>
-                       <div className="grid grid-cols-3 gap-1 mt-2">
-                          {[...Array(6)].map((_, i) => <div key={i} className="h-2 bg-slate-100 rounded-sm"></div>)}
-                       </div>
-                    </div>
-                 )}
-                 {template.id === 'altacv-modern' && (
-                    <div className="flex h-full gap-2">
-                       <div className="flex-1 space-y-2">
-                          <div className="h-3 w-3/4 bg-teal-800 rounded-sm"></div>
-                          <div className="h-2 w-1/2 bg-teal-500 rounded-sm"></div>
-                          <div className="h-1 w-full bg-slate-200 rounded-full"></div>
-                          <div className="space-y-1">
-                             <div className="h-2 w-full bg-slate-100 rounded-sm"></div>
-                             <div className="h-1 w-3/4 bg-slate-50 rounded-sm"></div>
-                          </div>
-                       </div>
-                       <div className="w-1/3 bg-slate-50 rounded-sm p-1 space-y-1">
-                          <div className="h-1.5 w-full bg-slate-300 rounded-sm"></div>
-                          <div className="h-1.5 w-full bg-slate-300 rounded-sm"></div>
-                          <div className="h-4 w-full bg-slate-200 rounded-sm"></div>
-                       </div>
-                    </div>
-                 )}
-                 {template.id === 'deedy-research' && (
-                    <div className="flex h-full gap-2">
-                       <div className="w-1/3 bg-white p-1 space-y-2">
-                          <div className="h-3 w-full bg-slate-800 rounded-sm"></div>
-                          <div className="h-1 w-full bg-slate-300 rounded-sm"></div>
-                          <div className="h-1 w-full bg-slate-300 rounded-sm"></div>
-                          <div className="h-4 w-full bg-slate-100 rounded-sm"></div>
-                       </div>
-                       <div className="flex-1 space-y-2">
-                          <div className="h-2 w-full bg-slate-300 border-b border-slate-900"></div>
-                          <div className="h-4 w-full bg-slate-50 rounded-sm"></div>
-                          <div className="h-2 w-full bg-slate-300 border-b border-slate-900"></div>
-                          <div className="h-4 w-full bg-slate-50 rounded-sm"></div>
-                       </div>
-                    </div>
-                 )}
-                 {template.id === 'awesome-executive' && (
-                    <div className="space-y-2">
-                       <div className="flex flex-col items-center gap-1">
-                          <div className="h-3 w-1/2 bg-slate-800 rounded-sm"></div>
-                          <div className="h-2 w-1/3 bg-red-600 rounded-sm"></div>
-                       </div>
-                       <div className="h-0.5 w-full bg-red-600"></div>
-                       <div className="space-y-2 mt-2">
-                          <div className="h-3 w-full bg-slate-50 rounded-sm"></div>
-                          <div className="h-3 w-full bg-slate-50 rounded-sm"></div>
-                       </div>
-                    </div>
-                 )}
+               {/* Real Visual Preview Image */}
+               <img 
+                 src={`/resumes/${template.id}.png`} 
+                 alt={template.name}
+                 className="w-full h-full object-cover object-top"
+                 loading="lazy"
+               />
+               
+               {/* Overlay for better contrast on hover */}
+               <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/5 transition-colors"></div>
 
-                 {/* Selection Badge */}
-                 {selectedTemplateId === template.id && (
-                    <div className="absolute top-2 right-2 w-5 h-5 bg-primary rounded-full flex items-center justify-center text-white shadow-lg">
-                       <span className="material-symbols-outlined text-xs">check</span>
-                    </div>
-                 )}
-              </div>
+                  {/* Selection Badge */}
+                  {selectedTemplateId === template.id && (
+                     <div className="absolute top-2 right-2 w-6 h-6 bg-primary rounded-full flex items-center justify-center text-white shadow-lg z-10">
+                        <span className="material-symbols-outlined text-sm font-bold">check</span>
+                     </div>
+                  )}
             </div>
 
             <div className="w-full">
-              <p className="text-[10px] font-black text-slate-900 uppercase tracking-tighter truncate">{template.name}</p>
-              <p className="text-[8px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">{template.category}</p>
+              <div className="flex items-center gap-1.5 mb-1">
+                 <div className={`w-1.5 h-1.5 rounded-full ${
+                    template.category === 'Professional' ? 'bg-emerald-500' :
+                    template.category === 'Academic' ? 'bg-indigo-500' :
+                    template.category === 'Corporate' ? 'bg-orange-500' : 'bg-slate-400'
+                 }`}></div>
+                 <p className="text-[8px] font-black text-slate-400 uppercase tracking-[0.15em]">{template.category}</p>
+              </div>
+              <h4 className="text-[11px] font-black text-slate-900 uppercase tracking-tight truncate">{template.name}</h4>
+              <p className="text-[9px] font-medium text-slate-400 mt-0.5 line-clamp-1">{template.description || 'Professional Layout'}</p>
             </div>
           </motion.button>
         ))}
       </div>
+
     </div>
   );
 }
