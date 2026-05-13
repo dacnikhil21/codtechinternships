@@ -23,9 +23,9 @@ export default function ATSScore({ formData, selectedTemplateId }) {
     if (formData.github) s += 5;
 
     // ATS Compatibility Penalty for Creative/Heavy Layouts
-    if (selectedTemplateId === 'ats-professional') {
+    if (['ats-jake', 'indian-iit'].includes(selectedTemplateId)) {
        s += 5; // Perfect score
-    } else if (['creative-sidebar', 'executive-premium'].includes(selectedTemplateId)) {
+    } else if (['altacv-modern', 'awesome-executive'].includes(selectedTemplateId)) {
        s -= 10; // Slightly lower for visual layouts
     }
     
@@ -67,7 +67,7 @@ export default function ATSScore({ formData, selectedTemplateId }) {
       <div className="mt-4 flex items-start gap-2 relative z-10">
          <span className="material-symbols-outlined text-[14px] text-slate-300 mt-0.5">info</span>
          <p className="text-[10px] text-slate-400 leading-relaxed font-bold">
-           {score < 85 ? 'Tip: Use the ATS Professional template and add more specific technical keywords to hit 90%+.' : 'Excellent! Your resume is highly optimized for corporate placement systems.'}
+            {score < 85 ? 'Tip: Use the ATS Professional template and add more specific technical keywords to hit 90%+.' : 'Excellent! Your resume is highly optimized for corporate placement systems.'}
          </p>
       </div>
     </div>
