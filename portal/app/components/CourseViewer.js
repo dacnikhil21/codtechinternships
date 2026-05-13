@@ -188,10 +188,11 @@ export default function CourseViewer({ selectedModule, completedLessons = [], on
                  {Math.round((selectedModule.lessons.filter(l => completedLessons.includes(l.id)).length / selectedModule.lessons.length) * 100)}%
               </p>
             </div>
-          </motion.aside>
-        </>
-        )}
-      </AnimatePresence>
+          </div>
+        </motion.aside>
+      </>
+      )}
+    </AnimatePresence>
 
       {/* Main Content Area */}
       <main className="flex-1 flex flex-col overflow-hidden relative bg-white">
