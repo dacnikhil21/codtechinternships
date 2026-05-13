@@ -20,93 +20,243 @@ export default function ResumePreview({ formData, selectedTemplateId }) {
     if (!template) return '<p>Please select a template</p>';
     let html = template.html;
 
-    let role = formData.role || formData.domain || 'Intern';
-    if (role.toLowerCase().includes('intern') && (formData.domain || '').toLowerCase().includes('intern')) {
-       role = formData.domain;
-    }
-
+    const role = formData.role || formData.domain || 'Intern';
     const replacements = {
       name: formData.name || 'YOUR NAME',
       role: role,
       summary: formData.summary || 'Aspiring professional with a focus on delivering high-quality results and continuous learning.',
       email: formData.email || 'email@example.com',
       phone: formData.phone || '+91 00000 00000',
-      linkedin: formatLinkedIn(formData.linkedin),
-      github: formatGitHub(formData.github),
+      location: 'City, Country',
+      linkedin: formatLinkedIn(formData.linkedin) || 'linkedin.com/in/username',
+      github: formatGitHub(formData.github) || 'github.com/username',
+      current_date: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
+      current_year: new Date().getFullYear(),
+      college: 'Codtech Institute of Technology',
       skills: Array.isArray(formData.skills) && formData.skills.length > 0 ? formData.skills.join(', ') : 'Add your skills...',
       certifications: Array.isArray(formData.certifications) && formData.certifications.length > 0 ? formData.certifications.join(', ') : 'Add certifications...',
     };
 
-    // Special formatting for Projects
-    const projectsList = (formData.projects || []).map(p => `
-      <div style="margin-bottom: 12px;">
-        <p style="font-weight: 700; color: #1e293b; margin: 0 0 4px 0;">${p.split(':')[0]}</p>
-        ${p.includes(':') ? `<p style="margin: 0; color: #475569; font-size: 0.95em;">${p.split(':').slice(1).join(':')}</p>` : ''}
-      </div>
-    `).join('');
-    replacements.projects_list = projectsList || '<p>Add your key projects...</p>';
+    // --- ATS PROFESSIONAL FORMATTING ---
+    replacements.projects_list_ats = (formData.projects || []).map(p => {
+        const [title, ...desc] = p.split(':');
+        return `
+          <div style="margin-bottom: 12px;">
+            <div style="display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 2px;">
+               <span>${title}</span>
+               <span style="font-weight: 500;">Aug 2024 - Present</span>
+            </div>
+            <p style="margin: 0; font-style: italic; color: #444; font-size: 10px; margin-bottom: 4px;">Developer (@project)</p>
+            <ul style="margin: 0; padding-left: 18px; list-style-type: disc;">
+               <li style="margin-bottom: 2px;">${desc.join(':').trim() || 'Implemented core features and optimized performance.'}</li>
+               <li>Led the development of responsive UI components.</li>
+            </ul>
+          </div>
+        `;
+    }).join('') || '<p>Add projects...</p>';
 
-    // Special formatting for Education
-    const educationList = (formData.education || []).map(e => `
-      <div style="margin-bottom: 10px;">
-        <p style="font-weight: 700; color: #1e293b; margin: 0 0 2px 0;">${e.split(',')[0]}</p>
-        <p style="margin: 0; color: #64748b; font-size: 0.9em;">${e.split(',').slice(1).join(', ')}</p>
-      </div>
-    `).join('');
-    replacements.education_list = educationList || '<p>Add your education...</p>';
+    replacements.education_list_ats = (formData.education || []).map(e => {
+        const [inst, deg, year] = e.split(',');
+        return `
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+             <div>
+                <p style="font-weight: 700; margin: 0;">${inst || 'Wellesley College'}</p>
+                <p style="margin: 0; font-style: italic;">${deg || 'Bachelor of Arts in Computer Science'}</p>
+             </div>
+             <div style="text-align: right;">
+                <p style="font-weight: 500; margin: 0;">${year || 'May 2024'}</p>
+                <p style="margin: 0; color: #666; font-size: 10px;">City, State</p>
+             </div>
+          </div>
+        `;
+    }).join('') || '<p>Add education...</p>';
 
-    // Tag for Indian Fresher Education Table
-    const educationTableRows = (formData.education || []).map(e => {
-        const parts = e.split(',');
+    replacements.skills_languages = (formData.skills || []).slice(0, 4).join(', ');
+    replacements.skills_tools = (formData.skills || []).slice(4, 10).join(', ');
+
+    // --- INDIAN FRESHER FORMATTING ---
+    replacements.education_table_rows = (formData.education || []).map(e => {
+        const [inst, deg, year, cgpa] = e.split(',');
         return `
           <tr>
-            <td style="border: 1px solid #000; padding: 6px;">${parts[2] || 'Year'}</td>
-            <td style="border: 1px solid #000; padding: 6px;">${parts[1] || 'Degree'}</td>
-            <td style="border: 1px solid #000; padding: 6px;">${parts[0] || 'Institute'}</td>
-            <td style="border: 1px solid #000; padding: 6px;">${parts[3] || 'CGPA'}</td>
+            <td style="border: 1px solid #000; padding: 6px;">${year || '2024'}</td>
+            <td style="border: 1px solid #000; padding: 6px;">${deg || 'Degree'}</td>
+            <td style="border: 1px solid #000; padding: 6px;">${inst || 'Institute'}</td>
+            <td style="border: 1px solid #000; padding: 6px;">${cgpa || '8.5'}</td>
           </tr>
         `;
-    }).join('') || '<tr><td colspan="4" style="border: 1px solid #000; padding: 6px; text-align: center;">No education added</td></tr>';
-    replacements.education_table_rows = educationTableRows;
+    }).join('') || '<tr><td colspan="4" style="border: 1px solid #000; padding: 6px;">No data</td></tr>';
 
-    // Tag for Grouped Skills (Indian Fresher)
-    replacements.skills_grouped = `
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-        <div><b>Languages:</b> ${formData.skills?.slice(0, 3).join(', ') || '...'}</div>
-        <div><b>Tools:</b> ${formData.skills?.slice(3, 6).join(', ') || '...'}</div>
-      </div>
+    replacements.projects_list_indian = (formData.projects || []).map(p => {
+        const title = p.split(':')[0];
+        return `
+          <div style="margin-bottom: 8px;">
+            <div style="display: flex; justify-content: space-between; font-weight: bold;">
+               <span>• ${title}</span>
+               <span>Mar 2024 - Apr 2024</span>
+            </div>
+            <p style="margin: 2px 0 0 15px; font-style: italic;">Course or faculty</p>
+            <ul style="margin: 2px 0 0 15px; padding-left: 15px;">
+               <li>About the project details and implementation.</li>
+            </ul>
+          </div>
+        `;
+    }).join('');
+
+    replacements.skills_grouped_indian = `
+       <p>• <b>Languages:</b> ${formData.skills?.slice(0, 3).join(', ') || '...'}</p>
+       <p>• <b>Tools & Frameworks:</b> ${formData.skills?.slice(3, 7).join(', ') || '...'}</p>
+       <p>• <b>Operating Systems:</b> Windows, Linux & Android</p>
     `;
 
-    // Tag for Column Skills (Corporate)
-    const skillsChunks = [];
-    const chunkSize = 3;
-    const skillsArray = formData.skills || [];
-    for (let i = 0; i < skillsArray.length; i += chunkSize) {
-        skillsChunks.push(skillsArray.slice(i, i + chunkSize));
-    }
-    replacements.skills_cols = skillsChunks.map(chunk => `
-      <div style="margin-bottom: 5px;">• ${chunk.join('<br/>• ')}</div>
+    // --- CORPORATE PROFESSIONAL (ORANGE) FORMATTING ---
+    replacements.skills_grid_corporate = (formData.skills || []).map(s => `
+       <div style="padding: 2px 0;">• ${s}</div>
     `).join('');
 
-    // Tag for Sidebar Skills (Creative)
-    replacements.skills_sidebar = (formData.skills || []).map(s => `
-      <div style="margin-bottom: 8px;">
-        <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
-           <span>${s}</span>
-           <span style="font-weight: bold; color: #6366f1;">80%</span>
-        </div>
-        <div style="width: 100%; height: 4px; background: #e2e8f0; border-radius: 2px; overflow: hidden;">
-           <div style="width: 80%; height: 100%; background: #6366f1;"></div>
-        </div>
-      </div>
+    replacements.education_grid_corporate = (formData.education || []).map(e => {
+        const [inst, deg, year] = e.split(',');
+        return `
+          <div style="margin-bottom: 10px;">
+             <p style="font-weight: 800; margin: 0;">${deg || 'M.Sc. Snack Science'}</p>
+             <p style="margin: 2px 0; color: #666;">${inst || 'University of Nowhere'} | ${year || '2024'}</p>
+          </div>
+        `;
+    }).join('');
+
+    replacements.projects_list_corporate = (formData.projects || []).map(p => {
+        const title = p.split(':')[0];
+        return `
+          <div style="margin-bottom: 15px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+               <p style="font-weight: 800; margin: 0; font-size: 13px;">${title}</p>
+               <p style="margin: 0; color: #666; font-size: 10px;">Jul - Sep 2024 (10 weeks)</p>
+            </div>
+            <p style="margin: 0 0 5px 0; font-size: 10px; color: #888;">Keywords: ${formData.skills?.slice(0, 5).join(', ')}</p>
+            <ul style="margin: 0; padding-left: 15px; color: #444;">
+               <li>Increased productivity by 100% through optimized workflows.</li>
+               <li>Collaborated with cross-functional teams to deliver results.</li>
+            </ul>
+          </div>
+        `;
+    }).join('');
+
+    replacements.languages_list_corporate = `
+       <p style="margin-bottom: 5px;"><b>Common:</b> Mother tongue</p>
+       <p style="margin-bottom: 5px;"><b>English:</b> Fluent</p>
+    `;
+
+    // --- CREATIVE SIDEBAR (LIFE PHILOSOPHY) ---
+    replacements.projects_list_creative = (formData.projects || []).map(p => {
+        const title = p.split(':')[0];
+        return `
+          <div style="margin-bottom: 20px;">
+            <p style="font-weight: 900; font-size: 13px; margin: 0;">${title}</p>
+            <p style="color: #800000; font-weight: 800; font-size: 11px; margin: 2px 0;">Company Name</p>
+            <p style="font-size: 9px; color: #999; margin-bottom: 5px;">📅 Month 2024 - Ongoing | 📍 Location</p>
+            <ul style="margin: 0; padding-left: 15px; color: #555;">
+               <li>Job description item 1 for this project.</li>
+               <li>Job description item 2 with specific results.</li>
+            </ul>
+          </div>
+        `;
+    }).join('');
+
+    replacements.skills_chips_creative = (formData.skills || []).map(s => `
+       <span style="border: 1px solid #ddd; border-radius: 4px; padding: 3px 8px; font-size: 10px; color: #666; font-weight: 600;">${s}</span>
     `).join('');
 
-    // Tag for Skills Chips (Premium)
-    replacements.skills_chips = (formData.skills || []).map(s => `
-      <span style="display: inline-block; background: #f1f5f9; color: #0f172a; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; margin: 0 4px 4px 0; border: 1px solid #e2e8f0;">${s}</span>
+    replacements.languages_dots_creative = (formData.skills || []).slice(0, 3).map(s => `
+       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <span style="font-weight: 700;">${s}</span>
+          <div style="display: flex; gap: 4px;">
+             <div style="width: 8px; height: 8px; border-radius: 50%; background: #800000;"></div>
+             <div style="width: 8px; height: 8px; border-radius: 50%; background: #800000;"></div>
+             <div style="width: 8px; height: 8px; border-radius: 50%; background: #800000;"></div>
+             <div style="width: 8px; height: 8px; border-radius: 50%; background: #800000;"></div>
+             <div style="width: 8px; height: 8px; border-radius: 50%; background: #ddd;"></div>
+          </div>
+       </div>
     `).join('');
 
-    // Apply replacements
+    // --- ACADEMIC RESEARCH (BLUE) ---
+    replacements.education_list_research = (formData.education || []).map(e => {
+        const [inst, deg, year, cgpa] = e.split(',');
+        return `
+          <div style="margin-bottom: 15px;">
+             <div style="display: flex; justify-content: space-between; font-weight: bold; color: #1a237e; font-size: 12px;">
+                <span>${year || '2024'} : ${deg || 'MSc in Robotics'}</span>
+                <span>GPA: ${cgpa || '3.9'}</span>
+             </div>
+             <p style="margin: 2px 0; font-weight: 600;">${inst || 'University Name'}</p>
+             <p style="margin: 2px 0; color: #666;">Relevant Coursework: ${formData.skills?.slice(0, 5).join(', ')}</p>
+          </div>
+        `;
+    }).join('');
+
+    replacements.projects_list_research = (formData.projects || []).map(p => {
+        const title = p.split(':')[0];
+        return `
+          <div style="margin-bottom: 15px;">
+             <div style="display: flex; justify-content: space-between; font-weight: bold; color: #1a237e;">
+                <span>${title}</span>
+                <span>May 2024 - Present</span>
+             </div>
+             <p style="margin: 2px 0; color: #666;">University Robotics Lab</p>
+             <ul style="margin: 5px 0 0 0; padding-left: 18px;">
+                <li>Implemented advanced algorithms for autonomous navigation.</li>
+                <li>Collaborated on a high-impact research paper.</li>
+             </ul>
+          </div>
+        `;
+    }).join('');
+
+    // --- EXECUTIVE PREMIUM (JACK SPARROW) ---
+    replacements.skills_sidebar_premium = (formData.skills || []).map(s => `
+       <div style="margin-bottom: 8px;">
+          <div style="display: flex; justify-content: space-between; font-size: 9px; margin-bottom: 3px;">
+             <span>${s}</span>
+             <span style="color: #0284c7;">●●●●○</span>
+          </div>
+       </div>
+    `).join('');
+
+    replacements.projects_list_premium = (formData.projects || []).map(p => {
+        const title = p.split(':')[0];
+        return `
+          <div style="margin-bottom: 20px; border-left: 2px solid #ddd; padding-left: 15px;">
+            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 12px; color: #333;">
+               <span>${title}</span>
+               <span style="color: #999;">2024 - Present</span>
+            </div>
+            <p style="margin: 2px 0; color: #0284c7; text-transform: uppercase; font-size: 9px; font-weight: bold;">Lead Developer</p>
+            <p style="margin: 5px 0; color: #666; font-size: 10px;">Managed end-to-end delivery of complex technical solutions with focus on scalability.</p>
+          </div>
+        `;
+    }).join('');
+
+    replacements.education_list_premium = (formData.education || []).map(e => {
+        const [inst, deg, year] = e.split(',');
+        return `
+          <div style="margin-bottom: 12px;">
+             <p style="font-weight: bold; margin: 0;">${deg || 'Captain'}</p>
+             <p style="color: #666; margin: 0; font-size: 9px;">${inst || 'Tortuga Uni'} | ${year || '1710'}</p>
+          </div>
+        `;
+    }).join('');
+
+    replacements.skills_bars_premium = (formData.skills || []).slice(0, 5).map(s => `
+       <div style="margin-bottom: 8px;">
+          <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 9px; margin-bottom: 3px;">
+             <span>${s}</span>
+          </div>
+          <div style="width: 100%; height: 6px; background: #eee; border-radius: 3px; overflow: hidden;">
+             <div style="width: ${Math.floor(Math.random() * 40 + 60)}%; height: 100%; background: #0284c7;"></div>
+          </div>
+       </div>
+    `).join('');
+
+    // Apply all replacements
     Object.keys(replacements).forEach(key => {
       const regex = new RegExp(`{${key}}`, 'g');
       html = html.replace(regex, replacements[key] || '');

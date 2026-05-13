@@ -18,12 +18,14 @@ export default function ResumeForm({ user, formData, setFormData }) {
         projects: data.projects,
         summary: data.summary,
         role: formData.domain.replace(' Intern', '') + ' Intern',
-        // Example education for Indian Fresher template table (Institute, Degree, Year, CGPA)
+        location: 'Mumbai, India',
+        college: 'Codtech Institute of Technology',
         education: [
-          'Codtech Institute of Tech, B.Tech CSE, 2024, 8.5 CGPA',
-          'Modern School, XII, 2020, 92%',
-          'Modern School, X, 2018, 9.0'
-        ]
+          'IIT Bombay, B.Tech CSE, 2024, 9.2 CGPA',
+          'Modern School, XII, 2020, 94%',
+          'Modern School, X, 2018, 9.5'
+        ],
+        certifications: ['AWS Cloud Practitioner', 'Google Data Analytics', 'Coursera Java Masterclass']
       }));
     }
   };
@@ -62,6 +64,14 @@ export default function ResumeForm({ user, formData, setFormData }) {
           <label className={labelClasses}>Phone Number</label>
           <input name="phone" value={formData.phone || ''} onChange={handleChange} placeholder="e.g. +91 98765 43210" className={inputClasses} />
         </div>
+        <div>
+          <label className={labelClasses}>Location</label>
+          <input name="location" value={formData.location || ''} onChange={handleChange} placeholder="e.g. Mumbai, India" className={inputClasses} />
+        </div>
+        <div>
+          <label className={labelClasses}>College / University</label>
+          <input name="college" value={formData.college || ''} onChange={handleChange} placeholder="e.g. IIT Bombay" className={inputClasses} />
+        </div>
         <div className="relative group col-span-full">
           <label className={labelClasses}>Internship Track</label>
           <div className="flex gap-2">
@@ -77,7 +87,7 @@ export default function ResumeForm({ user, formData, setFormData }) {
       </div>
 
       <div>
-        <label className={labelClasses}>Professional Summary / Profile</label>
+        <label className={labelClasses}>Professional Summary / Life Philosophy</label>
         <textarea 
           name="summary" 
           rows="4" 
@@ -90,7 +100,7 @@ export default function ResumeForm({ user, formData, setFormData }) {
 
       {/* Skills */}
       <div>
-        <label className={labelClasses}>Technical Skills (Select or Type)</label>
+        <label className={labelClasses}>Technical Skills</label>
         <div className="flex flex-wrap gap-1.5 p-4 bg-slate-50/50 border border-slate-100 rounded-2xl min-h-[60px]">
           {(formData.skills || []).map((skill) => (
             <motion.button
@@ -103,15 +113,23 @@ export default function ResumeForm({ user, formData, setFormData }) {
               {skill} <span>✕</span>
             </motion.button>
           ))}
-          {(formData.skills || []).length === 0 && (
-            <p className="text-[11px] text-slate-400 font-medium italic">No skills added. Use Auto-Fill or add skills manually.</p>
-          )}
+          <input 
+            type="text" 
+            placeholder="Type and press enter..."
+            className="bg-transparent border-none outline-none text-[11px] font-bold min-w-[150px]"
+            onKeyDown={(e) => {
+               if (e.key === 'Enter' && e.target.value.trim()) {
+                  toggleSkill(e.target.value.trim());
+                  e.target.value = '';
+               }
+            }}
+          />
         </div>
       </div>
 
       {/* Projects */}
       <div>
-        <label className={labelClasses}>Key Projects (Project Name: Description - One per line)</label>
+        <label className={labelClasses}>Projects & Experience (Project Name: Description - One per line)</label>
         <textarea 
           rows="5" 
           value={(formData.projects || []).join('\n')} 
@@ -135,12 +153,12 @@ export default function ResumeForm({ user, formData, setFormData }) {
 
       {/* Certifications */}
       <div>
-        <label className={labelClasses}>Certifications & Achievements (Comma separated)</label>
+        <label className={labelClasses}>Certifications (Comma separated)</label>
         <input 
           name="certifications" 
           value={Array.isArray(formData.certifications) ? formData.certifications.join(', ') : formData.certifications || ''} 
           onChange={(e) => setFormData(prev => ({ ...prev, certifications: e.target.value.split(',').map(c => c.trim()).filter(c => c) }))} 
-          placeholder="AWS Certified Cloud Practitioner, Google Cloud..." 
+          placeholder="AWS Certified, Google Cloud..." 
           className={inputClasses} 
         />
       </div>
@@ -148,18 +166,12 @@ export default function ResumeForm({ user, formData, setFormData }) {
       {/* Socials */}
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className={labelClasses}>LinkedIn (Username only)</label>
-          <div className="relative">
-             <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 text-[12px] font-bold">in/</span>
-             <input name="linkedin" value={formData.linkedin || ''} onChange={handleChange} className={`${inputClasses} pl-10`} placeholder="username" />
-          </div>
+          <label className={labelClasses}>LinkedIn (Username)</label>
+          <input name="linkedin" value={formData.linkedin || ''} onChange={handleChange} className={inputClasses} placeholder="username" />
         </div>
         <div>
-          <label className={labelClasses}>GitHub (Username only)</label>
-          <div className="relative">
-             <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 text-[12px] font-bold">gh/</span>
-             <input name="github" value={formData.github || ''} onChange={handleChange} className={`${inputClasses} pl-10`} placeholder="username" />
-          </div>
+          <label className={labelClasses}>GitHub (Username)</label>
+          <input name="github" value={formData.github || ''} onChange={handleChange} className={inputClasses} placeholder="username" />
         </div>
       </div>
 

@@ -4,60 +4,72 @@ import { motion } from 'framer-motion';
 export default function ATSScore({ formData, selectedTemplateId }) {
   const score = useMemo(() => {
     let s = 0;
-    // Basic info
+    // Essential Profile Info
     if (formData.name) s += 10;
     if (formData.email) s += 10;
     if (formData.phone) s += 10;
-    if (formData.summary && formData.summary.length > 50) s += 15;
+    if (formData.summary && formData.summary.length > 30) s += 15;
     
-    // Skills (ATS loves keywords)
+    // Technical Keywords (ATS Priority)
     const skillCount = (formData.skills || []).length;
-    s += Math.min(skillCount * 5, 25);
+    s += Math.min(skillCount * 4, 20);
     
-    // Projects & Experience
+    // Experience & Projects (Action Oriented)
     const projectCount = (formData.projects || []).length;
-    s += Math.min(projectCount * 10, 20);
+    s += Math.min(projectCount * 8, 20);
     
-    // Links
+    // Professional Links
     if (formData.linkedin) s += 5;
     if (formData.github) s += 5;
 
-    // Template bonus
-    if (selectedTemplateId === 'ats-professional') s += 10;
+    // ATS Compatibility Penalty for Creative/Heavy Layouts
+    if (selectedTemplateId === 'ats-professional') {
+       s += 5; // Perfect score
+    } else if (['creative-sidebar', 'executive-premium'].includes(selectedTemplateId)) {
+       s -= 10; // Slightly lower for visual layouts
+    }
     
-    return Math.min(s, 100);
+    return Math.max(0, Math.min(s, 100));
   }, [formData, selectedTemplateId]);
 
   const getLabel = (score) => {
-    if (score >= 80) return { text: 'Excellent', color: 'text-green-500', bg: 'bg-green-50' };
-    if (score >= 60) return { text: 'Good', color: 'text-blue-500', bg: 'bg-blue-50' };
-    if (score >= 40) return { text: 'Fair', color: 'text-amber-500', bg: 'bg-amber-50' };
-    return { text: 'Needs Work', color: 'text-red-500', bg: 'bg-red-50' };
+    if (score >= 85) return { text: 'Placement Ready', color: 'text-emerald-500', bg: 'bg-emerald-50' };
+    if (score >= 65) return { text: 'Good Stability', color: 'text-sky-500', bg: 'bg-sky-50' };
+    if (score >= 45) return { text: 'Improving', color: 'text-amber-500', bg: 'bg-amber-50' };
+    return { text: 'Refinement Needed', color: 'text-rose-500', bg: 'bg-rose-50' };
   };
 
   const label = getLabel(score);
 
   return (
-    <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm">
-      <div className="flex items-center justify-between mb-4">
+    <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm overflow-hidden relative">
+      <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full -mr-12 -mt-12 transition-all group-hover:scale-110"></div>
+      
+      <div className="flex items-center justify-between mb-4 relative z-10">
         <div>
-           <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">ATS Optimization Score</h4>
-           <p className={`text-sm font-black ${label.color}`}>{label.text}</p>
+           <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">ATS Optimization</h4>
+           <p className={`text-[12px] font-black ${label.color} uppercase`}>{label.text}</p>
         </div>
-        <div className="text-2xl font-black text-slate-900">{score}%</div>
+        <div className="flex flex-col items-end">
+           <div className="text-3xl font-black text-slate-900 tracking-tighter">{score}%</div>
+        </div>
       </div>
       
-      <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+      <div className="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden relative z-10 border border-white">
         <motion.div 
           initial={{ width: 0 }}
           animate={{ width: `${score}%` }}
-          className={`h-full ${score >= 80 ? 'bg-green-500' : score >= 60 ? 'bg-blue-500' : score >= 40 ? 'bg-amber-500' : 'bg-red-500'}`}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className={`h-full shadow-sm ${score >= 85 ? 'bg-emerald-500' : score >= 65 ? 'bg-sky-500' : score >= 45 ? 'bg-amber-500' : 'bg-rose-500'}`}
         />
       </div>
       
-      <p className="mt-4 text-[11px] text-slate-400 leading-relaxed font-medium">
-        {score < 80 ? '💡 Add more technical skills and a detailed professional summary to improve your score.' : '🚀 Your resume is well-optimized for most Applicant Tracking Systems!'}
-      </p>
+      <div className="mt-4 flex items-start gap-2 relative z-10">
+         <span className="material-symbols-outlined text-[14px] text-slate-300 mt-0.5">info</span>
+         <p className="text-[10px] text-slate-400 leading-relaxed font-bold">
+           {score < 85 ? 'Tip: Use the ATS Professional template and add more specific technical keywords to hit 90%+.' : 'Excellent! Your resume is highly optimized for corporate placement systems.'}
+         </p>
+      </div>
     </div>
   );
 }
