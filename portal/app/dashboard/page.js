@@ -211,12 +211,19 @@ export default function Dashboard() {
             { name: 'Placement Hub', icon: 'hub' },
             { name: 'Job Hunting', icon: 'work' },
             { name: 'Mock Interviews', icon: 'forum' },
-            { name: 'Resume Building', icon: 'description' },
+            { name: 'Resume Building', icon: 'description', path: '/resume' },
             { name: 'LinkedIn Profile', icon: 'person_search' },
           ].map((item) => (
             <button 
               key={item.name} 
-              onClick={() => { setActiveTab(item.name); setIsMobileMenuOpen(false); }}
+              onClick={() => { 
+                if (item.path) {
+                  router.push(item.path);
+                } else {
+                  setActiveTab(item.name); 
+                  setIsMobileMenuOpen(false);
+                }
+              }}
               className={`w-full flex items-center gap-3.5 px-5 py-3 rounded-2xl transition-all font-bold text-[13px] group relative ${activeTab === item.name ? 'bg-primary text-white shadow-xl shadow-primary/20' : 'text-slate-500 hover:bg-slate-50 hover:text-primary'}`}
             >
               <span className={`material-symbols-outlined text-[22px] transition-colors ${activeTab === item.name ? 'text-white' : 'text-slate-400 group-hover:text-primary'}`}>{item.icon}</span>
