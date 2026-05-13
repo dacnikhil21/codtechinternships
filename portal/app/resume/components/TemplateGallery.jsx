@@ -159,14 +159,14 @@ export default function TemplateGallery({ selectedTemplateId, onSelect }) {
         </div>
       </div>
       
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+      <div className="flex sm:grid sm:grid-cols-2 md:grid-cols-3 gap-4 overflow-x-auto pb-4 sm:pb-0 scrollbar-hide snap-x">
         {templates.map((tpl) => (
           <motion.button
             key={tpl.id}
             whileHover={{ y: -3, boxShadow: "0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)" }}
             whileTap={{ scale: 0.98 }}
             onClick={() => onSelect(tpl.id)}
-            className={`flex flex-col rounded-2xl border-2 transition-all text-left relative group overflow-hidden ${
+            className={`flex flex-col rounded-2xl border-2 transition-all text-left relative group overflow-hidden shrink-0 w-[240px] sm:w-auto snap-start ${
               selectedTemplateId === tpl.id 
                 ? 'border-primary bg-primary/5 shadow-2xl shadow-primary/20' 
                 : 'border-slate-100 bg-white hover:border-slate-200 shadow-sm'

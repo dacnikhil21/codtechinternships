@@ -85,11 +85,23 @@ export default function CourseViewer({ selectedModule, completedLessons = [], on
   return (
     <div className="fixed inset-0 z-[150] flex bg-white overflow-hidden">
       {/* Sidebar Navigation */}
-      <motion.aside 
-        initial={{ x: -320 }}
-        animate={{ x: isSidebarOpen ? 0 : -320 }}
-        className="w-80 border-r border-slate-100 flex flex-col bg-slate-50/50 relative z-20 h-full"
-      >
+      <AnimatePresence>
+        {isSidebarOpen && (
+          <>
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsSidebarOpen(false)}
+              className="lg:hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[160]"
+            />
+            <motion.aside 
+              initial={{ x: -320 }}
+              animate={{ x: 0 }}
+              exit={{ x: -320 }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="fixed lg:relative top-0 left-0 w-[280px] md:w-80 border-r border-slate-100 flex flex-col bg-white lg:bg-slate-50/50 z-[170] lg:z-20 h-full shadow-2xl lg:shadow-none"
+            >
         <div className="p-6 border-b border-slate-100 bg-white">
           <button 
             onClick={onClose}
@@ -176,43 +188,46 @@ export default function CourseViewer({ selectedModule, completedLessons = [], on
                  {Math.round((selectedModule.lessons.filter(l => completedLessons.includes(l.id)).length / selectedModule.lessons.length) * 100)}%
               </p>
            </div>
-        </div>
-      </motion.aside>
+            </div>
+          </motion.aside>
+        )}
+      </AnimatePresence>
 
       {/* Main Content Area */}
       <main className="flex-1 flex flex-col overflow-hidden relative bg-white">
         {/* Top Header */}
-        <header className="h-16 border-b border-slate-100 flex items-center justify-between px-8 bg-white/90 backdrop-blur-xl z-10">
-           <div className="flex items-center gap-4">
-              <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="w-10 h-10 rounded-lg bg-slate-50 hover:bg-indigo-50 hover:text-indigo-600 text-slate-400 flex items-center justify-center transition-all border border-slate-100">
+        <header className="h-16 border-b border-slate-100 flex items-center justify-between px-4 md:px-8 bg-white/90 backdrop-blur-xl z-10 shrink-0">
+           <div className="flex items-center gap-3 md:gap-4 flex-1 min-w-0">
+              <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="w-9 h-9 md:w-10 md:h-10 rounded-lg bg-slate-50 hover:bg-indigo-50 hover:text-indigo-600 text-slate-400 flex items-center justify-center transition-all border border-slate-100 shrink-0">
                  <span className="material-symbols-outlined text-lg">{isSidebarOpen ? 'menu_open' : 'menu'}</span>
               </button>
-              <div>
-                 <h1 className="text-[15px] font-black text-slate-900 tracking-tight uppercase leading-tight">{selectedLesson?.title || 'Course Content'}</h1>
-                 <p className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em] mt-1">{selectedModule.title}</p>
+              <div className="truncate">
+                 <h1 className="text-[13px] md:text-[15px] font-black text-slate-900 tracking-tight uppercase leading-tight truncate">{selectedLesson?.title || 'Course Content'}</h1>
+                 <p className="text-[8px] md:text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em] mt-0.5 truncate">{selectedModule.title}</p>
               </div>
            </div>
-           <div className="flex items-center gap-3">
-              <button className="flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-200 text-slate-500 font-black text-[10px] uppercase tracking-widest hover:bg-slate-50 transition-all">
+           <div className="flex items-center gap-2 md:gap-3 ml-2">
+              <button className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-200 text-slate-500 font-black text-[10px] uppercase tracking-widest hover:bg-slate-50 transition-all">
                  <span className="material-symbols-outlined text-xs">bookmark</span> Save
               </button>
               <button 
                 onClick={() => onToggleLesson(selectedLesson.id)}
-                className={`flex items-center gap-2 px-6 py-2 rounded-xl font-black text-[10px] uppercase tracking-[0.1em] transition-all shadow-xl ${
+                className={`flex items-center gap-2 px-4 md:px-6 py-2 rounded-lg md:rounded-xl font-black text-[9px] md:text-[10px] uppercase tracking-[0.1em] transition-all shadow-lg md:shadow-xl shrink-0 ${
                   completedLessons.includes(selectedLesson?.id)
                   ? 'bg-emerald-500 text-white shadow-emerald-100/50'
                   : 'bg-indigo-600 text-white shadow-indigo-200/30 hover:scale-[1.02] active:scale-[0.98]'
                 }`}
               >
-                 <span className="material-symbols-outlined text-xs">{completedLessons.includes(selectedLesson?.id) ? 'verified' : 'circle'}</span>
-                 {completedLessons.includes(selectedLesson?.id) ? 'Completed' : 'Complete Lesson'}
+                 <span className="material-symbols-outlined text-[14px] md:text-xs">{completedLessons.includes(selectedLesson?.id) ? 'verified' : 'circle'}</span>
+                 <span className="hidden xs:inline">{completedLessons.includes(selectedLesson?.id) ? 'Completed' : 'Complete Lesson'}</span>
+                 <span className="xs:hidden">{completedLessons.includes(selectedLesson?.id) ? 'Done' : 'Done'}</span>
               </button>
            </div>
         </header>
 
         {/* Content Viewer */}
         <div className="flex-1 overflow-y-auto bg-white selection:bg-indigo-100">
-           <div className="max-w-4xl mx-auto py-12 px-8">
+           <div className="max-w-4xl mx-auto py-8 md:py-12 px-5 md:px-8">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={selectedLesson?.id}
@@ -227,10 +242,10 @@ export default function CourseViewer({ selectedModule, completedLessons = [], on
                         <div className="w-1 h-1 rounded-full bg-slate-200"></div>
                         <div className="text-[9px] font-black text-slate-400 uppercase tracking-[0.3em]">Module 01 • Part A</div>
                      </div>
-                     <h1 className="text-3xl font-black text-slate-900 tracking-tighter leading-tight mb-6 uppercase italic italic-shorthand">
+                     <h1 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tighter leading-tight mb-6 uppercase italic italic-shorthand">
                         {selectedLesson?.title}
                      </h1>
-                     <div className="flex flex-wrap gap-6 py-6 border-y border-slate-50">
+                     <div className="flex flex-wrap gap-4 md:gap-6 py-6 border-y border-slate-50">
                         <div className="flex items-center gap-2.5">
                            <div className="w-8 h-8 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600">
                               <span className="material-symbols-outlined text-base">schedule</span>
@@ -255,7 +270,7 @@ export default function CourseViewer({ selectedModule, completedLessons = [], on
                            </div>
                            <div>
                               <p className="text-[8px] font-black text-slate-300 uppercase tracking-widest">Domain</p>
-                              <p className="text-[10px] font-black text-slate-900 uppercase">Internship Track</p>
+                              <p className="text-[10px] font-black text-slate-900 uppercase">Intern Track</p>
                            </div>
                         </div>
                      </div>
@@ -334,31 +349,31 @@ export default function CourseViewer({ selectedModule, completedLessons = [], on
                   </div>
 
                   {/* Navigation Footer */}
-                  <div className="mt-12 pt-8 border-t border-slate-100 flex justify-between items-center">
+                  <div className="mt-12 pt-8 border-t border-slate-100 flex justify-between items-center gap-4">
                      <button 
                         disabled={selectedModule.lessons.indexOf(selectedLesson) === 0}
                         onClick={() => setSelectedLesson(selectedModule.lessons[selectedModule.lessons.indexOf(selectedLesson) - 1])}
-                        className="flex items-center gap-4 group disabled:opacity-30 disabled:cursor-not-allowed"
+                        className="flex items-center gap-3 md:gap-4 group disabled:opacity-30 disabled:cursor-not-allowed text-left min-w-0"
                      >
-                        <div className="w-10 h-10 rounded-xl border border-slate-100 flex items-center justify-center text-slate-400 group-hover:border-indigo-600 group-hover:text-indigo-600 transition-all bg-white shadow-sm">
+                        <div className="w-9 h-9 md:w-10 md:h-10 rounded-xl border border-slate-100 flex items-center justify-center text-slate-400 group-hover:border-indigo-600 group-hover:text-indigo-600 transition-all bg-white shadow-sm shrink-0">
                            <span className="material-symbols-outlined text-lg">west</span>
                         </div>
-                        <div className="text-left">
-                           <p className="text-[9px] font-black text-slate-300 uppercase tracking-widest mb-0.5">Previous</p>
-                           <p className="text-[11px] font-black text-slate-900 uppercase tracking-tight group-hover:text-indigo-600 transition-colors">Go Back</p>
+                        <div className="min-w-0">
+                           <p className="text-[8px] md:text-[9px] font-black text-slate-300 uppercase tracking-widest mb-0.5">Previous</p>
+                           <p className="text-[10px] md:text-[11px] font-black text-slate-900 uppercase tracking-tight group-hover:text-indigo-600 transition-colors truncate">Go Back</p>
                         </div>
                      </button>
 
                      <button 
                         disabled={selectedModule.lessons.indexOf(selectedLesson) === selectedModule.lessons.length - 1}
                         onClick={() => setSelectedLesson(selectedModule.lessons[selectedModule.lessons.indexOf(selectedLesson) + 1])}
-                        className="flex items-center gap-4 group text-right disabled:opacity-30 disabled:cursor-not-allowed"
+                        className="flex items-center gap-3 md:gap-4 group text-right disabled:opacity-30 disabled:cursor-not-allowed justify-end min-w-0"
                      >
-                        <div className="text-right">
-                           <p className="text-[9px] font-black text-slate-300 uppercase tracking-widest mb-0.5">Up Next</p>
-                           <p className="text-[11px] font-black text-slate-900 uppercase tracking-tight group-hover:text-indigo-600 transition-colors">Continue</p>
+                        <div className="min-w-0">
+                           <p className="text-[8px] md:text-[9px] font-black text-slate-300 uppercase tracking-widest mb-0.5">Up Next</p>
+                           <p className="text-[10px] md:text-[11px] font-black text-slate-900 uppercase tracking-tight group-hover:text-indigo-600 transition-colors truncate">Continue</p>
                         </div>
-                        <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center group-hover:bg-indigo-600 transition-all shadow-xl shadow-black/10">
+                        <div className="w-9 h-9 md:w-10 md:h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center group-hover:bg-indigo-600 transition-all shadow-xl shadow-black/10 shrink-0">
                            <span className="material-symbols-outlined text-lg">east</span>
                         </div>
                      </button>

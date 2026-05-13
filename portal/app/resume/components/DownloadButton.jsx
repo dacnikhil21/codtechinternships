@@ -57,7 +57,7 @@ export default function DownloadButton({ formData, selectedTemplateId }) {
         whileTap={{ scale: 0.98 }}
         onClick={handleDownload}
         disabled={isGenerating || !selectedTemplateId}
-        className={`w-full py-4 rounded-2xl font-black text-[11px] uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-3 shadow-xl ${
+        className={`w-full py-3 md:py-4 rounded-xl md:rounded-2xl font-black text-[10px] md:text-[11px] uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-3 shadow-xl ${
           isGenerating || !selectedTemplateId 
             ? 'bg-slate-100 text-slate-400 cursor-not-allowed' 
             : 'bg-primary text-white hover:bg-primary-dark shadow-xl shadow-primary/20 hover:shadow-primary/30'

@@ -372,8 +372,8 @@ export default function Dashboard() {
                </div>
             </div>
 
-            {/* Analytics & Orientation - COMPACT */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Analytics & Orientation - COMPACT & RESPONSIVE */}
+            <div className="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                <div className="bg-white p-6 rounded-3xl border border-slate-200/60 shadow-sm relative overflow-hidden flex flex-col justify-between group">
                  <div className="flex justify-between items-start relative z-10">
                    <div>
@@ -425,6 +425,23 @@ export default function Dashboard() {
                </div>
             </div>
 
+            {/* Mobile Compact Stats Bar */}
+            <div className="md:hidden flex overflow-x-auto gap-4 pb-4 px-2 no-scrollbar">
+               {[
+                 { label: 'Skill', val: `${getReadinessScore()}%`, icon: 'insights' },
+                 { label: 'Time', val: countdown.split(':')[0] + 'h', icon: 'timer' },
+                 { label: 'Learnt', val: completedLessons.length, icon: 'school' }
+               ].map((stat, i) => (
+                 <div key={i} className="flex items-center gap-3 bg-white px-5 py-4 rounded-2xl border border-slate-100 shadow-sm shrink-0">
+                    <span className="material-symbols-outlined text-indigo-600 text-lg">{stat.icon}</span>
+                    <div>
+                       <p className="text-[8px] font-black text-slate-300 uppercase tracking-widest leading-none">{stat.label}</p>
+                       <p className="text-sm font-black text-slate-900 tracking-tight mt-1">{stat.val}</p>
+                    </div>
+                 </div>
+               ))}
+            </div>
+
             {/* PROJECT WORKSPACE - COMPACT & FUNCTIONAL */}
             <section className="bg-white p-6 rounded-3xl border border-slate-200/60 shadow-sm">
                <div className="flex flex-col lg:flex-row justify-between items-center gap-8 mb-6">
@@ -466,10 +483,16 @@ export default function Dashboard() {
                     ))}
                  </div>
                ) : (
-                 <div className="bg-slate-50/50 border-2 border-dashed border-slate-200 rounded-[2rem] py-16 px-8 text-center flex flex-col items-center justify-center">
-                    <h4 className="text-xl font-black text-slate-900 uppercase tracking-tight mb-2 italic">No Projects Selected</h4>
-                    <p className="text-[12px] font-bold text-slate-400 uppercase tracking-widest mb-8">Choose up to 4 projects for your internship.</p>
-                    <button onClick={() => setIsProjectModalOpen(true)} className="bg-indigo-600 text-white px-10 py-4 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] shadow-lg shadow-indigo-100 hover:bg-indigo-700">Browse Projects</button>
+                  <div className="bg-slate-50/50 border-2 border-dashed border-slate-200 rounded-[2rem] py-12 md:py-20 px-6 md:px-8 text-center flex flex-col items-center justify-center relative overflow-hidden">
+                     <div className="absolute top-0 right-0 p-8 opacity-[0.03] select-none pointer-events-none">
+                        <span className="material-symbols-outlined text-[120px] md:text-[200px] font-black text-slate-900">architecture</span>
+                     </div>
+                     <div className="w-20 h-20 md:w-24 md:h-24 bg-white rounded-[2rem] shadow-xl flex items-center justify-center mb-8 relative z-10 border border-slate-100 mx-auto">
+                        <span className="material-symbols-outlined text-4xl md:text-5xl text-indigo-600 animate-bounce">rocket_launch</span>
+                     </div>
+                    <h4 className="text-xl md:text-2xl font-black text-slate-900 uppercase tracking-tight mb-3 italic relative z-10">No Projects Selected</h4>
+                    <p className="text-[11px] md:text-[13px] font-bold text-slate-400 uppercase tracking-widest mb-10 max-w-sm relative z-10 mx-auto">Initialize your workspace by choosing up to 4 core projects for your internship domain.</p>
+                    <button onClick={() => setIsProjectModalOpen(true)} className="bg-indigo-600 text-white px-12 py-4 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] shadow-xl shadow-indigo-200 hover:bg-indigo-700 transition-all hover:scale-105 active:scale-95 relative z-10">Browse Project Library</button>
                  </div>
                )}
             </section>
@@ -479,16 +502,16 @@ export default function Dashboard() {
         {activeTab === 'Materials' && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-8">
             {/* Materials Header - PREMIUM */}
-            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 py-4 px-2">
-               <div>
-                  <div className="flex items-center gap-2 mb-2">
+            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 py-4 px-2 text-center md:text-left">
+               <div className="w-full lg:w-auto">
+                  <div className="flex items-center justify-center md:justify-start gap-2 mb-2">
                      <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></div>
                      <span className="text-[9px] font-black text-red-500 uppercase tracking-[0.4em]">Official Resources</span>
                   </div>
-                  <h3 className="text-3xl font-black text-slate-900 tracking-tighter uppercase leading-tight italic italic-shorthand">Learning <span className="text-red-500">Materials</span></h3>
-                  <p className="text-[14px] text-slate-400 font-medium mt-3 max-w-lg">Curated study materials for your {user?.course} internship.</p>
+                  <h3 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tighter uppercase leading-tight italic italic-shorthand">Learning <span className="text-red-500">Materials</span></h3>
+                  <p className="text-[13px] md:text-[14px] text-slate-400 font-medium mt-3 max-w-lg mx-auto md:mx-0">Curated study materials for your {user?.course} internship.</p>
                </div>
-               <div className="flex items-center gap-6 bg-white p-6 rounded-3xl border border-slate-100 shadow-xl shadow-red-100/10">
+               <div className="w-full lg:w-auto flex items-center justify-center gap-6 bg-white p-6 rounded-3xl border border-slate-100 shadow-xl shadow-red-100/10">
                   <div className="text-center">
                      <p className="text-[9px] font-black text-slate-300 uppercase tracking-widest mb-1">Available PDFs</p>
                      <p className="text-2xl font-black text-slate-900 tracking-tighter">{materials.length}</p>
@@ -572,47 +595,47 @@ export default function Dashboard() {
         )}
 
         {activeTab === 'Placement Hub' && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-12 max-w-5xl mx-auto py-10">
-             <div className="text-center space-y-4">
-                <div className="w-20 h-20 bg-indigo-600 text-white rounded-[2rem] flex items-center justify-center mx-auto shadow-2xl shadow-indigo-200 mb-6">
-                   <span className="material-symbols-outlined text-4xl">hub</span>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-12 max-w-5xl mx-auto py-6 md:py-10 px-2 md:px-0">
+             <div className="text-center space-y-4 px-4">
+                <div className="w-16 h-16 md:w-20 md:h-20 bg-indigo-600 text-white rounded-2xl md:rounded-[2rem] flex items-center justify-center mx-auto shadow-2xl shadow-indigo-200 mb-6">
+                   <span className="material-symbols-outlined text-3xl md:text-4xl">hub</span>
                 </div>
-                <h3 className="text-3xl font-black text-slate-900 uppercase tracking-tighter italic">Placement <span className="text-indigo-600">Command Center</span></h3>
-                <p className="text-slate-400 text-sm font-medium max-w-md mx-auto">Your portal to top-tier internship and job opportunities in the tech industry.</p>
+                <h3 className="text-2xl md:text-3xl font-black text-slate-900 uppercase tracking-tighter italic">Placement <span className="text-indigo-600">Command Center</span></h3>
+                <p className="text-slate-400 text-[13px] md:text-sm font-medium max-w-md mx-auto">Your portal to top-tier internship and job opportunities in the tech industry.</p>
              </div>
              
-             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm space-y-6">
-                   <h4 className="text-lg font-black text-slate-900 uppercase tracking-tight italic">Active <span className="text-indigo-600">Drives</span></h4>
-                   <div className="space-y-4">
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 px-2 md:px-0">
+                <div className="bg-white p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] border border-slate-100 shadow-sm space-y-6">
+                   <h4 className="text-base md:text-lg font-black text-slate-900 uppercase tracking-tight italic text-center md:text-left">Active <span className="text-indigo-600">Drives</span></h4>
+                   <div className="space-y-3">
                       {['Google APAC', 'Microsoft IDC', 'Amazon SDE', 'Zomato Dev'].map(drive => (
-                         <div key={drive} className="p-5 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-between group hover:bg-white hover:shadow-xl transition-all">
-                            <span className="font-bold text-slate-700 text-sm">{drive}</span>
-                            <span className="text-[9px] font-black text-indigo-600 uppercase tracking-widest bg-indigo-50 px-3 py-1.5 rounded-lg border border-indigo-100">Live</span>
+                         <div key={drive} className="p-4 md:p-5 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-between group hover:bg-white hover:shadow-xl transition-all">
+                            <span className="font-bold text-slate-700 text-xs md:text-sm">{drive}</span>
+                            <span className="text-[8px] md:text-[9px] font-black text-indigo-600 uppercase tracking-widest bg-indigo-50 px-3 py-1.5 rounded-lg border border-indigo-100">Live</span>
                          </div>
                       ))}
                    </div>
                 </div>
-                <div className="bg-slate-900 p-8 rounded-[2.5rem] border border-white/5 shadow-2xl text-white flex flex-col justify-center items-center text-center space-y-6">
-                   <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center">
-                      <span className="material-symbols-outlined text-3xl text-indigo-400">verified_user</span>
+                <div className="bg-slate-900 p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] border border-white/5 shadow-2xl text-white flex flex-col justify-center items-center text-center space-y-6">
+                   <div className="w-12 h-12 md:w-16 md:h-16 bg-white/10 rounded-xl md:rounded-2xl flex items-center justify-center">
+                      <span className="material-symbols-outlined text-2xl md:text-3xl text-indigo-400">verified_user</span>
                    </div>
-                   <h4 className="text-xl font-black uppercase tracking-tight italic">Become <span className="text-indigo-400">Placement Ready</span></h4>
-                   <p className="text-white/40 text-[12px] font-medium leading-relaxed">Complete your 4 projects and materials to unlock 1-on-1 career coaching sessions.</p>
-                   <button className="w-full py-4 bg-indigo-600 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] shadow-lg shadow-indigo-500/20">Apply for Evaluation</button>
+                   <h4 className="text-lg md:text-xl font-black uppercase tracking-tight italic">Become <span className="text-indigo-400">Placement Ready</span></h4>
+                   <p className="text-white/40 text-[11px] md:text-[12px] font-medium leading-relaxed max-w-[280px]">Complete your 4 projects and materials to unlock 1-on-1 career coaching sessions.</p>
+                   <button className="w-full py-4 bg-indigo-600 rounded-xl text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] shadow-lg shadow-indigo-500/20">Apply for Evaluation</button>
                 </div>
              </div>
           </motion.div>
         )}
 
         {activeTab === 'Job Hunting' && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-8 max-w-5xl mx-auto py-10">
-             <div className="flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
-                <div className="text-center md:text-left">
-                   <h3 className="text-3xl font-black text-slate-900 uppercase tracking-tighter italic">Job <span className="text-indigo-600">Hunting Suite</span></h3>
-                   <p className="text-slate-400 text-sm font-medium mt-2 italic">Strategize, Apply, and Win.</p>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-8 max-w-5xl mx-auto py-6 md:py-10 px-2 md:px-0">
+             <div className="flex flex-col md:flex-row justify-between items-center gap-8 mb-8 md:mb-12 text-center md:text-left">
+                <div>
+                   <h3 className="text-2xl md:text-3xl font-black text-slate-900 uppercase tracking-tighter italic">Job <span className="text-indigo-600">Hunting Suite</span></h3>
+                   <p className="text-slate-400 text-[13px] md:text-sm font-medium mt-2 italic">Strategize, Apply, and Win.</p>
                 </div>
-                <button className="px-8 py-4 bg-slate-900 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-xl hover:bg-indigo-600 transition-all">Upload New Resume</button>
+                <button className="w-full md:w-auto px-8 py-4 bg-slate-900 text-white rounded-2xl text-[9px] md:text-[10px] font-black uppercase tracking-widest shadow-xl hover:bg-indigo-600 transition-all">Upload New Resume</button>
              </div>
 
              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -630,42 +653,42 @@ export default function Dashboard() {
           </motion.div>
         )}
 
-        {activeTab === 'Mock Interviews' && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-8 max-w-5xl mx-auto py-10">
-             <div className="bg-indigo-600 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl shadow-indigo-200">
-                <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-[100px]"></div>
-                <div className="relative z-10 flex flex-col md:flex-row items-center gap-12">
-                   <div className="flex-1 space-y-6 text-center md:text-left">
-                      <h3 className="text-4xl font-black uppercase tracking-tighter italic leading-none">Schedule your <br/><span className="text-indigo-200">Mock Interview</span></h3>
-                      <p className="text-indigo-100/60 text-sm font-medium leading-relaxed max-w-md">Practice with industry experts from Amazon, Google, and Meta before your real technical rounds.</p>
+         {activeTab === 'Mock Interviews' && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-8 max-w-5xl mx-auto py-6 md:py-10 px-2 md:px-0">
+             <div className="bg-indigo-600 rounded-[2rem] md:rounded-[3rem] p-8 md:p-12 text-white relative overflow-hidden shadow-2xl shadow-indigo-200">
+                <div className="absolute top-0 right-0 w-64 md:w-96 h-64 md:h-96 bg-white/5 rounded-full blur-[80px] md:blur-[100px]"></div>
+                <div className="relative z-10 flex flex-col md:flex-row items-center gap-10 md:gap-12 text-center md:text-left">
+                   <div className="flex-1 space-y-6">
+                      <h3 className="text-2xl md:text-4xl font-black uppercase tracking-tighter italic leading-tight md:leading-none">Schedule your <br/><span className="text-indigo-200">Mock Interview</span></h3>
+                      <p className="text-indigo-100/60 text-[13px] md:text-sm font-medium leading-relaxed max-w-md mx-auto md:mx-0">Practice with industry experts from Amazon, Google, and Meta before your real technical rounds.</p>
                       <div className="flex flex-col md:flex-row gap-4 pt-4">
-                         <button className="px-10 py-4 bg-white text-indigo-600 rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-xl hover:scale-105 transition-all">Book Technical Round</button>
-                         <button className="px-10 py-4 bg-indigo-500 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest border border-indigo-400 hover:bg-indigo-400 transition-all">Book HR Mock</button>
+                         <button className="w-full md:px-10 py-4 bg-white text-indigo-600 rounded-xl md:rounded-2xl text-[9px] md:text-[10px] font-black uppercase tracking-widest shadow-xl hover:scale-105 transition-all">Book Technical Round</button>
+                         <button className="w-full md:px-10 py-4 bg-indigo-500 text-white rounded-xl md:rounded-2xl text-[9px] md:text-[10px] font-black uppercase tracking-widest border border-indigo-400 hover:bg-indigo-400 transition-all">Book HR Mock</button>
                       </div>
                    </div>
-                   <div className="w-48 h-48 bg-white/10 rounded-[2.5rem] backdrop-blur-md border border-white/10 flex items-center justify-center shrink-0">
-                      <span className="material-symbols-outlined text-8xl opacity-40">forum</span>
+                   <div className="w-32 h-32 md:w-48 md:h-48 bg-white/10 rounded-2xl md:rounded-[2.5rem] backdrop-blur-md border border-white/10 flex items-center justify-center shrink-0">
+                      <span className="material-symbols-outlined text-6xl md:text-8xl opacity-40">forum</span>
                    </div>
                 </div>
              </div>
           </motion.div>
         )}
-        {activeTab === 'LinkedIn Profile' && (
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-8 max-w-4xl mx-auto">
+         {activeTab === 'LinkedIn Profile' && (
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-8 max-w-4xl mx-auto px-2 md:px-0">
             {/* LinkedIn Header */}
-            <div className="flex flex-col items-center text-center space-y-4 py-8">
-               <div className="w-16 h-16 bg-[#0077b5] text-white rounded-[1.5rem] flex items-center justify-center shadow-xl shadow-blue-200/50 border-4 border-white">
-                  <span className="material-symbols-outlined text-3xl">person_search</span>
+            <div className="flex flex-col items-center text-center space-y-4 py-6 md:py-8">
+               <div className="w-14 h-14 md:w-16 md:h-16 bg-[#0077b5] text-white rounded-2xl md:rounded-[1.5rem] flex items-center justify-center shadow-xl shadow-blue-200/50 border-4 border-white">
+                  <span className="material-symbols-outlined text-2xl md:text-3xl">person_search</span>
                </div>
-               <div>
-                  <h3 className="text-3xl font-black text-slate-900 tracking-tighter uppercase leading-tight italic">LinkedIn <span className="text-[#0077b5]">Optimization</span></h3>
-                  <p className="text-[14px] text-slate-400 font-medium mt-2">Transform your profile into an <span className="text-[#0077b5] font-bold underline underline-offset-4 decoration-2">opportunity magnet</span>.</p>
+               <div className="px-4">
+                  <h3 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tighter uppercase leading-tight italic">LinkedIn <span className="text-[#0077b5]">Optimization</span></h3>
+                  <p className="text-[13px] md:text-[14px] text-slate-400 font-medium mt-2">Transform your profile into an <span className="text-[#0077b5] font-bold underline underline-offset-4 decoration-2">opportunity magnet</span>.</p>
                </div>
             </div>
 
             {/* Video Container - PREMIUM */}
-            <div className="bg-white rounded-[2.5rem] border border-slate-200/60 shadow-2xl overflow-hidden group relative">
-               <div className="p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+            <div className="bg-white rounded-[1.5rem] md:rounded-[2.5rem] border border-slate-200/60 shadow-2xl overflow-hidden group relative">
+               <div className="p-4 md:p-6 border-b border-slate-100 flex flex-col md:flex-row items-center justify-between bg-slate-50/50 gap-3">
                   <div className="flex items-center gap-3">
                      <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></div>
                      <span className="text-[9px] font-black text-slate-400 uppercase tracking-[0.3em]">Tutorial: Masterclass</span>
@@ -684,13 +707,13 @@ export default function Dashboard() {
                     allowFullScreen
                   ></iframe>
                </div>
-               <div className="p-8 bg-white flex flex-col md:flex-row items-center justify-between gap-6">
+               <div className="p-6 md:p-8 bg-white flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
                   <div className="flex-1">
-                     <h4 className="text-[13px] font-black text-slate-900 uppercase tracking-tight mb-2">Why this matters?</h4>
-                     <p className="text-[12px] text-slate-500 font-medium leading-relaxed italic">"Recruiters spend 75% of their time on LinkedIn. If your profile isn't optimized, you are invisible."</p>
+                     <h4 className="text-[12px] md:text-[13px] font-black text-slate-900 uppercase tracking-tight mb-2">Why this matters?</h4>
+                     <p className="text-[11px] md:text-[12px] text-slate-500 font-medium leading-relaxed italic">"Recruiters spend 75% of their time on LinkedIn. If your profile isn't optimized, you are invisible."</p>
                   </div>
-                  <div className="flex gap-4">
-                     <button className="bg-[#0077b5] text-white px-8 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg shadow-blue-200 hover:bg-blue-700 transition-all">Download Checklist</button>
+                  <div className="flex w-full md:w-auto">
+                     <button className="w-full md:w-auto bg-[#0077b5] text-white px-8 py-3 rounded-xl font-black text-[9px] md:text-[10px] uppercase tracking-widest shadow-lg shadow-blue-200 hover:bg-blue-700 transition-all">Download Checklist</button>
                   </div>
                </div>
             </div>

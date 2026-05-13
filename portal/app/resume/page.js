@@ -182,7 +182,7 @@ export default function ResumePage() {
         <div className="flex flex-col lg:flex-row flex-1 overflow-y-auto lg:overflow-hidden">
           
           {/* Editor Column */}
-          <section className="w-full lg:max-w-xl lg:border-r border-slate-200 bg-white overflow-y-auto p-6 md:p-8 space-y-8 custom-scrollbar">
+          <section className="w-full lg:max-w-xl lg:border-r border-slate-200 bg-white overflow-y-auto p-5 md:p-8 space-y-10 custom-scrollbar">
             
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
                <TemplateGallery selectedTemplateId={selectedTemplateId} onSelect={setSelectedTemplateId} />
@@ -202,22 +202,35 @@ export default function ResumePage() {
                <ATSScore formData={formData} selectedTemplateId={selectedTemplateId} />
             </motion.div>
 
-            <div className="sticky bottom-0 bg-white/90 backdrop-blur-md pt-4 pb-4 border-t border-slate-50 z-20">
+            {/* Sticky download for desktop, floating for mobile below */}
+            <div className="hidden lg:block sticky bottom-0 bg-white/90 backdrop-blur-md pt-4 pb-4 border-t border-slate-50 z-20">
                <DownloadButton formData={formData} selectedTemplateId={selectedTemplateId} />
             </div>
           </section>
 
           {/* Preview Column */}
-          <section className="w-full bg-slate-50/50 overflow-y-auto p-4 md:p-8 lg:p-12 flex justify-center custom-scrollbar">
+          <section className="w-full bg-slate-50/50 overflow-y-auto p-4 md:p-8 lg:p-12 flex flex-col items-center custom-scrollbar pb-32 lg:pb-12">
+            <div className="lg:hidden w-full mb-6 text-center">
+               <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-indigo-50 border border-indigo-100 rounded-full">
+                  <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse"></span>
+                  <span className="text-[9px] font-black text-indigo-600 uppercase tracking-widest">Live Preview</span>
+               </div>
+            </div>
+            
             <motion.div 
               initial={{ opacity: 0, scale: 0.98 }} 
               animate={{ opacity: 1, scale: 1 }} 
               transition={{ delay: 0.4 }}
-              className="w-full max-w-[210mm] shadow-2xl origin-top scale-[0.65] sm:scale-[0.85] md:scale-100"
+              className="w-full max-w-[210mm] shadow-2xl origin-top scale-[0.45] xs:scale-[0.55] sm:scale-[0.85] md:scale-100"
             >
                <ResumePreview formData={formData} selectedTemplateId={selectedTemplateId} />
             </motion.div>
           </section>
+
+          {/* Floating Mobile Download Bar */}
+          <div className="lg:hidden fixed bottom-0 left-0 right-0 p-4 bg-white/80 backdrop-blur-xl border-t border-slate-200 z-[60]">
+             <DownloadButton formData={formData} selectedTemplateId={selectedTemplateId} />
+          </div>
 
         </div>
       </main>
