@@ -198,7 +198,7 @@ export default function Dashboard() {
           <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center shadow-md shadow-primary/10">
             <span className="material-symbols-outlined text-white text-base" style={{fontVariationSettings: "'FILL' 1"}}>terminal</span>
           </div>
-          <h1 className="text-slate-900 font-bold text-xs tracking-tight uppercase">Codtech</h1>
+        <h1 className="text-slate-900 font-bold text-[11px] tracking-tight uppercase">Codtech</h1>
         </div>
         <button 
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -265,7 +265,7 @@ export default function Dashboard() {
                   setIsMobileMenuOpen(false);
                 }
               }}
-              className={`w-full flex items-center gap-3.5 px-5 py-3 rounded-2xl transition-all font-bold text-[13px] group relative ${activeTab === item.name ? 'bg-primary text-white shadow-xl shadow-primary/20' : 'text-slate-500 hover:bg-slate-50 hover:text-primary'}`}
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-bold text-[12px] group relative ${activeTab === item.name ? 'bg-primary text-white shadow-xl shadow-primary/20' : 'text-slate-500 hover:bg-slate-50 hover:text-primary'}`}
             >
               <span className={`material-symbols-outlined text-[22px] transition-colors ${activeTab === item.name ? 'text-white' : 'text-slate-400 group-hover:text-primary'}`}>{item.icon}</span>
               {item.name}
@@ -292,25 +292,25 @@ export default function Dashboard() {
         </div>
       </aside>
 
-      <main className={`flex-1 transition-all lg:ml-64 p-4 md:p-8 lg:p-10 pt-20 lg:pt-10 min-h-screen`}>
+      <main className={`flex-1 transition-all lg:ml-64 p-4 md:p-8 lg:p-10 pt-24 lg:pt-10 min-h-screen max-w-full overflow-x-hidden`}>
         
         {/* Header - REFINED & COMPACT */}
-        <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
+        <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
           <div className="flex items-center gap-3">
              <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
-             <h2 className="text-sm font-bold text-slate-400 tracking-tight uppercase">{activeTab}</h2>
+             <h2 className="text-[10px] md:text-sm font-black text-slate-400 tracking-widest uppercase">{activeTab}</h2>
           </div>
           
-          <div className="flex items-center gap-2">
-             <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-[10px] font-bold tracking-tight border shadow-sm ${getBadge(user?.xp || 0).color}`}>
+          <div className="flex flex-wrap items-center gap-2">
+             <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-[9px] font-black tracking-tight border shadow-sm ${getBadge(user?.xp || 0).color}`}>
                 <span className="material-symbols-outlined text-sm">{getBadge(user?.xp || 0).icon}</span>
                 {getBadge(user?.xp || 0).name}
              </div>
-             <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-[10px] font-bold tracking-tight bg-white text-slate-700 border border-slate-200/60 shadow-sm">
+             <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-[9px] font-black tracking-tight bg-white text-slate-700 border border-slate-200/60 shadow-sm">
                 <span className="material-symbols-outlined text-sm text-emerald-500">verified</span>
                 {user?.xp || 0} XP
              </div>
-             <button className="bg-primary text-white px-4 py-1.5 rounded-lg font-bold text-[10px] tracking-tight uppercase shadow-lg shadow-primary/20 hover:bg-primary-dark transition-all flex items-center gap-2">
+             <button className="bg-primary text-white px-4 py-1.5 rounded-lg font-black text-[9px] tracking-tight uppercase shadow-lg shadow-primary/20 hover:bg-primary-dark transition-all flex items-center gap-2">
                 Get Certified
              </button>
           </div>
@@ -330,7 +330,7 @@ export default function Dashboard() {
                      </div>
                      <h3 className="text-xl font-black text-white tracking-tight uppercase leading-none italic">Internship <span className="text-indigo-400">Accelerator</span></h3>
                   </div>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap justify-center lg:justify-start gap-2 w-full">
                      {[
                         { step: 1, label: 'Orientation', done: true },
                         { step: 2, label: 'Read Materials', done: completedLessons.length > 0 },
@@ -338,11 +338,11 @@ export default function Dashboard() {
                         { step: 4, label: 'Submit GitHub', done: false },
                         { step: 5, label: 'Get Certified', done: false }
                      ].map((item, i) => (
-                        <div key={i} className={`flex items-center gap-3 px-4 py-2 rounded-2xl border transition-all ${item.done ? 'bg-white/10 border-white/10 text-white' : 'bg-white/5 border-white/5 text-white/20'}`}>
-                           <div className={`w-6 h-6 rounded-lg flex items-center justify-center text-[9px] font-black ${item.done ? 'bg-indigo-500 text-white' : 'bg-white/5 text-white/20'}`}>
-                              {item.done ? <span className="material-symbols-outlined text-[12px]">check</span> : i + 1}
+                        <div key={i} className={`flex items-center gap-2 px-3 py-2 rounded-xl border transition-all ${item.done ? 'bg-white/10 border-white/10 text-white' : 'bg-white/5 border-white/5 text-white/20'}`}>
+                           <div className={`w-5 h-5 rounded-lg flex items-center justify-center text-[8px] font-black shrink-0 ${item.done ? 'bg-indigo-500 text-white' : 'bg-white/5 text-white/20'}`}>
+                              {item.done ? <span className="material-symbols-outlined text-[10px]">check</span> : i + 1}
                            </div>
-                           <span className="text-[9px] font-black uppercase tracking-widest">{item.label}</span>
+                           <span className="text-[8px] font-black uppercase tracking-widest truncate">{item.label}</span>
                         </div>
                      ))}
                   </div>
@@ -589,24 +589,24 @@ export default function Dashboard() {
                 <p className="text-slate-400 text-[13px] md:text-sm font-medium max-w-md mx-auto">Your portal to top-tier internship and job opportunities in the tech industry.</p>
              </div>
              
-             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 px-2 md:px-0">
-                <div className="bg-white p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] border border-slate-100 shadow-sm space-y-6">
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 px-2 md:px-0">
+                <div className="bg-white p-5 md:p-8 rounded-[2rem] md:rounded-[2.5rem] border border-slate-100 shadow-sm space-y-6 overflow-hidden">
                    <h4 className="text-base md:text-lg font-black text-slate-900 uppercase tracking-tight italic text-center md:text-left">Active <span className="text-indigo-600">Drives</span></h4>
                    <div className="space-y-3">
                       {['Google APAC', 'Microsoft IDC', 'Amazon SDE', 'Zomato Dev'].map(drive => (
-                         <div key={drive} className="p-4 md:p-5 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-between group hover:bg-white hover:shadow-xl transition-all">
-                            <span className="font-bold text-slate-700 text-xs md:text-sm">{drive}</span>
-                            <span className="text-[8px] md:text-[9px] font-black text-indigo-600 uppercase tracking-widest bg-indigo-50 px-3 py-1.5 rounded-lg border border-indigo-100">Live</span>
+                         <div key={drive} className="p-3 md:p-5 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-between group hover:bg-white hover:shadow-xl transition-all">
+                            <span className="font-bold text-slate-700 text-[11px] md:text-sm truncate mr-2">{drive}</span>
+                            <span className="text-[8px] md:text-[9px] font-black text-indigo-600 uppercase tracking-widest bg-indigo-50 px-3 py-1.5 rounded-lg border border-indigo-100 shrink-0">Live</span>
                          </div>
                       ))}
                    </div>
                 </div>
-                <div className="bg-slate-900 p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] border border-white/5 shadow-2xl text-white flex flex-col justify-center items-center text-center space-y-6">
+                <div className="bg-slate-900 p-5 md:p-8 rounded-[2rem] md:rounded-[2.5rem] border border-white/5 shadow-2xl text-white flex flex-col justify-center items-center text-center space-y-5 overflow-hidden">
                    <div className="w-12 h-12 md:w-16 md:h-16 bg-white/10 rounded-xl md:rounded-2xl flex items-center justify-center">
                       <span className="material-symbols-outlined text-2xl md:text-3xl text-indigo-400">verified_user</span>
                    </div>
-                   <h4 className="text-lg md:text-xl font-black uppercase tracking-tight italic">Become <span className="text-indigo-400">Placement Ready</span></h4>
-                   <p className="text-white/40 text-[11px] md:text-[12px] font-medium leading-relaxed max-w-[280px]">Complete your 4 projects and materials to unlock 1-on-1 career coaching sessions.</p>
+                   <h4 className="text-[16px] md:text-xl font-black uppercase tracking-tight italic">Become <span className="text-indigo-400">Placement Ready</span></h4>
+                   <p className="text-white/40 text-[10px] md:text-[12px] font-medium leading-relaxed max-w-[280px]">Complete your 4 projects and materials to unlock 1-on-1 career coaching sessions.</p>
                    <button className="w-full py-4 bg-indigo-600 rounded-xl text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] shadow-lg shadow-indigo-500/20">Apply for Evaluation</button>
                 </div>
              </div>
@@ -618,7 +618,7 @@ export default function Dashboard() {
                       <h4 className="text-xl md:text-2xl font-black text-slate-900 uppercase tracking-tighter italic">Placement <span className="text-indigo-600">Channels Hub</span></h4>
                       <p className="text-slate-400 text-[11px] md:text-[12px] font-bold uppercase tracking-widest mt-1">Direct access to top-tier hiring networks</p>
                    </div>
-                   <div className="flex gap-2">
+                   <div className="flex flex-wrap justify-center gap-2 mt-4 md:mt-0">
                       <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-600 text-[9px] font-black uppercase tracking-widest">
                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
                          Live Updates
@@ -779,19 +779,19 @@ export default function Dashboard() {
 
          {activeTab === 'Mock Interviews' && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-8 max-w-5xl mx-auto py-6 md:py-10 px-2 md:px-0">
-             <div className="bg-indigo-600 rounded-[2rem] md:rounded-[3rem] p-8 md:p-12 text-white relative overflow-hidden shadow-2xl shadow-indigo-200">
-                <div className="absolute top-0 right-0 w-64 md:w-96 h-64 md:h-96 bg-white/5 rounded-full blur-[80px] md:blur-[100px]"></div>
-                <div className="relative z-10 flex flex-col md:flex-row items-center gap-10 md:gap-12 text-center md:text-left">
+             <div className="bg-indigo-600 rounded-[2rem] md:rounded-[3rem] p-6 md:p-12 text-white relative overflow-hidden shadow-2xl shadow-indigo-200">
+                <div className="absolute top-0 right-0 w-48 md:w-96 h-48 md:h-96 bg-white/5 rounded-full blur-[60px] md:blur-[100px]"></div>
+                <div className="relative z-10 flex flex-col md:flex-row items-center gap-8 md:gap-12 text-center md:text-left">
                    <div className="flex-1 space-y-6">
                       <h3 className="text-2xl md:text-4xl font-black uppercase tracking-tighter italic leading-tight md:leading-none">Schedule your <br/><span className="text-indigo-200">Mock Interview</span></h3>
-                      <p className="text-indigo-100/60 text-[13px] md:text-sm font-medium leading-relaxed max-w-md mx-auto md:mx-0">Practice with industry experts from Amazon, Google, and Meta before your real technical rounds.</p>
-                      <div className="flex flex-col md:flex-row gap-4 pt-4">
-                         <button className="w-full md:px-10 py-4 bg-white text-indigo-600 rounded-xl md:rounded-2xl text-[9px] md:text-[10px] font-black uppercase tracking-widest shadow-xl hover:scale-105 transition-all">Book Technical Round</button>
-                         <button className="w-full md:px-10 py-4 bg-indigo-500 text-white rounded-xl md:rounded-2xl text-[9px] md:text-[10px] font-black uppercase tracking-widest border border-indigo-400 hover:bg-indigo-400 transition-all">Book HR Mock</button>
+                      <p className="text-indigo-100/60 text-[11px] md:text-sm font-medium leading-relaxed max-w-md mx-auto md:mx-0">Practice with industry experts from Amazon, Google, and Meta before your real technical rounds.</p>
+                      <div className="flex flex-col gap-3 pt-2 w-full max-w-xs mx-auto md:mx-0 md:max-w-none md:flex-row md:gap-4 md:pt-4">
+                         <button className="w-full md:w-auto md:px-8 py-3 md:py-4 bg-white text-indigo-600 rounded-xl md:rounded-2xl text-[9px] md:text-[10px] font-black uppercase tracking-widest shadow-xl hover:scale-105 transition-all">Book Technical Round</button>
+                         <button className="w-full md:w-auto md:px-8 py-3 md:py-4 bg-indigo-500 text-white rounded-xl md:rounded-2xl text-[9px] md:text-[10px] font-black uppercase tracking-widest border border-indigo-400 hover:bg-indigo-400 transition-all">Book HR Mock</button>
                       </div>
                    </div>
-                   <div className="w-32 h-32 md:w-48 md:h-48 bg-white/10 rounded-2xl md:rounded-[2.5rem] backdrop-blur-md border border-white/10 flex items-center justify-center shrink-0">
-                      <span className="material-symbols-outlined text-6xl md:text-8xl opacity-40">forum</span>
+                   <div className="w-24 h-24 md:w-48 md:h-48 bg-white/10 rounded-2xl md:rounded-[2.5rem] backdrop-blur-md border border-white/10 flex items-center justify-center shrink-0 mt-4 md:mt-0">
+                      <span className="material-symbols-outlined text-4xl md:text-8xl opacity-40">forum</span>
                    </div>
                 </div>
              </div>

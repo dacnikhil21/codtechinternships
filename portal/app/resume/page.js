@@ -204,7 +204,7 @@ export default function ResumePage() {
                     </div>
 
                     {/* Right: Preview */}
-                    <div className="flex-1 bg-slate-50/50 overflow-y-auto p-4 md:p-12 lg:p-16 flex flex-col items-center custom-scrollbar pb-32 lg:pb-16">
+                    <div className="flex-1 bg-slate-50/50 overflow-y-auto overflow-x-hidden p-4 md:p-12 lg:p-16 flex flex-col items-center custom-scrollbar pb-32 lg:pb-16 w-full">
                        <div className="lg:hidden w-full mb-8 flex justify-center">
                           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-full shadow-sm">
                              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
@@ -212,11 +212,11 @@ export default function ResumePage() {
                           </div>
                        </div>
                        
-                       <div className="w-full flex justify-center perspective-[2000px]">
+                       <div className="w-full flex justify-center perspective-[2000px] overflow-hidden">
                           <motion.div 
                             initial={{ rotateX: 5, y: 20, opacity: 0 }}
                             animate={{ rotateX: 0, y: 0, opacity: 1 }}
-                            className="w-full max-w-[210mm] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.15)] origin-top transform scale-[0.45] xs:scale-[0.55] sm:scale-[0.8] md:scale-[0.9] lg:scale-[0.75] xl:scale-90 2xl:scale-100"
+                            className="w-[210mm] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.15)] origin-top transform scale-[0.4] min-[375px]:scale-[0.43] min-[414px]:scale-[0.48] sm:scale-[0.7] md:scale-[0.8] lg:scale-[0.75] xl:scale-90 2xl:scale-100 mb-[-50%] sm:mb-[-20%] lg:mb-0"
                           >
                              <ResumePreview formData={formData} selectedTemplateId={selectedTemplateId} />
                           </motion.div>

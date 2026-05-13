@@ -75,23 +75,23 @@ function RegisterForm() {
   };
 
   return (
-    <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-12 gap-0 relative z-10 bg-slate-900/40 backdrop-blur-3xl rounded-[3rem] border border-white/5 shadow-[0_32px_64px_rgba(0,0,0,0.4)] overflow-hidden">
+    <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-12 gap-0 relative z-10 bg-slate-900/40 backdrop-blur-3xl rounded-[2rem] md:rounded-[3rem] border border-white/5 shadow-[0_32px_64px_rgba(0,0,0,0.4)] overflow-hidden">
       
       {/* Left Side: Impact */}
-      <section className="hidden lg:flex lg:col-span-5 p-16 flex-col justify-between bg-gradient-to-br from-indigo-600 to-violet-800 relative overflow-hidden">
+      <section className="hidden lg:flex lg:col-span-5 p-12 xl:p-16 flex-col justify-between bg-gradient-to-br from-indigo-600 to-violet-800 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20" />
         <div className="relative z-10">
-          <div className="flex items-center gap-3 mb-16">
+          <div className="flex items-center gap-3 mb-12">
             <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center">
               <span className="material-symbols-outlined text-indigo-600 text-xl font-black">terminal</span>
             </div>
             <span className="text-white font-black tracking-tight text-lg uppercase italic">Codtech</span>
           </div>
-          <h3 className="text-5xl font-black text-white leading-[0.9] mb-8 tracking-tighter uppercase italic">Start Your <br /> Mission.</h3>
+          <h3 className="text-4xl xl:text-5xl font-black text-white leading-[0.9] mb-8 tracking-tighter uppercase italic">Start Your <br /> Mission.</h3>
           <p className="text-indigo-100/70 font-medium leading-relaxed max-w-xs">Access elite projects and industry-standard learning materials.</p>
         </div>
         
-        <div className="relative z-10 bg-white/5 backdrop-blur-md p-8 rounded-3xl border border-white/10">
+        <div className="relative z-10 bg-white/5 backdrop-blur-md p-6 xl:p-8 rounded-3xl border border-white/10">
           <div className="flex items-center gap-4 mb-4">
              <div className="w-10 h-10 rounded-full bg-indigo-400 border-2 border-indigo-200" />
              <div>
@@ -104,10 +104,10 @@ function RegisterForm() {
       </section>
 
       {/* Right Side: Form */}
-      <section className="col-span-1 lg:col-span-7 flex flex-col justify-center p-10 md:p-16 bg-transparent">
+      <section className="col-span-1 lg:col-span-7 flex flex-col justify-center p-6 md:p-12 lg:p-16 bg-transparent">
         <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
-          <div className="mb-10">
-            <h2 className="text-4xl font-black text-white mb-2 tracking-tight uppercase leading-tight">Create Elite Account</h2>
+          <div className="mb-8">
+            <h2 className="text-2xl md:text-4xl font-black text-white mb-2 tracking-tight uppercase leading-tight">Create Elite Account</h2>
             <p className="text-slate-400 font-black text-[10px] uppercase tracking-[0.4em]">Initialize Connection</p>
           </div>
           
@@ -181,16 +181,18 @@ function RegisterForm() {
 
 export default function Register() {
   return (
-    <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4 md:p-8 relative overflow-hidden">
       {/* Background Elements shared with Login */}
-      <div className="absolute top-0 left-0 w-full h-full">
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
          <motion.div animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }} transition={{ duration: 10, repeat: Infinity }} className="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] bg-indigo-600/20 rounded-full blur-[120px]" />
          <motion.div animate={{ scale: [1, 1.5, 1], opacity: [0.2, 0.4, 0.2] }} transition={{ duration: 15, repeat: Infinity }} className="absolute -bottom-[20%] -right-[10%] w-[70%] h-[70%] bg-purple-600/10 rounded-full blur-[140px]" />
          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-[0.03]" />
       </div>
 
       <Suspense fallback={<div className="text-white font-bold uppercase tracking-widest relative z-10">Initializing...</div>}>
-        <RegisterForm />
+        <div className="w-full max-w-[500px] lg:max-w-5xl">
+           <RegisterForm />
+        </div>
       </Suspense>
     </div>
   );
