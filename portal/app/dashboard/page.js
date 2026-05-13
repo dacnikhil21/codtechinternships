@@ -650,6 +650,7 @@ export default function Dashboard() {
              </div>
           </motion.div>
         )}
+        {activeTab === 'LinkedIn Profile' && (
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-8 max-w-4xl mx-auto">
             {/* LinkedIn Header */}
             <div className="flex flex-col items-center text-center space-y-4 py-8">
