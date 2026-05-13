@@ -19,10 +19,11 @@ export default function ResumeForm({ user, formData, setFormData }) {
 
   const toggleSkill = (skill) => {
     setFormData((prev) => {
-      const skills = prev.skills.includes(skill)
-        ? prev.skills.filter((s) => s !== skill)
-        : [...prev.skills, skill];
-      return { ...prev, skills };
+      const skills = Array.isArray(prev.skills) ? prev.skills : [];
+      const updatedSkills = skills.includes(skill)
+        ? skills.filter((s) => s !== skill)
+        : [...skills, skill];
+      return { ...prev, skills: updatedSkills };
     });
   };
 
@@ -64,23 +65,23 @@ export default function ResumeForm({ user, formData, setFormData }) {
           <span className="text-[9px] font-bold text-primary bg-primary/5 px-2 py-0.5 rounded-full uppercase tracking-tighter">Domain Suggestions</span>
         </div>
         <div className="flex flex-wrap gap-1.5 p-4 bg-slate-50/50 border border-slate-100 rounded-2xl">
-          {availableSkills.map((skill) => (
+          {(availableSkills || []).map((skill) => (
             <motion.button
               type="button"
               key={skill}
               whileTap={{ scale: 0.95 }}
               onClick={() => toggleSkill(skill)}
               className={`px-3 py-1.5 rounded-lg text-[11px] font-bold transition-all border ${
-                formData.skills.includes(skill) 
+                (formData.skills || []).includes(skill) 
                   ? 'bg-slate-900 border-slate-900 text-white shadow-md' 
                   : 'bg-white border-slate-200 text-slate-500 hover:border-slate-300'
               }`}
             >
               {skill}
-              {formData.skills.includes(skill) && <span className="ml-1.5 text-[10px]">✕</span>}
+              {(formData.skills || []).includes(skill) && <span className="ml-1.5 text-[10px]">✕</span>}
             </motion.button>
           ))}
-          {availableSkills.length === 0 && <p className="text-[11px] text-slate-400 italic">Enter a domain to see suggestions...</p>}
+          {(availableSkills || []).length === 0 && <p className="text-[11px] text-slate-400 italic">Enter a domain to see suggestions...</p>}
         </div>
       </div>
 
@@ -90,7 +91,7 @@ export default function ResumeForm({ user, formData, setFormData }) {
           <label className={labelClasses}>Projects (One per line)</label>
           <textarea 
             rows="3" 
-            value={formData.projects.join('\n')} 
+            value={(formData.projects || []).join('\n')} 
             onChange={(e) => setFormData(prev => ({ ...prev, projects: e.target.value.split('\n') }))}
             placeholder="E-commerce Platform using MERN stack..." 
             className={`${inputClasses} resize-none`} 
@@ -98,7 +99,7 @@ export default function ResumeForm({ user, formData, setFormData }) {
         </div>
         <div>
           <label className={labelClasses}>Education</label>
-          <input name="education" value={formData.education.join(', ')} onChange={(e) => setFormData(prev => ({ ...prev, education: e.target.value.split(',') }))} placeholder="B.Tech in CSE, 2024" className={inputClasses} />
+          <input name="education" value={(formData.education || []).join(', ')} onChange={(e) => setFormData(prev => ({ ...prev, education: e.target.value.split(',') }))} placeholder="B.Tech in CSE, 2024" className={inputClasses} />
         </div>
       </div>
 

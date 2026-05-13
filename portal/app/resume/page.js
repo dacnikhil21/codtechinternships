@@ -85,7 +85,7 @@ export default function ResumePage() {
       {/* Sidebar - Matching Dashboard */}
       <aside className={`w-60 bg-white border-r border-slate-200/60 flex flex-col fixed h-full z-[70] transition-transform duration-300 ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>
         <div className="p-5 mb-2">
-          <div className="flex items-center gap-2.5" onClick={() => router.push('/dashboard')} className="cursor-pointer">
+          <div className="flex items-center gap-2.5 cursor-pointer" onClick={() => router.push('/dashboard')}>
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center shadow-md shadow-primary/10">
               <span className="material-symbols-outlined text-white text-base" style={{fontVariationSettings: "'FILL' 1"}}>terminal</span>
             </div>

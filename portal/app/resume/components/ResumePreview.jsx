@@ -24,10 +24,10 @@ export default function ResumePreview({ formData, selectedTemplateId }) {
       domain: formData.domain || 'Domain',
       email: formData.email || 'email@example.com',
       phone: formData.phone || '+91 0000000000',
-      skills: formData.skills.length > 0 ? formData.skills.join(', ') : 'Add your skills',
-      projects: formData.projects.length > 0 ? formData.projects.join(', ') : 'Add your projects',
-      education: formData.education.length > 0 ? formData.education.join(', ') : 'Add your education',
-      certifications: formData.certifications.length > 0 ? formData.certifications.join(', ') : 'Add your certifications',
+      skills: Array.isArray(formData.skills) && formData.skills.length > 0 ? formData.skills.join(', ') : 'Add your skills',
+      projects: Array.isArray(formData.projects) && formData.projects.length > 0 ? formData.projects.join(', ') : 'Add your projects',
+      education: Array.isArray(formData.education) && formData.education.length > 0 ? formData.education.join(', ') : 'Add your education',
+      certifications: Array.isArray(formData.certifications) && formData.certifications.length > 0 ? formData.certifications.join(', ') : 'Add your certifications',
       linkedin: formData.linkedin || '#',
       github: formData.github || '#'
     };
