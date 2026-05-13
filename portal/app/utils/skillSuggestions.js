@@ -16,6 +16,6 @@ export const DOMAIN_SKILLS = {
  * Return an array of suggested skills for a given domain.
  * If the domain is not recognized, returns an empty array.
  */
-export function getSuggestedSkills(domain) {
+export function getSkillsForDomain(domain) {
   return DOMAIN_SKILLS[domain] || [];
 }
