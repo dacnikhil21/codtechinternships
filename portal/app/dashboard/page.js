@@ -494,6 +494,70 @@ export default function Dashboard() {
           </motion.div>
         )}
 
+        {activeTab === 'LinkedIn Profile' && (
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-8 max-w-4xl mx-auto">
+            {/* LinkedIn Header */}
+            <div className="flex flex-col items-center text-center space-y-4 py-8">
+               <div className="w-16 h-16 bg-[#0077b5] text-white rounded-[1.5rem] flex items-center justify-center shadow-xl shadow-blue-200/50 border-4 border-white">
+                  <span className="material-symbols-outlined text-3xl">person_search</span>
+               </div>
+               <div>
+                  <h3 className="text-3xl font-black text-slate-900 tracking-tighter uppercase leading-tight italic">LinkedIn <span className="text-[#0077b5]">Optimization</span></h3>
+                  <p className="text-[14px] text-slate-400 font-medium mt-2">Transform your profile into an <span className="text-[#0077b5] font-bold underline underline-offset-4 decoration-2">opportunity magnet</span>.</p>
+               </div>
+            </div>
+
+            {/* Video Container - PREMIUM */}
+            <div className="bg-white rounded-[2.5rem] border border-slate-200/60 shadow-2xl overflow-hidden group relative">
+               <div className="p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+                  <div className="flex items-center gap-3">
+                     <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></div>
+                     <span className="text-[9px] font-black text-slate-400 uppercase tracking-[0.3em]">Tutorial: Masterclass</span>
+                  </div>
+                  <div className="flex gap-2">
+                     <span className="px-3 py-1 rounded-full bg-blue-50 text-[#0077b5] text-[9px] font-black uppercase border border-blue-100">Recommended</span>
+                  </div>
+               </div>
+               <div className="aspect-video w-full bg-slate-950">
+                  <iframe 
+                    className="w-full h-full"
+                    src="https://www.youtube.com/embed/tAXOFWXsq0g" 
+                    title="LinkedIn Optimization Guide" 
+                    frameBorder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowFullScreen
+                  ></iframe>
+               </div>
+               <div className="p-8 bg-white flex flex-col md:flex-row items-center justify-between gap-6">
+                  <div className="flex-1">
+                     <h4 className="text-[13px] font-black text-slate-900 uppercase tracking-tight mb-2">Why this matters?</h4>
+                     <p className="text-[12px] text-slate-500 font-medium leading-relaxed italic">"Recruiters spend 75% of their time on LinkedIn. If your profile isn't optimized, you are invisible."</p>
+                  </div>
+                  <div className="flex gap-4">
+                     <button className="bg-[#0077b5] text-white px-8 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg shadow-blue-200 hover:bg-blue-700 transition-all">Download Checklist</button>
+                  </div>
+               </div>
+            </div>
+
+            {/* Action Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+               {[
+                 { title: 'The Headline', desc: 'Use role-specific keywords (e.g. Java Intern @ CodTech)', icon: 'badge' },
+                 { title: 'The Profile', desc: 'High-quality professional headshot with clean background', icon: 'account_circle' },
+                 { title: 'The Summary', desc: 'Showcase your CodTech projects and technical stack', icon: 'description' }
+               ].map((card, i) => (
+                 <div key={i} className="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm hover:border-[#0077b5]/30 transition-all group">
+                    <div className="w-10 h-10 bg-blue-50 text-[#0077b5] rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                       <span className="material-symbols-outlined text-xl">{card.icon}</span>
+                    </div>
+                    <h5 className="font-black text-slate-900 text-[13px] uppercase tracking-tight mb-2">{card.title}</h5>
+                    <p className="text-[11px] text-slate-400 font-medium leading-relaxed">{card.desc}</p>
+                 </div>
+               ))}
+            </div>
+          </motion.div>
+        )}
+
         {/* GLOBAL COURSE VIEWER */}
         <AnimatePresence>
           {selectedModule && (
