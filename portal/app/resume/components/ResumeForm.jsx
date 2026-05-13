@@ -65,12 +65,17 @@ export default function ResumeForm({ user, formData, setFormData }) {
               onClick={e => e.stopPropagation()}
             >
               <div className="p-4 border-b flex justify-between items-center bg-slate-50">
-                <h3 className="font-black text-sm uppercase tracking-tight text-slate-900">How to optimize your LinkedIn</h3>
+                <div className="flex items-center gap-2">
+                   <div className="w-6 h-6 bg-[#0077b5] text-white rounded flex items-center justify-center">
+                      <span className="material-symbols-outlined text-[14px]">link</span>
+                   </div>
+                   <h3 className="font-black text-[11px] uppercase tracking-tight text-slate-900">Placement-Ready LinkedIn Tutorial</h3>
+                </div>
                 <button onClick={() => setShowLinkedInVideo(false)} className="w-8 h-8 rounded-full hover:bg-slate-200 flex items-center justify-center transition-colors">
                    <span className="material-symbols-outlined text-sm">close</span>
                 </button>
               </div>
-              <div className="aspect-video w-full">
+              <div className="aspect-video w-full bg-black">
                 <iframe 
                   className="w-full h-full"
                   src="https://www.youtube.com/embed/tAXOFWXsq0g?autoplay=1" 
@@ -80,8 +85,9 @@ export default function ResumeForm({ user, formData, setFormData }) {
                   allowFullScreen
                 ></iframe>
               </div>
-              <div className="p-4 text-center">
-                 <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">Follow these steps to make your profile placement-ready</p>
+              <div className="p-4 text-center bg-slate-50 border-t">
+                 <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">PRO TIP</p>
+                 <p className="text-[12px] font-medium text-slate-600">A well-optimized LinkedIn profile increases your internship selection rate by 4x.</p>
               </div>
             </motion.div>
           </motion.div>
@@ -207,15 +213,15 @@ export default function ResumeForm({ user, formData, setFormData }) {
 
       {/* Socials */}
       <div className="grid grid-cols-2 gap-4">
-        <div>
-          <div className="flex justify-between items-center mb-1.5">
-             <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">LinkedIn (Username)</label>
+        <div className="p-4 bg-blue-50/30 rounded-2xl border border-blue-100/50">
+          <div className="flex justify-between items-center mb-2">
+             <label className="text-[10px] font-black text-[#0077b5] uppercase tracking-widest">LinkedIn Profile</label>
              <button 
                onClick={() => setShowLinkedInVideo(true)}
-               className="flex items-center gap-1 text-[9px] font-black text-primary uppercase hover:underline"
+               className="flex items-center gap-1.5 text-[9px] font-black text-[#0077b5] uppercase bg-white px-2 py-1 rounded-full border border-blue-100 shadow-sm hover:bg-blue-50 transition-all"
              >
-                <span className="material-symbols-outlined text-[12px]">play_circle</span>
-                Watch Tutorial
+                <span className="material-symbols-outlined text-[13px]">play_circle</span>
+                Watch Video
              </button>
           </div>
           <input 
@@ -223,8 +229,8 @@ export default function ResumeForm({ user, formData, setFormData }) {
             value={formData.linkedin || ''} 
             onChange={handleChange} 
             onFocus={() => setShowLinkedInVideo(true)}
-            className={inputClasses} 
-            placeholder="username" 
+            className={`${inputClasses} border-blue-200 focus:ring-[#0077b5]/20 focus:border-[#0077b5]`} 
+            placeholder="Username / URL" 
           />
         </div>
         <div>
