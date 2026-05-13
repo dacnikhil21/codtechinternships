@@ -592,14 +592,25 @@ export default function Dashboard() {
              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 px-2 md:px-0">
                 <div className="bg-white p-5 md:p-8 rounded-[2rem] md:rounded-[2.5rem] border border-slate-100 shadow-sm space-y-6 overflow-hidden">
                    <h4 className="text-base md:text-lg font-black text-slate-900 uppercase tracking-tight italic text-center md:text-left">Active <span className="text-indigo-600">Drives</span></h4>
-                   <div className="space-y-2">
-                      {['Google APAC', 'Microsoft IDC', 'Amazon SDE', 'Zomato Dev'].map(drive => (
-                         <div key={drive} className="px-3 py-2 md:px-5 md:py-3 rounded-xl md:rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-between group hover:bg-white hover:shadow-xl transition-all">
-                            <span className="font-bold text-slate-700 text-[11px] md:text-sm truncate mr-2">{drive}</span>
-                            <span className="text-[8px] md:text-[9px] font-black text-indigo-600 uppercase tracking-widest bg-indigo-50 px-2 py-1 md:px-3 md:py-1.5 rounded-lg border border-indigo-100 shrink-0">Live</span>
-                         </div>
-                      ))}
-                   </div>
+                    <div className="space-y-2">
+                       {(() => {
+                          const course = (user?.course || '').toLowerCase();
+                          let drives = [];
+                          if (course.includes('react') || course.includes('frontend') || course.includes('web') || course.includes('full stack')) drives = ['Google APAC', 'Atlassian UI', 'Swiggy Frontend', 'Zomato Dev'];
+                          else if (course.includes('java') || course.includes('backend') || course.includes('c++')) drives = ['Microsoft IDC', 'Amazon SDE', 'Oracle Systems', 'Uber Backend'];
+                          else if (course.includes('data') || course.includes('machine learning') || course.includes('ai')) drives = ['Fractal Analytics', 'Mu Sigma', 'Google AI', 'Amazon Data'];
+                          else if (course.includes('cyber') || course.includes('hack')) drives = ['CrowdStrike', 'Palo Alto Networks', 'Cisco Security', 'IBM Security'];
+                          else if (course.includes('market')) drives = ['Ogilvy Digital', 'Dentsu Media', 'GroupM', 'Amazon Marketing'];
+                          else if (course.includes('ui') || course.includes('ux') || course.includes('figma')) drives = ['Airbnb Design', 'Cred UX', 'Razorpay UI', 'Flipkart Design'];
+                          else drives = ['TCS Digital', 'Infosys Innovate', 'Wipro Elite', 'Cognizant GenC'];
+                          return drives.map(drive => (
+                             <div key={drive} className="px-3 py-2 md:px-5 md:py-3 rounded-xl md:rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-between group hover:bg-white hover:shadow-xl transition-all">
+                                <span className="font-bold text-slate-700 text-[11px] md:text-sm truncate mr-2">{drive}</span>
+                                <span className="text-[8px] md:text-[9px] font-black text-indigo-600 uppercase tracking-widest bg-indigo-50 px-2 py-1 md:px-3 md:py-1.5 rounded-lg border border-indigo-100 shrink-0">Live</span>
+                             </div>
+                          ));
+                       })()}
+                    </div>
                 </div>
                 <div className="bg-slate-900 p-5 md:p-8 rounded-[2rem] md:rounded-[2.5rem] border border-white/5 shadow-2xl text-white flex flex-col justify-center items-center text-center space-y-5 overflow-hidden">
                    <div className="w-12 h-12 md:w-16 md:h-16 bg-white/10 rounded-xl md:rounded-2xl flex items-center justify-center">

@@ -34,7 +34,14 @@ export async function GET() {
         'fullstack': 'fullstackwebdevelopmentintern',
         'frontend': 'frontendwebdevelopmentintern',
         'backend': 'backendwebdevelopmentintern',
-        'datascience': 'datascienceintern'
+        'datascience': 'datascienceintern',
+        'dotnet': 'dotnetwebdevelopmentintern',
+        'powerbi': 'powerbi',
+        'blockchain': 'blockchaintechnology',
+        'bigdata': 'bigdata',
+        'iot': 'internetofthings',
+        'vlsi': 'vlsi',
+        'dataanalytics': 'dataanalyst'
       };
       
       // Check for direct override match

@@ -49,12 +49,41 @@ export default function ResumePage() {
               setActiveStep(1); // Resume if already selected
             }
           } else {
+            const course = data.data.course?.toLowerCase() || '';
+            let domainSkills = [];
+            if (course.includes('react') || course.includes('mern') || course.includes('frontend') || course.includes('full stack') || course.includes('backend') || course.includes('.net') || course.includes('web')) {
+               domainSkills = ['React.js', 'JavaScript (ES6+)', 'Tailwind CSS', 'Node.js', 'REST APIs', 'Git/GitHub'];
+            } else if (course.includes('java')) {
+               domainSkills = ['Java Core', 'Spring Boot', 'Hibernate', 'MySQL', 'OOP Concepts', 'RESTful APIs'];
+            } else if (course.includes('python')) {
+               domainSkills = ['Python', 'Django / Flask', 'Data Structures', 'SQL', 'API Development', 'Git'];
+            } else if (course.includes('data')) {
+               domainSkills = ['Python', 'SQL', 'Pandas', 'NumPy', 'Data Visualization', 'Machine Learning Basics'];
+            } else if (course.includes('cyber') || course.includes('hack')) {
+               domainSkills = ['Network Security', 'Penetration Testing', 'Linux', 'Cryptography', 'Vulnerability Assessment'];
+            } else if (course.includes('ai') || course.includes('machine learning')) {
+               domainSkills = ['Python', 'TensorFlow', 'PyTorch', 'Machine Learning', 'Deep Learning', 'NLP'];
+            } else if (course.includes('c++') || course.includes('c ')) {
+               domainSkills = ['C / C++', 'Data Structures', 'Algorithms', 'OOP', 'Memory Management'];
+            } else if (course.includes('embed') || course.includes('iot')) {
+               domainSkills = ['C / C++', 'Microcontrollers', 'RTOS', 'IoT Architectures', 'Hardware Interfacing'];
+            } else if (course.includes('ui') || course.includes('ux') || course.includes('figma')) {
+               domainSkills = ['Figma', 'Prototyping', 'User Research', 'Wireframing', 'UI/UX Design', 'Design Systems'];
+            } else if (course.includes('market')) {
+               domainSkills = ['SEO', 'Content Strategy', 'Google Analytics', 'Social Media Marketing', 'Email Campaigns'];
+            } else if (course.includes('cloud') || course.includes('devops')) {
+               domainSkills = ['AWS / Azure', 'Docker', 'Kubernetes', 'CI/CD Pipelines', 'Linux', 'Networking'];
+            } else {
+               domainSkills = ['Problem Solving', 'Data Structures', 'Algorithms', 'Team Collaboration', 'Git/GitHub'];
+            }
+
             setFormData(prev => ({
               ...prev,
               name: data.data.name || '',
               email: data.data.email || '',
               domain: data.data.course || '',
-              role: (data.data.course || '').replace(' Intern', '') + ' Intern'
+              role: (data.data.course || '').replace(' Intern', '') + ' Intern',
+              skills: domainSkills
             }));
           }
         } else {

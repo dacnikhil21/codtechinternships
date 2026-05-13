@@ -43,10 +43,43 @@ export async function GET() {
     const jsonPath = path.join(process.cwd(), 'lib', 'real_curriculum.json');
     if (fs.existsSync(jsonPath)) {
       const allData = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
-      // Find best match in keys
-      const matchingKey = Object.keys(allData).find(key => 
-        userCourse.includes(key) || key.includes(userCourse)
+      
+      const normalize = (str) => str.toLowerCase().replace(/[^a-z0-9]/g, '');
+      const userCourseNorm = normalize(userCourse);
+      
+      const overrides = {
+        'dotnet': '_.net',
+        'backend': 'backend  web development  (1)',
+        'dataanalytics': 'data analyst',
+        'powerbi': 'powerbi',
+        'blockchain': 'block chain technology',
+        'bigdata': 'bigdata',
+        'uiux': 'uiux design  (1)',
+        'artificialintelligence': 'aiml',
+        'machinelearning': 'aiml',
+        'cybersec': 'cybersecurity and ethical hacking',
+        'softwaredevelopment': 'software development  (1)'
+      };
+
+      let matchingKey = Object.keys(allData).find(key => 
+        userCourse.includes(key) || key.includes(userCourse) || normalize(key) === userCourseNorm
       );
+
+      if (!matchingKey) {
+        for (const [key, val] of Object.entries(overrides)) {
+          if (userCourseNorm.includes(key)) {
+            matchingKey = Object.keys(allData).find(k => k.toLowerCase() === val.toLowerCase());
+            if (matchingKey) break;
+          }
+        }
+      }
+      
+      if (!matchingKey) {
+        const coursePrefix = userCourse.split(/[ /]/)[0].toLowerCase();
+        if (coursePrefix.length > 2) {
+           matchingKey = Object.keys(allData).find(k => k.toLowerCase().includes(coursePrefix));
+        }
+      }
       
       if (matchingKey) {
         return NextResponse.json({ 
