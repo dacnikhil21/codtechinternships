@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { DOMAIN_DATA } from '@/app/utils/skillSuggestions';
 
 export default function ResumeForm({ user, formData, setFormData }) {
+  const [showLinkedInVideo, setShowLinkedInVideo] = useState(false);
   
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,6 +47,47 @@ export default function ResumeForm({ user, formData, setFormData }) {
   return (
     <div className="space-y-6 pb-10">
       
+      {/* LinkedIn Video Modal */}
+      <AnimatePresence>
+        {showLinkedInVideo && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
+            onClick={() => setShowLinkedInVideo(false)}
+          >
+            <motion.div 
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              className="bg-white rounded-3xl overflow-hidden w-full max-w-2xl shadow-2xl"
+              onClick={e => e.stopPropagation()}
+            >
+              <div className="p-4 border-b flex justify-between items-center bg-slate-50">
+                <h3 className="font-black text-sm uppercase tracking-tight text-slate-900">How to optimize your LinkedIn</h3>
+                <button onClick={() => setShowLinkedInVideo(false)} className="w-8 h-8 rounded-full hover:bg-slate-200 flex items-center justify-center transition-colors">
+                   <span className="material-symbols-outlined text-sm">close</span>
+                </button>
+              </div>
+              <div className="aspect-video w-full">
+                <iframe 
+                  className="w-full h-full"
+                  src="https://www.youtube.com/embed/tAXOFWXsq0g?autoplay=1" 
+                  title="YouTube video player" 
+                  frameBorder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  allowFullScreen
+                ></iframe>
+              </div>
+              <div className="p-4 text-center">
+                 <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">Follow these steps to make your profile placement-ready</p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Personal Info */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
@@ -166,8 +208,24 @@ export default function ResumeForm({ user, formData, setFormData }) {
       {/* Socials */}
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className={labelClasses}>LinkedIn (Username)</label>
-          <input name="linkedin" value={formData.linkedin || ''} onChange={handleChange} className={inputClasses} placeholder="username" />
+          <div className="flex justify-between items-center mb-1.5">
+             <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">LinkedIn (Username)</label>
+             <button 
+               onClick={() => setShowLinkedInVideo(true)}
+               className="flex items-center gap-1 text-[9px] font-black text-primary uppercase hover:underline"
+             >
+                <span className="material-symbols-outlined text-[12px]">play_circle</span>
+                Watch Tutorial
+             </button>
+          </div>
+          <input 
+            name="linkedin" 
+            value={formData.linkedin || ''} 
+            onChange={handleChange} 
+            onFocus={() => setShowLinkedInVideo(true)}
+            className={inputClasses} 
+            placeholder="username" 
+          />
         </div>
         <div>
           <label className={labelClasses}>GitHub (Username)</label>
