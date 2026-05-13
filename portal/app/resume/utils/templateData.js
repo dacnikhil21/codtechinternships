@@ -2,130 +2,134 @@ import React from 'react';
 
 export const templates = [
   {
-    id: 1,
-    name: 'Modern Minimal',
-    skillTags: ['React', 'JavaScript', 'CSS', 'HTML', 'Tailwind', 'Next.js'],
-    html: `<div style="font-family: 'Inter', sans-serif; padding: 40px; color: #1e293b; line-height: 1.5; background: white;">
-      <header style="margin-bottom: 30px; border-bottom: 2px solid #f1f5f9; padding-bottom: 20px;">
-        <h1 style="font-size: 32px; font-weight: 800; margin-bottom: 4px; color: #0f172a; text-transform: uppercase; letter-spacing: -0.025em;">{name}</h1>
-        <p style="font-size: 16px; font-weight: 600; color: #4f46e5; margin-bottom: 12px;">{role} – {domain}</p>
-        <div style="font-size: 12px; color: #64748b; display: flex; gap: 15px; flex-wrap: wrap;">
-          <span>{email}</span>
-          <span>{phone}</span>
-          <a href="{linkedin}" style="color: #4f46e5; text-decoration: none;">LinkedIn</a>
-          <a href="{github}" style="color: #4f46e5; text-decoration: none;">GitHub</a>
+    id: 'ats-professional',
+    name: 'ATS Professional',
+    description: 'Recruiter-recommended. Simple, black & white, and perfectly readable by ATS.',
+    category: 'General',
+    html: `<div style="font-family: 'Times New Roman', serif; padding: 40px; color: #000; line-height: 1.3; background: white; max-width: 210mm; min-height: 297mm; margin: auto;">
+      <header style="text-align: center; margin-bottom: 20px;">
+        <h1 style="font-size: 24px; font-weight: bold; margin-bottom: 5px; text-transform: uppercase;">{name}</h1>
+        <div style="font-size: 11px;">
+          {email} | {phone} | {linkedin} | {github}
         </div>
       </header>
-      
-      <section style="margin-bottom: 25px;">
-        <h2 style="font-size: 14px; font-weight: 700; color: #0f172a; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; border-left: 4px solid #4f46e5; padding-left: 10px;">Technical Skills</h2>
-        <p style="font-size: 13px; color: #334155;">{skills}</p>
+
+      <section style="margin-bottom: 15px;">
+        <h2 style="font-size: 12px; font-weight: bold; border-bottom: 1px solid #000; text-transform: uppercase; margin-bottom: 5px;">Professional Summary</h2>
+        <p style="font-size: 11px;">{summary}</p>
       </section>
 
-      <section style="margin-bottom: 25px;">
-        <h2 style="font-size: 14px; font-weight: 700; color: #0f172a; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; border-left: 4px solid #4f46e5; padding-left: 10px;">Projects</h2>
-        <p style="font-size: 13px; color: #334155;">{projects}</p>
+      <section style="margin-bottom: 15px;">
+        <h2 style="font-size: 12px; font-weight: bold; border-bottom: 1px solid #000; text-transform: uppercase; margin-bottom: 5px;">Skills</h2>
+        <p style="font-size: 11px;">{skills}</p>
       </section>
 
-      <section style="margin-bottom: 25px;">
-        <h2 style="font-size: 14px; font-weight: 700; color: #0f172a; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; border-left: 4px solid #4f46e5; padding-left: 10px;">Education</h2>
-        <p style="font-size: 13px; color: #334155;">{education}</p>
+      <section style="margin-bottom: 15px;">
+        <h2 style="font-size: 12px; font-weight: bold; border-bottom: 1px solid #000; text-transform: uppercase; margin-bottom: 5px;">Projects</h2>
+        <div style="font-size: 11px;">{projects_list}</div>
+      </section>
+
+      <section style="margin-bottom: 15px;">
+        <h2 style="font-size: 12px; font-weight: bold; border-bottom: 1px solid #000; text-transform: uppercase; margin-bottom: 5px;">Education</h2>
+        <div style="font-size: 11px;">{education_list}</div>
       </section>
 
       <section>
-        <h2 style="font-size: 14px; font-weight: 700; color: #0f172a; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; border-left: 4px solid #4f46e5; padding-left: 10px;">Certifications</h2>
-        <p style="font-size: 13px; color: #334155;">{certifications}</p>
+        <h2 style="font-size: 12px; font-weight: bold; border-bottom: 1px solid #000; text-transform: uppercase; margin-bottom: 5px;">Certifications</h2>
+        <p style="font-size: 11px;">{certifications}</p>
       </section>
     </div>`
   },
   {
-    id: 2,
-    name: 'Executive Slate',
-    skillTags: ['Python', 'SQL', 'Data Analysis', 'Tableau', 'Excel', 'Pandas'],
-    html: `<div style="font-family: 'Inter', sans-serif; padding: 40px; color: #334155; line-height: 1.6; background: #f8fafc;">
-      <div style="background: #1e293b; margin: -40px -40px 30px -40px; padding: 40px; color: white;">
-        <h1 style="font-size: 36px; font-weight: 700; margin-bottom: 8px;">{name}</h1>
-        <p style="font-size: 18px; opacity: 0.9;">{role}</p>
-        <div style="margin-top: 15px; font-size: 13px; opacity: 0.8;">
-          {email} | {phone} | {domain}
-        </div>
-      </div>
-      
-      <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 40px;">
-        <div>
-          <h3 style="font-size: 16px; font-weight: 700; color: #1e293b; margin-bottom: 15px; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px;">Skills</h3>
-          <p style="font-size: 13px;">{skills}</p>
-          
-          <h3 style="font-size: 16px; font-weight: 700; color: #1e293b; margin-top: 25px; margin-bottom: 15px; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px;">Education</h3>
-          <p style="font-size: 13px;">{education}</p>
-        </div>
-        <div>
-          <h3 style="font-size: 16px; font-weight: 700; color: #1e293b; margin-bottom: 15px; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px;">Projects</h3>
-          <p style="font-size: 13px;">{projects}</p>
-          
-          <h3 style="font-size: 16px; font-weight: 700; color: #1e293b; margin-top: 25px; margin-bottom: 15px; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px;">Certifications</h3>
-          <p style="font-size: 13px;">{certifications}</p>
-        </div>
-      </div>
-    </div>`
-  },
-  {
-    id: 3,
-    name: 'Creative Indigo',
-    skillTags: ['UI/UX', 'Figma', 'Adobe XD', 'Prototyping', 'User Research'],
-    html: `<div style="font-family: 'Inter', sans-serif; padding: 40px; color: #1e293b; line-height: 1.5; background: white; border-top: 10px solid #4f46e5;">
-      <div style="text-align: center; margin-bottom: 40px;">
-        <h1 style="font-size: 42px; font-weight: 900; color: #4f46e5; margin-bottom: 10px;">{name}</h1>
-        <p style="font-size: 20px; font-weight: 500; color: #64748b;">{role} – {domain}</p>
-        <div style="margin-top: 15px; font-size: 14px; color: #94a3b8;">
-          {email} • {phone} • <a href="{linkedin}" style="color: #4f46e5;">LinkedIn</a>
-        </div>
+    id: 'modern-tech',
+    name: 'Modern Tech',
+    description: 'Clean dual-column layout. Ideal for developers and tech interns.',
+    category: 'Tech',
+    html: `<div style="font-family: 'Inter', sans-serif; display: grid; grid-template-columns: 2fr 1fr; gap: 0; background: white; max-width: 210mm; min-height: 297mm; margin: auto; border: 1px solid #eee;">
+      <div style="padding: 40px; border-right: 1px solid #f1f5f9;">
+        <header style="margin-bottom: 30px;">
+          <h1 style="font-size: 32px; font-weight: 800; color: #1e293b; margin-bottom: 5px;">{name}</h1>
+          <p style="font-size: 16px; font-weight: 600; color: #4f46e5;">{role}</p>
+        </header>
+
+        <section style="margin-bottom: 30px;">
+          <h2 style="font-size: 13px; font-weight: 800; text-transform: uppercase; color: #64748b; letter-spacing: 0.1em; margin-bottom: 15px;">Summary</h2>
+          <p style="font-size: 13px; line-height: 1.6; color: #334155;">{summary}</p>
+        </section>
+
+        <section style="margin-bottom: 30px;">
+          <h2 style="font-size: 13px; font-weight: 800; text-transform: uppercase; color: #64748b; letter-spacing: 0.1em; margin-bottom: 15px;">Experience & Projects</h2>
+          <div style="font-size: 13px; line-height: 1.6; color: #334155;">{projects_list}</div>
+        </section>
+
+        <section>
+          <h2 style="font-size: 13px; font-weight: 800; text-transform: uppercase; color: #64748b; letter-spacing: 0.1em; margin-bottom: 15px;">Education</h2>
+          <div style="font-size: 13px; color: #334155;">{education_list}</div>
+        </section>
       </div>
 
-      <div style="margin-bottom: 30px;">
-        <h2 style="font-size: 18px; font-weight: 800; color: #1e293b; margin-bottom: 15px; display: flex; items-center; gap: 10px;">
-          <span style="background: #4f46e5; color: white; width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; rounded: 4px; font-size: 12px;">S</span>
-          Core Competencies
-        </h2>
-        <div style="background: #f5f3ff; padding: 20px; border-radius: 12px; font-size: 14px; color: #4c1d95;">
-          {skills}
-        </div>
-      </div>
+      <div style="padding: 40px; background: #f8fafc;">
+        <section style="margin-bottom: 30px;">
+          <h2 style="font-size: 13px; font-weight: 800; text-transform: uppercase; color: #64748b; letter-spacing: 0.1em; margin-bottom: 15px;">Contact</h2>
+          <div style="font-size: 12px; color: #334155; space-y: 10px;">
+            <p style="margin-bottom: 8px;"><b>Email:</b><br/>{email}</p>
+            <p style="margin-bottom: 8px;"><b>Phone:</b><br/>{phone}</p>
+            <p style="margin-bottom: 8px;"><b>LinkedIn:</b><br/>{linkedin}</p>
+            <p style="margin-bottom: 8px;"><b>GitHub:</b><br/>{github}</p>
+          </div>
+        </section>
 
-      <div style="margin-bottom: 30px;">
-        <h2 style="font-size: 18px; font-weight: 800; color: #1e293b; margin-bottom: 15px; display: flex; items-center; gap: 10px;">
-          <span style="background: #4f46e5; color: white; width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; rounded: 4px; font-size: 12px;">P</span>
-          Key Projects
-        </h2>
-        <p style="font-size: 14px; color: #334155; padding-left: 34px;">{projects}</p>
+        <section style="margin-bottom: 30px;">
+          <h2 style="font-size: 13px; font-weight: 800; text-transform: uppercase; color: #64748b; letter-spacing: 0.1em; margin-bottom: 15px;">Skills</h2>
+          <div style="display: flex; flex-wrap: wrap; gap: 5px;">
+            {skills_chips}
+          </div>
+        </section>
+
+        <section>
+          <h2 style="font-size: 13px; font-weight: 800; text-transform: uppercase; color: #64748b; letter-spacing: 0.1em; margin-bottom: 15px;">Certificates</h2>
+          <p style="font-size: 12px; color: #334155;">{certifications}</p>
+        </section>
       </div>
     </div>`
   },
   {
-    id: 4,
-    name: 'Classic Professional',
-    skillTags: ['Java', 'Spring Boot', 'Microservices', 'AWS', 'Docker', 'Kubernetes'],
-    html: `<div style="font-family: 'Inter', sans-serif; padding: 50px; color: #2d3748; line-height: 1.4; background: white;">
-      <div style="text-align: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 20px; margin-bottom: 20px;">
-        <h1 style="font-size: 28px; font-weight: 700; color: #1a202c; margin-bottom: 5px;">{name}</h1>
-        <div style="font-size: 13px; color: #4a5568;">
-          {email} | {phone} | {linkedin}
+    id: 'creative-canvas',
+    name: 'Creative Canvas',
+    description: 'Elegant and expressive. Best for UI/UX, Design, and Marketing roles.',
+    category: 'Creative',
+    html: `<div style="font-family: 'Inter', sans-serif; padding: 50px; color: #1e293b; background: white; max-width: 210mm; min-height: 297mm; margin: auto; border-top: 12px solid #4f46e5;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 50px;">
+        <div>
+          <h1 style="font-size: 48px; font-weight: 900; color: #0f172a; line-height: 1; margin-bottom: 10px;">{name}</h1>
+          <p style="font-size: 20px; color: #4f46e5; font-weight: 600;">{role}</p>
+        </div>
+        <div style="text-align: right; font-size: 13px; color: #64748b;">
+          <p>{email}</p>
+          <p>{phone}</p>
+          <p>{linkedin}</p>
         </div>
       </div>
 
-      <h3 style="font-size: 14px; font-weight: 700; color: #2d3748; text-transform: uppercase; border-bottom: 1px solid #cbd5e0; margin-bottom: 10px; padding-bottom: 2px;">Professional Summary</h3>
-      <p style="font-size: 13px; margin-bottom: 20px;">Dedicated {role} with a focus on {domain}. Committed to delivering high-quality solutions and continuous learning.</p>
+      <div style="margin-bottom: 40px;">
+        <p style="font-size: 16px; line-height: 1.6; color: #334155; font-weight: 500;">{summary}</p>
+      </div>
 
-      <h3 style="font-size: 14px; font-weight: 700; color: #2d3748; text-transform: uppercase; border-bottom: 1px solid #cbd5e0; margin-bottom: 10px; padding-bottom: 2px;">Technical Skills</h3>
-      <p style="font-size: 13px; margin-bottom: 20px;">{skills}</p>
-
-      <h3 style="font-size: 14px; font-weight: 700; color: #2d3748; text-transform: uppercase; border-bottom: 1px solid #cbd5e0; margin-bottom: 10px; padding-bottom: 2px;">Projects</h3>
-      <p style="font-size: 13px; margin-bottom: 20px;">{projects}</p>
-
-      <h3 style="font-size: 14px; font-weight: 700; color: #2d3748; text-transform: uppercase; border-bottom: 1px solid #cbd5e0; margin-bottom: 10px; padding-bottom: 2px;">Education</h3>
-      <p style="font-size: 13px;">{education}</p>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 50px;">
+        <div>
+          <h3 style="font-size: 18px; font-weight: 800; color: #0f172a; margin-bottom: 20px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">Case Studies & Projects</h3>
+          <div style="font-size: 14px; color: #334155;">{projects_list}</div>
+        </div>
+        <div>
+          <h3 style="font-size: 18px; font-weight: 800; color: #0f172a; margin-bottom: 20px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">Expertise</h3>
+          <div style="font-size: 14px; color: #334155; margin-bottom: 30px;">{skills}</div>
+          
+          <h3 style="font-size: 18px; font-weight: 800; color: #0f172a; margin-bottom: 20px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">Background</h3>
+          <div style="font-size: 14px; color: #334155;">{education_list}</div>
+        </div>
+      </div>
     </div>`
   }
 ];
 
-export const getTemplateById = (id) => templates.find((t) => t.id === id);
+export const getTemplateById = (id) => templates.find((t) => t.id === id) || templates[0];

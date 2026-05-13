@@ -14,16 +14,16 @@ export default function ResumePage() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeView, setActiveView] = useState('editor'); // 'editor' or 'preview' (for mobile)
 
   // Form and template state
-  const [selectedTemplateId, setSelectedTemplateId] = useState(1);
+  const [selectedTemplateId, setSelectedTemplateId] = useState('ats-professional');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
     domain: '',
     role: '',
+    summary: '',
     skills: [],
     projects: [],
     certifications: [],
@@ -41,7 +41,7 @@ export default function ResumePage() {
         if (data.success) {
           setUser(data.data);
           // Load persisted draft
-          const saved = localStorage.getItem(`resume_draft_${data.data.id}`);
+          const saved = localStorage.getItem(`resume_draft_v2_${data.data.id}`);
           if (saved) {
             const parsed = JSON.parse(saved);
             setFormData(prev => ({ ...prev, ...parsed }));
@@ -53,7 +53,7 @@ export default function ResumePage() {
               name: data.data.name || '',
               email: data.data.email || '',
               domain: data.data.course || '',
-              role: `${data.data.course} Intern`
+              role: (data.data.course || '').replace(' Intern', '') + ' Intern'
             }));
           }
         } else {
@@ -72,7 +72,7 @@ export default function ResumePage() {
   useEffect(() => {
     if (user?.id) {
       const toSave = { ...formData, selectedTemplateId };
-      localStorage.setItem(`resume_draft_${user.id}`, JSON.stringify(toSave));
+      localStorage.setItem(`resume_draft_v2_${user.id}`, JSON.stringify(toSave));
     }
   }, [formData, selectedTemplateId, user]);
 
@@ -123,13 +123,13 @@ export default function ResumePage() {
         <header className="h-16 border-b border-slate-200 bg-white/80 backdrop-blur-md flex items-center justify-between px-6 z-50">
           <div className="flex items-center gap-3">
             <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
-            <h2 className="text-xs font-bold text-slate-400 tracking-tight uppercase">Premium Resume Builder</h2>
+            <h2 className="text-xs font-bold text-slate-400 tracking-tight uppercase">Placement-Ready Resume</h2>
           </div>
           
           <div className="flex items-center gap-4">
              <div className="hidden sm:flex flex-col items-end mr-4">
                 <p className="text-[11px] font-black text-slate-900 leading-none">{user.name}</p>
-                <p className="text-[9px] font-bold text-slate-400 uppercase tracking-tighter mt-1">{user.course} Intern</p>
+                <p className="text-[9px] font-bold text-slate-400 uppercase tracking-tighter mt-1">{user.course}</p>
              </div>
              <div className="w-8 h-8 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center text-primary font-bold text-xs">
                 {user.name.charAt(0).toUpperCase()}
@@ -152,7 +152,7 @@ export default function ResumePage() {
                   <div className="w-8 h-8 bg-slate-50 text-slate-400 rounded-lg flex items-center justify-center border border-slate-100">
                      <span className="material-symbols-outlined text-base">edit_note</span>
                   </div>
-                  <h3 className="text-sm font-black text-slate-900 tracking-tight uppercase italic">Resume <span className="text-primary">Editor</span></h3>
+                  <h3 className="text-sm font-black text-slate-900 tracking-tight uppercase italic italic">Resume <span className="text-primary">Content</span></h3>
                </div>
                <ResumeForm user={user} formData={formData} setFormData={setFormData} />
             </motion.div>
@@ -172,7 +172,7 @@ export default function ResumePage() {
               initial={{ opacity: 0, scale: 0.98 }} 
               animate={{ opacity: 1, scale: 1 }} 
               transition={{ delay: 0.4 }}
-              className="w-full max-w-[210mm]"
+              className="w-full max-w-[210mm] shadow-2xl"
             >
                <ResumePreview formData={formData} selectedTemplateId={selectedTemplateId} />
             </motion.div>
@@ -181,13 +181,6 @@ export default function ResumePage() {
         </div>
       </main>
       
-      {/* Mobile Actions Overlay */}
-      <div className="lg:hidden fixed bottom-6 right-6 z-[100] flex flex-col gap-3">
-         <button className="w-12 h-12 bg-slate-900 text-white rounded-full shadow-2xl flex items-center justify-center">
-            <span className="material-symbols-outlined">visibility</span>
-         </button>
-      </div>
-
     </div>
   );
 }
