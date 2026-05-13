@@ -425,22 +425,7 @@ export default function Dashboard() {
                </div>
             </div>
 
-            {/* Mobile Compact Stats Bar */}
-            <div className="md:hidden flex overflow-x-auto gap-4 pb-4 px-2 no-scrollbar">
-               {[
-                 { label: 'Skill', val: `${getReadinessScore()}%`, icon: 'insights' },
-                 { label: 'Time', val: countdown.split(':')[0] + 'h', icon: 'timer' },
-                 { label: 'Learnt', val: completedLessons.length, icon: 'school' }
-               ].map((stat, i) => (
-                 <div key={i} className="flex items-center gap-3 bg-white px-5 py-4 rounded-2xl border border-slate-100 shadow-sm shrink-0">
-                    <span className="material-symbols-outlined text-indigo-600 text-lg">{stat.icon}</span>
-                    <div>
-                       <p className="text-[8px] font-black text-slate-300 uppercase tracking-widest leading-none">{stat.label}</p>
-                       <p className="text-sm font-black text-slate-900 tracking-tight mt-1">{stat.val}</p>
-                    </div>
-                 </div>
-               ))}
-            </div>
+
 
             {/* PROJECT WORKSPACE - COMPACT & FUNCTIONAL */}
             <section className="bg-white p-6 rounded-3xl border border-slate-200/60 shadow-sm">
@@ -623,6 +608,145 @@ export default function Dashboard() {
                    <h4 className="text-lg md:text-xl font-black uppercase tracking-tight italic">Become <span className="text-indigo-400">Placement Ready</span></h4>
                    <p className="text-white/40 text-[11px] md:text-[12px] font-medium leading-relaxed max-w-[280px]">Complete your 4 projects and materials to unlock 1-on-1 career coaching sessions.</p>
                    <button className="w-full py-4 bg-indigo-600 rounded-xl text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] shadow-lg shadow-indigo-500/20">Apply for Evaluation</button>
+                </div>
+             </div>
+
+             {/* Placement Channels Hub */}
+             <div className="space-y-10 px-2 md:px-0">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-4 border-b border-slate-100 pb-6">
+                   <div className="text-center md:text-left">
+                      <h4 className="text-xl md:text-2xl font-black text-slate-900 uppercase tracking-tighter italic">Placement <span className="text-indigo-600">Channels Hub</span></h4>
+                      <p className="text-slate-400 text-[11px] md:text-[12px] font-bold uppercase tracking-widest mt-1">Direct access to top-tier hiring networks</p>
+                   </div>
+                   <div className="flex gap-2">
+                      <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-600 text-[9px] font-black uppercase tracking-widest">
+                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                         Live Updates
+                      </div>
+                   </div>
+                </div>
+
+                <div className="space-y-12">
+                   {/* WhatsApp Channels */}
+                   <div className="space-y-6">
+                      <div className="flex items-center gap-3">
+                         <div className="w-8 h-8 bg-[#25D366]/10 rounded-lg flex items-center justify-center border border-[#25D366]/20">
+                            <span className="material-symbols-outlined text-[#25D366] text-lg">chat</span>
+                         </div>
+                         <h5 className="text-[13px] font-black text-slate-900 uppercase tracking-widest italic">WhatsApp <span className="text-[#25D366]">Networks</span></h5>
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                         {[
+                            { name: "Placement Cell", url: "https://whatsapp.com/channel/0029VaikVPH72WTth87Vjh3A", desc: "Official placement alerts and campus drive notifications." },
+                            { name: "Placement Cell (Official)", url: "https://whatsapp.com/channel/0029VaUJuc09mrGbi34PIV2w", desc: "Direct updates on top-tier internship openings." },
+                            { name: "Placementdrive", url: "https://whatsapp.com/channel/0029Va9mTuZ6RGJH5LmR4H05", desc: "Daily dose of off-campus hiring opportunities." },
+                            { name: "Careers@tech | Freshers Tech Jobs", url: "https://whatsapp.com/channel/0029VaUJgMW2kNFx7ABlpx2y", desc: "Specific focus on technical roles for freshers." },
+                            { name: "Fresh Graduate Jobs & Internships", url: "https://whatsapp.com/channel/0029VaSbEjeDOQIftNJIBa0q", desc: "Handpicked opportunities for 2024 & 2025 graduates." },
+                            { name: "Jobs & Career Network", url: "https://whatsapp.com/channel/0029VaikVPH72WTth87Vjh3A", desc: "Networking and career growth resources." }
+                         ].map((channel, i) => (
+                            <motion.div 
+                              whileHover={{ y: -5 }}
+                              key={i} 
+                              className="group bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-xl hover:border-indigo-100 transition-all flex flex-col justify-between"
+                            >
+                               <div>
+                                  <div className="flex justify-between items-start mb-4">
+                                     <div className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center group-hover:bg-indigo-50 transition-colors">
+                                        <span className="material-symbols-outlined text-slate-400 group-hover:text-indigo-600">group</span>
+                                     </div>
+                                     <span className="text-[8px] font-black text-slate-300 uppercase tracking-widest">Channel</span>
+                                  </div>
+                                  <h6 className="text-[14px] font-black text-slate-900 leading-tight mb-2 group-hover:text-indigo-600 transition-colors">{channel.name}</h6>
+                                  <p className="text-[11px] text-slate-400 font-medium leading-relaxed mb-6">{channel.desc}</p>
+                               </div>
+                               <a 
+                                 href={channel.url} 
+                                 target="_blank" 
+                                 rel="noopener noreferrer"
+                                 className="w-full py-3 bg-slate-50 group-hover:bg-indigo-600 group-hover:text-white rounded-xl text-[9px] font-black uppercase tracking-widest text-slate-400 transition-all text-center flex items-center justify-center gap-2"
+                               >
+                                  Open Channel <span className="material-symbols-outlined text-sm">open_in_new</span>
+                               </a>
+                            </motion.div>
+                         ))}
+                      </div>
+                   </div>
+
+                   {/* Telegram & LinkedIn */}
+                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                      {/* Telegram */}
+                      <div className="space-y-6">
+                         <div className="flex items-center gap-3">
+                            <div className="w-8 h-8 bg-[#0088cc]/10 rounded-lg flex items-center justify-center border border-[#0088cc]/20">
+                               <span className="material-symbols-outlined text-[#0088cc] text-lg">send</span>
+                            </div>
+                            <h5 className="text-[13px] font-black text-slate-900 uppercase tracking-widest italic">Telegram <span className="text-[#0088cc]">Hubs</span></h5>
+                         </div>
+                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+                            {[
+                               { name: "Jobs & Internship Daily", url: "https://t.me/jobsandinternshipdaily", desc: "Massive hub for daily internship postings." },
+                               { name: "Fresher Jobs Adda", url: "https://t.me/Fresherjobsadda", desc: "Community-driven job board for fresh graduates." }
+                            ].map((channel, i) => (
+                               <motion.div 
+                                 whileHover={{ y: -5 }}
+                                 key={i} 
+                                 className="group bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-xl hover:border-indigo-100 transition-all flex flex-col justify-between"
+                               >
+                                  <div>
+                                     <div className="flex justify-between items-start mb-4">
+                                        <div className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center group-hover:bg-indigo-50 transition-colors">
+                                           <span className="material-symbols-outlined text-slate-400 group-hover:text-indigo-600">hub</span>
+                                        </div>
+                                     </div>
+                                     <h6 className="text-[14px] font-black text-slate-900 leading-tight mb-2 group-hover:text-indigo-600 transition-colors">{channel.name}</h6>
+                                     <p className="text-[11px] text-slate-400 font-medium leading-relaxed mb-6">{channel.desc}</p>
+                                  </div>
+                                  <a 
+                                    href={channel.url} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    className="w-full py-3 bg-slate-50 group-hover:bg-[#0088cc] group-hover:text-white rounded-xl text-[9px] font-black uppercase tracking-widest text-slate-400 transition-all text-center flex items-center justify-center gap-2"
+                                  >
+                                     Join Community <span className="material-symbols-outlined text-sm">open_in_new</span>
+                                  </a>
+                               </motion.div>
+                            ))}
+                         </div>
+                      </div>
+
+                      {/* LinkedIn */}
+                      <div className="space-y-6">
+                         <div className="flex items-center gap-3">
+                            <div className="w-8 h-8 bg-[#0077b5]/10 rounded-lg flex items-center justify-center border border-[#0077b5]/20">
+                               <span className="material-symbols-outlined text-[#0077b5] text-lg">work</span>
+                            </div>
+                            <h5 className="text-[13px] font-black text-slate-900 uppercase tracking-widest italic">LinkedIn <span className="text-[#0077b5]">Exclusive</span></h5>
+                         </div>
+                         <motion.div 
+                           whileHover={{ y: -5 }}
+                           className="group bg-slate-900 p-8 rounded-[2rem] border border-white/5 shadow-2xl text-white flex flex-col justify-between h-full"
+                         >
+                            <div>
+                               <div className="flex justify-between items-start mb-6">
+                                  <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
+                                     <span className="material-symbols-outlined text-indigo-400 text-2xl">verified</span>
+                                  </div>
+                                  <div className="px-3 py-1 rounded-full bg-indigo-600/20 text-indigo-400 text-[8px] font-black uppercase tracking-widest border border-indigo-500/30">Premium Resource</div>
+                               </div>
+                               <h6 className="text-[18px] font-black leading-tight mb-3">LinkedIn India Jobs</h6>
+                               <p className="text-white/40 text-[12px] font-medium leading-relaxed mb-8">Direct access to curated job listings for Indian developers. Skip the noise and find quality roles.</p>
+                            </div>
+                            <a 
+                              href="https://share.google/os4110fwyjxRpOkCF" 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="w-full py-4 bg-indigo-600 rounded-xl text-[10px] font-black uppercase tracking-widest text-white shadow-lg shadow-indigo-500/20 transition-all text-center flex items-center justify-center gap-2 hover:bg-indigo-500"
+                            >
+                               View On LinkedIn <span className="material-symbols-outlined text-sm">open_in_new</span>
+                            </a>
+                         </motion.div>
+                      </div>
+                   </div>
                 </div>
              </div>
           </motion.div>
