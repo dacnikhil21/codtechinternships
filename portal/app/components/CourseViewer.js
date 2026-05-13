@@ -187,9 +187,9 @@ export default function CourseViewer({ selectedModule, completedLessons = [], on
               <p className="text-[11px] font-black text-indigo-600 uppercase tracking-tight">
                  {Math.round((selectedModule.lessons.filter(l => completedLessons.includes(l.id)).length / selectedModule.lessons.length) * 100)}%
               </p>
-           </div>
             </div>
           </motion.aside>
+        </>
         )}
       </AnimatePresence>
 
