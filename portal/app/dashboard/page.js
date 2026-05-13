@@ -442,7 +442,7 @@ export default function Dashboard() {
                        <span className="material-symbols-outlined text-sm">add_circle</span> Browse Projects
                     </button>
                     <button onClick={() => setSelectedTask({ title: 'Project Implementation Guide' })} className="flex-1 lg:flex-none bg-slate-50 text-slate-500 border border-slate-200/60 px-6 py-3 rounded-lg font-black text-[9px] uppercase tracking-[0.2em] hover:bg-slate-100 transition-all flex items-center justify-center gap-2">
-                       <span className="material-symbols-outlined text-sm">auto_awesome</span> View Guide
+                       <span className="material-symbols-outlined text-sm">auto_awesome</span> How to do project
                     </button>
                   </div>
                </div>

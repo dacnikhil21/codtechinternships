@@ -1,18 +1,32 @@
 'use client';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function ProjectImplementationGuide({ onClose }) {
-  const commonMistakes = [
-    { title: 'Incorrect Repository Name', desc: 'Ensure your repo name matches "codtech-task-X" exactly as per guidelines.' },
-    { title: 'Missing Documentation', desc: 'Your README.md must contain your Name, Intern ID, and Domain details.' },
-    { title: 'Private Repositories', desc: 'Always keep your submission repository PUBLIC so our team can review it.' },
-    { title: 'Broken Code', desc: 'Verify your project runs locally before pushing the final version to GitHub.' }
-  ];
-
-  const faqs = [
-    { q: 'When is the submission deadline?', a: 'Submissions are accepted until the last Friday of your internship month.' },
-    { q: 'Can I change my projects later?', a: 'Yes, you can update your selection as long as you haven\'t submitted the final links.' },
-    { q: 'What if I face technical issues?', a: 'Reach out to support@codtech.in or use the help hub for immediate assistance.' }
+  const steps = [
+    {
+      id: 1,
+      title: "Select Any 4 Projects",
+      desc: "Go to the Projects Section and choose any four projects based on your enrolled domain!",
+      icon: "task_alt"
+    },
+    {
+      id: 2,
+      title: "Understand & Work",
+      desc: "Carefully read requirements before starting. Follow category-specific guidelines.",
+      icon: "psychology"
+    },
+    {
+      id: 3,
+      title: "Wait for Completion",
+      desc: "Receive your certificate and project recognition after duration and submissions.",
+      icon: "card_membership"
+    },
+    {
+      id: 4,
+      title: "Keep Learning More",
+      desc: "Continue through platform modules like Placement, Resume, and Mock Interviews.",
+      icon: "school"
+    }
   ];
 
   return (
@@ -20,165 +34,177 @@ export default function ProjectImplementationGuide({ onClose }) {
       <motion.div 
         initial={{ opacity: 0, scale: 0.9, y: 20 }} 
         animate={{ opacity: 1, scale: 1, y: 0 }} 
-        className="bg-white w-full h-full md:max-w-4xl md:h-[80vh] md:rounded-[2.5rem] shadow-2xl relative z-10 flex flex-col overflow-hidden border border-slate-200/60"
+        className="bg-white w-full h-full md:max-w-4xl md:h-[85vh] md:rounded-[2.5rem] shadow-2xl relative z-10 flex flex-col overflow-hidden border border-slate-200/60"
       >
-        {/* Compact Header */}
-        <div className="p-5 md:p-6 border-b border-slate-100 flex justify-between items-center bg-white shrink-0 pt-10 md:pt-6">
-           <div className="flex items-center gap-3 md:gap-4">
-              <div className="w-9 h-9 md:w-10 md:h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-200">
-                 <span className="material-symbols-outlined text-white text-lg md:text-xl">auto_awesome</span>
+        {/* Header */}
+        <div className="p-5 md:p-8 border-b border-slate-100 flex justify-between items-center bg-white shrink-0 pt-12 md:pt-8">
+           <div className="flex items-center gap-4">
+              <div className="w-10 h-10 md:w-12 md:h-12 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
+                 <span className="material-symbols-outlined text-white text-xl md:text-2xl">rocket_launch</span>
               </div>
               <div>
-                 <h3 className="text-sm md:text-lg font-black text-slate-900 tracking-tight uppercase leading-none italic">Implementation <span className="text-indigo-600">Roadmap</span></h3>
-                 <p className="text-[9px] md:text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Submission Protocol</p>
+                 <h3 className="text-sm md:text-xl font-black text-slate-900 tracking-tight uppercase leading-none italic">How to do <span className="text-primary">CODTECH Projects</span></h3>
+                 <p className="text-[9px] md:text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Ultimate Step-by-Step Guide</p>
               </div>
            </div>
-           <button onClick={onClose} className="w-9 h-9 md:w-10 md:h-10 rounded-full hover:bg-red-50 text-slate-400 hover:text-red-500 transition-all flex items-center justify-center border border-slate-100">
-              <span className="material-symbols-outlined text-lg md:text-xl">close</span>
+           <button onClick={onClose} className="w-10 h-10 rounded-full hover:bg-red-50 text-slate-400 hover:text-red-500 transition-all flex items-center justify-center border border-slate-100">
+              <span className="material-symbols-outlined text-xl">close</span>
            </button>
         </div>
 
-        {/* Dense Content Area */}
-        <div className="flex-1 overflow-y-auto p-8 space-y-12">
+        {/* Content Area */}
+        <div className="flex-1 overflow-y-auto p-6 md:p-10 space-y-12">
           
-          {/* Visual Progress - TIGHTER */}
-          <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { icon: 'architecture', title: 'Plan & Design', desc: 'Draft your project logic and UI structure.' },
-              { icon: 'code_blocks', title: 'Develop', desc: 'Write clean, documented, and modular code.' },
-              { icon: 'rocket_launch', title: 'Deploy & Submit', desc: 'Push to GitHub and share your live URL.' }
-            ].map((step, i) => (
-              <div key={i} className="p-6 bg-slate-50 rounded-3xl border border-slate-100 group hover:border-indigo-200 transition-all">
-                <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-indigo-600 mb-4 border border-slate-200 group-hover:bg-indigo-600 group-hover:text-white transition-all shadow-sm">
-                   <span className="material-symbols-outlined text-xl">{step.icon}</span>
+          {/* Quick Steps Overview */}
+          <section className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+            {steps.map((step) => (
+              <div key={step.id} className="p-5 bg-slate-50 rounded-2xl md:rounded-3xl border border-slate-100 relative group overflow-hidden">
+                <div className="absolute -right-2 -bottom-2 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity">
+                   <span className="material-symbols-outlined text-6xl md:text-7xl font-black">{step.icon}</span>
                 </div>
-                <h4 className="text-[12px] font-black text-slate-900 uppercase tracking-widest mb-1">{step.title}</h4>
-                <p className="text-[11px] text-slate-400 font-medium leading-relaxed">{step.desc}</p>
+                <div className="text-[10px] font-black text-primary uppercase mb-2">Step {step.id}</div>
+                <h4 className="text-[11px] md:text-[13px] font-black text-slate-900 uppercase tracking-tight mb-2 leading-tight">{step.title}</h4>
+                <p className="text-[9px] md:text-[10px] text-slate-400 font-medium leading-relaxed">{step.desc}</p>
               </div>
             ))}
           </section>
 
-          {/* Detailed Guide - COMPACT */}
-          <section className="space-y-6">
-             {[
-               {
-                 title: 'Phase 1: Environment Setup',
-                 points: ['Install necessary dependencies (React, Node.js, etc.)', 'Initialize a local Git repository', 'Create a baseline project structure']
-               },
-               {
-                 title: 'Phase 2: Core Development',
-                 points: ['Implement features as per task requirements', 'Maintain a consistent coding style', 'Regularly commit your progress to Git']
-               },
-               {
-                 title: 'Phase 3: Final Submission',
-                 points: ['Update README.md with project details', 'Verify all files are pushed to GitHub', 'Submit the public link via dashboard']
-               }
-             ].map((phase, i) => (
-               <div key={i} className="flex gap-6">
-                  <div className="flex flex-col items-center">
-                     <div className="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center text-[10px] font-black shrink-0">{i + 1}</div>
-                     {i < 2 && <div className="w-0.5 h-full bg-slate-100 my-2"></div>}
-                  </div>
-                  <div className="pb-4">
-                     <h4 className="text-[13px] font-black text-slate-900 uppercase tracking-widest mb-3">{phase.title}</h4>
-                     <ul className="space-y-2">
-                        {phase.points.map((p, j) => (
-                           <li key={j} className="flex items-center gap-3 text-[12px] text-slate-500 font-medium">
-                              <div className="w-1.5 h-1.5 rounded-full bg-indigo-400"></div>
-                              {p}
-                           </li>
-                        ))}
-                     </ul>
-                  </div>
-               </div>
-             ))}
-          </section>
+          {/* Detailed Category Guidelines */}
+          <div className="space-y-10">
+             <div className="flex items-center gap-3">
+                <div className="h-1 flex-1 bg-slate-100 rounded-full"></div>
+                <span className="text-[10px] font-black text-slate-300 uppercase tracking-[0.4em] px-4 whitespace-nowrap">Domain Guidelines</span>
+                <div className="h-1 flex-1 bg-slate-100 rounded-full"></div>
+             </div>
 
-          {/* Submission Example - NEW */}
-          <section className="bg-slate-900 rounded-[1.5rem] md:rounded-[2rem] p-6 md:p-8 text-white relative overflow-hidden border border-slate-800 shadow-xl">
-             <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-                <div>
-                   <h4 className="text-lg md:text-xl font-black tracking-tight uppercase mb-4 leading-tight">GitHub Submission <br/><span className="text-indigo-400 text-sm md:text-xl">Process Example</span></h4>
-                   <p className="text-slate-400 text-[11px] md:text-[13px] font-medium leading-relaxed mb-6">Follow this standard to ensure your project is accepted immediately.</p>
-                   <div className="space-y-2 md:space-y-3">
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                {/* Technical / Coding */}
+                <div className="bg-white p-6 md:p-8 rounded-[2rem] border border-slate-100 shadow-sm space-y-6">
+                   <div className="flex items-center gap-4">
+                      <div className="w-10 h-10 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center">
+                         <span className="material-symbols-outlined">terminal</span>
+                      </div>
+                      <h4 className="font-black text-slate-900 uppercase text-sm italic tracking-tight">Technical & Coding</h4>
+                   </div>
+                   <ul className="space-y-3">
                       {[
-                        { step: '01', text: 'Create Repo: codtech-task-1' },
-                        { step: '02', text: 'Push Source Code + Assets' },
-                        { step: '03', text: 'Add Detailed README.md' },
-                        { step: '04', text: 'Submit Public URL' }
+                        'Create complete project code properly',
+                        'Add comments for better understanding',
+                        'Organize files neatly in folders',
+                        'Submit unique Git repo per project'
                       ].map((item, i) => (
-                        <div key={i} className="flex items-center gap-3 bg-white/5 border border-white/5 p-3 rounded-xl">
-                           <span className="text-indigo-400 font-black text-[9px] md:text-[10px]">{item.step}</span>
-                           <p className="text-[10px] md:text-[11px] font-bold uppercase tracking-widest">{item.text}</p>
-                        </div>
+                        <li key={i} className="flex gap-3 text-[12px] text-slate-500 font-medium">
+                           <span className="material-symbols-outlined text-emerald-500 text-sm mt-0.5">check_circle</span>
+                           {item}
+                        </li>
                       ))}
+                   </ul>
+                   <div className="p-4 bg-slate-50 rounded-xl border border-slate-100">
+                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 italic">Must Include in README:</p>
+                      <div className="grid grid-cols-2 gap-2">
+                         {['Intern ID', 'Full Name', 'Weeks', 'Scope'].map(tag => (
+                           <span key={tag} className="px-2 py-1 bg-white border border-slate-200 rounded text-[9px] font-bold text-slate-500 text-center uppercase tracking-tighter">✓ {tag}</span>
+                         ))}
+                      </div>
                    </div>
                 </div>
-                <div className="bg-white/5 rounded-2xl md:rounded-3xl p-5 md:p-8 border border-white/10 font-mono text-[10px] md:text-[12px] text-emerald-400 overflow-x-auto">
-                   <p className="text-slate-500 mb-4"># Project README Example</p>
-                   <p className="mb-2">## INTERN NAME: John Doe</p>
-                   <p className="mb-2">## ID: CT/MAY/1234</p>
-                   <p className="mb-2">## DOMAIN: Web Development</p>
-                   <p className="mb-4">## DURATION: 4 Weeks</p>
-                   <p className="text-slate-500 mb-2">### Project Overview</p>
-                   <p>A responsive landing page using React...</p>
+
+                {/* Data Science */}
+                <div className="bg-white p-6 md:p-8 rounded-[2rem] border border-slate-100 shadow-sm space-y-6">
+                   <div className="flex items-center gap-4">
+                      <div className="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center">
+                         <span className="material-symbols-outlined">analytics</span>
+                      </div>
+                      <h4 className="font-black text-slate-900 uppercase text-sm italic tracking-tight">Data Science & Analytics</h4>
+                   </div>
+                   <div className="space-y-4">
+                      <p className="text-[11px] text-slate-400 font-medium italic">Use Kaggle or Public CSVs for cleaning, visualization, and prediction.</p>
+                      <div className="grid grid-cols-2 gap-3">
+                         {['Dataset Files', 'Jupyter Code', 'Graphs/Charts', 'Output Images'].map((p, i) => (
+                           <div key={i} className="flex items-center gap-2 text-[10px] font-bold text-slate-600 uppercase tracking-tighter">
+                              <span className="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
+                              {p}
+                           </div>
+                         ))}
+                      </div>
+                   </div>
+                   <div className="bg-slate-900 rounded-2xl p-4 flex items-center justify-between">
+                      <span className="text-[9px] font-black text-indigo-300 uppercase tracking-widest">Recommended: Kaggle</span>
+                      <span className="material-symbols-outlined text-white/20">data_exploration</span>
+                   </div>
+                </div>
+
+                {/* Creative / Non-IT */}
+                <div className="md:col-span-2 bg-slate-50 p-6 md:p-8 rounded-[2rem] border border-slate-100 flex flex-col md:flex-row items-center gap-8">
+                   <div className="flex-1 space-y-4 text-center md:text-left">
+                      <h4 className="font-black text-slate-900 uppercase text-sm italic tracking-tight">Creative & Design Projects</h4>
+                      <p className="text-[11px] text-slate-400 font-medium">Create posters, visual reports, UI designs, or datasets and upload to GitHub.</p>
+                      <div className="flex flex-wrap justify-center md:justify-start gap-2">
+                         {['Posters', 'Presentations', 'Reports', 'UI Designs', 'Visuals'].map(item => (
+                           <span key={item} className="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-[9px] font-black text-slate-400 uppercase tracking-widest">{item}</span>
+                         ))}
+                      </div>
+                   </div>
+                   <div className="w-full md:w-48 aspect-square bg-white rounded-3xl border border-slate-200 flex items-center justify-center">
+                      <span className="material-symbols-outlined text-6xl text-slate-200">brush</span>
+                   </div>
+                </div>
+             </div>
+          </div>
+
+          {/* Post Submission Info */}
+          <section className="bg-primary rounded-[2rem] md:rounded-[3rem] p-8 md:p-12 text-white relative overflow-hidden shadow-2xl shadow-primary/20">
+             <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-[80px]"></div>
+             <div className="relative z-10 flex flex-col md:flex-row items-center gap-10">
+                <div className="flex-1 space-y-4">
+                   <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 rounded-full border border-white/20">
+                      <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
+                      <span className="text-[9px] font-black uppercase tracking-widest">Rewards & Growth</span>
+                   </div>
+                   <h4 className="text-2xl md:text-3xl font-black uppercase tracking-tight italic leading-tight">After Submission: <br/><span className="text-indigo-200">The 🎓 Graduation Phase</span></h4>
+                   <p className="text-white/60 text-sm font-medium leading-relaxed max-w-lg">Once completed, you receive your Internship & Project Certificates, but don't stop there. Continue through our placement modules to maximize your career.</p>
+                </div>
+                <div className="grid grid-cols-2 gap-4 shrink-0">
+                   {['Resume Prep', 'Mock Mocks', 'Aptitude', 'Career Guide'].map(tag => (
+                     <div key={tag} className="p-4 bg-white/5 border border-white/10 rounded-2xl flex flex-col items-center justify-center gap-2 backdrop-blur-sm">
+                        <span className="material-symbols-outlined text-indigo-200">verified</span>
+                        <span className="text-[9px] font-black uppercase tracking-widest opacity-80">{tag}</span>
+                     </div>
+                   ))}
                 </div>
              </div>
           </section>
 
-          {/* Pitfalls & FAQs - NEW */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 pt-8">
-             <section>
-                <div className="flex items-center gap-3 mb-6">
-                   <div className="w-10 h-10 bg-red-50 text-red-500 rounded-xl flex items-center justify-center border border-red-100">
-                      <span className="material-symbols-outlined text-xl">warning</span>
-                   </div>
-                   <h4 className="text-lg font-black text-slate-900 tracking-tight uppercase">Common Pitfalls</h4>
-                </div>
-                <div className="space-y-4">
-                   {commonMistakes.map((item, i) => (
-                      <div key={i} className="flex gap-4 group">
-                         <div className="w-1.5 h-1.5 rounded-full bg-red-400 mt-2 shrink-0 group-hover:scale-150 transition-all"></div>
-                         <div>
-                            <h5 className="text-[13px] font-black text-slate-900 uppercase tracking-widest mb-1">{item.title}</h5>
-                            <p className="text-[12px] text-slate-400 font-medium leading-relaxed">{item.desc}</p>
-                         </div>
-                      </div>
+          {/* Important Note */}
+          <div className="bg-amber-50 border border-amber-200/50 rounded-3xl p-6 md:p-8 flex items-start gap-5">
+             <div className="w-10 h-10 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center shrink-0">
+                <span className="material-symbols-outlined">info</span>
+             </div>
+             <div>
+                <h4 className="text-[12px] font-black text-amber-900 uppercase tracking-widest mb-2">Important Final Notes ✅</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2">
+                   {['Maintain proper GitHub repositories', 'Submit before deadlines', 'Ensure original work', 'Keep learning consistently'].map(note => (
+                      <p key={note} className="text-[11px] text-amber-800/70 font-bold uppercase tracking-tight flex items-center gap-2">
+                         <span className="w-1 h-1 bg-amber-400 rounded-full"></span>
+                         {note}
+                      </p>
                    ))}
                 </div>
-             </section>
-
-             <section>
-                <div className="flex items-center gap-3 mb-6">
-                   <div className="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center border border-indigo-100">
-                      <span className="material-symbols-outlined text-xl">help</span>
-                   </div>
-                   <h4 className="text-lg font-black text-slate-900 tracking-tight uppercase">Support & FAQs</h4>
-                </div>
-                <div className="space-y-4">
-                   {faqs.map((item, i) => (
-                      <div key={i} className="p-5 bg-slate-50 rounded-2xl border border-slate-100">
-                         <h5 className="text-[12px] font-black text-slate-900 uppercase tracking-widest mb-2">{item.q}</h5>
-                         <p className="text-[12px] text-slate-500 font-medium leading-relaxed">{item.a}</p>
-                      </div>
-                   ))}
-                </div>
-             </section>
+             </div>
           </div>
 
-          <div className="pt-20 text-center">
-             <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.6em]">End of Roadmap Guide</p>
+          <div className="text-center pb-10">
+             <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.8em] italic">Learn • Build • Upload • Grow with CODTECH</p>
           </div>
         </div>
 
         {/* Action Footer */}
-        <div className="p-6 border-t border-slate-100 bg-white flex justify-center items-center gap-6">
-           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest hidden md:block">Ready to begin your journey?</p>
+        <div className="p-6 md:p-8 border-t border-slate-100 bg-white flex justify-center items-center gap-6 shrink-0">
            <button 
              onClick={onClose} 
-             className="bg-slate-900 text-white px-12 py-4 rounded-xl font-black text-[11px] shadow-xl shadow-black/10 hover:bg-indigo-600 transition-all uppercase tracking-[0.2em] hover:scale-105 active:scale-95"
+             className="bg-slate-900 text-white px-16 py-4 rounded-xl font-black text-[11px] shadow-xl shadow-black/10 hover:bg-primary transition-all uppercase tracking-[0.2em] hover:scale-105 active:scale-95"
            >
-             Initialize Workspace
+             Acknowledge & Start
            </button>
         </div>
       </motion.div>
