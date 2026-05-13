@@ -753,27 +753,58 @@ export default function Dashboard() {
         )}
 
         {activeTab === 'Job Hunting' && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-8 max-w-5xl mx-auto py-6 md:py-10 px-2 md:px-0">
-             <div className="flex flex-col md:flex-row justify-between items-center gap-8 mb-8 md:mb-12 text-center md:text-left">
-                <div>
-                   <h3 className="text-2xl md:text-3xl font-black text-slate-900 uppercase tracking-tighter italic">Job <span className="text-indigo-600">Hunting Suite</span></h3>
-                   <p className="text-slate-400 text-[13px] md:text-sm font-medium mt-2 italic">Strategize, Apply, and Win.</p>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-12 max-w-6xl mx-auto py-6 md:py-10 px-2 md:px-0">
+             
+             {/* Header Section */}
+             <div className="text-center space-y-4 px-4 mb-10">
+                <div className="w-16 h-16 md:w-20 md:h-20 bg-indigo-600 text-white rounded-2xl md:rounded-[2rem] flex items-center justify-center mx-auto shadow-2xl shadow-indigo-200 mb-6">
+                   <span className="material-symbols-outlined text-3xl md:text-4xl">work</span>
                 </div>
-                <button className="w-full md:w-auto px-8 py-4 bg-slate-900 text-white rounded-2xl text-[9px] md:text-[10px] font-black uppercase tracking-widest shadow-xl hover:bg-indigo-600 transition-all">Upload New Resume</button>
+                <h3 className="text-2xl md:text-4xl font-black text-slate-900 uppercase tracking-tighter italic">Job <span className="text-indigo-600">Hunting</span></h3>
+                <p className="text-slate-400 text-[12px] md:text-sm font-medium max-w-xl mx-auto leading-relaxed">Find internships, fresher jobs, off-campus drives, and placement opportunities from trusted hiring platforms.</p>
              </div>
 
-             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+             {/* Platform Grid */}
+             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 px-2 md:px-0">
                 {[
-                  { title: 'Resume Quality', score: '84%', color: 'text-emerald-500' },
-                  { title: 'Job Matches', score: '12', color: 'text-indigo-600' },
-                  { title: 'Referral Credits', score: '03', color: 'text-amber-500' }
-                ].map(stat => (
-                  <div key={stat.title} className="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm text-center">
-                     <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest mb-2">{stat.title}</p>
-                     <p className={`text-4xl font-black ${stat.color} tracking-tighter italic`}>{stat.score}</p>
-                  </div>
+                  { name: 'Indeed India', url: 'https://in.indeed.com/m/', desc: 'Jobs, internships, fresher hiring, off-campus opportunities.', category: 'General Job Platforms', icon: 'search', color: 'bg-blue-50 text-blue-600 border-blue-100', hover: 'hover:border-blue-300 hover:shadow-blue-100/50' },
+                  { name: 'Jobsora', url: 'https://in.jobsora.com/jobs-intern-hyderabad', desc: 'Internships and fresher jobs, especially Hyderabad opportunities.', category: 'Internship Platforms', icon: 'business_center', color: 'bg-emerald-50 text-emerald-600 border-emerald-100', hover: 'hover:border-emerald-300 hover:shadow-emerald-100/50' },
+                  { name: 'Hirist', url: 'https://www.hirist.tech/', desc: 'Tech jobs for software, developers, AI, ML, data science, product roles.', category: 'Tech Jobs & Freshers', icon: 'terminal', color: 'bg-indigo-50 text-indigo-600 border-indigo-100', hover: 'hover:border-indigo-300 hover:shadow-indigo-100/50' },
+                  { name: 'Glassdoor', url: 'https://www.glassdoor.com/', desc: 'Jobs + salary insights + company reviews.', category: 'General Job Platforms', icon: 'visibility', color: 'bg-emerald-50 text-emerald-600 border-emerald-100', hover: 'hover:border-emerald-300 hover:shadow-emerald-100/50' },
+                  { name: 'Apna Jobs', url: 'https://employer.apna.co/', desc: 'Entry-level jobs, internships, and fresher hiring.', category: 'Internship Platforms', icon: 'handshake', color: 'bg-orange-50 text-orange-600 border-orange-100', hover: 'hover:border-orange-300 hover:shadow-orange-100/50' },
+                  { name: 'SimplyHired', url: 'https://www.simplyhired.co.in/', desc: 'Internships and job opportunities across India.', category: 'General Job Platforms', icon: 'work', color: 'bg-rose-50 text-rose-600 border-rose-100', hover: 'hover:border-rose-300 hover:shadow-rose-100/50' },
+                  { name: 'Naukri Gulf', url: 'https://www.naukrigulf.com/', desc: 'Middle East/Gulf job opportunities.', category: 'International / Gulf Jobs', icon: 'public', color: 'bg-sky-50 text-sky-600 border-sky-100', hover: 'hover:border-sky-300 hover:shadow-sky-100/50' },
+                ].map((platform, i) => (
+                   <motion.div 
+                     key={i}
+                     whileHover={{ y: -5 }}
+                     className={`group bg-white p-5 md:p-6 rounded-[1.5rem] border border-slate-100 shadow-sm transition-all flex flex-col justify-between h-full ${platform.hover}`}
+                   >
+                      <div>
+                         <div className="flex justify-between items-start mb-4">
+                            <div className={`w-12 h-12 rounded-xl flex items-center justify-center border ${platform.color}`}>
+                               <span className="material-symbols-outlined text-2xl">{platform.icon}</span>
+                            </div>
+                            <div className="px-2.5 py-1 bg-slate-50 border border-slate-100 rounded-lg text-slate-500 text-[8px] font-black uppercase tracking-widest text-right max-w-[100px] leading-tight break-words">
+                               {platform.category}
+                            </div>
+                         </div>
+                         <h4 className="text-[16px] md:text-lg font-black text-slate-900 tracking-tight mb-2 group-hover:text-primary transition-colors">{platform.name}</h4>
+                         <p className="text-[11px] md:text-xs text-slate-500 font-medium leading-relaxed mb-6">{platform.desc}</p>
+                      </div>
+                      
+                      <a 
+                        href={platform.url} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="w-full py-3 bg-slate-50 group-hover:bg-primary group-hover:text-white rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-500 transition-all text-center flex items-center justify-center gap-2 border border-slate-100 group-hover:border-primary shadow-sm"
+                      >
+                         Visit Platform <span className="material-symbols-outlined text-sm">open_in_new</span>
+                      </a>
+                   </motion.div>
                 ))}
              </div>
+
           </motion.div>
         )}
 
