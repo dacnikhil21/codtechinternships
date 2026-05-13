@@ -1,58 +1,62 @@
 import React, { useMemo } from 'react';
-import { getTemplateById } from '../utils/templateData';
+import { motion } from 'framer-motion';
 
 export default function ATSScore({ formData, selectedTemplateId }) {
-  const template = getTemplateById(selectedTemplateId);
-
   const score = useMemo(() => {
-    if (!template || !template.skillTags) return 0;
+    let s = 0;
+    // Basic info
+    if (formData.name) s += 10;
+    if (formData.email) s += 10;
+    if (formData.phone) s += 10;
+    if (formData.summary && formData.summary.length > 50) s += 15;
     
-    const userSkills = formData.skills.map(s => s.toLowerCase());
-    const targetSkills = template.skillTags.map(s => s.toLowerCase());
+    // Skills (ATS loves keywords)
+    const skillCount = (formData.skills || []).length;
+    s += Math.min(skillCount * 5, 25);
     
-    if (targetSkills.length === 0) return 100;
+    // Projects & Experience
+    const projectCount = (formData.projects || []).length;
+    s += Math.min(projectCount * 10, 20);
     
-    const matches = targetSkills.filter(skill => userSkills.includes(skill));
-    const baseScore = Math.round((matches.length / targetSkills.length) * 100);
-    
-    // Add points for contact info
-    let bonus = 0;
-    if (formData.name) bonus += 5;
-    if (formData.email) bonus += 5;
-    if (formData.phone) bonus += 5;
-    if (formData.linkedin) bonus += 5;
-    
-    return Math.min(baseScore + bonus, 100);
-  }, [formData, template]);
+    // Links
+    if (formData.linkedin) s += 5;
+    if (formData.github) s += 5;
 
-  if (!selectedTemplateId) return null;
+    // Template bonus
+    if (selectedTemplateId === 'ats-professional') s += 10;
+    
+    return Math.min(s, 100);
+  }, [formData, selectedTemplateId]);
+
+  const getLabel = (score) => {
+    if (score >= 80) return { text: 'Excellent', color: 'text-green-500', bg: 'bg-green-50' };
+    if (score >= 60) return { text: 'Good', color: 'text-blue-500', bg: 'bg-blue-50' };
+    if (score >= 40) return { text: 'Fair', color: 'text-amber-500', bg: 'bg-amber-50' };
+    return { text: 'Needs Work', color: 'text-red-500', bg: 'bg-red-50' };
+  };
+
+  const label = getLabel(score);
 
   return (
-    <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+    <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm">
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">ATS Optimization</h4>
-          <p className="text-sm font-bold text-slate-900 tracking-tight uppercase italic">Resume <span className="text-primary">Score</span></p>
+           <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">ATS Optimization Score</h4>
+           <p className={`text-sm font-black ${label.color}`}>{label.text}</p>
         </div>
-        <div className="flex items-baseline gap-1">
-          <span className={`text-3xl font-black tracking-tighter italic ${score > 70 ? 'text-emerald-500' : score > 40 ? 'text-amber-500' : 'text-rose-500'}`}>
-            {score}
-          </span>
-          <span className="text-[10px] text-slate-300 font-black tracking-widest uppercase">/100</span>
-        </div>
+        <div className="text-2xl font-black text-slate-900">{score}%</div>
       </div>
       
-      <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden mb-4">
-        <div 
-          className={`h-full transition-all duration-1000 ${score > 70 ? 'bg-emerald-500' : score > 40 ? 'bg-amber-500' : 'bg-rose-500'}`}
-          style={{ width: `${score}%` }}
+      <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+        <motion.div 
+          initial={{ width: 0 }}
+          animate={{ width: `${score}%` }}
+          className={`h-full ${score >= 80 ? 'bg-green-500' : score >= 60 ? 'bg-blue-500' : score >= 40 ? 'bg-amber-500' : 'bg-red-500'}`}
         />
       </div>
       
-      <p className="text-[11px] text-slate-400 font-medium leading-relaxed">
-        {score > 70 
-          ? "Great! Your resume is well-optimized for ATS systems in this domain." 
-          : "Try adding more domain-specific keywords to improve your score."}
+      <p className="mt-4 text-[11px] text-slate-400 leading-relaxed font-medium">
+        {score < 80 ? '💡 Add more technical skills and a detailed professional summary to improve your score.' : '🚀 Your resume is well-optimized for most Applicant Tracking Systems!'}
       </p>
     </div>
   );

@@ -4,251 +4,259 @@ export const templates = [
   {
     id: 'ats-professional',
     name: 'ATS Professional',
-    description: 'Highly ATS-compatible, black & white, one-page layout. Best for placements.',
+    description: 'Ultra-clean B&W layout (Harshibar style). Best for high-volume ATS systems.',
     category: 'Placement Ready',
-    html: `<div style="font-family: 'Times New Roman', serif; padding: 40px; color: #000; line-height: 1.4; background: white; max-width: 210mm; min-height: 297mm; margin: auto;">
-      <header style="text-align: center; margin-bottom: 20px;">
-        <h1 style="font-size: 26px; font-weight: bold; margin-bottom: 5px; text-transform: uppercase;">{name}</h1>
-        <div style="font-size: 11px;">
-          {email} | {phone} | {linkedin} | {github}
+    html: `<div style="font-family: 'Inter', sans-serif; padding: 40px; color: #000; line-height: 1.5; background: white; max-width: 210mm; min-height: 297mm; margin: auto;">
+      <header style="text-align: center; margin-bottom: 25px;">
+        <h1 style="font-size: 32px; font-weight: 700; margin-bottom: 5px;">{name}</h1>
+        <div style="font-size: 11px; display: flex; justify-content: center; gap: 15px; color: #334155;">
+          <span>{phone}</span> <span>|</span> <span>{email}</span> <span>|</span> <span>{linkedin}</span> <span>|</span> <span>{github}</span>
         </div>
       </header>
 
-      <section style="margin-bottom: 18px;">
-        <h2 style="font-size: 12px; font-weight: bold; border-bottom: 1px solid #000; text-transform: uppercase; margin-bottom: 5px;">Professional Summary</h2>
-        <p style="font-size: 11px; text-align: justify;">{summary}</p>
-      </section>
-
-      <section style="margin-bottom: 18px;">
-        <h2 style="font-size: 12px; font-weight: bold; border-bottom: 1px solid #000; text-transform: uppercase; margin-bottom: 5px;">Technical Skills</h2>
-        <p style="font-size: 11px;"><b>Core Competencies:</b> {skills}</p>
-      </section>
-
-      <section style="margin-bottom: 18px;">
-        <h2 style="font-size: 12px; font-weight: bold; border-bottom: 1px solid #000; text-transform: uppercase; margin-bottom: 5px;">Academic Projects</h2>
+      <section style="margin-bottom: 20px;">
+        <h2 style="font-size: 13px; font-weight: 800; text-transform: uppercase; border-bottom: 1px solid #e2e8f0; padding-bottom: 3px; margin-bottom: 8px;">Experience</h2>
         <div style="font-size: 11px;">{projects_list}</div>
       </section>
 
-      <section style="margin-bottom: 18px;">
-        <h2 style="font-size: 12px; font-weight: bold; border-bottom: 1px solid #000; text-transform: uppercase; margin-bottom: 5px;">Education</h2>
+      <section style="margin-bottom: 20px;">
+        <h2 style="font-size: 13px; font-weight: 800; text-transform: uppercase; border-bottom: 1px solid #e2e8f0; padding-bottom: 3px; margin-bottom: 8px;">Projects</h2>
+        <div style="font-size: 11px;">{projects_list}</div>
+      </section>
+
+      <section style="margin-bottom: 20px;">
+        <h2 style="font-size: 13px; font-weight: 800; text-transform: uppercase; border-bottom: 1px solid #e2e8f0; padding-bottom: 3px; margin-bottom: 8px;">Education</h2>
         <div style="font-size: 11px;">{education_list}</div>
       </section>
 
       <section>
-        <h2 style="font-size: 12px; font-weight: bold; border-bottom: 1px solid #000; text-transform: uppercase; margin-bottom: 5px;">Certifications & Achievements</h2>
-        <p style="font-size: 11px;">{certifications}</p>
+        <h2 style="font-size: 13px; font-weight: 800; text-transform: uppercase; border-bottom: 1px solid #e2e8f0; padding-bottom: 3px; margin-bottom: 8px;">Skills</h2>
+        <p style="font-size: 11px;">{skills}</p>
       </section>
     </div>`
   },
   {
-    id: 'modern-tech',
-    name: 'Modern Tech',
-    description: 'Clean dual-column tech layout. Best for developers and engineering interns.',
+    id: 'indian-fresher',
+    name: 'Indian Fresher',
+    description: 'Standard Indian engineering format with education table. Perfect for campus drives.',
     category: 'Placement Ready',
-    html: `<div style="font-family: 'Inter', sans-serif; display: grid; grid-template-columns: 2.2fr 1fr; gap: 0; background: white; max-width: 210mm; min-height: 297mm; margin: auto; color: #1e293b;">
-      <div style="padding: 40px; border-right: 1px solid #f1f5f9;">
-        <header style="margin-bottom: 30px;">
-          <h1 style="font-size: 32px; font-weight: 800; color: #0f172a; margin-bottom: 5px;">{name}</h1>
-          <p style="font-size: 16px; font-weight: 600; color: #4f46e5;">{role}</p>
+    html: `<div style="font-family: 'Times New Roman', serif; padding: 30px; color: #000; line-height: 1.3; background: white; max-width: 210mm; min-height: 297mm; margin: auto; border: 1px solid #ccc;">
+      <header style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; border-bottom: 2px solid #000; padding-bottom: 10px;">
+        <div style="display: flex; gap: 15px; align-items: center;">
+          <div style="width: 50px; h-50px; background: #f0f0f0; border: 1px solid #ddd; display: flex; align-items: center; justify-content: center; font-size: 8px; text-align: center;">LOGO</div>
+          <div>
+            <h1 style="font-size: 20px; font-weight: bold; margin: 0;">{name}</h1>
+            <p style="font-size: 12px; margin: 2px 0;">{role}</p>
+          </div>
+        </div>
+        <div style="text-align: right; font-size: 11px;">
+          <p>{phone}</p>
+          <p>{email}</p>
+          <p>{linkedin}</p>
+        </div>
+      </header>
+
+      <section style="margin-bottom: 15px;">
+        <h2 style="font-size: 13px; font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #000; margin-bottom: 8px;">Education</h2>
+        <table style="width: 100%; border-collapse: collapse; font-size: 11px;">
+          <tr style="background: #f9f9f9;">
+            <th style="border: 1px solid #000; padding: 4px; text-align: left;">Year</th>
+            <th style="border: 1px solid #000; padding: 4px; text-align: left;">Degree/Certificate</th>
+            <th style="border: 1px solid #000; padding: 4px; text-align: left;">Institute</th>
+            <th style="border: 1px solid #000; padding: 4px; text-align: left;">CGPA/%</th>
+          </tr>
+          {education_table_rows}
+        </table>
+      </section>
+
+      <section style="margin-bottom: 15px;">
+        <h2 style="font-size: 13px; font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #000; margin-bottom: 8px;">Projects</h2>
+        <div style="font-size: 11px;">{projects_list}</div>
+      </section>
+
+      <section style="margin-bottom: 15px;">
+        <h2 style="font-size: 13px; font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #000; margin-bottom: 8px;">Technical Skills</h2>
+        <div style="font-size: 11px;">{skills_grouped}</div>
+      </section>
+
+      <section>
+        <h2 style="font-size: 13px; font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #000; margin-bottom: 8px;">Certifications & Miscellaneous</h2>
+        <div style="font-size: 11px;">{certifications}</div>
+      </section>
+    </div>`
+  },
+  {
+    id: 'corporate-professional',
+    name: 'Corporate Professional',
+    description: 'Modern corporate style with bold orange highlights and summary block.',
+    category: 'Corporate',
+    html: `<div style="font-family: 'Helvetica', Arial, sans-serif; padding: 0; color: #333; background: white; max-width: 210mm; min-height: 297mm; margin: auto;">
+      <div style="padding: 40px 40px 20px 40px;">
+        <h1 style="font-size: 32px; font-weight: 300; margin: 0; color: #000;">{name}</h1>
+        <p style="font-size: 14px; color: #666; margin-top: 5px;">{role}</p>
+        <p style="font-size: 12px; margin-top: 15px; line-height: 1.6;">{summary}</p>
+      </div>
+
+      <div style="background: #e65100; color: white; padding: 8px 40px; display: flex; justify-content: space-between; font-size: 11px; font-weight: bold;">
+        <span>@ {email}</span>
+        <span>in {linkedin}</span>
+        <span>gh {github}</span>
+        <span>{phone}</span>
+      </div>
+
+      <div style="padding: 30px 40px;">
+        <section style="margin-bottom: 25px;">
+          <h2 style="font-size: 14px; font-weight: bold; color: #e65100; text-transform: uppercase; margin-bottom: 10px;">Skills</h2>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; font-size: 11px;">
+            {skills_cols}
+          </div>
+        </section>
+
+        <section style="margin-bottom: 25px;">
+          <h2 style="font-size: 14px; font-weight: bold; color: #e65100; text-transform: uppercase; margin-bottom: 10px;">Education</h2>
+          <div style="font-size: 11px;">{education_list}</div>
+        </section>
+
+        <section style="margin-bottom: 25px;">
+          <h2 style="font-size: 14px; font-weight: bold; color: #e65100; text-transform: uppercase; margin-bottom: 10px;">Experience & Projects</h2>
+          <div style="font-size: 11px;">{projects_list}</div>
+        </section>
+      </div>
+    </div>`
+  },
+  {
+    id: 'creative-sidebar',
+    name: 'Creative Sidebar',
+    description: 'Highly visual with a left sidebar, profile picture, and creative icons.',
+    category: 'Creative',
+    html: `<div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; background: #fff; max-width: 210mm; min-height: 297mm; margin: auto;">
+      <aside style="width: 240px; background: #f4f4f4; padding: 40px 25px; border-right: 1px solid #eee;">
+        <div style="width: 120px; height: 120px; border-radius: 50%; background: #ddd; margin: 0 auto 30px auto; overflow: hidden; border: 4px solid #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+           <img src="https://ui-avatars.com/api/?name={name}&background=6366f1&color=fff&size=128" style="width: 100%; height: 100%; object-fit: cover;" />
+        </div>
+
+        <section style="margin-bottom: 30px;">
+          <h3 style="font-size: 12px; font-weight: bold; text-transform: uppercase; color: #6366f1; background: #eef2ff; padding: 4px 8px; display: inline-block; border-radius: 4px; margin-bottom: 15px;">About Me</h3>
+          <p style="font-size: 11px; line-height: 1.6; color: #475569;">{summary}</p>
+        </section>
+
+        <section style="margin-bottom: 30px;">
+          <h3 style="font-size: 12px; font-weight: bold; text-transform: uppercase; color: #6366f1; background: #eef2ff; padding: 4px 8px; display: inline-block; border-radius: 4px; margin-bottom: 15px;">Expertise</h3>
+          <div style="font-size: 11px; color: #475569;">{skills_sidebar}</div>
+        </section>
+
+        <section>
+          <div style="font-size: 11px; color: #6366f1; space-y: 8px;">
+            <p><b>📧</b> {email}</p>
+            <p><b>🔗</b> {linkedin}</p>
+            <p><b>🐙</b> {github}</p>
+          </div>
+        </section>
+      </aside>
+
+      <main style="flex: 1; padding: 40px 50px;">
+        <header style="margin-bottom: 40px;">
+          <h1 style="font-size: 44px; font-weight: 800; color: #1e293b; line-height: 1;">{name}</h1>
+          <p style="font-size: 18px; color: #6366f1; font-weight: 600; margin-top: 5px;">{role}</p>
         </header>
 
-        <section style="margin-bottom: 30px;">
-          <h2 style="font-size: 13px; font-weight: 800; text-transform: uppercase; color: #64748b; letter-spacing: 0.1em; margin-bottom: 12px;">Profile</h2>
-          <p style="font-size: 13px; line-height: 1.6; color: #334155;">{summary}</p>
-        </section>
-
-        <section style="margin-bottom: 30px;">
-          <h2 style="font-size: 13px; font-weight: 800; text-transform: uppercase; color: #64748b; letter-spacing: 0.1em; margin-bottom: 12px;">Key Projects</h2>
-          <div style="font-size: 13px; line-height: 1.5; color: #334155;">{projects_list}</div>
+        <section style="margin-bottom: 40px;">
+           <h2 style="font-size: 16px; font-weight: 800; text-transform: uppercase; color: #1e293b; border-bottom: 2px solid #6366f1; padding-bottom: 5px; margin-bottom: 20px;">Selected Projects</h2>
+           <div style="font-size: 13px;">{projects_list}</div>
         </section>
 
         <section>
-          <h2 style="font-size: 13px; font-weight: 800; text-transform: uppercase; color: #64748b; letter-spacing: 0.1em; margin-bottom: 12px;">Education</h2>
-          <div style="font-size: 13px; color: #334155;">{education_list}</div>
+           <h2 style="font-size: 16px; font-weight: 800; text-transform: uppercase; color: #1e293b; border-bottom: 2px solid #6366f1; padding-bottom: 5px; margin-bottom: 20px;">Education</h2>
+           <div style="font-size: 13px;">{education_list}</div>
         </section>
-      </div>
-
-      <div style="padding: 40px; background: #f8fafc;">
-        <section style="margin-bottom: 30px;">
-          <h2 style="font-size: 13px; font-weight: 800; text-transform: uppercase; color: #64748b; letter-spacing: 0.1em; margin-bottom: 15px;">Contact</h2>
-          <div style="font-size: 12px; color: #334155;">
-            <p style="margin-bottom: 10px;"><b>Email</b><br/>{email}</p>
-            <p style="margin-bottom: 10px;"><b>Phone</b><br/>{phone}</p>
-            <p style="margin-bottom: 10px;"><b>LinkedIn</b><br/>{linkedin}</p>
-            <p style="margin-bottom: 10px;"><b>GitHub</b><br/>{github}</p>
-          </div>
-        </section>
-
-        <section style="margin-bottom: 30px;">
-          <h2 style="font-size: 13px; font-weight: 800; text-transform: uppercase; color: #64748b; letter-spacing: 0.1em; margin-bottom: 15px;">Expertise</h2>
-          <div style="display: flex; flex-wrap: wrap; gap: 6px;">
-            {skills_chips}
-          </div>
-        </section>
-
-        <section>
-          <h2 style="font-size: 13px; font-weight: 800; text-transform: uppercase; color: #64748b; letter-spacing: 0.1em; margin-bottom: 15px;">Certifications</h2>
-          <p style="font-size: 12px; color: #334155;">{certifications}</p>
-        </section>
-      </div>
+      </main>
     </div>`
   },
   {
-    id: 'corporate-fresher',
-    name: 'Corporate Fresher',
-    description: 'Professional placement-ready design. Ideal for corporate internship roles.',
-    category: 'Placement Ready',
-    html: `<div style="font-family: 'Inter', sans-serif; padding: 45px; color: #1e293b; background: white; max-width: 210mm; min-height: 297mm; margin: auto; border: 1px solid #e2e8f0;">
-      <div style="border-left: 8px solid #1e293b; padding-left: 20px; margin-bottom: 30px;">
-        <h1 style="font-size: 34px; font-weight: 900; color: #0f172a; margin-bottom: 4px;">{name}</h1>
-        <p style="font-size: 16px; font-weight: 600; color: #64748b;">{role}</p>
-        <div style="font-size: 12px; margin-top: 10px; color: #475569;">
-          {email} • {phone} • {linkedin}
+    id: 'academic-research',
+    name: 'Academic Research',
+    description: 'Formal CV style with blue highlights. Best for research and masters applications.',
+    category: 'Academic',
+    html: `<div style="font-family: 'Garamond', serif; padding: 50px; color: #333; background: white; max-width: 210mm; min-height: 297mm; margin: auto;">
+      <header style="margin-bottom: 30px;">
+        <h1 style="font-size: 36px; font-weight: bold; color: #1a237e; margin: 0;">{name}</h1>
+        <div style="font-size: 12px; margin-top: 10px; color: #555;">
+          <p>{email} | {phone}</p>
+          <p>{linkedin} | {github}</p>
         </div>
-      </div>
+      </header>
 
       <section style="margin-bottom: 25px;">
-        <h2 style="font-size: 14px; font-weight: 800; text-transform: uppercase; color: #1e293b; margin-bottom: 10px; background: #f1f5f9; padding: 4px 10px;">Objective</h2>
-        <p style="font-size: 13px; line-height: 1.5;">{summary}</p>
+        <h2 style="font-size: 18px; font-weight: bold; color: #1a237e; border-bottom: 2px solid #1a237e; margin-bottom: 12px;">Personal Profile</h2>
+        <p style="font-size: 13px; line-height: 1.6; text-align: justify;">{summary}</p>
       </section>
 
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
-        <section>
-          <h2 style="font-size: 14px; font-weight: 800; text-transform: uppercase; color: #1e293b; margin-bottom: 10px; background: #f1f5f9; padding: 4px 10px;">Core Skills</h2>
-          <p style="font-size: 13px;">{skills}</p>
-        </section>
-        <section>
-          <h2 style="font-size: 14px; font-weight: 800; text-transform: uppercase; color: #1e293b; margin-bottom: 10px; background: #f1f5f9; padding: 4px 10px;">Education</h2>
-          <div style="font-size: 13px;">{education_list}</div>
-        </section>
-      </div>
+      <section style="margin-bottom: 25px;">
+        <h2 style="font-size: 18px; font-weight: bold; color: #1a237e; border-bottom: 2px solid #1a237e; margin-bottom: 12px;">Education</h2>
+        <div style="font-size: 13px;">{education_list}</div>
+      </section>
 
-      <section style="margin-top: 25px;">
-        <h2 style="font-size: 14px; font-weight: 800; text-transform: uppercase; color: #1e293b; margin-bottom: 10px; background: #f1f5f9; padding: 4px 10px;">Key Projects & Achievements</h2>
+      <section style="margin-bottom: 25px;">
+        <h2 style="font-size: 18px; font-weight: bold; color: #1a237e; border-bottom: 2px solid #1a237e; margin-bottom: 12px;">Research & Projects</h2>
         <div style="font-size: 13px;">{projects_list}</div>
       </section>
 
-      <section style="margin-top: 25px;">
-        <h2 style="font-size: 14px; font-weight: 800; text-transform: uppercase; color: #1e293b; margin-bottom: 10px; background: #f1f5f9; padding: 4px 10px;">Certifications</h2>
-        <p style="font-size: 13px;">{certifications}</p>
+      <section>
+        <h2 style="font-size: 18px; font-weight: bold; color: #1a237e; border-bottom: 2px solid #1a237e; margin-bottom: 12px;">Technical Skills</h2>
+        <p style="font-size: 13px;">{skills}</p>
       </section>
     </div>`
   },
   {
-    id: 'creative-canvas',
-    name: 'Creative Canvas',
-    description: 'Visual and expressive. Best for UI/UX, Design, and Marketing interns.',
-    category: 'Creative',
-    html: `<div style="font-family: 'Inter', sans-serif; padding: 50px; color: #1e293b; background: white; max-width: 210mm; min-height: 297mm; margin: auto; border-top: 15px solid #6366f1;">
-      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 50px;">
+    id: 'executive-premium',
+    name: 'Executive Premium',
+    description: 'High-impact design with dark header and professional summary. Best for leadership roles.',
+    category: 'Corporate',
+    html: `<div style="font-family: 'Segoe UI', sans-serif; background: white; max-width: 210mm; min-height: 297mm; margin: auto; color: #334155;">
+      <header style="background: #0f172a; color: white; padding: 50px; display: flex; justify-content: space-between; align-items: center;">
         <div>
-          <h1 style="font-size: 44px; font-weight: 900; color: #1e293b; line-height: 1;">{name}</h1>
-          <p style="font-size: 20px; color: #6366f1; font-weight: 700; margin-top: 5px;">{role}</p>
+          <h1 style="font-size: 42px; font-weight: 800; margin: 0; line-height: 1;">{name}</h1>
+          <p style="font-size: 18px; font-weight: 400; color: #38bdf8; margin-top: 10px; letter-spacing: 0.1em; text-transform: uppercase;">{role}</p>
         </div>
-        <div style="text-align: right; font-size: 13px; color: #64748b;">
-          <p>{email}</p>
-          <p>{phone}</p>
-          <p style="color: #6366f1;">{linkedin}</p>
-        </div>
-      </div>
-
-      <p style="font-size: 16px; line-height: 1.6; color: #475569; margin-bottom: 40px; font-style: italic;">{summary}</p>
-
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
-        <section>
-          <h3 style="font-size: 18px; font-weight: 900; color: #1e293b; margin-bottom: 15px; border-bottom: 3px solid #6366f1; width: fit-content; padding-bottom: 5px;">Portfolio Projects</h3>
-          <div style="font-size: 14px;">{projects_list}</div>
-        </section>
-        <section>
-          <h3 style="font-size: 18px; font-weight: 900; color: #1e293b; margin-bottom: 15px; border-bottom: 3px solid #6366f1; width: fit-content; padding-bottom: 5px;">Key Skills</h3>
-          <p style="font-size: 14px; margin-bottom: 30px;">{skills}</p>
-          
-          <h3 style="font-size: 18px; font-weight: 900; color: #1e293b; margin-bottom: 15px; border-bottom: 3px solid #6366f1; width: fit-content; padding-bottom: 5px;">Academic Path</h3>
-          <div style="font-size: 14px;">{education_list}</div>
-        </section>
-      </div>
-    </div>`
-  },
-  {
-    id: 'minimal-elegant',
-    name: 'Minimal Elegant',
-    description: 'Clean premium layout with refined typography. Sophisticated and modern.',
-    category: 'Modern',
-    html: `<div style="font-family: 'Inter', sans-serif; padding: 60px; color: #334155; background: white; max-width: 210mm; min-height: 297mm; margin: auto;">
-      <header style="border-bottom: 1px solid #e2e8f0; padding-bottom: 30px; margin-bottom: 30px;">
-        <h1 style="font-size: 28px; font-weight: 300; letter-spacing: 0.2em; color: #0f172a; text-transform: uppercase; margin-bottom: 10px;">{name}</h1>
-        <div style="display: flex; gap: 20px; font-size: 12px; color: #94a3b8; font-weight: 500;">
-          <span>{email}</span>
-          <span>{phone}</span>
-          <span>{linkedin}</span>
+        <div style="text-align: right; font-size: 13px; opacity: 0.9;">
+           <p style="margin-bottom: 5px;">📞 {phone}</p>
+           <p style="margin-bottom: 5px;">📧 {email}</p>
+           <p>🔗 {linkedin}</p>
         </div>
       </header>
 
-      <div style="display: grid; grid-template-columns: 1fr 2.5fr; gap: 40px;">
-        <aside>
-          <section style="margin-bottom: 30px;">
-            <h2 style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #0f172a; margin-bottom: 15px;">Expertise</h2>
-            <p style="font-size: 12px; line-height: 1.8;">{skills}</p>
-          </section>
-          <section>
-            <h2 style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #0f172a; margin-bottom: 15px;">Education</h2>
-            <div style="font-size: 12px; line-height: 1.6;">{education_list}</div>
-          </section>
-        </aside>
-
-        <main>
-          <section style="margin-bottom: 30px;">
-             <p style="font-size: 14px; line-height: 1.7; color: #475569;">{summary}</p>
-          </section>
-
-          <section>
-            <h2 style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #0f172a; margin-bottom: 20px; border-bottom: 1px solid #f1f5f9; padding-bottom: 5px;">Notable Projects</h2>
-            <div style="font-size: 13px; line-height: 1.6;">{projects_list}</div>
-          </section>
-        </main>
-      </div>
-    </div>`
-  },
-  {
-    id: 'premium-modern',
-    name: 'Premium Modern',
-    description: 'Stylish design with a dark header. Strong visual impact for interns.',
-    category: 'Modern',
-    html: `<div style="font-family: 'Inter', sans-serif; background: white; max-width: 210mm; min-height: 297mm; margin: auto; color: #1e293b;">
-      <header style="background: #0f172a; color: white; padding: 40px 60px;">
-        <h1 style="font-size: 36px; font-weight: 900; margin-bottom: 5px;">{name}</h1>
-        <p style="font-size: 18px; font-weight: 500; color: #38bdf8;">{role}</p>
-        <div style="display: flex; gap: 20px; margin-top: 20px; font-size: 13px; opacity: 0.8;">
-          <span>{email}</span> • <span>{phone}</span> • <span>{linkedin}</span>
-        </div>
-      </header>
-
-      <div style="padding: 40px 60px;">
-        <section style="margin-bottom: 30px;">
-          <h2 style="font-size: 14px; font-weight: 800; color: #0284c7; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
-            <span style="width: 24px; height: 1px; background: #0284c7;"></span> Professional Summary
-          </h2>
-          <p style="font-size: 14px; line-height: 1.6;">{summary}</p>
+      <div style="padding: 45px 50px;">
+        <section style="margin-bottom: 40px; border-left: 5px solid #0f172a; padding-left: 20px;">
+           <h2 style="font-size: 16px; font-weight: 800; text-transform: uppercase; color: #0f172a; margin-bottom: 10px; letter-spacing: 0.05em;">Executive Summary</h2>
+           <p style="font-size: 14px; line-height: 1.7; color: #475569;">{summary}</p>
         </section>
 
-        <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px;">
-          <section>
-            <h2 style="font-size: 14px; font-weight: 800; color: #0284c7; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
-              <span style="width: 24px; height: 1px; background: #0284c7;"></span> Experience & Projects
-            </h2>
-            <div style="font-size: 13px;">{projects_list}</div>
-          </section>
-          <section>
-            <h2 style="font-size: 14px; font-weight: 800; color: #0284c7; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
-              <span style="width: 24px; height: 1px; background: #0284c7;"></span> Technical Toolkit
-            </h2>
-            <div style="font-size: 13px; line-height: 1.8;">{skills}</div>
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 50px;">
+          <div>
+            <section style="margin-bottom: 40px;">
+              <h2 style="font-size: 16px; font-weight: 800; text-transform: uppercase; color: #0f172a; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 20px; letter-spacing: 0.05em;">Key Projects</h2>
+              <div style="font-size: 14px;">{projects_list}</div>
+            </section>
             
-            <h2 style="font-size: 14px; font-weight: 800; color: #0284c7; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 30px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
-              <span style="width: 24px; height: 1px; background: #0284c7;"></span> Academic Background
-            </h2>
-            <div style="font-size: 13px;">{education_list}</div>
-          </section>
+            <section>
+              <h2 style="font-size: 16px; font-weight: 800; text-transform: uppercase; color: #0f172a; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 20px; letter-spacing: 0.05em;">Education</h2>
+              <div style="font-size: 14px;">{education_list}</div>
+            </section>
+          </div>
+
+          <div>
+            <section style="margin-bottom: 40px;">
+              <h2 style="font-size: 16px; font-weight: 800; text-transform: uppercase; color: #0f172a; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 20px; letter-spacing: 0.05em;">Expertise</h2>
+              <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                {skills_chips}
+              </div>
+            </section>
+
+            <section>
+              <h2 style="font-size: 16px; font-weight: 800; text-transform: uppercase; color: #0f172a; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 20px; letter-spacing: 0.05em;">Certifications</h2>
+              <div style="font-size: 13px; color: #475569; line-height: 1.6;">{certifications}</div>
+            </section>
+          </div>
         </div>
       </div>
     </div>`
