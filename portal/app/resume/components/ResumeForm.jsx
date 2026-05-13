@@ -11,23 +11,47 @@ export default function ResumeForm({ user, formData, setFormData }) {
   };
 
   const autoFillFromDomain = () => {
-    const data = DOMAIN_DATA[formData.domain];
+    let bestMatchKey = null;
+    const courseNorm = (formData.domain || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    
+    // Find matching key in DOMAIN_DATA
+    for (const key of Object.keys(DOMAIN_DATA)) {
+       const keyNorm = key.toLowerCase().replace(/[^a-z0-9]/g, '');
+       if (keyNorm.includes(courseNorm) || courseNorm.includes(keyNorm)) {
+          bestMatchKey = key; break;
+       }
+    }
+    
+    // Manual fallbacks
+    if (!bestMatchKey) {
+       if (courseNorm.includes('react') || courseNorm.includes('frontend')) bestMatchKey = 'React.js Web Development Intern';
+       else if (courseNorm.includes('java')) bestMatchKey = 'Java Programming Intern';
+       else if (courseNorm.includes('python')) bestMatchKey = 'Python Programming Intern';
+       else if (courseNorm.includes('data')) bestMatchKey = 'Data Analytics Intern';
+       else if (courseNorm.includes('cyber') || courseNorm.includes('hack')) bestMatchKey = 'Cybersecurity & Ethical Hacking';
+       else if (courseNorm.includes('ui') || courseNorm.includes('ux') || courseNorm.includes('figma')) bestMatchKey = 'Ul/UX Intern';
+       else bestMatchKey = Object.keys(DOMAIN_DATA)[0]; // ultimate fallback
+    }
+
+    const data = DOMAIN_DATA[bestMatchKey];
     if (data) {
       setFormData(prev => ({
         ...prev,
         skills: data.skills,
-        projects: data.projects.map(p => `${p}: Implemented core features using ${data.skills.slice(0, 3).join(', ')}.`),
+        projects: data.projects.map(p => `${p}: Designed and developed core application components leveraging ${data.skills.slice(0, 3).join(', ')} to achieve performance and scalability.`),
         summary: data.summary,
         role: formData.domain.replace(' Intern', '') + ' Intern',
-        location: 'Mumbai, India',
-        college: 'CodTech Institute of Technology',
-        education: [
-          'IIT Bombay, B.Tech CSE, 2024, 9.2 CGPA',
-          'Modern School, XII, 2020, 94%',
-          'Modern School, X, 2018, 9.5'
+        location: prev.location || 'Mumbai, India',
+        education: prev.education?.length > 0 ? prev.education : [
+          'Add your degree (e.g. B.Tech Computer Science)',
+          'Add your high school (e.g. XII Grade, 2022)'
         ],
-        certifications: ['AWS Cloud Practitioner', 'Google Data Analytics', 'CodTech Technical Certification']
+        certifications: prev.certifications?.length > 0 ? prev.certifications : [
+          'Add your certifications here (e.g. AWS Cloud Practitioner)'
+        ]
       }));
+    } else {
+      alert("Please enter a valid internship domain first.");
     }
   };
 
