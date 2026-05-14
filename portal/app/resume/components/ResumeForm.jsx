@@ -482,7 +482,7 @@ export default function ResumeForm({ user, formData, setFormData, setFlowState, 
   };
 
   return (
-    <div className="flex flex-col bg-white">
+    <div className="flex flex-col bg-white h-full max-h-[85vh] md:max-h-none">
       
       <div className="mb-6 px-6 md:px-8 mt-4">
         <div className="flex overflow-x-auto gap-2 pb-2 custom-scrollbar -mx-2 px-2 md:-mx-4 md:px-4">
@@ -505,7 +505,7 @@ export default function ResumeForm({ user, formData, setFormData, setFlowState, 
         </div>
       </div>
 
-      <div className="p-6 md:p-8">
+      <div className="p-4 md:p-8 flex-1 overflow-y-auto custom-scrollbar min-h-[300px] md:min-h-0">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentStep}
@@ -520,7 +520,7 @@ export default function ResumeForm({ user, formData, setFormData, setFlowState, 
       </div>
 
       {/* Static Bottom Navigation */}
-      <div className="shrink-0 bg-white/90 border-t border-slate-200 p-6 md:p-8 flex items-center justify-between">
+      <div className="shrink-0 bg-white border-t border-slate-100 p-6 md:p-8 flex items-center justify-between z-10">
         <button 
           onClick={prevStep} 
           disabled={currentStep === 1}

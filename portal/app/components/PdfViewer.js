@@ -34,9 +34,10 @@ export default function PdfViewer({ pdf, onClose }) {
       const localUrl = `/api/materials/file?file=${encodeURIComponent(pdf.filename)}`;
       const isMobile = window.innerWidth < 1024 || /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
       
-      // If we are on localhost, Google Docs viewer cannot access the file.
+      // If we are on localhost/IP, Google Docs viewer cannot access the file.
       // If we are on mobile/production, Google Docs viewer forces all pages to render reliably.
-      if (isMobile && window.location.hostname !== 'localhost') {
+      const isIpAddress = /^(\d{1,3}\.){3}\d{1,3}$/.test(window.location.hostname);
+      if (isMobile && window.location.hostname !== 'localhost' && !isIpAddress) {
         const absoluteUrl = window.location.origin + localUrl;
         setViewerUrl(`https://docs.google.com/viewer?url=${encodeURIComponent(absoluteUrl)}&embedded=true`);
       } else {
