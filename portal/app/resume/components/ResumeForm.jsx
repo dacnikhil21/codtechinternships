@@ -485,13 +485,13 @@ export default function ResumeForm({ user, formData, setFormData, setFlowState, 
   return (
     <div className="flex flex-col bg-white h-full max-h-[85vh] md:max-h-none">
       
-      <div className="mb-6 px-6 md:px-8 mt-4 flex items-center justify-between gap-4">
-        <div className="flex overflow-x-auto gap-2 pb-2 custom-scrollbar -mx-2 px-2 md:-mx-4 md:px-4 flex-1">
+      <div className="mb-6 px-6 md:px-8 mt-4 flex items-center justify-between gap-4 h-12">
+        <div className="flex overflow-x-auto gap-2 custom-scrollbar -mx-2 px-2 md:-mx-4 md:px-4 flex-1 items-center">
            {STEPS.map((step) => (
              <button 
                key={step.id}
                onClick={() => { setCurrentStep(step.id); setShowQuickPreview(false); }}
-               className={`shrink-0 px-4 py-2.5 rounded-xl border flex items-center gap-2 transition-all font-bold text-[11px] uppercase tracking-widest ${
+               className={`shrink-0 px-4 py-2.5 rounded-xl border flex items-center gap-2 transition-all font-bold text-[11px] uppercase tracking-widest h-10 ${
                  currentStep === step.id 
                  ? 'bg-primary border-primary text-white shadow-lg shadow-primary/20' 
                  : currentStep > step.id 
@@ -505,10 +505,10 @@ export default function ResumeForm({ user, formData, setFormData, setFlowState, 
            ))}
         </div>
         
-        {/* Quick Preview Toggle - NEW */}
+        {/* Quick Preview Toggle - Perfectly Aligned */}
         <button 
           onClick={() => setShowQuickPreview(!showQuickPreview)}
-          className={`shrink-0 px-4 py-2.5 rounded-xl border font-black text-[9px] uppercase tracking-widest flex items-center gap-2 transition-all ${showQuickPreview ? 'bg-indigo-600 border-indigo-600 text-white shadow-lg' : 'bg-white border-slate-200 text-slate-500 hover:bg-slate-50'}`}
+          className={`shrink-0 px-4 py-2.5 rounded-xl border font-black text-[9px] uppercase tracking-widest flex items-center gap-2 transition-all h-10 ${showQuickPreview ? 'bg-indigo-600 border-indigo-600 text-white shadow-lg' : 'bg-white border-slate-200 text-slate-500 hover:bg-slate-50'}`}
         >
           <span className="material-symbols-outlined text-sm">{showQuickPreview ? 'edit' : 'visibility'}</span>
           {showQuickPreview ? 'Close Preview' : 'Live Preview'}

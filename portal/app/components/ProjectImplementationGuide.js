@@ -36,18 +36,18 @@ export default function ProjectImplementationGuide({ onClose }) {
         <div className="flex-1 overflow-y-auto p-6 md:p-10 space-y-10 bg-slate-50/20">
 
           {/* 🚨 IMPORTANT NOTE – FIRST PRIORITY */}
-          <div className="bg-red-50 border-2 border-red-300 rounded-2xl md:rounded-3xl p-5 md:p-7 flex items-start gap-4 shadow-md shadow-red-100 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-red-500/5 rounded-full blur-2xl pointer-events-none"></div>
-            <div className="w-12 h-12 bg-red-500 text-white rounded-xl flex items-center justify-center shrink-0 shadow-lg shadow-red-200">
-              <span className="material-symbols-outlined text-2xl">priority_high</span>
+          <div className="bg-indigo-50 border-2 border-indigo-100 rounded-2xl md:rounded-3xl p-5 md:p-7 flex items-start gap-4 shadow-md shadow-indigo-100/50 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 rounded-full blur-2xl pointer-events-none"></div>
+            <div className="w-12 h-12 bg-indigo-600 text-white rounded-xl flex items-center justify-center shrink-0 shadow-lg shadow-indigo-200">
+              <span className="material-symbols-outlined text-2xl">info</span>
             </div>
             <div className="relative z-10 flex-1">
-              <h4 className="text-[14px] md:text-[16px] font-black text-red-700 uppercase tracking-tight mb-2 flex flex-wrap items-center gap-2">
-                🚨 Important Project Note
-                <span className="px-2.5 py-0.5 rounded-full bg-red-500 text-white text-[8px] tracking-widest font-black uppercase">Must Read</span>
+              <h4 className="text-[14px] md:text-[16px] font-black text-indigo-900 uppercase tracking-tight mb-2 flex flex-wrap items-center gap-2">
+                📋 Important Project Note
+                <span className="px-2.5 py-0.5 rounded-full bg-indigo-600 text-white text-[8px] tracking-widest font-black uppercase">Guidance</span>
               </h4>
-              <p className="text-[13px] md:text-[14px] text-red-900 font-semibold leading-relaxed">
-                We have just provided the <span className="font-black underline underline-offset-4 decoration-2">title of the project</span>. The complete development approach is up to you — whether you build it as a <span className="font-black">basic, intermediate, or advanced-level project</span>, everything is acceptable.
+              <p className="text-[13px] md:text-[14px] text-indigo-800/90 font-semibold leading-relaxed">
+                We have just provided the <span className="font-black underline underline-offset-4 decoration-2 decoration-indigo-300">title of the project</span>. The complete development approach is up to you — whether you build it as a <span className="font-black">basic, intermediate, or advanced-level project</span>, everything is acceptable.
               </p>
             </div>
           </div>

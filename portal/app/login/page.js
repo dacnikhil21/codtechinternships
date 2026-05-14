@@ -4,18 +4,32 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import toast from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
+
+const TYPO_DOMAINS = [
+  'gm6ail.com', 'gmaiil.com', 'gmal.com', 'yaho.co', 'yahu.com', 'outlook.con',
+  'gmil.com', 'gmale.com', 'gnail.com', 'gmaill.com', 'gmaik.com', 'gmai.com'
+];
 
 export default function Login() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
 
-    const email = e.target.email.value;
-    const password = e.target.password.value;
+    // Strict Email Validation
+    const emailLower = email.toLowerCase().trim();
+    const domain = emailLower.split('@')[1];
+    
+    if (TYPO_DOMAINS.includes(domain)) {
+      toast.error(`"${domain}" looks like a typo. Please check your email.`);
+      return;
+    }
+
+    setLoading(true);
 
     try {
       const res = await fetch('/api/auth/login', {
@@ -95,14 +109,32 @@ export default function Login() {
                   <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] ml-1 mb-2 block" htmlFor="email">Identity</label>
                   <div className="relative">
                     <span className="material-symbols-outlined absolute left-5 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-indigo-400 transition-colors text-lg">mail</span>
-                    <input className="w-full pl-12 pr-6 py-4 rounded-xl outline-none text-white placeholder:text-slate-600 bg-white/5 border border-white/5 focus:border-indigo-500/50 focus:bg-white/[0.08] transition-all duration-300 font-medium text-sm" id="email" required placeholder="intern@codtech.edu" type="email" name="email"/>
+                    <input 
+                      className="w-full pl-12 pr-6 py-4 rounded-xl outline-none text-white placeholder:text-slate-600 bg-white/5 border border-white/5 focus:border-indigo-500/50 focus:bg-white/[0.08] transition-all duration-300 font-medium text-sm" 
+                      id="email" 
+                      required 
+                      placeholder="intern@codtech.edu" 
+                      type="email" 
+                      name="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
                   </div>
                 </div>
                 <div className="group">
                   <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] ml-1 mb-2 block" htmlFor="password">Security</label>
                   <div className="relative">
                     <span className="material-symbols-outlined absolute left-5 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-indigo-400 transition-colors text-lg">lock</span>
-                    <input className="w-full pl-12 pr-6 py-4 rounded-xl outline-none text-white placeholder:text-slate-600 bg-white/5 border border-white/5 focus:border-indigo-500/50 focus:bg-white/[0.08] transition-all duration-300 font-medium text-sm" id="password" required placeholder="••••••••" type="password" name="password"/>
+                    <input 
+                      className="w-full pl-12 pr-6 py-4 rounded-xl outline-none text-white placeholder:text-slate-600 bg-white/5 border border-white/5 focus:border-indigo-500/50 focus:bg-white/[0.08] transition-all duration-300 font-medium text-sm" 
+                      id="password" 
+                      required 
+                      placeholder="••••••••" 
+                      type="password" 
+                      name="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
                   </div>
                 </div>
               </div>
@@ -122,6 +154,7 @@ export default function Login() {
           </motion.div>
         </section>
       </div>
+      <Toaster position="top-center" />
     </div>
   );
 }
