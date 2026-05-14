@@ -1,6 +1,6 @@
 'use client';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 export default function PdfViewer({ pdf, onClose }) {
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -26,6 +26,24 @@ export default function PdfViewer({ pdf, onClose }) {
     link.click();
     document.body.removeChild(link);
   };
+
+  const [viewerUrl, setViewerUrl] = useState('');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const localUrl = `/api/materials/file?file=${encodeURIComponent(pdf.filename)}`;
+      const isMobile = window.innerWidth < 1024 || /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      
+      // If we are on localhost, Google Docs viewer cannot access the file.
+      // If we are on mobile/production, Google Docs viewer forces all pages to render reliably.
+      if (isMobile && window.location.hostname !== 'localhost') {
+        const absoluteUrl = window.location.origin + localUrl;
+        setViewerUrl(`https://docs.google.com/viewer?url=${encodeURIComponent(absoluteUrl)}&embedded=true`);
+      } else {
+        setViewerUrl(localUrl + '#toolbar=1&navpanes=0&scrollbar=1');
+      }
+    }
+  }, [pdf]);
 
   return (
     <AnimatePresence>
@@ -84,16 +102,17 @@ export default function PdfViewer({ pdf, onClose }) {
           </div>
 
           {/* PDF Container */}
-          <div className="flex-1 bg-slate-100/50 w-full relative">
-            {/* Native browser PDF viewer provides the best performance, Zoom, Search, and Pagination out of the box */}
-            <iframe
-              src={`/api/materials/file?file=${encodeURIComponent(pdf.filename)}#toolbar=1&navpanes=0&scrollbar=1`}
-              className="w-full h-full border-none"
-              title={pdf.name}
-              style={{ backgroundColor: '#f1f5f9' }}
-            >
-              <p>Your browser does not support PDFs. <a href={`/api/materials/file?file=${encodeURIComponent(pdf.filename)}`}>Download the PDF</a>.</p>
-            </iframe>
+          <div className="flex-1 bg-slate-100/50 w-full relative overflow-hidden overflow-y-auto -webkit-overflow-scrolling-touch">
+            {viewerUrl && (
+              <iframe
+                src={viewerUrl}
+                className="w-full h-full border-none min-h-[500px]"
+                title={pdf.name}
+                style={{ backgroundColor: '#f1f5f9' }}
+              >
+                <p>Your browser does not support PDFs. <a href={`/api/materials/file?file=${encodeURIComponent(pdf.filename)}`}>Download the PDF</a>.</p>
+              </iframe>
+            )}
           </div>
         </motion.div>
       </div>

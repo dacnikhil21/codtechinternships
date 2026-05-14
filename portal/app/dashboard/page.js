@@ -248,7 +248,7 @@ export default function Dashboard() {
           {[
             { name: 'Projects', icon: 'grid_view' },
             { name: 'Materials', icon: 'menu_book' },
-            { name: 'Preparation', icon: 'psychology' },
+            { name: 'Preparation', icon: 'psychology', externalUrl: 'https://www.geeksforgeeks.org/dsa/geeksforgeeks-practice-best-online-coding-platform/' },
             { name: 'Placement Hub', icon: 'hub' },
             { name: 'Job Hunting', icon: 'work' },
             { name: 'Mock Interviews', icon: 'forum' },
@@ -258,7 +258,10 @@ export default function Dashboard() {
             <button 
               key={item.name} 
               onClick={() => { 
-                if (item.path) {
+                if (item.externalUrl) {
+                  window.open(item.externalUrl, '_blank');
+                  setIsMobileMenuOpen(false);
+                } else if (item.path) {
                   router.push(item.path);
                 } else {
                   setActiveTab(item.name); 

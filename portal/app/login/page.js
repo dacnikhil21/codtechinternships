@@ -78,6 +78,12 @@ export default function Login() {
         {/* Right Side: Form */}
         <section className="col-span-1 lg:col-span-6 p-8 md:p-12 bg-transparent flex flex-col justify-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+            <div className="flex lg:hidden items-center gap-3 mb-8">
+              <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
+                <span className="material-symbols-outlined text-white text-xl font-black">terminal</span>
+              </div>
+              <span className="text-white font-black tracking-widest text-lg uppercase italic">CODTECH INTERN</span>
+            </div>
             <div className="mb-8">
               <h2 className="text-3xl font-black text-white mb-1 tracking-tight uppercase">Login</h2>
               <p className="text-slate-400 font-medium uppercase text-[10px] tracking-[0.3em]">Credentials Required</p>

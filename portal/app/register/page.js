@@ -106,6 +106,12 @@ function RegisterForm() {
       {/* Right Side: Form */}
       <section className="col-span-1 lg:col-span-7 flex flex-col justify-center p-6 md:p-12 lg:p-16 bg-transparent">
         <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
+          <div className="flex lg:hidden items-center gap-3 mb-8">
+            <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
+              <span className="material-symbols-outlined text-white text-xl font-black">terminal</span>
+            </div>
+            <span className="text-white font-black tracking-widest text-lg uppercase italic">CODTECH INTERN</span>
+          </div>
           <div className="mb-8">
             <h2 className="text-2xl md:text-4xl font-black text-white mb-2 tracking-tight uppercase leading-tight">Create Elite Account</h2>
             <p className="text-slate-400 font-black text-[10px] uppercase tracking-[0.4em]">Initialize Connection</p>
