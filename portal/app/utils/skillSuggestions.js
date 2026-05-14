@@ -2,151 +2,233 @@
 
 /**
  * Mapping of internship domain names to comprehensive resume data.
- * Each domain contains:
- * - skills: Array of relevant technical skills.
- * - projects: Array of specific project ideas.
- * - summary: A professional summary tailored for a fresher.
+ * Updated to support the new Zety-style builder with object structures.
  */
 export const DOMAIN_DATA = {
-  // WEB & APP DEVELOPMENT
   'React.js Web Development Intern': {
-    skills: ['React.js', 'JavaScript (ES6+)', 'HTML5', 'CSS3', 'Tailwind CSS', 'Redux', 'REST APIs', 'Git/GitHub', 'Responsive Design'],
-    projects: ['Personal Portfolio Website', 'Weather Dashboard using OpenWeather API', 'E-commerce Product Page', 'Real-time Chat Application'],
-    summary: 'Aspiring React.js Developer with a strong foundation in building responsive and interactive web applications. Proficient in modern JavaScript and CSS frameworks.'
-  },
-  'Mern Stack Web Development Intern': {
-    skills: ['MongoDB', 'Express.js', 'React.js', 'Node.js', 'JavaScript', 'JWT Authentication', 'Mongoose', 'RESTful APIs', 'Postman'],
-    projects: ['Full-stack Task Manager', 'Social Media API', 'Online Book Store', 'Inventory Management System'],
-    summary: 'Passionate MERN Stack Developer interested in building scalable full-stack applications. Experienced in developing both frontend and backend components.'
-  },
-  'Full Stack Web Development Intern': {
-    skills: ['HTML/CSS', 'JavaScript', 'React.js', 'Node.js', 'SQL/NoSQL Databases', 'Git', 'API Integration', 'Cloud Deployment'],
-    projects: ['Full-stack Blog Platform', 'Community Forum Application', 'Service Marketplace', 'Collaborative Whiteboard'],
-    summary: 'Versatile Full Stack Developer intern focused on creating seamless user experiences and robust backend logic.'
-  },
-  'Frontend Web Development Intern': {
-    skills: ['HTML5', 'CSS3', 'JavaScript', 'Bootstrap', 'SASS', 'Version Control (Git)', 'Responsive Design', 'Web Accessibility'],
-    projects: ['Interactive Dashboard UI', 'Landing Page Optimization', 'CSS Animation Gallery', 'Multi-step Form Component'],
-    summary: 'Creative Frontend Developer intern dedicated to crafting visually stunning and highly functional user interfaces.'
-  },
-  'Backend Web Development Intern': {
-    skills: ['Node.js', 'Express.js', 'Python/Django', 'SQL (PostgreSQL/MySQL)', 'NoSQL (MongoDB)', 'REST APIs', 'Authentication', 'Docker'],
-    projects: ['Authentication Microservice', 'E-commerce API Engine', 'Real-time Notification System', 'Database Schema Design'],
-    summary: 'Focused Backend Developer intern with expertise in server-side logic, database management, and API development.'
-  },
-  'App Development Intern': {
-    skills: ['React Native', 'Flutter', 'Dart', 'Java/Kotlin', 'Mobile UI Patterns', 'Firebase Integration', 'App Store Deployment'],
-    projects: ['Fitness Tracking App', 'Local Food Delivery App UI', 'Budget Planner Mobile App', 'Quiz Application'],
-    summary: 'Dedicated Mobile App Developer intern passionate about creating intuitive and high-performance cross-platform applications.'
-  },
-
-  // DATA, AI & ANALYTICS
-  'Data Analytics Intern': {
-    skills: ['Python', 'SQL', 'Excel (Advanced)', 'Data Cleaning', 'Exploratory Data Analysis (EDA)', 'Pandas/NumPy', 'Matplotlib/Seaborn'],
-    projects: ['Sales Data Analysis Dashboard', 'Customer Segmentation Analysis', 'Stock Market Trend Visualization', 'Hospital Readmission Prediction'],
-    summary: 'Analytical Data Analyst intern with a knack for transforming raw data into actionable business insights using Python and SQL.'
-  },
-  'Data Science Intern': {
-    skills: ['Python', 'R', 'Machine Learning', 'Statistics', 'Scikit-learn', 'TensorFlow', 'Data Wrangling', 'Big Data Technologies'],
-    projects: ['Sentiment Analysis on Twitter Data', 'Housing Price Prediction Model', 'Iris Flow Classification', 'Recommendation Engine'],
-    summary: 'Aspiring Data Scientist with a deep interest in statistical modeling and machine learning algorithms to solve complex problems.'
-  },
-  'Machine Learning': {
-    skills: ['Python', 'Supervised/Unsupervised Learning', 'Deep Learning', 'Neural Networks', 'Keras', 'NLP', 'Computer Vision'],
-    projects: ['Image Recognition System', 'Spam Email Detection', 'Handwritten Digit Classifier', 'Chatbot using NLP'],
-    summary: 'Machine Learning enthusiast focused on developing intelligent models and leveraging data-driven solutions.'
-  },
-  'Artificial Intelligence': {
-    skills: ['Python', 'Neural Networks', 'Natural Language Processing', 'Generative AI', 'Algorithms', 'Logic Programming'],
-    projects: ['AI-driven Game Bot', 'Language Translation Tool', 'Face Detection App', 'Autonomous Navigation Simulation'],
-    summary: 'AI Intern passionate about the future of automation and building intelligent systems that mimic human cognition.'
-  },
-  'Power BI Intern': {
-    skills: ['Power BI Desktop', 'DAX Queries', 'Power Query', 'Data Modeling', 'SQL', 'Dashboard Design', 'Data Visualization'],
-    projects: ['Financial Performance Dashboard', 'HR Analytics Report', 'Supply Chain Visibility Tool', 'Marketing ROI Tracker'],
-    summary: 'Proficient Power BI Intern skilled in creating dynamic reports and dashboards to visualize complex datasets.'
-  },
-  'SQL Intern': {
-    skills: ['SQL (MySQL/PostgreSQL)', 'Database Design', 'Stored Procedures', 'Joins & Subqueries', 'Query Optimization', 'ETL Processes'],
-    projects: ['Library Management Database', 'Employee Payroll System', 'Customer Order Tracking Database', 'Inventory Audit Logs'],
-    summary: 'Detail-oriented SQL Intern with a strong focus on database architecture, query efficiency, and data integrity.'
-  },
-
-  // LANGUAGES & CORE SOFTWARE
-  'Java Programming Intern': {
-    skills: ['Java (Core & Advanced)', 'Spring Boot', 'Hibernate', 'OOP Concepts', 'Data Structures & Algorithms', 'Maven', 'MySQL'],
-    projects: ['Bank Management System', 'Online Examination Portal', 'Inventory System using Spring', 'Library Management App'],
-    summary: 'Solid Java Developer intern with a strong understanding of object-oriented principles and enterprise-level frameworks.'
+    skills: ['React.js', 'JavaScript (ES6+)', 'HTML5', 'CSS3', 'Tailwind CSS', 'Redux', 'REST APIs', 'Git/GitHub', 'Responsive Design', 'Next.js', 'TypeScript', 'Context API'],
+    projectSuggestions: [
+      {
+        title: 'Ecommerce Storefront',
+        description: 'Built a responsive ecommerce application with product filtering, cart management, and Stripe checkout integration. Optimized component rendering reducing load time by 30%.',
+        techStack: 'React, Redux, Tailwind CSS, Stripe API',
+        github: '',
+        liveLink: ''
+      },
+      {
+        title: 'Personal Portfolio Dashboard',
+        description: 'Developed an interactive developer portfolio with dark mode, animations using Framer Motion, and a headless CMS integration for dynamic blog posts.',
+        techStack: 'React.js, Next.js, Framer Motion',
+        github: '',
+        liveLink: ''
+      },
+      {
+        title: 'Real-time Chat Application',
+        description: 'Created a real-time messaging app supporting multiple rooms, typing indicators, and read receipts. Implemented secure user authentication.',
+        techStack: 'React, Firebase, Socket.io',
+        github: '',
+        liveLink: ''
+      }
+    ],
+    experienceBullets: [
+      'Developed and maintained responsive user interfaces using React.js and Tailwind CSS.',
+      'Collaborated with backend teams to integrate RESTful APIs and ensure seamless data flow.',
+      'Optimized application performance by implementing code splitting and lazy loading.',
+      'Participated in daily stand-ups and code reviews to ensure code quality and maintainability.',
+      'Refactored legacy components to modern functional components with React Hooks.',
+      'Resolved cross-browser compatibility issues and improved accessibility (a11y) scores.'
+    ],
+    summarySuggestions: [
+      'Passionate Frontend Developer skilled in React.js, JavaScript, and responsive design, with strong problem-solving skills and a track record of building user-centric web applications.',
+      'Detail-oriented React.js Developer with experience in building scalable UI components. Eager to leverage skills in modern JavaScript frameworks to deliver high-quality digital experiences.',
+      'Results-driven web development intern specializing in the React ecosystem. Adept at translating Figma designs into pixel-perfect, high-performance web applications.'
+    ]
   },
   'Python Programming Intern': {
-    skills: ['Python', 'Django', 'Flask', 'OOP', 'Data Structures', 'Scripting', 'Automation', 'Unit Testing'],
-    projects: ['Web Scraper Tool', 'File Organizer Script', 'Personal Finance Tracker', 'Portfolio Website with Django'],
-    summary: 'Adaptable Python Developer intern experienced in web development, scripting, and building clean, modular code.'
+    skills: ['Python', 'Django', 'Flask', 'Pandas', 'NumPy', 'REST APIs', 'SQL', 'Git', 'Data Structures', 'Automation Scripting'],
+    projectSuggestions: [
+      {
+        title: 'Automated Web Scraper',
+        description: 'Designed a Python script using BeautifulSoup and Selenium to extract e-commerce data, saving it into an SQLite database and scheduling daily runs via Cron.',
+        techStack: 'Python, BeautifulSoup, Selenium, SQLite',
+        github: '',
+        liveLink: ''
+      },
+      {
+        title: 'REST API for Blog Engine',
+        description: 'Built a scalable RESTful backend using Django Rest Framework supporting CRUD operations, JWT authentication, and automated tests.',
+        techStack: 'Python, Django, PostgreSQL, Docker',
+        github: '',
+        liveLink: ''
+      },
+      {
+        title: 'Data Analysis Dashboard',
+        description: 'Analyzed large datasets using Pandas and created an interactive web dashboard with Dash/Plotly to visualize sales trends.',
+        techStack: 'Python, Pandas, Dash, Plotly',
+        github: '',
+        liveLink: ''
+      }
+    ],
+    experienceBullets: [
+      'Authored clean, maintainable, and efficient Python code for various backend services and automation tasks.',
+      'Developed and tested RESTful APIs using Flask/Django frameworks.',
+      'Wrote automation scripts that reduced manual data entry time by 40%.',
+      'Optimized database queries and integrated PostgreSQL databases with Python backends.',
+      'Collaborated with data scientists to deploy machine learning models into production.'
+    ],
+    summarySuggestions: [
+      'Adaptable Python Developer with a strong foundation in backend frameworks and scripting. Eager to solve complex problems and automate workflows.',
+      'Enthusiastic Python Programmer skilled in data manipulation and API development. Proven ability to quickly learn and apply new technologies.',
+      'Motivated software engineering intern with expertise in Python and Django, focused on building scalable backend architectures and writing clean code.'
+    ]
   },
-  'Software Development Intern': {
-    skills: ['C/C++', 'Java', 'Data Structures', 'Algorithms', 'SDLC', 'Object-Oriented Design', 'Git', 'Problem Solving'],
-    projects: ['Operating System Simulator', 'Compiler Construction', 'Pathfinding Algorithm Visualizer', 'Socket Programming App'],
-    summary: 'Problem-solving Software Developer intern with a robust foundation in computer science fundamentals and algorithm design.'
+  'Java Programming Intern': {
+    skills: ['Java (Core & Advanced)', 'Spring Boot', 'Hibernate', 'MySQL', 'OOP Concepts', 'Data Structures', 'Maven', 'Git', 'JUnit'],
+    projectSuggestions: [
+      {
+        title: 'Library Management System',
+        description: 'Developed an enterprise-level inventory system supporting role-based access, book tracking, and penalty calculations using Spring Boot.',
+        techStack: 'Java, Spring Boot, MySQL, Hibernate',
+        github: '',
+        liveLink: ''
+      },
+      {
+        title: 'Online Examination Portal',
+        description: 'Built a secure web application for conducting timed online tests with automated grading and detailed result analytics.',
+        techStack: 'Java, Servlets, JSP, JDBC',
+        github: '',
+        liveLink: ''
+      }
+    ],
+    experienceBullets: [
+      'Designed and implemented robust backend services using Java and the Spring framework.',
+      'Applied Object-Oriented Programming (OOP) principles to create scalable and modular application components.',
+      'Wrote unit and integration tests using JUnit and Mockito to ensure 80%+ code coverage.',
+      'Integrated Hibernate for efficient ORM and database management with MySQL.',
+      'Participated in Agile sprints and contributed to software architecture discussions.'
+    ],
+    summarySuggestions: [
+      'Solid Java Developer with a strong understanding of object-oriented principles and enterprise-level frameworks like Spring Boot. Dedicated to writing efficient, testable code.',
+      'Aspiring Software Engineer specializing in Java backend development. Passionate about designing robust architectures and optimizing database interactions.',
+      'Detail-oriented Java Programmer with experience in building secure, scalable applications and a deep understanding of Data Structures and Algorithms.'
+    ]
   },
-  'C,C++ programming Intern': {
-    skills: ['C', 'C++', 'Memory Management', 'Pointers', 'STL', 'Algorithms', 'Data Structures', 'Embedded C'],
-    projects: ['Sudoku Solver', 'File Encryption Utility', 'Graphics Library Implementation', 'Simple Game Engine'],
-    summary: 'Technical C/C++ Developer intern focused on low-level programming, optimization, and system efficiency.'
+  'Data Analytics Intern': {
+    skills: ['Python', 'SQL', 'Excel (Advanced)', 'Data Cleaning', 'Exploratory Data Analysis (EDA)', 'Pandas', 'Tableau', 'Power BI', 'Statistics'],
+    projectSuggestions: [
+      {
+        title: 'Sales Performance Dashboard',
+        description: 'Cleaned and analyzed 50K+ rows of sales data to create interactive Power BI dashboards, identifying a 15% revenue growth opportunity.',
+        techStack: 'SQL, Power BI, Excel',
+        github: '',
+        liveLink: ''
+      },
+      {
+        title: 'Customer Churn Prediction Analysis',
+        description: 'Performed exploratory data analysis on telecom data using Python and Pandas to identify key factors leading to customer attrition.',
+        techStack: 'Python, Pandas, Seaborn',
+        github: '',
+        liveLink: ''
+      }
+    ],
+    experienceBullets: [
+      'Extracted, cleaned, and analyzed complex datasets using SQL and Python to drive business decisions.',
+      'Designed interactive dashboards in Power BI/Tableau that improved stakeholder visibility into key KPIs.',
+      'Automated weekly reporting processes using Python scripts, saving 10+ hours of manual work per week.',
+      'Identified data anomalies and ensured data integrity across multiple relational databases.',
+      'Collaborated with marketing and sales teams to translate data findings into actionable strategies.'
+    ],
+    summarySuggestions: [
+      'Analytical Data Analyst with a knack for transforming raw data into actionable business insights using Python, SQL, and data visualization tools.',
+      'Detail-oriented Data Analytics intern passionate about uncovering trends and patterns in complex datasets to support data-driven decision making.',
+      'Proactive data enthusiast skilled in statistical analysis and reporting. Dedicated to improving operational efficiency through rigorous data evaluation.'
+    ]
   },
-
-  // DESIGN & MARKETING
   'Ul/UX Intern': {
-    skills: ['Figma', 'Adobe XD', 'Wireframing', 'Prototyping', 'User Research', 'Design Systems', 'Responsive UI', 'Typography'],
-    projects: ['E-learning App Redesign', 'Healthcare Dashboard UI', 'E-commerce Mobile App Prototype', 'Personal Branding Identity'],
-    summary: 'Creative UI/UX Designer intern passionate about user-centric design and building intuitive digital experiences.'
-  },
-  'Digital Marketing Intern': {
-    skills: ['SEO/SEM', 'Social Media Marketing', 'Google Analytics', 'Content Strategy', 'Email Marketing', 'Copywriting', 'Ad Campaigns'],
-    projects: ['Social Media Growth Campaign', 'SEO Audit Report', 'Brand Awareness Strategy', 'Email Newsletter Series'],
-    summary: 'Result-oriented Digital Marketer intern focused on driving engagement and growing brand presence through strategic online campaigns.'
-  },
-
-  // INFRASTRUCTURE & SPECIALIZATIONS
-  'Devops Intern': {
-    skills: ['Docker', 'Kubernetes', 'Jenkins', 'AWS/Azure', 'Terraform', 'CI/CD Pipelines', 'Linux Administration', 'Monitoring Tools'],
-    projects: ['Automated Deployment Pipeline', 'Infrastructure as Code (IaC) Setup', 'Containerized Web App', 'Server Monitoring Dashboard'],
-    summary: 'Efficiency-driven DevOps Intern focused on streamlining software delivery and managing cloud infrastructure.'
-  },
-  'Cybersecurity & Ethical Hacking': {
-    skills: ['Network Security', 'Vulnerability Assessment', 'Penetration Testing', 'Cryptography', 'Linux', 'Security Auditing', 'Firewalls'],
-    projects: ['Network Vulnerability Scan', 'Secure Login System', 'Encryption/Decryption Tool', 'Security Audit Report'],
-    summary: 'Security-conscious Cyber Intern dedicated to identifying vulnerabilities and protecting digital assets.'
-  },
-  'Cloud Computing Intern': {
-    skills: ['AWS (EC2, S3, RDS)', 'Microsoft Azure', 'Google Cloud Platform', 'Serverless Architecture', 'Cloud Security', 'Networking'],
-    projects: ['Cloud-native File Storage', 'Auto-scaling Web Cluster', 'Serverless API Backend', 'Hybrid Cloud Setup'],
-    summary: 'Cloud Computing intern interested in architecting scalable and reliable solutions in the cloud.'
-  },
-  'Internet Of things': {
-    skills: ['Arduino', 'Raspberry Pi', 'Sensors & Actuators', 'MQTT Protocol', 'C/C++', 'Python', 'Embedded Systems'],
-    projects: ['Smart Home Automation System', 'IoT-based Weather Station', 'Asset Tracking System', 'Smart Irrigation System'],
-    summary: 'Innovative IoT Intern focused on connecting the physical world with digital systems through smart devices.'
-  },
-  'Software Testing Intern': {
-    skills: ['Manual Testing', 'SDLC', 'Test Cases', 'Bug Reporting', 'STLC', 'Regression Testing', 'Quality Assurance'],
-    projects: ['E-commerce Test Plan', 'Mobile App Quality Audit', 'Cross-browser Testing Report', 'Usability Testing Study'],
-    summary: 'Detail-oriented QA Intern committed to ensuring software quality through rigorous testing methodologies.'
-  },
-  'Automation Testing Intern': {
-    skills: ['Selenium', 'Java/Python', 'TestNG', 'Cypress', 'API Testing (Postman)', 'Maven', 'Cucumber/BDD'],
-    projects: ['Automated Regression Suite', 'Load Testing Script', 'API Automation Framework', 'UI Test Automation for Web'],
-    summary: 'Technical Automation Tester intern skilled in building robust test frameworks to improve software reliability.'
+    skills: ['Figma', 'Adobe XD', 'Wireframing', 'Prototyping', 'User Research', 'Design Systems', 'Responsive UI', 'Typography', 'Usability Testing'],
+    projectSuggestions: [
+      {
+        title: 'Healthcare App Redesign',
+        description: 'Conducted user research and completely redesigned a telehealth app interface, improving task completion rates by 25%. Created interactive prototypes in Figma.',
+        techStack: 'Figma, Miro, User Testing',
+        github: '',
+        liveLink: ''
+      },
+      {
+        title: 'E-commerce Design System',
+        description: 'Built a comprehensive design system including typography, color palettes, and reusable components to ensure consistency across web and mobile platforms.',
+        techStack: 'Figma, Adobe Illustrator',
+        github: '',
+        liveLink: ''
+      }
+    ],
+    experienceBullets: [
+      'Created wireframes, user flows, and high-fidelity prototypes using Figma for web and mobile applications.',
+      'Conducted user research and usability testing sessions to gather feedback and iterate on designs.',
+      'Collaborated closely with developers to ensure accurate implementation of UI components and design systems.',
+      'Redesigned existing interfaces to improve accessibility and adhere to modern UX best practices.',
+      'Maintained and expanded the internal design system, creating reusable components and design guidelines.'
+    ],
+    summarySuggestions: [
+      'Creative UI/UX Designer passionate about user-centric design and building intuitive, accessible digital experiences. Proficient in Figma and rapid prototyping.',
+      'Empathetic User Experience Designer focused on solving complex problems through elegant, simple interfaces. Strong background in user research and visual design.',
+      'Detail-oriented UI Designer dedicated to bridging the gap between user needs and business goals through thoughtful, engaging digital products.'
+    ]
   }
+};
+
+/**
+ * Fallback values for generic or unrecognized domains
+ */
+const DEFAULT_DOMAIN_DATA = {
+  skills: ['Problem Solving', 'Communication', 'Teamwork', 'Git', 'Critical Thinking', 'Project Management'],
+  projectSuggestions: [
+    {
+      title: 'Academic Capstone Project',
+      description: 'Led a team of 4 to deliver a comprehensive software solution addressing a specific industry problem. Managed timelines and project scope.',
+      techStack: 'Various Tech',
+      github: '',
+      liveLink: ''
+    }
+  ],
+  experienceBullets: [
+    'Collaborated effectively within a cross-functional team to deliver project milestones on time.',
+    'Conducted research and applied theoretical knowledge to practical, real-world problems.',
+    'Communicated complex technical concepts clearly to both technical and non-technical stakeholders.',
+    'Demonstrated strong problem-solving skills by identifying bottlenecks and proposing effective solutions.'
+  ],
+  summarySuggestions: [
+    'Motivated student and aspiring professional eager to contribute to innovative projects and grow in the industry. Quick learner with a strong foundation in analytical problem solving.',
+    'Dedicated intern seeking to leverage academic knowledge and strong work ethic in a professional environment. Committed to continuous learning and team success.',
+    'Hardworking and detail-oriented individual passionate about applying technical skills to create meaningful impact and drive results.'
+  ]
 };
 
 /**
  * Return data (skills, projects, summary) for a given domain.
  * If the domain is not recognized, returns default values.
  */
-export function getSkillsForDomain(domain) {
-  return DOMAIN_DATA[domain] || {
-    skills: ['Problem Solving', 'Communication', 'Teamwork', 'Git', 'Critical Thinking'],
-    projects: ['Personal Project 1', 'Industry Case Study', 'Academic Capstone'],
-    summary: 'Motivated student and aspiring professional eager to contribute to innovative projects and grow in the industry.'
-  };
+export function getDomainData(domain) {
+  if (!domain) return DEFAULT_DOMAIN_DATA;
+  
+  const courseNorm = domain.toLowerCase().replace(/[^a-z0-9]/g, '');
+  let bestMatchKey = null;
+
+  for (const key of Object.keys(DOMAIN_DATA)) {
+     const keyNorm = key.toLowerCase().replace(/[^a-z0-9]/g, '');
+     if (keyNorm.includes(courseNorm) || courseNorm.includes(keyNorm)) {
+        bestMatchKey = key; break;
+     }
+  }
+
+  // Manual fallbacks
+  if (!bestMatchKey) {
+     if (courseNorm.includes('react') || courseNorm.includes('frontend') || courseNorm.includes('mern') || courseNorm.includes('web')) bestMatchKey = 'React.js Web Development Intern';
+     else if (courseNorm.includes('java')) bestMatchKey = 'Java Programming Intern';
+     else if (courseNorm.includes('python')) bestMatchKey = 'Python Programming Intern';
+     else if (courseNorm.includes('data') || courseNorm.includes('ml') || courseNorm.includes('ai')) bestMatchKey = 'Data Analytics Intern';
+     else if (courseNorm.includes('ui') || courseNorm.includes('ux') || courseNorm.includes('figma') || courseNorm.includes('design')) bestMatchKey = 'Ul/UX Intern';
+  }
+
+  return DOMAIN_DATA[bestMatchKey] || DEFAULT_DOMAIN_DATA;
 }

@@ -117,9 +117,10 @@ export default function ResumePage() {
       setFormData(prev => ({
          ...prev,
          summary: 'Dynamic and results-oriented professional with experience extracted from resume document. Proven track record in problem-solving and delivering quality results.',
-         education: ['University Name, Bachelor of Technology, 2024, 8.5 CGPA'],
-         projects: ['Extracted Project: Built an automated system improving efficiency by 20% using modern tech stack.'],
-         certifications: ['Extracted Certification: Professional Certificate in Tech'],
+         education: [{ institution: 'University Name', degree: 'Bachelor of Technology', branch: 'Computer Science', graduationYear: '2024', cgpa: '8.5' }],
+         experience: [{ title: 'Extracted Role', company: 'Previous Company', location: 'Remote', startDate: 'Jan 2023', endDate: 'Dec 2023', bullets: ['Built an automated system improving efficiency by 20%.', 'Collaborated with cross-functional teams.'] }],
+         projects: [{ title: 'Extracted Project', description: 'Developed a scalable solution using modern tech stack.', techStack: 'React, Node.js', github: '', liveLink: '' }],
+         certifications: ['Professional Certificate in Tech'],
          skills: [...(prev.skills || []), 'Data Analysis', 'Project Management']
       }));
       setIsExtracting(false);
@@ -298,8 +299,8 @@ export default function ResumePage() {
                    className="h-full flex flex-col lg:flex-row overflow-hidden"
                  >
                     {/* Left: Editor */}
-                    <div className="w-full lg:w-[450px] xl:w-[500px] border-r border-slate-200 bg-white overflow-y-auto p-6 md:p-8 custom-scrollbar">
-                       <div className="flex items-center justify-between mb-8">
+                    <div className="w-full lg:w-[450px] xl:w-[500px] border-r border-slate-200 bg-white flex flex-col p-0">
+                       <div className="flex items-center justify-between p-6 md:p-8 pb-0 shrink-0 mb-4">
                           <div className="flex items-center gap-3">
                              <div className="w-9 h-9 bg-primary/10 text-primary rounded-xl flex items-center justify-center border border-primary/20">
                                 <span className="material-symbols-outlined text-lg">edit_document</span>
@@ -312,9 +313,11 @@ export default function ResumePage() {
                           <ATSScore formData={formData} selectedTemplateId={selectedTemplateId} />
                        </div>
                        
-                       <ResumeForm user={user} formData={formData} setFormData={setFormData} />
+                       <div className="flex-1 overflow-hidden relative">
+                          <ResumeForm user={user} formData={formData} setFormData={setFormData} />
+                       </div>
                        
-                       <div className="hidden lg:block sticky bottom-0 bg-white/95 backdrop-blur-md pt-4 pb-4 border-t border-slate-50 mt-10">
+                       <div className="hidden lg:block shrink-0 bg-white/95 backdrop-blur-md pt-4 pb-4 px-6 md:px-8 border-t border-slate-100 shadow-[0_-10px_20px_rgba(0,0,0,0.02)] z-10">
                           <DownloadButton formData={formData} selectedTemplateId={selectedTemplateId} />
                        </div>
                     </div>
