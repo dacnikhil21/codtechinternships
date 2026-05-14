@@ -488,12 +488,13 @@ export default function Dashboard() {
         )}
 
         {activeTab === 'Materials' && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-8 relative min-h-[60vh]">
-            <div className="absolute inset-0 z-0 opacity-10 pointer-events-none rounded-[3rem] overflow-hidden">
-              <img src="/materials_bg.png" alt="" className="w-full h-full object-cover blur-[2px]" />
-              <div className="absolute inset-0 bg-gradient-to-b from-white/50 to-white"></div>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-8 relative min-h-[70vh] rounded-[3rem] overflow-hidden">
+            <div className="absolute inset-0 z-0 opacity-25 pointer-events-none">
+              <img src="/materials_bg.png" alt="" className="w-full h-full object-cover blur-[1px]" />
+              <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-transparent to-white"></div>
             </div>
-            <div className="relative z-10 space-y-8">
+            
+            <div className="relative z-10 space-y-8 p-4 md:p-8">
             {/* Materials Header - PREMIUM */}
             <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 py-4 px-2 text-center md:text-left">
                <div className="w-full lg:w-auto">
@@ -561,26 +562,6 @@ export default function Dashboard() {
               </div>
             )}
             </div>
-          </motion.div>
-        )}
-
-        {activeTab === 'Preparation' && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-8">
-            <PreparationGuide 
-              courseTitle={user?.course} 
-              prepContent={prepContent} 
-              onView={(item) => {
-                setSelectedModule({
-                  title: item.title,
-                  lessons: [{
-                    id: item.id,
-                    title: item.title,
-                    content: item.content,
-                    keyPoints: ["Domain specific insights", "Industry standard tips", "Ready for interview"]
-                  }]
-                });
-              }}
-            />
           </motion.div>
         )}
 
@@ -850,12 +831,12 @@ export default function Dashboard() {
           </motion.div>
         )}
          {activeTab === 'LinkedIn Profile' && (
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-8 max-w-4xl mx-auto px-2 md:px-0 relative min-h-[60vh]">
-            <div className="absolute inset-0 z-0 opacity-[0.15] pointer-events-none rounded-[3rem] overflow-hidden">
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-8 max-w-5xl mx-auto px-2 md:px-0 relative min-h-[70vh] rounded-[3rem] overflow-hidden">
+            <div className="absolute inset-0 z-0 opacity-30 pointer-events-none">
               <img src="/linkedin_profile_bg.png" alt="" className="w-full h-full object-cover blur-[1px]" />
-              <div className="absolute inset-0 bg-gradient-to-b from-white/60 to-white"></div>
+              <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-transparent to-white"></div>
             </div>
-            <div className="relative z-10 space-y-8">
+            <div className="relative z-10 space-y-8 p-4 md:p-8">
             {/* LinkedIn Header */}
             <div className="flex flex-col items-center text-center space-y-4 py-6 md:py-8">
                <div className="w-14 h-14 md:w-16 md:h-16 bg-[#0077b5] text-white rounded-2xl md:rounded-[1.5rem] flex items-center justify-center shadow-xl shadow-blue-200/50 border-4 border-white">

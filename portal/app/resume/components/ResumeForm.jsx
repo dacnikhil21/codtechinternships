@@ -18,6 +18,7 @@ const STEPS = [
 
 export default function ResumeForm({ user, formData, setFormData, setFlowState, selectedTemplateId }) {
   const [currentStep, setCurrentStep] = useState(1);
+  const [showQuickPreview, setShowQuickPreview] = useState(false);
   const [domainData, setDomainData] = useState(getDomainData(formData.domain));
 
   useEffect(() => {
@@ -484,12 +485,12 @@ export default function ResumeForm({ user, formData, setFormData, setFlowState, 
   return (
     <div className="flex flex-col bg-white h-full max-h-[85vh] md:max-h-none">
       
-      <div className="mb-6 px-6 md:px-8 mt-4">
-        <div className="flex overflow-x-auto gap-2 pb-2 custom-scrollbar -mx-2 px-2 md:-mx-4 md:px-4">
+      <div className="mb-6 px-6 md:px-8 mt-4 flex items-center justify-between gap-4">
+        <div className="flex overflow-x-auto gap-2 pb-2 custom-scrollbar -mx-2 px-2 md:-mx-4 md:px-4 flex-1">
            {STEPS.map((step) => (
              <button 
                key={step.id}
-               onClick={() => setCurrentStep(step.id)}
+               onClick={() => { setCurrentStep(step.id); setShowQuickPreview(false); }}
                className={`shrink-0 px-4 py-2.5 rounded-xl border flex items-center gap-2 transition-all font-bold text-[11px] uppercase tracking-widest ${
                  currentStep === step.id 
                  ? 'bg-primary border-primary text-white shadow-lg shadow-primary/20' 
@@ -503,19 +504,41 @@ export default function ResumeForm({ user, formData, setFormData, setFlowState, 
              </button>
            ))}
         </div>
+        
+        {/* Quick Preview Toggle - NEW */}
+        <button 
+          onClick={() => setShowQuickPreview(!showQuickPreview)}
+          className={`shrink-0 px-4 py-2.5 rounded-xl border font-black text-[9px] uppercase tracking-widest flex items-center gap-2 transition-all ${showQuickPreview ? 'bg-indigo-600 border-indigo-600 text-white shadow-lg' : 'bg-white border-slate-200 text-slate-500 hover:bg-slate-50'}`}
+        >
+          <span className="material-symbols-outlined text-sm">{showQuickPreview ? 'edit' : 'visibility'}</span>
+          {showQuickPreview ? 'Close Preview' : 'Live Preview'}
+        </button>
       </div>
 
       <div className="p-4 md:p-8 flex-1 overflow-y-auto custom-scrollbar min-h-[300px] md:min-h-0">
         <AnimatePresence mode="wait">
-          <motion.div
-            key={currentStep}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-          >
-            {renderStepContent()}
-          </motion.div>
+          {showQuickPreview ? (
+             <motion.div 
+               key="preview" 
+               initial={{ opacity: 0, scale: 0.98 }} 
+               animate={{ opacity: 1, scale: 1 }} 
+               className="flex justify-center p-4 md:p-0"
+             >
+                <div className="w-[210mm] shadow-2xl origin-top transform scale-[0.4] sm:scale-[0.5] md:scale-[0.7] lg:scale-[0.8] xl:scale-[0.9] mb-[-60%] sm:mb-[-40%] lg:mb-[-10%]">
+                   <ResumePreview formData={formData} selectedTemplateId={selectedTemplateId} />
+                </div>
+             </motion.div>
+          ) : (
+            <motion.div
+              key={currentStep}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+            >
+              {renderStepContent()}
+            </motion.div>
+          )}
         </AnimatePresence>
       </div>
 
