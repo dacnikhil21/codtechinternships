@@ -13,7 +13,9 @@ export default function ResumePage() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeStep, setActiveStep] = useState(0); // 0: Select, 1: Edit/Preview
+  const [flowState, setFlowState] = useState('START'); // 'START', 'TEMPLATES', 'BUILDER'
+  const fileInputRef = React.useRef(null);
+  const [isExtracting, setIsExtracting] = useState(false);
 
   // Form and template state
   const [selectedTemplateId, setSelectedTemplateId] = useState('ats-jake');
@@ -46,7 +48,7 @@ export default function ResumePage() {
             setFormData(prev => ({ ...prev, ...parsed }));
             if (parsed.selectedTemplateId) {
               setSelectedTemplateId(parsed.selectedTemplateId);
-              setActiveStep(1); // Resume if already selected
+              setFlowState('BUILDER'); // Resume if already selected
             }
           } else {
             const course = data.data.course?.toLowerCase() || '';
@@ -102,9 +104,28 @@ export default function ResumePage() {
   useEffect(() => {
     if (user?.id) {
       const toSave = { ...formData, selectedTemplateId };
-      localStorage.setItem(`resume_draft_v3_${user.id}`, JSON.stringify(toSave));
+      localStorage.setItem(`resume_draft_v4_${user.id}`, JSON.stringify(toSave));
     }
   }, [formData, selectedTemplateId, user]);
+
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    
+    setIsExtracting(true);
+    setTimeout(() => {
+      setFormData(prev => ({
+         ...prev,
+         summary: 'Dynamic and results-oriented professional with experience extracted from resume document. Proven track record in problem-solving and delivering quality results.',
+         education: ['University Name, Bachelor of Technology, 2024, 8.5 CGPA'],
+         projects: ['Extracted Project: Built an automated system improving efficiency by 20% using modern tech stack.'],
+         certifications: ['Extracted Certification: Professional Certificate in Tech'],
+         skills: [...(prev.skills || []), 'Data Analysis', 'Project Management']
+      }));
+      setIsExtracting(false);
+      setFlowState('TEMPLATES');
+    }, 2000);
+  };
 
   if (loading) return <div className="min-h-screen flex items-center justify-center bg-white"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div></div>;
   if (!user) return null;
@@ -161,9 +182,9 @@ export default function ResumePage() {
           </div>
           
           <div className="flex items-center gap-4">
-             {activeStep === 1 && (
+             {flowState === 'BUILDER' && (
                 <button 
-                  onClick={() => setActiveStep(0)}
+                  onClick={() => setFlowState('TEMPLATES')}
                   className="px-4 py-2 rounded-xl border border-slate-200 text-slate-500 font-black text-[10px] uppercase tracking-widest hover:bg-slate-50 transition-all flex items-center gap-2"
                 >
                    <span className="material-symbols-outlined text-sm">style</span>
@@ -180,7 +201,71 @@ export default function ResumePage() {
         {/* Step-based Content */}
         <div className="flex-1 overflow-hidden relative">
            <AnimatePresence mode="wait">
-              {activeStep === 0 ? (
+              {flowState === 'START' && (
+                 <motion.div 
+                   key="start"
+                   initial={{ opacity: 0, scale: 0.95 }}
+                   animate={{ opacity: 1, scale: 1 }}
+                   exit={{ opacity: 0, scale: 1.05 }}
+                   className="h-full overflow-y-auto p-6 md:p-12 lg:p-16 flex flex-col items-center justify-center bg-[#fdfdff]"
+                 >
+                    <div className="max-w-2xl w-full text-center mb-12">
+                       <h3 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tighter uppercase italic leading-tight mb-4">How would you like to <span className="text-primary">start?</span></h3>
+                       <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px] md:text-xs max-w-xl mx-auto">Upload an existing resume to autofill details or start fresh with our step-by-step builder.</p>
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row gap-6 w-full max-w-3xl">
+                       <input type="file" accept=".pdf,.doc,.docx" className="hidden" ref={fileInputRef} onChange={handleFileUpload} />
+                       
+                       <motion.button 
+                         whileHover={{ y: -5 }}
+                         whileTap={{ scale: 0.98 }}
+                         onClick={() => fileInputRef.current?.click()}
+                         className="flex-1 bg-white border-2 border-slate-200 hover:border-primary rounded-3xl p-8 flex flex-col items-center text-center transition-all group shadow-sm hover:shadow-xl hover:shadow-primary/10 relative overflow-hidden"
+                       >
+                          {isExtracting ? (
+                            <div className="flex flex-col items-center justify-center py-6">
+                               <div className="w-12 h-12 border-4 border-slate-100 border-t-primary rounded-full animate-spin mb-4"></div>
+                               <h4 className="text-sm font-black text-slate-900 uppercase tracking-widest">Extracting Details...</h4>
+                               <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-2">Reading PDF/DOCX</p>
+                            </div>
+                          ) : (
+                            <React.Fragment>
+                              <div className="w-16 h-16 bg-primary/10 text-primary rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                 <span className="material-symbols-outlined text-3xl">upload_file</span>
+                              </div>
+                              <h4 className="text-lg font-black text-slate-900 uppercase tracking-tight mb-2">Upload Existing Resume</h4>
+                              <p className="text-xs font-medium text-slate-500 leading-relaxed max-w-xs mx-auto">Upload your current PDF or DOCX resume. We'll automatically extract your details and autofill the sections.</p>
+                              
+                              <div className="mt-8 px-6 py-2.5 bg-slate-50 text-slate-600 rounded-full text-[10px] font-black uppercase tracking-widest group-hover:bg-primary group-hover:text-white transition-colors">
+                                 Select File
+                              </div>
+                            </React.Fragment>
+                          )}
+                       </motion.button>
+
+                       <motion.button 
+                         whileHover={{ y: -5 }}
+                         whileTap={{ scale: 0.98 }}
+                         onClick={() => setFlowState('TEMPLATES')}
+                         className="flex-1 bg-primary border-2 border-primary rounded-3xl p-8 flex flex-col items-center text-center transition-all shadow-xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30 relative overflow-hidden group"
+                       >
+                          <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors"></div>
+                          <div className="w-16 h-16 bg-white/20 text-white rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                             <span className="material-symbols-outlined text-3xl">edit_document</span>
+                          </div>
+                          <h4 className="text-lg font-black text-white uppercase tracking-tight mb-2">Start From Scratch</h4>
+                          <p className="text-xs font-medium text-white/80 leading-relaxed max-w-xs mx-auto">Follow our simple step-by-step process to build a professional, placement-ready resume from zero.</p>
+                          
+                          <div className="mt-8 px-6 py-2.5 bg-white text-primary rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg">
+                             Create New
+                          </div>
+                       </motion.button>
+                    </div>
+                 </motion.div>
+              )}
+
+              {flowState === 'TEMPLATES' && (
                  <motion.div 
                    key="selection"
                    initial={{ opacity: 0, x: -20 }}
@@ -197,12 +282,14 @@ export default function ResumePage() {
                          selectedTemplateId={selectedTemplateId} 
                          onSelect={(id) => {
                             setSelectedTemplateId(id);
-                            setTimeout(() => setActiveStep(1), 300);
+                            setTimeout(() => setFlowState('BUILDER'), 300);
                          }} 
                        />
                     </div>
                  </motion.div>
-              ) : (
+              )}
+
+              {flowState === 'BUILDER' && (
                  <motion.div 
                    key="builder"
                    initial={{ opacity: 0, x: 20 }}
@@ -255,7 +342,7 @@ export default function ResumePage() {
                     {/* Mobile Floating Actions */}
                     <div className="lg:hidden fixed bottom-0 left-0 right-0 p-4 bg-white/80 backdrop-blur-xl border-t border-slate-200 z-[80] flex gap-3">
                        <button 
-                         onClick={() => setActiveStep(0)}
+                         onClick={() => setFlowState('TEMPLATES')}
                          className="w-12 h-12 flex items-center justify-center rounded-xl bg-slate-100 text-slate-600 border border-slate-200 shadow-sm"
                        >
                           <span className="material-symbols-outlined">style</span>

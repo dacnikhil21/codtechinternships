@@ -2,7 +2,17 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { DOMAIN_DATA } from '@/app/utils/skillSuggestions';
 
-export default function ResumeForm({ user, formData, setFormData }) {
+const STEPS = [
+  { id: 1, title: 'Personal Details', subtitle: 'Basic contact info' },
+  { id: 2, title: 'Summary & Domain', subtitle: 'Professional intro' },
+  { id: 3, title: 'Education', subtitle: 'Academic history' },
+  { id: 4, title: 'Projects', subtitle: 'Experience & Projects' },
+  { id: 5, title: 'Skills', subtitle: 'Technical expertise' },
+  { id: 6, title: 'Certifications', subtitle: 'Extra achievements' }
+];
+
+export default function ResumeForm({ user, formData, setFormData, setFlowState }) {
+  const [currentStep, setCurrentStep] = useState(1);
   const [showLinkedInVideo, setShowLinkedInVideo] = useState(false);
   
   const handleChange = (e) => {
@@ -14,7 +24,6 @@ export default function ResumeForm({ user, formData, setFormData }) {
     let bestMatchKey = null;
     const courseNorm = (formData.domain || '').toLowerCase().replace(/[^a-z0-9]/g, '');
     
-    // Find matching key in DOMAIN_DATA
     for (const key of Object.keys(DOMAIN_DATA)) {
        const keyNorm = key.toLowerCase().replace(/[^a-z0-9]/g, '');
        if (keyNorm.includes(courseNorm) || courseNorm.includes(keyNorm)) {
@@ -22,7 +31,6 @@ export default function ResumeForm({ user, formData, setFormData }) {
        }
     }
     
-    // Manual fallbacks
     if (!bestMatchKey) {
        if (courseNorm.includes('react') || courseNorm.includes('frontend')) bestMatchKey = 'React.js Web Development Intern';
        else if (courseNorm.includes('java')) bestMatchKey = 'Java Programming Intern';
@@ -30,7 +38,7 @@ export default function ResumeForm({ user, formData, setFormData }) {
        else if (courseNorm.includes('data')) bestMatchKey = 'Data Analytics Intern';
        else if (courseNorm.includes('cyber') || courseNorm.includes('hack')) bestMatchKey = 'Cybersecurity & Ethical Hacking';
        else if (courseNorm.includes('ui') || courseNorm.includes('ux') || courseNorm.includes('figma')) bestMatchKey = 'Ul/UX Intern';
-       else bestMatchKey = Object.keys(DOMAIN_DATA)[0]; // ultimate fallback
+       else bestMatchKey = Object.keys(DOMAIN_DATA)[0];
     }
 
     const data = DOMAIN_DATA[bestMatchKey];
@@ -58,10 +66,10 @@ export default function ResumeForm({ user, formData, setFormData }) {
   const clearAll = () => {
      if (window.confirm('Are you sure you want to clear all details?')) {
         setFormData({
-           name: user.name || '',
-           email: user.email || '',
+           name: user?.name || '',
+           email: user?.email || '',
            phone: '',
-           domain: user.course || '',
+           domain: user?.course || '',
            role: '',
            summary: '',
            skills: [],
@@ -84,212 +92,245 @@ export default function ResumeForm({ user, formData, setFormData }) {
     });
   };
 
+  const nextStep = () => {
+    if (currentStep < STEPS.length) setCurrentStep(c => c + 1);
+  };
+  
+  const prevStep = () => {
+    if (currentStep > 1) setCurrentStep(c => c - 1);
+  };
+
   const inputClasses = "w-full bg-slate-50/30 border border-slate-200 rounded-xl px-4 py-3.5 text-[13px] font-medium focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all placeholder:text-slate-300";
   const labelClasses = "text-[10px] font-black text-slate-400 uppercase tracking-[0.15em] ml-1 mb-2 block";
 
   return (
-    <div className="space-y-8 pb-10">
-      
-      {/* LinkedIn Video Modal */}
-      <AnimatePresence>
-        {showLinkedInVideo && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[150] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
-            onClick={() => setShowLinkedInVideo(false)}
-          >
-            <motion.div 
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
-              className="bg-white rounded-3xl overflow-hidden w-full max-w-2xl shadow-2xl"
-              onClick={e => e.stopPropagation()}
+    <div className="flex flex-col h-full">
+      {/* Progress Bar */}
+      <div className="mb-8">
+        <div className="flex justify-between mb-2">
+          {STEPS.map((step) => (
+            <div 
+               key={step.id} 
+               onClick={() => setCurrentStep(step.id)}
+               className={`w-8 h-8 rounded-full flex items-center justify-center text-[11px] font-bold cursor-pointer transition-all ${
+                 currentStep === step.id ? 'bg-primary text-white shadow-lg' : 
+                 currentStep > step.id ? 'bg-indigo-100 text-primary' : 'bg-slate-100 text-slate-400'
+               }`}
             >
-              <div className="p-4 border-b flex justify-between items-center bg-slate-50">
-                <div className="flex items-center gap-2">
-                   <div className="w-6 h-6 bg-[#0077b5] text-white rounded flex items-center justify-center">
-                      <span className="material-symbols-outlined text-[14px]">link</span>
-                   </div>
-                   <h3 className="font-black text-[11px] uppercase tracking-tight text-slate-900">Placement-Ready LinkedIn Tutorial</h3>
-                </div>
-                <button onClick={() => setShowLinkedInVideo(false)} className="w-8 h-8 rounded-full hover:bg-slate-200 flex items-center justify-center transition-colors">
-                   <span className="material-symbols-outlined text-sm">close</span>
-                </button>
-              </div>
-              <div className="aspect-video w-full bg-black">
-                <iframe 
-                  className="w-full h-full"
-                  src="https://www.youtube.com/embed/tAXOFWXsq0g?autoplay=1" 
-                  title="YouTube video player" 
-                  frameBorder="0" 
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                  allowFullScreen
-                ></iframe>
-              </div>
-              <div className="p-4 text-center bg-slate-50 border-t">
-                 <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">PRO TIP</p>
-                 <p className="text-[12px] font-medium text-slate-600">A well-optimized LinkedIn profile increases your internship selection rate by 4x.</p>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <div className="flex items-center justify-between">
-         <h4 className="text-[11px] font-black text-slate-900 uppercase tracking-widest italic">Personal <span className="text-primary">Information</span></h4>
-         <button onClick={clearAll} className="text-[9px] font-black text-rose-500 uppercase tracking-widest hover:underline transition-all flex items-center gap-1">
-            <span className="material-symbols-outlined text-sm">delete_sweep</span>
-            Clear All
-         </button>
-      </div>
-
-      {/* Personal Info */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <div className="md:col-span-2">
-          <label className={labelClasses}>Full Name</label>
-          <input name="name" value={formData.name || ''} onChange={handleChange} placeholder="e.g. John Doe" className={inputClasses} />
-        </div>
-        <div>
-          <label className={labelClasses}>Current Role / Tagline</label>
-          <input name="role" value={formData.role || ''} onChange={handleChange} placeholder="e.g. Full Stack Developer" className={inputClasses} />
-        </div>
-        <div>
-          <label className={labelClasses}>Location</label>
-          <input name="location" value={formData.location || ''} onChange={handleChange} placeholder="e.g. Mumbai, India" className={inputClasses} />
-        </div>
-        <div>
-          <label className={labelClasses}>Email Address</label>
-          <input name="email" type="email" value={formData.email || ''} onChange={handleChange} placeholder="e.g. john@example.com" className={inputClasses} />
-        </div>
-        <div>
-          <label className={labelClasses}>Phone Number</label>
-          <input name="phone" value={formData.phone || ''} onChange={handleChange} placeholder="e.g. +91 98765 43210" className={inputClasses} />
-        </div>
-      </div>
-
-      <div className="relative group p-6 bg-indigo-50/50 rounded-2xl border border-indigo-100/50">
-        <div className="flex items-center justify-between mb-4">
-           <div>
-              <label className="text-[10px] font-black text-indigo-600 uppercase tracking-widest mb-1">Internship Domain</label>
-              <p className="text-[13px] font-bold text-slate-900">{formData.domain}</p>
-           </div>
-           <button 
-             onClick={autoFillFromDomain}
-             className="px-5 py-2.5 bg-primary text-white rounded-xl text-[10px] font-black uppercase whitespace-nowrap hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 flex items-center gap-2"
-           >
-             <span className="material-symbols-outlined text-sm">magic_button</span>
-             Auto-Fill Details
-           </button>
-        </div>
-        <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest leading-relaxed">Auto-fill will populate industry-standard skills, projects, and summaries based on your enrolled track.</p>
-      </div>
-
-      <div>
-        <label className={labelClasses}>Professional Summary</label>
-        <textarea 
-          name="summary" 
-          rows="4" 
-          value={formData.summary || ''} 
-          onChange={handleChange} 
-          placeholder="Brief professional intro..." 
-          className={`${inputClasses} resize-none leading-relaxed`} 
-        />
-      </div>
-
-      {/* Skills */}
-      <div>
-        <label className={labelClasses}>Technical Expertise</label>
-        <div className="flex flex-wrap gap-2 p-4 bg-slate-50/30 border border-slate-200 rounded-2xl min-h-[70px]">
-          {(formData.skills || []).map((skill) => (
-            <motion.button
-              type="button"
-              key={skill}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => toggleSkill(skill)}
-              className="px-3 py-1.5 rounded-lg text-[11px] font-bold bg-slate-900 text-white shadow-sm flex items-center gap-2 group transition-all"
-            >
-              {skill} <span className="opacity-50 group-hover:opacity-100 transition-opacity">✕</span>
-            </motion.button>
+               {currentStep > step.id ? <span className="material-symbols-outlined text-[14px]">check</span> : step.id}
+            </div>
           ))}
-          <input 
-            type="text" 
-            placeholder="Add skill..."
-            className="bg-transparent border-none outline-none text-[12px] font-bold min-w-[150px] ml-2"
-            onKeyDown={(e) => {
-               if (e.key === 'Enter' && e.target.value.trim()) {
-                  toggleSkill(e.target.value.trim());
-                  e.target.value = '';
-               }
+        </div>
+        <div className="text-center">
+           <h4 className="text-[12px] font-black text-slate-900 uppercase tracking-widest">{STEPS[currentStep-1].title}</h4>
+           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{STEPS[currentStep-1].subtitle}</p>
+        </div>
+      </div>
+
+      <div className="flex-1 overflow-y-auto overflow-x-hidden space-y-6 pb-20 custom-scrollbar pr-2">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentStep}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.2 }}
+            className="space-y-6"
+          >
+            {currentStep === 1 && (
+              <div className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <div className="md:col-span-2">
+                    <label className={labelClasses}>Full Name</label>
+                    <input name="name" value={formData.name || ''} onChange={handleChange} placeholder="e.g. John Doe" className={inputClasses} />
+                  </div>
+                  <div>
+                    <label className={labelClasses}>Current Role / Tagline</label>
+                    <input name="role" value={formData.role || ''} onChange={handleChange} placeholder="e.g. Full Stack Developer" className={inputClasses} />
+                  </div>
+                  <div>
+                    <label className={labelClasses}>Location</label>
+                    <input name="location" value={formData.location || ''} onChange={handleChange} placeholder="e.g. Mumbai, India" className={inputClasses} />
+                  </div>
+                  <div>
+                    <label className={labelClasses}>Email Address</label>
+                    <input name="email" type="email" value={formData.email || ''} onChange={handleChange} placeholder="e.g. john@example.com" className={inputClasses} />
+                  </div>
+                  <div>
+                    <label className={labelClasses}>Phone Number</label>
+                    <input name="phone" value={formData.phone || ''} onChange={handleChange} placeholder="e.g. +91 98765 43210" className={inputClasses} />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 gap-5">
+                  <div className="p-5 bg-blue-50/30 rounded-2xl border border-blue-100/50">
+                    <div className="flex justify-between items-center mb-3">
+                       <label className="text-[10px] font-black text-[#0077b5] uppercase tracking-widest">LinkedIn Profile</label>
+                    </div>
+                    <input 
+                      name="linkedin" 
+                      value={formData.linkedin || ''} 
+                      onChange={handleChange} 
+                      className={`${inputClasses} border-blue-200 focus:ring-[#0077b5]/20 focus:border-[#0077b5]`} 
+                      placeholder="Username or Full URL" 
+                    />
+                  </div>
+                  <div className="p-5 bg-slate-900 rounded-2xl border border-slate-800">
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 block">GitHub Profile</label>
+                    <input 
+                      name="github" 
+                      value={formData.github || ''} 
+                      onChange={handleChange} 
+                      className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3.5 text-[13px] font-medium text-white focus:outline-none focus:ring-2 focus:ring-white/10 focus:border-white/20 transition-all placeholder:text-slate-600" 
+                      placeholder="GitHub Username" 
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {currentStep === 2 && (
+              <div className="space-y-6">
+                <div className="relative group p-6 bg-indigo-50/50 rounded-2xl border border-indigo-100/50">
+                  <div className="flex items-center justify-between mb-4">
+                     <div>
+                        <label className="text-[10px] font-black text-indigo-600 uppercase tracking-widest mb-1">Internship Domain</label>
+                        <p className="text-[13px] font-bold text-slate-900">{formData.domain || 'Not specified'}</p>
+                     </div>
+                     <button 
+                       onClick={autoFillFromDomain}
+                       className="px-5 py-2.5 bg-primary text-white rounded-xl text-[10px] font-black uppercase whitespace-nowrap hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 flex items-center gap-2"
+                     >
+                       <span className="material-symbols-outlined text-sm">magic_button</span>
+                       Auto-Fill Details
+                     </button>
+                  </div>
+                  <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest leading-relaxed">Auto-fill will populate industry-standard skills, projects, and summaries based on your enrolled track.</p>
+                </div>
+
+                <div>
+                  <label className={labelClasses}>Professional Summary</label>
+                  <textarea 
+                    name="summary" 
+                    rows="6" 
+                    value={formData.summary || ''} 
+                    onChange={handleChange} 
+                    placeholder="Brief professional intro..." 
+                    className={`${inputClasses} resize-none leading-relaxed`} 
+                  />
+                </div>
+              </div>
+            )}
+
+            {currentStep === 3 && (
+              <div>
+                <label className={labelClasses}>Education History (Inst, Degree, Year, CGPA)</label>
+                <div className="space-y-3">
+                   <textarea 
+                     rows="8" 
+                     value={(formData.education || []).join('\n')} 
+                     onChange={(e) => setFormData(prev => ({ ...prev, education: e.target.value.split('\n').filter(e => e.trim()) }))} 
+                     placeholder="IIT Bombay, B.Tech CSE, 2024, 9.2 CGPA&#10;Modern School, XII, 2020, 94%" 
+                     className={`${inputClasses} resize-none font-mono text-[12px] leading-relaxed`} 
+                   />
+                   <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest px-2">• Format: Institute, Degree, Completion Year, Result. One per line.</p>
+                </div>
+              </div>
+            )}
+
+            {currentStep === 4 && (
+              <div>
+                <label className={labelClasses}>Projects & Experience (Project Name: Description)</label>
+                <div className="space-y-3">
+                   <textarea 
+                     rows="10" 
+                     value={(formData.projects || []).join('\n')} 
+                     onChange={(e) => setFormData(prev => ({ ...prev, projects: e.target.value.split('\n').filter(p => p.trim()) }))}
+                     placeholder="Project One: Developed a high-scale React application...&#10;Project Two: Integrated RESTful APIs using Node.js..." 
+                     className={`${inputClasses} resize-none font-mono text-[12px] leading-relaxed`} 
+                   />
+                   <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest px-2">• Use colon (:) to separate title and description. One project per line.</p>
+                </div>
+              </div>
+            )}
+
+            {currentStep === 5 && (
+              <div>
+                <label className={labelClasses}>Technical Expertise</label>
+                <div className="flex flex-wrap gap-2 p-4 bg-slate-50/30 border border-slate-200 rounded-2xl min-h-[150px]">
+                  {(formData.skills || []).map((skill) => (
+                    <motion.button
+                      type="button"
+                      key={skill}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => toggleSkill(skill)}
+                      className="px-3 py-1.5 rounded-lg text-[11px] font-bold bg-slate-900 text-white shadow-sm flex items-center gap-2 group transition-all h-fit"
+                    >
+                      {skill} <span className="opacity-50 group-hover:opacity-100 transition-opacity">✕</span>
+                    </motion.button>
+                  ))}
+                  <input 
+                    type="text" 
+                    placeholder="Type skill & press Enter..."
+                    className="bg-transparent border-none outline-none text-[12px] font-bold min-w-[200px] ml-2 h-fit mt-1"
+                    onKeyDown={(e) => {
+                       if (e.key === 'Enter' && e.target.value.trim()) {
+                          toggleSkill(e.target.value.trim());
+                          e.target.value = '';
+                       }
+                    }}
+                  />
+                </div>
+              </div>
+            )}
+
+            {currentStep === 6 && (
+              <div>
+                <label className={labelClasses}>Certifications & Achievements</label>
+                <div className="space-y-3">
+                   <textarea 
+                     rows="6" 
+                     value={(formData.certifications || []).join('\n')} 
+                     onChange={(e) => setFormData(prev => ({ ...prev, certifications: e.target.value.split('\n').filter(c => c.trim()) }))} 
+                     placeholder="AWS Solutions Architect Associate&#10;Hackathon Winner 2023" 
+                     className={`${inputClasses} resize-none font-mono text-[12px] leading-relaxed`} 
+                   />
+                   <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest px-2">• One certification/achievement per line.</p>
+                </div>
+              </div>
+            )}
+
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* Navigation Footer */}
+      <div className="pt-4 border-t border-slate-100 flex items-center justify-between mt-auto">
+        <button 
+          onClick={currentStep === 1 ? clearAll : prevStep} 
+          className="px-5 py-2.5 rounded-xl border border-slate-200 text-slate-500 font-black text-[10px] uppercase tracking-widest hover:bg-slate-50 transition-all"
+        >
+          {currentStep === 1 ? 'Clear All' : 'Back'}
+        </button>
+        
+        {currentStep < STEPS.length ? (
+          <button 
+            onClick={nextStep}
+            className="px-6 py-2.5 rounded-xl bg-slate-900 text-white font-black text-[10px] uppercase tracking-widest shadow-lg hover:bg-slate-800 transition-all flex items-center gap-2"
+          >
+            Next Step <span className="material-symbols-outlined text-sm">arrow_forward</span>
+          </button>
+        ) : (
+          <button 
+            onClick={() => {
+              alert("Resume updated! See preview on the right or download.");
             }}
-          />
-        </div>
+            className="px-6 py-2.5 rounded-xl bg-primary text-white font-black text-[10px] uppercase tracking-widest shadow-lg shadow-primary/20 hover:bg-primary/90 transition-all flex items-center gap-2"
+          >
+            Finish <span className="material-symbols-outlined text-sm">check_circle</span>
+          </button>
+        )}
       </div>
-
-      {/* Projects */}
-      <div>
-        <label className={labelClasses}>Projects & Experience (Project Name: Description)</label>
-        <div className="space-y-3">
-           <textarea 
-             rows="5" 
-             value={(formData.projects || []).join('\n')} 
-             onChange={(e) => setFormData(prev => ({ ...prev, projects: e.target.value.split('\n').filter(p => p.trim()) }))}
-             placeholder="Project One: Developed a high-scale React application...&#10;Project Two: Integrated RESTful APIs using Node.js..." 
-             className={`${inputClasses} resize-none font-mono text-[12px] leading-relaxed`} 
-           />
-           <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest px-2">• Use colon (:) to separate title and description. One project per line.</p>
-        </div>
-      </div>
-
-      {/* Education */}
-      <div>
-        <label className={labelClasses}>Education History (Inst, Degree, Year, CGPA)</label>
-        <div className="space-y-3">
-           <textarea 
-             rows="3" 
-             value={(formData.education || []).join('\n')} 
-             onChange={(e) => setFormData(prev => ({ ...prev, education: e.target.value.split('\n').filter(e => e.trim()) }))} 
-             placeholder="IIT Bombay, B.Tech CSE, 2024, 9.2 CGPA&#10;Modern School, XII, 2020, 94%" 
-             className={`${inputClasses} resize-none font-mono text-[12px] leading-relaxed`} 
-           />
-           <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest px-2">• Format: Institute, Degree, Completion Year, Result</p>
-        </div>
-      </div>
-
-      {/* Socials */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <div className="p-5 bg-blue-50/30 rounded-2xl border border-blue-100/50">
-          <div className="flex justify-between items-center mb-3">
-             <label className="text-[10px] font-black text-[#0077b5] uppercase tracking-widest">LinkedIn Profile</label>
-             <button 
-               onClick={() => setShowLinkedInVideo(true)}
-               className="flex items-center gap-1.5 text-[9px] font-black text-[#0077b5] uppercase bg-white px-2.5 py-1.5 rounded-lg border border-blue-100 shadow-sm hover:bg-blue-50 transition-all"
-             >
-                <span className="material-symbols-outlined text-[14px]">play_circle</span>
-                Tutorial
-             </button>
-          </div>
-          <input 
-            name="linkedin" 
-            value={formData.linkedin || ''} 
-            onChange={handleChange} 
-            className={`${inputClasses} border-blue-200 focus:ring-[#0077b5]/20 focus:border-[#0077b5]`} 
-            placeholder="Username or Full URL" 
-          />
-        </div>
-        <div className="p-5 bg-slate-900 rounded-2xl border border-slate-800">
-          <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 block">GitHub Profile</label>
-          <input 
-            name="github" 
-            value={formData.github || ''} 
-            onChange={handleChange} 
-            className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3.5 text-[13px] font-medium text-white focus:outline-none focus:ring-2 focus:ring-white/10 focus:border-white/20 transition-all placeholder:text-slate-600" 
-            placeholder="GitHub Username" 
-          />
-        </div>
-      </div>
-
     </div>
   );
 }

@@ -156,7 +156,7 @@ export const templates = [
   },
   {
     id: 'altacv-modern',
-    name: 'AltaCV Modern',
+    name: 'Modern Tech Resume',
     description: 'Two-column modern layout with icons and professional sidebar.',
     category: 'Creative',
     html: `<div style="font-family: 'Inter', sans-serif; display: flex; background: #fff; max-width: 210mm; min-height: 297mm; margin: auto; font-size: 10pt; color: #333;">
@@ -218,7 +218,7 @@ export const templates = [
   },
   {
     id: 'deedy-research',
-    name: 'Deedy Academic',
+    name: 'Academic CV',
     description: 'High-density research layout inspired by the Deedy CV.',
     category: 'Academic',
     html: `<div style="font-family: 'Open Sans', sans-serif; display: flex; background: #fff; max-width: 210mm; min-height: 297mm; margin: auto; font-size: 10pt; color: #333; line-height: 1.2;">
@@ -275,9 +275,9 @@ export const templates = [
   },
   {
     id: 'awesome-executive',
-    name: 'Awesome Executive',
-    description: 'Premium Awesome CV style with iconic header and bold typography.',
-    category: 'Executive',
+    name: 'Minimal Designer',
+    description: 'Premium Minimal style with iconic header and bold typography.',
+    category: 'Minimal',
     html: `<div style="font-family: 'Roboto', sans-serif; padding: 45pt 55pt; color: #333; background: white; max-width: 210mm; min-height: 297mm; margin: auto; font-size: 11pt;">
       <header style="text-align: center; margin-bottom: 30pt;">
         <h1 style="font-size: 38pt; font-weight: 300; margin: 0; color: #000; letter-spacing: 0.05em;"><span style="font-weight: 900; color: #dc2626;">{name_first}</span> {name_last}</h1>
