@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import toast, { Toaster } from 'react-hot-toast';
 import TemplateGallery from '@/app/resume/components/TemplateGallery';
 import ResumeForm from '@/app/resume/components/ResumeForm';
 import ResumePreview from '@/app/resume/components/ResumePreview';
@@ -16,6 +17,7 @@ export default function ResumePage() {
   const [flowState, setFlowState] = useState('START'); // 'START', 'TEMPLATES', 'BUILDER'
   const fileInputRef = React.useRef(null);
   const [isExtracting, setIsExtracting] = useState(false);
+  const [extractStatus, setExtractStatus] = useState('Reading file...');
 
   // Form and template state
   const [selectedTemplateId, setSelectedTemplateId] = useState('ats-jake');
@@ -42,7 +44,7 @@ export default function ResumePage() {
         const data = await res.json();
         if (data.success) {
           setUser(data.data);
-          const saved = localStorage.getItem(`resume_draft_v3_${data.data.id}`);
+          const saved = localStorage.getItem(`resume_draft_v4_${data.data.id}`);
           if (saved) {
             const parsed = JSON.parse(saved);
             setFormData(prev => ({ ...prev, ...parsed }));
@@ -108,24 +110,72 @@ export default function ResumePage() {
     }
   }, [formData, selectedTemplateId, user]);
 
-  const handleFileUpload = (e) => {
+  const handleFileUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-    
+
+    const allowed = ['.pdf', '.doc', '.docx'];
+    const ext = file.name.substring(file.name.lastIndexOf('.')).toLowerCase();
+    if (!allowed.includes(ext)) {
+      toast.error('Please upload a PDF, DOC, or DOCX file.');
+      return;
+    }
+
     setIsExtracting(true);
-    setTimeout(() => {
+    setExtractStatus('Uploading resume...');
+
+    try {
+      const body = new FormData();
+      body.append('resume', file);
+
+      setExtractStatus('Extracting your details...');
+      const res = await fetch('/api/resume/parse', { method: 'POST', body });
+      const json = await res.json();
+
+      if (!res.ok || !json.success) {
+        throw new Error(json.message || 'Extraction failed');
+      }
+
+      const d = json.data;
+      setExtractStatus('Filling in your information...');
+
       setFormData(prev => ({
-         ...prev,
-         summary: 'Dynamic and results-oriented professional with experience extracted from resume document. Proven track record in problem-solving and delivering quality results.',
-         education: [{ institution: 'University Name', degree: 'Bachelor of Technology', branch: 'Computer Science', graduationYear: '2024', cgpa: '8.5' }],
-         experience: [{ title: 'Extracted Role', company: 'Previous Company', location: 'Remote', startDate: 'Jan 2023', endDate: 'Dec 2023', bullets: ['Built an automated system improving efficiency by 20%.', 'Collaborated with cross-functional teams.'] }],
-         projects: [{ title: 'Extracted Project', description: 'Developed a scalable solution using modern tech stack.', techStack: 'React, Node.js', github: '', liveLink: '' }],
-         certifications: ['Professional Certificate in Tech'],
-         skills: [...(prev.skills || []), 'Data Analysis', 'Project Management']
+        ...prev,
+        // Only overwrite if value was extracted (don't blank out existing data)
+        name: d.name || prev.name,
+        email: d.email || prev.email,
+        phone: d.phone || prev.phone,
+        linkedin: d.linkedin || prev.linkedin,
+        github: d.github || prev.github,
+        skills: d.skills?.length > 0 ? d.skills : prev.skills,
+        education: d.education?.length > 0 ? d.education : prev.education,
+        projects: d.projects?.length > 0
+          ? d.projects.map(p => ({ title: p.title, description: p.description, techStack: p.techStack, github: p.github, liveLink: p.liveLink || '' }))
+          : prev.projects,
+        certifications: d.certifications?.length > 0 ? d.certifications : prev.certifications,
       }));
-      setIsExtracting(false);
+
+      const fieldsFound = [
+        d.name && 'Name',
+        d.email && 'Email',
+        d.phone && 'Phone',
+        d.skills?.length > 0 && `${d.skills.length} Skills`,
+        d.education?.length > 0 && `${d.education.length} Education`,
+        d.projects?.length > 0 && `${d.projects.length} Projects`,
+        d.certifications?.length > 0 && `${d.certifications.length} Certifications`,
+      ].filter(Boolean);
+
+      toast.success(`✅ Extracted: ${fieldsFound.join(', ')}`);
       setFlowState('TEMPLATES');
-    }, 2000);
+
+    } catch (err) {
+      console.error('[Resume Upload Error]', err);
+      toast.error('Could not extract data: ' + err.message + '. Please fill manually.');
+      setFlowState('TEMPLATES'); // still move forward
+    } finally {
+      setIsExtracting(false);
+      setExtractStatus('Reading file...');
+    }
   };
 
   if (loading) return <div className="min-h-screen flex items-center justify-center bg-white"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div></div>;
@@ -133,6 +183,7 @@ export default function ResumePage() {
 
   return (
     <div className="min-h-screen bg-[#FDFDFF] flex w-full font-inter overflow-x-hidden text-slate-900 relative">
+      <Toaster position="top-center" toastOptions={{ duration: 5000 }} />
       
       {/* Navigation Sidebar (Shared) */}
       <aside className={`w-64 bg-white border-r border-slate-200/60 flex flex-col fixed h-full z-[100] transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>
@@ -226,7 +277,7 @@ export default function ResumePage() {
                             <div className="flex flex-col items-center justify-center py-6">
                                <div className="w-12 h-12 border-4 border-slate-100 border-t-primary rounded-full animate-spin mb-4"></div>
                                <h4 className="text-sm font-black text-slate-900 uppercase tracking-widest">Extracting Details...</h4>
-                               <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-2">Reading PDF/DOCX</p>
+                               <p className="text-[10px] font-bold text-primary uppercase tracking-widest mt-2">{extractStatus}</p>
                             </div>
                           ) : (
                             <React.Fragment>
