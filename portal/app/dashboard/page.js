@@ -251,7 +251,6 @@ export default function Dashboard() {
             { name: 'Preparation', icon: 'psychology', externalUrl: 'https://www.geeksforgeeks.org/dsa/geeksforgeeks-practice-best-online-coding-platform/' },
             { name: 'Placement Hub', icon: 'hub' },
             { name: 'Job Hunting', icon: 'work' },
-            { name: 'Mock Interviews', icon: 'forum' },
             { name: 'Resume Builder', icon: 'description', path: '/resume' },
             { name: 'LinkedIn Profile', icon: 'person_search' },
           ].map((item) => (
@@ -431,8 +430,8 @@ export default function Dashboard() {
 
 
             {/* PROJECT WORKSPACE - COMPACT & FUNCTIONAL */}
-            <section className="bg-white p-6 rounded-3xl border border-slate-200/60 shadow-sm">
-               <div className="flex flex-col lg:flex-row justify-between items-center gap-8 mb-6">
+            <section className="bg-white p-6 rounded-3xl border border-slate-200/60 shadow-sm space-y-6">
+               <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
                   <div className="flex items-center gap-4">
                      <div className="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-lg flex items-center justify-center border border-indigo-100 shrink-0">
                         <span className="material-symbols-outlined text-xl">terminal</span>
@@ -446,9 +445,20 @@ export default function Dashboard() {
                     <button onClick={() => { setTempSelectedProjects(selectedProjects); setIsProjectModalOpen(true); }} className="flex-1 lg:flex-none bg-indigo-600 text-white px-6 py-3 rounded-lg font-black text-[9px] uppercase tracking-[0.2em] hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 flex items-center justify-center gap-2">
                        <span className="material-symbols-outlined text-sm">add_circle</span> Browse Projects
                     </button>
-                    <button onClick={() => setSelectedTask({ title: 'Project Implementation Guide' })} className="flex-1 lg:flex-none bg-slate-50 text-slate-500 border border-slate-200/60 px-6 py-3 rounded-lg font-black text-[9px] uppercase tracking-[0.2em] hover:bg-slate-100 transition-all flex items-center justify-center gap-2">
-                       <span className="material-symbols-outlined text-sm">auto_awesome</span> How to do project
-                    </button>
+                  </div>
+               </div>
+
+               {/* HOW TO DO PROJECT BANNER */}
+               <div className="bg-indigo-50 border border-indigo-100 rounded-2xl p-4 md:p-5 flex items-start gap-4 shadow-sm relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-600/5 rounded-full blur-2xl pointer-events-none"></div>
+                  <div className="w-10 h-10 bg-white text-indigo-600 rounded-xl flex items-center justify-center border border-indigo-100 shrink-0 shadow-sm z-10">
+                     <span className="material-symbols-outlined text-xl">auto_awesome</span>
+                  </div>
+                  <div className="relative z-10 flex-1">
+                     <h4 className="text-[13px] font-black text-slate-900 uppercase tracking-tight mb-1 flex items-center gap-2">How to do project? <span className="px-2 py-0.5 rounded-full bg-red-100 text-red-600 text-[8px] tracking-widest font-black uppercase">Important</span></h4>
+                     <p className="text-[12px] md:text-[13px] text-slate-700 font-medium leading-relaxed">
+                        We have just provided the <span className="font-bold text-indigo-600">title of the project</span>. The complete development approach is up to you — whether you build it as a <span className="font-bold text-slate-900">basic, intermediate, or advanced-level project</span>, everything is acceptable.
+                     </p>
                   </div>
                </div>
 
@@ -811,26 +821,7 @@ export default function Dashboard() {
           </motion.div>
         )}
 
-         {activeTab === 'Mock Interviews' && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-8 max-w-5xl mx-auto py-6 md:py-10 px-2 md:px-0">
-             <div className="bg-indigo-600 rounded-[2rem] md:rounded-[3rem] p-6 md:p-12 text-white relative overflow-hidden shadow-2xl shadow-indigo-200">
-                <div className="absolute top-0 right-0 w-48 md:w-96 h-48 md:h-96 bg-white/5 rounded-full blur-[60px] md:blur-[100px]"></div>
-                <div className="relative z-10 flex flex-col md:flex-row items-center gap-8 md:gap-12 text-center md:text-left">
-                   <div className="flex-1 space-y-6">
-                      <h3 className="text-2xl md:text-4xl font-black uppercase tracking-tighter italic leading-tight md:leading-none">Schedule your <br/><span className="text-indigo-200">Mock Interview</span></h3>
-                      <p className="text-indigo-100/60 text-[11px] md:text-sm font-medium leading-relaxed max-w-md mx-auto md:mx-0">Practice with industry experts from Amazon, Google, and Meta before your real technical rounds.</p>
-                      <div className="flex flex-col gap-3 pt-2 w-full max-w-xs mx-auto md:mx-0 md:max-w-none md:flex-row md:gap-4 md:pt-4">
-                         <button className="w-full md:w-auto md:px-8 py-3 md:py-4 bg-white text-indigo-600 rounded-xl md:rounded-2xl text-[9px] md:text-[10px] font-black uppercase tracking-widest shadow-xl hover:scale-105 transition-all">Book Technical Round</button>
-                         <button className="w-full md:w-auto md:px-8 py-3 md:py-4 bg-indigo-500 text-white rounded-xl md:rounded-2xl text-[9px] md:text-[10px] font-black uppercase tracking-widest border border-indigo-400 hover:bg-indigo-400 transition-all">Book HR Mock</button>
-                      </div>
-                   </div>
-                   <div className="w-24 h-24 md:w-48 md:h-48 bg-white/10 rounded-2xl md:rounded-[2.5rem] backdrop-blur-md border border-white/10 flex items-center justify-center shrink-0 mt-4 md:mt-0">
-                      <span className="material-symbols-outlined text-4xl md:text-8xl opacity-40">forum</span>
-                   </div>
-                </div>
-             </div>
-          </motion.div>
-        )}
+
          {activeTab === 'LinkedIn Profile' && (
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-8 max-w-5xl mx-auto px-2 md:px-0 min-h-[70vh]">
             
