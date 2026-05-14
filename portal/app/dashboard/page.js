@@ -878,9 +878,6 @@ export default function Dashboard() {
                      <h4 className="text-[12px] md:text-[13px] font-black text-slate-900 uppercase tracking-tight mb-2">Why this matters?</h4>
                      <p className="text-[11px] md:text-[12px] text-slate-500 font-medium leading-relaxed italic">"Recruiters spend 75% of their time on LinkedIn. If your profile isn't optimized, you are invisible."</p>
                   </div>
-                  <div className="flex w-full md:w-auto">
-                     <button className="w-full md:w-auto bg-[#0077b5] text-white px-8 py-3 rounded-xl font-black text-[9px] md:text-[10px] uppercase tracking-widest shadow-lg shadow-blue-200 hover:bg-blue-700 transition-all">Download Checklist</button>
-                  </div>
                </div>
             </div>
 
