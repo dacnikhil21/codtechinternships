@@ -168,7 +168,7 @@ export default function ResumePage() {
         </div>
       </aside>
 
-      <main className="flex-1 lg:ml-64 flex flex-col h-screen overflow-hidden">
+      <main className="flex-1 lg:ml-64 flex flex-col min-h-screen">
         
         {/* Top Header */}
         <header className="h-16 border-b border-slate-200/60 bg-white flex items-center justify-between px-6 z-[90] shrink-0">
@@ -177,8 +177,6 @@ export default function ResumePage() {
                 <span className="material-symbols-outlined">menu</span>
              </button>
              <div className="flex items-center gap-3">
-               <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
-               <h2 className="hidden sm:block text-[10px] md:text-xs font-black text-slate-900 tracking-tight uppercase italic">Placement-Ready <span className="text-primary">Resume Builder</span></h2>
              </div>
           </div>
           
@@ -293,56 +291,27 @@ export default function ResumePage() {
               {flowState === 'BUILDER' && (
                   <motion.div 
                     key="builder"
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    className="flex flex-col lg:flex-row overflow-y-auto lg:overflow-hidden min-h-screen"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    className="flex-1 w-full max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8"
                   >
-                    {/* Left: Editor */}
-                    <div className="w-full lg:w-[450px] xl:w-[500px] border-r border-slate-200 bg-white flex flex-col p-0 lg:h-full lg:overflow-hidden shrink-0">
-                       <div className="flex items-center justify-between p-6 md:p-8 pb-0 shrink-0 mb-4">
+                    <div className="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden flex flex-col">
+                       <div className="flex items-center justify-between p-6 md:p-8 border-b border-slate-100 bg-slate-50/50">
                           <div className="flex items-center gap-3">
-                             <div className="w-9 h-9 bg-primary/10 text-primary rounded-xl flex items-center justify-center border border-primary/20">
-                                <span className="material-symbols-outlined text-lg">edit_document</span>
+                             <div className="w-10 h-10 bg-primary/10 text-primary rounded-xl flex items-center justify-center border border-primary/20">
+                                <span className="material-symbols-outlined text-xl">edit_document</span>
                              </div>
                              <div>
                                 <h3 className="text-sm font-black text-slate-900 tracking-tight uppercase leading-none">Editor</h3>
-                                <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mt-1">Customize your details</p>
+                                <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mt-1">Fill in your details</p>
                              </div>
                           </div>
                           <ATSScore formData={formData} selectedTemplateId={selectedTemplateId} />
                        </div>
                        
-                       <div className="flex-1 lg:overflow-hidden relative flex flex-col">
-                          <ResumeForm user={user} formData={formData} setFormData={setFormData} />
-                       </div>
-                       
-                       <div className="shrink-0 bg-white/95 backdrop-blur-md pt-4 pb-4 px-6 md:px-8 border-t border-slate-100 shadow-[0_-10px_20px_rgba(0,0,0,0.02)] z-10 hidden lg:block">
-                          <DownloadButton formData={formData} selectedTemplateId={selectedTemplateId} />
-                       </div>
-                    </div>
-
-                    {/* Right: Preview */}
-                    <div className="flex-1 bg-slate-50/50 overflow-y-auto p-4 md:p-12 lg:p-16 flex flex-col items-center custom-scrollbar pb-16 w-full lg:h-full">
-                       <div className="lg:hidden w-full mb-8 flex justify-center">
-                          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-full shadow-sm">
-                             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
-                             <span className="text-[10px] font-black text-slate-900 uppercase tracking-widest italic">Live Placement Preview</span>
-                          </div>
-                       </div>
-                       
-                       <div className="w-full flex justify-center perspective-[2000px] overflow-hidden">
-                          <motion.div 
-                            initial={{ rotateX: 5, y: 20, opacity: 0 }}
-                            animate={{ rotateX: 0, y: 0, opacity: 1 }}
-                            className="w-[210mm] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.15)] origin-top transform scale-[0.4] min-[375px]:scale-[0.43] min-[414px]:scale-[0.48] sm:scale-[0.7] md:scale-[0.8] lg:scale-[0.75] xl:scale-90 2xl:scale-100 mb-[-50%] sm:mb-[-20%] lg:mb-0"
-                          >
-                             <ResumePreview formData={formData} selectedTemplateId={selectedTemplateId} />
-                          </motion.div>
-                       </div>
-                       
-                       <div className="lg:hidden mt-8 w-full">
-                          <DownloadButton formData={formData} selectedTemplateId={selectedTemplateId} />
+                       <div className="flex-1 relative">
+                          <ResumeForm user={user} formData={formData} setFormData={setFormData} selectedTemplateId={selectedTemplateId} />
                        </div>
                     </div>
                   </motion.div>

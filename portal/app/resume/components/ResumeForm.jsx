@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getDomainData } from '@/app/utils/skillSuggestions';
+import ResumePreview from '@/app/resume/components/ResumePreview';
+import DownloadButton from '@/app/resume/components/DownloadButton';
 
 const STEPS = [
   { id: 1, title: 'Personal Details', icon: 'person' },
@@ -11,10 +13,10 @@ const STEPS = [
   { id: 6, title: 'Certifications', icon: 'workspace_premium' },
   { id: 7, title: 'Summary', icon: 'edit_document' },
   { id: 8, title: 'Additional', icon: 'add_circle' },
-  { id: 9, title: 'Final Review', icon: 'fact_check' }
+  { id: 9, title: 'Preview & Finish', icon: 'visibility' }
 ];
 
-export default function ResumeForm({ user, formData, setFormData, setFlowState }) {
+export default function ResumeForm({ user, formData, setFormData, setFlowState, selectedTemplateId }) {
   const [currentStep, setCurrentStep] = useState(1);
   const [domainData, setDomainData] = useState(getDomainData(formData.domain));
 
@@ -450,63 +452,25 @@ export default function ResumeForm({ user, formData, setFormData, setFlowState }
       case 9:
         const score = calculateScore();
         return (
-          <div className="space-y-6">
-            <div className="text-center mb-8">
-               <div className="relative inline-flex items-center justify-center w-32 h-32 mb-4">
-                 <svg className="w-full h-full transform -rotate-90">
-                   <circle cx="64" cy="64" r="60" stroke="currentColor" strokeWidth="8" fill="transparent" className="text-slate-100" />
-                   <circle cx="64" cy="64" r="60" stroke="currentColor" strokeWidth="8" fill="transparent" strokeDasharray={377} strokeDashoffset={377 - (377 * score) / 100} className={`${score > 70 ? 'text-green-500' : score > 40 ? 'text-yellow-500' : 'text-red-500'} transition-all duration-1000`} />
-                 </svg>
-                 <div className="absolute inset-0 flex flex-col items-center justify-center">
-                   <span className="text-3xl font-black text-slate-900">{score}</span>
-                   <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">/ 100</span>
-                 </div>
-               </div>
-               <h3 className="text-xl font-black text-slate-900 uppercase tracking-tight">Resume Strength</h3>
-               <p className="text-xs font-medium text-slate-500 mt-2 max-w-sm mx-auto">Aim for 80+ to bypass ATS bots and get human attention.</p>
+          <div className="space-y-8">
+            <div className="text-center mb-4">
+               <h3 className="text-xl font-black text-slate-900 uppercase tracking-tight">Your Resume is Ready!</h3>
+               <p className="text-xs font-medium text-slate-500 mt-2 max-w-sm mx-auto">Review your placement-ready resume below. You can download it directly as a PDF.</p>
             </div>
 
-            <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
-               <div className="p-4 border-b border-slate-100 bg-slate-50">
-                  <h4 className="text-[11px] font-black text-slate-900 uppercase tracking-widest">Review Checklist</h4>
+            <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm p-5">
+               <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-4">
+                  <div>
+                     <h4 className="text-[11px] font-black text-slate-900 uppercase tracking-widest">ATS Optimization Score: {score}/100</h4>
+                     <p className="text-[10px] text-slate-500 mt-0.5">{score > 70 ? 'Excellent! Highly optimized.' : 'Add more details to boost your score.'}</p>
+                  </div>
+                  <DownloadButton formData={formData} selectedTemplateId={selectedTemplateId} />
                </div>
-               <div className="p-5 space-y-4">
-                  <div className="flex items-start gap-3">
-                     <span className={`material-symbols-outlined text-lg ${formData.name && formData.email ? 'text-green-500' : 'text-red-500'}`}>
-                        {formData.name && formData.email ? 'check_circle' : 'cancel'}
-                     </span>
-                     <div>
-                        <p className="text-[12px] font-bold text-slate-900">Personal Details</p>
-                        <p className="text-[10px] text-slate-500 mt-0.5">{formData.name && formData.email ? 'Complete' : 'Missing essential contact information.'}</p>
-                     </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                     <span className={`material-symbols-outlined text-lg ${formData.summary?.length > 20 ? 'text-green-500' : 'text-red-500'}`}>
-                        {formData.summary?.length > 20 ? 'check_circle' : 'cancel'}
-                     </span>
-                     <div>
-                        <p className="text-[12px] font-bold text-slate-900">Professional Summary</p>
-                        <p className="text-[10px] text-slate-500 mt-0.5">{formData.summary?.length > 20 ? 'Looks good' : 'Summary is too short or missing.'}</p>
-                     </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                     <span className={`material-symbols-outlined text-lg ${formData.experience?.length > 0 ? 'text-green-500' : 'text-yellow-500'}`}>
-                        {formData.experience?.length > 0 ? 'check_circle' : 'warning'}
-                     </span>
-                     <div>
-                        <p className="text-[12px] font-bold text-slate-900">Experience Section</p>
-                        <p className="text-[10px] text-slate-500 mt-0.5">{formData.experience?.length > 0 ? 'Complete' : 'Adding experience significantly boosts your chances.'}</p>
-                     </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                     <span className={`material-symbols-outlined text-lg ${formData.projects?.length > 0 ? 'text-green-500' : 'text-red-500'}`}>
-                        {formData.projects?.length > 0 ? 'check_circle' : 'cancel'}
-                     </span>
-                     <div>
-                        <p className="text-[12px] font-bold text-slate-900">Projects</p>
-                        <p className="text-[10px] text-slate-500 mt-0.5">{formData.projects?.length > 0 ? 'Complete' : 'You must add at least one project.'}</p>
-                     </div>
-                  </div>
+            </div>
+
+            <div className="w-full flex justify-center bg-slate-50/50 p-4 md:p-8 rounded-3xl border border-slate-100 overflow-hidden">
+               <div className="w-[210mm] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.15)] origin-top transform scale-[0.45] sm:scale-[0.6] md:scale-[0.8] lg:scale-[0.9] xl:scale-100 mb-[-50%] sm:mb-[-40%] md:mb-[-20%] xl:mb-0">
+                  <ResumePreview formData={formData} selectedTemplateId={selectedTemplateId} />
                </div>
             </div>
           </div>
@@ -518,7 +482,7 @@ export default function ResumeForm({ user, formData, setFormData, setFlowState }
   };
 
   return (
-    <div className="flex flex-col h-full bg-white relative">
+    <div className="flex flex-col bg-white">
       
       <div className="mb-6 px-6 md:px-8 mt-4">
         <div className="flex overflow-x-auto gap-2 pb-2 custom-scrollbar -mx-2 px-2 md:-mx-4 md:px-4">
@@ -541,7 +505,7 @@ export default function ResumeForm({ user, formData, setFormData, setFlowState }
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto overflow-x-hidden p-6 md:p-8 custom-scrollbar">
+      <div className="p-6 md:p-8">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentStep}
@@ -555,8 +519,8 @@ export default function ResumeForm({ user, formData, setFormData, setFlowState }
         </AnimatePresence>
       </div>
 
-      {/* Sticky Bottom Navigation */}
-      <div className="shrink-0 bg-white/90 backdrop-blur-md border-t border-slate-200 p-4 px-6 md:px-8 flex items-center justify-between z-10">
+      {/* Static Bottom Navigation */}
+      <div className="shrink-0 bg-white/90 border-t border-slate-200 p-6 md:p-8 flex items-center justify-between">
         <button 
           onClick={prevStep} 
           disabled={currentStep === 1}
@@ -573,12 +537,9 @@ export default function ResumeForm({ user, formData, setFormData, setFlowState }
             Next <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
           </button>
         ) : (
-          <button 
-            onClick={() => alert("Resume updated! Please use the download button.")}
-            className="px-8 py-2.5 rounded-xl bg-primary text-white font-black text-[10px] uppercase tracking-widest shadow-lg shadow-primary/20 hover:bg-primary/90 transition-all flex items-center gap-2"
-          >
-            Finish <span className="material-symbols-outlined text-[16px]">task_alt</span>
-          </button>
+          <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+             <span className="material-symbols-outlined text-[16px] text-green-500 align-middle mr-1">check_circle</span> All Steps Complete
+          </div>
         )}
       </div>
 
