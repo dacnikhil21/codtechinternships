@@ -20,12 +20,17 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Strict Email Validation
+    // Strict Email Format Validation
     const emailLower = email.toLowerCase().trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(emailLower)) {
+      toast.error('Please enter a valid email address');
+      return;
+    }
+
     const domain = emailLower.split('@')[1];
-    
     if (TYPO_DOMAINS.includes(domain)) {
-      toast.error(`"${domain}" looks like a typo. Please check your email.`);
+      toast.error(`"${domain}" looks like a typo. Please check.`);
       return;
     }
 

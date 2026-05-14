@@ -22,7 +22,7 @@ const DOMAIN_TO_PDF = {
 
   // --- Figma ---
   'Figma Web Development Intern': 'FigmaWebDevelopment.pdf',
-  'Figma App Development Intern': 'FigmaAppDevelopment.pdf',
+  'Figma App Development Intern': 'FigmaWebDevelopment.pdf',
 
   // --- UI/UX (includes register typo "Ul/UX" with lowercase L) ---
   'UI/UX Design Intern': 'UIUXDesign.pdf',
@@ -41,8 +41,8 @@ const DOMAIN_TO_PDF = {
   'Data Analytics Intern': 'Data Analyst .pdf',         // register uses this name
   'Data Science Intern': 'DATA SCIENCE .pdf',
   'Power BI Intern': 'POWERBI.pdf',
-  'Big Data Intern': 'Bigdata .pdf',
-  'Bigdata Intern': 'Bigdata .pdf',
+  'Big Data Intern': 'Data Analyst .pdf',
+  'Bigdata Intern': 'Data Analyst .pdf',
   'SQL Intern': 'SQL.pdf',
 
   // --- AI/ML (register page uses bare "Machine Learning" & "Artificial Intelligence") ---

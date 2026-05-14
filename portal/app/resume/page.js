@@ -5,9 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import toast, { Toaster } from 'react-hot-toast';
 import TemplateGallery from '@/app/resume/components/TemplateGallery';
 import ResumeForm from '@/app/resume/components/ResumeForm';
-import ResumePreview from '@/app/resume/components/ResumePreview';
 import ATSScore from '@/app/resume/components/ATSScore';
-import DownloadButton from '@/app/resume/components/DownloadButton';
 
 export default function ResumePage() {
   const router = useRouter();
@@ -15,9 +13,6 @@ export default function ResumePage() {
   const [loading, setLoading] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [flowState, setFlowState] = useState('START'); // 'START', 'TEMPLATES', 'BUILDER'
-  const fileInputRef = React.useRef(null);
-  const [isExtracting, setIsExtracting] = useState(false);
-  const [extractStatus, setExtractStatus] = useState('Reading file...');
 
   // Form and template state
   const [selectedTemplateId, setSelectedTemplateId] = useState('ats-jake');
@@ -110,74 +105,6 @@ export default function ResumePage() {
     }
   }, [formData, selectedTemplateId, user]);
 
-  const handleFileUpload = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    const allowed = ['.pdf', '.doc', '.docx'];
-    const ext = file.name.substring(file.name.lastIndexOf('.')).toLowerCase();
-    if (!allowed.includes(ext)) {
-      toast.error('Please upload a PDF, DOC, or DOCX file.');
-      return;
-    }
-
-    setIsExtracting(true);
-    setExtractStatus('Uploading resume...');
-
-    try {
-      const body = new FormData();
-      body.append('resume', file);
-
-      setExtractStatus('Extracting your details...');
-      const res = await fetch('/api/resume/parse', { method: 'POST', body });
-      const json = await res.json();
-
-      if (!res.ok || !json.success) {
-        throw new Error(json.message || 'Extraction failed');
-      }
-
-      const d = json.data;
-      setExtractStatus('Filling in your information...');
-
-      setFormData(prev => ({
-        ...prev,
-        // Only overwrite if value was extracted (don't blank out existing data)
-        name: d.name || prev.name,
-        email: d.email || prev.email,
-        phone: d.phone || prev.phone,
-        linkedin: d.linkedin || prev.linkedin,
-        github: d.github || prev.github,
-        skills: d.skills?.length > 0 ? d.skills : prev.skills,
-        education: d.education?.length > 0 ? d.education : prev.education,
-        projects: d.projects?.length > 0
-          ? d.projects.map(p => ({ title: p.title, description: p.description, techStack: p.techStack, github: p.github, liveLink: p.liveLink || '' }))
-          : prev.projects,
-        certifications: d.certifications?.length > 0 ? d.certifications : prev.certifications,
-      }));
-
-      const fieldsFound = [
-        d.name && 'Name',
-        d.email && 'Email',
-        d.phone && 'Phone',
-        d.skills?.length > 0 && `${d.skills.length} Skills`,
-        d.education?.length > 0 && `${d.education.length} Education`,
-        d.projects?.length > 0 && `${d.projects.length} Projects`,
-        d.certifications?.length > 0 && `${d.certifications.length} Certifications`,
-      ].filter(Boolean);
-
-      toast.success(`✅ Extracted: ${fieldsFound.join(', ')}`);
-      setFlowState('TEMPLATES');
-
-    } catch (err) {
-      console.error('[Resume Upload Error]', err);
-      toast.error('Could not extract data: ' + err.message + '. Please fill manually.');
-      setFlowState('TEMPLATES'); // still move forward
-    } finally {
-      setIsExtracting(false);
-      setExtractStatus('Reading file...');
-    }
-  };
-
   if (loading) return <div className="min-h-screen flex items-center justify-center bg-white"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div></div>;
   if (!user) return null;
 
@@ -260,57 +187,28 @@ export default function ResumePage() {
                    className="h-full overflow-y-auto p-6 md:p-12 lg:p-16 flex flex-col items-center justify-center bg-[#fdfdff]"
                  >
                     <div className="max-w-2xl w-full text-center mb-12">
-                       <h3 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tighter uppercase italic leading-tight mb-4">How would you like to <span className="text-primary">start?</span></h3>
-                       <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px] md:text-xs max-w-xl mx-auto">Upload an existing resume to autofill details or start fresh with our step-by-step builder.</p>
+                       <h3 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tighter uppercase italic leading-tight mb-4">Start Your <span className="text-primary">Resume</span></h3>
+                       <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px] md:text-xs max-w-xl mx-auto">Follow our simple step-by-step process to build a professional, placement-ready resume.</p>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row gap-6 w-full max-w-3xl">
-                       <input type="file" accept=".pdf,.doc,.docx" className="hidden" ref={fileInputRef} onChange={handleFileUpload} />
-                       
-                       <motion.button 
-                         whileHover={{ y: -5 }}
-                         whileTap={{ scale: 0.98 }}
-                         onClick={() => fileInputRef.current?.click()}
-                         className="flex-1 bg-white border-2 border-slate-200 hover:border-primary rounded-3xl p-8 flex flex-col items-center text-center transition-all group shadow-sm hover:shadow-xl hover:shadow-primary/10 relative overflow-hidden"
-                       >
-                          {isExtracting ? (
-                            <div className="flex flex-col items-center justify-center py-6">
-                               <div className="w-12 h-12 border-4 border-slate-100 border-t-primary rounded-full animate-spin mb-4"></div>
-                               <h4 className="text-sm font-black text-slate-900 uppercase tracking-widest">Extracting Details...</h4>
-                               <p className="text-[10px] font-bold text-primary uppercase tracking-widest mt-2">{extractStatus}</p>
-                            </div>
-                          ) : (
-                            <React.Fragment>
-                              <div className="w-16 h-16 bg-primary/10 text-primary rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                                 <span className="material-symbols-outlined text-3xl">upload_file</span>
-                              </div>
-                              <h4 className="text-lg font-black text-slate-900 uppercase tracking-tight mb-2">Upload Existing Resume</h4>
-                              <p className="text-xs font-medium text-slate-500 leading-relaxed max-w-xs mx-auto">Upload your current PDF or DOCX resume. We'll automatically extract your details and autofill the sections.</p>
-                              
-                              <div className="mt-8 px-6 py-2.5 bg-slate-50 text-slate-600 rounded-full text-[10px] font-black uppercase tracking-widest group-hover:bg-primary group-hover:text-white transition-colors">
-                                 Select File
-                              </div>
-                            </React.Fragment>
-                          )}
-                       </motion.button>
-
-                       <motion.button 
-                         whileHover={{ y: -5 }}
-                         whileTap={{ scale: 0.98 }}
-                         onClick={() => setFlowState('TEMPLATES')}
-                         className="flex-1 bg-primary border-2 border-primary rounded-3xl p-8 flex flex-col items-center text-center transition-all shadow-xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30 relative overflow-hidden group"
-                       >
-                          <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors"></div>
-                          <div className="w-16 h-16 bg-white/20 text-white rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                             <span className="material-symbols-outlined text-3xl">edit_document</span>
-                          </div>
-                          <h4 className="text-lg font-black text-white uppercase tracking-tight mb-2">Start From Scratch</h4>
-                          <p className="text-xs font-medium text-white/80 leading-relaxed max-w-xs mx-auto">Follow our simple step-by-step process to build a professional, placement-ready resume from zero.</p>
-                          
-                          <div className="mt-8 px-6 py-2.5 bg-white text-primary rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg">
-                             Create New
-                          </div>
-                       </motion.button>
+                    <div className="flex justify-center w-full max-w-xl">
+                        <motion.button 
+                          whileHover={{ y: -5, scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          onClick={() => setFlowState('TEMPLATES')}
+                          className="w-full bg-primary border-2 border-primary rounded-[2.5rem] p-10 md:p-16 flex flex-col items-center text-center transition-all shadow-2xl shadow-primary/30 relative overflow-hidden group"
+                        >
+                           <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors"></div>
+                           <div className="w-20 h-20 bg-white/20 text-white rounded-3xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform shadow-inner">
+                              <span className="material-symbols-outlined text-4xl">edit_document</span>
+                           </div>
+                           <h4 className="text-2xl font-black text-white uppercase tracking-tight mb-3">Build From Scratch</h4>
+                           <p className="text-sm font-medium text-white/80 leading-relaxed max-w-xs mx-auto mb-10">Select a premium template and fill in your details step-by-step for the best results.</p>
+                           
+                           <div className="px-10 py-4 bg-white text-primary rounded-2xl text-[12px] font-black uppercase tracking-[0.2em] shadow-xl group-hover:bg-indigo-50 transition-colors flex items-center gap-2">
+                              Start Building <span className="material-symbols-outlined text-lg">arrow_forward</span>
+                           </div>
+                        </motion.button>
                     </div>
                  </motion.div>
               )}
@@ -370,7 +268,6 @@ export default function ResumePage() {
            </AnimatePresence>
         </div>
       </main>
-      
     </div>
   );
 }
