@@ -488,7 +488,12 @@ export default function Dashboard() {
         )}
 
         {activeTab === 'Materials' && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-8">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-8 relative min-h-[60vh]">
+            <div className="absolute inset-0 z-0 opacity-10 pointer-events-none rounded-[3rem] overflow-hidden">
+              <img src="/materials_bg.png" alt="" className="w-full h-full object-cover blur-[2px]" />
+              <div className="absolute inset-0 bg-gradient-to-b from-white/50 to-white"></div>
+            </div>
+            <div className="relative z-10 space-y-8">
             {/* Materials Header - PREMIUM */}
             <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 py-4 px-2 text-center md:text-left">
                <div className="w-full lg:w-auto">
@@ -555,8 +560,7 @@ export default function Dashboard() {
                  <p className="text-[12px] font-bold text-slate-400 uppercase tracking-widest">No study materials available for your internship domain yet.</p>
               </div>
             )}
-
-            {/* Course Viewer is now moved outside for global access */}
+            </div>
           </motion.div>
         )}
 
@@ -577,8 +581,6 @@ export default function Dashboard() {
                 });
               }}
             />
-
-            {/* No projects empty state or logic can go here if needed */}
           </motion.div>
         )}
 
@@ -767,7 +769,12 @@ export default function Dashboard() {
         )}
 
         {activeTab === 'Job Hunting' && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-12 max-w-6xl mx-auto py-6 md:py-10 px-2 md:px-0">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-12 max-w-6xl mx-auto py-6 md:py-10 px-2 md:px-0 relative min-h-[60vh]">
+             <div className="absolute inset-0 z-0 opacity-10 pointer-events-none rounded-[3rem] overflow-hidden">
+               <img src="/job_hunting_bg.png" alt="" className="w-full h-full object-cover blur-[2px]" />
+               <div className="absolute inset-0 bg-gradient-to-b from-white/50 to-white"></div>
+             </div>
+             <div className="relative z-10 space-y-12">
              
              {/* Header Section */}
              <div className="text-center space-y-4 px-4 mb-10">
@@ -818,7 +825,7 @@ export default function Dashboard() {
                    </motion.div>
                 ))}
              </div>
-
+             </div>
           </motion.div>
         )}
 
@@ -843,7 +850,12 @@ export default function Dashboard() {
           </motion.div>
         )}
          {activeTab === 'LinkedIn Profile' && (
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-8 max-w-4xl mx-auto px-2 md:px-0">
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-8 max-w-4xl mx-auto px-2 md:px-0 relative min-h-[60vh]">
+            <div className="absolute inset-0 z-0 opacity-[0.15] pointer-events-none rounded-[3rem] overflow-hidden">
+              <img src="/linkedin_profile_bg.png" alt="" className="w-full h-full object-cover blur-[1px]" />
+              <div className="absolute inset-0 bg-gradient-to-b from-white/60 to-white"></div>
+            </div>
+            <div className="relative z-10 space-y-8">
             {/* LinkedIn Header */}
             <div className="flex flex-col items-center text-center space-y-4 py-6 md:py-8">
                <div className="w-14 h-14 md:w-16 md:h-16 bg-[#0077b5] text-white rounded-2xl md:rounded-[1.5rem] flex items-center justify-center shadow-xl shadow-blue-200/50 border-4 border-white">
@@ -899,6 +911,7 @@ export default function Dashboard() {
                     <p className="text-[11px] text-slate-400 font-medium leading-relaxed">{card.desc}</p>
                  </div>
                ))}
+            </div>
             </div>
           </motion.div>
         )}
