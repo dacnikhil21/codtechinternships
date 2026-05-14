@@ -1,6 +1,6 @@
 // scripts/make-admin.js
-// Utility to promote a user to admin role via CLI
-const mysql = require('mysql2/promise');
+// Utility to promote a user to admin role via CLI (ESM Version)
+import mysql from 'mysql2/promise';
 
 async function makeAdmin(email) {
   if (!email) {
