@@ -44,23 +44,25 @@ function RegisterForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const password = e.target.password.value;
-    const confirmPassword = e.target.confirmPassword.value;
+    const formData = new FormData(e.currentTarget);
+    const fullNameValue = formData.get('fullName');
+    const emailValue = formData.get('email').toLowerCase().trim();
+    const passwordValue = formData.get('password');
+    const confirmPasswordValue = formData.get('confirmPassword');
 
-    if (password !== confirmPassword) {
+    if (passwordValue !== confirmPasswordValue) {
       toast.error('Passwords do not match');
       return;
     }
 
-    // Strict Email Format Validation
-    const emailLower = email.toLowerCase().trim();
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(emailLower)) {
-      toast.error('Please enter a valid email address');
+    // Strictest Email Format Validation
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(emailValue)) {
+      toast.error('Please enter a valid email address (e.g., name@domain.com)');
       return;
     }
 
-    const domain = emailLower.split('@')[1];
+    const domain = emailValue.split('@')[1];
     if (TYPO_DOMAINS.includes(domain)) {
       toast.error(`"${domain}" looks like a typo. Please check.`);
       return;
@@ -73,9 +75,9 @@ function RegisterForm() {
 
     setLoading(true);
     const payload = {
-      name: fullName,
-      email: emailLower,
-      password,
+      name: fullNameValue,
+      email: emailValue,
+      password: passwordValue,
       course: selectedCourse
     };
 

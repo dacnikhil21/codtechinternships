@@ -12,6 +12,10 @@ export async function POST(req) {
     }
 
     const cleanEmail = email.toLowerCase().trim();
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(cleanEmail)) {
+      return NextResponse.json({ success: false, message: 'Invalid email format. Please enter a valid email address.' }, { status: 400 });
+    }
 
     // Check if user already exists
     const [existing] = await pool.execute(

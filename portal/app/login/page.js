@@ -20,11 +20,11 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Strict Email Format Validation
+    // Strictest Email Format Validation
     const emailLower = email.toLowerCase().trim();
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(emailLower)) {
-      toast.error('Please enter a valid email address');
+      toast.error('Please enter a valid email address (e.g., name@domain.com)');
       return;
     }
 

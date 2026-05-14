@@ -12,7 +12,7 @@ export default function ResumePage() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [flowState, setFlowState] = useState('START'); // 'START', 'TEMPLATES', 'BUILDER'
+  const [flowState, setFlowState] = useState('TEMPLATES'); // 'TEMPLATES', 'BUILDER'
 
   // Form and template state
   const [selectedTemplateId, setSelectedTemplateId] = useState('ats-jake');
@@ -178,42 +178,7 @@ export default function ResumePage() {
         {/* Step-based Content */}
         <div className="flex-1 overflow-hidden relative">
            <AnimatePresence mode="wait">
-              {flowState === 'START' && (
-                 <motion.div 
-                   key="start"
-                   initial={{ opacity: 0, scale: 0.95 }}
-                   animate={{ opacity: 1, scale: 1 }}
-                   exit={{ opacity: 0, scale: 1.05 }}
-                   className="h-full overflow-y-auto p-6 md:p-12 lg:p-16 flex flex-col items-center justify-center bg-[#fdfdff]"
-                 >
-                    <div className="max-w-2xl w-full text-center mb-12">
-                       <h3 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tighter uppercase italic leading-tight mb-4">Start Your <span className="text-primary">Resume</span></h3>
-                       <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px] md:text-xs max-w-xl mx-auto">Follow our simple step-by-step process to build a professional, placement-ready resume.</p>
-                    </div>
-
-                    <div className="flex justify-center w-full max-w-xl">
-                        <motion.button 
-                          whileHover={{ y: -5, scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
-                          onClick={() => setFlowState('TEMPLATES')}
-                          className="w-full bg-primary border-2 border-primary rounded-[2.5rem] p-10 md:p-16 flex flex-col items-center text-center transition-all shadow-2xl shadow-primary/30 relative overflow-hidden group"
-                        >
-                           <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors"></div>
-                           <div className="w-20 h-20 bg-white/20 text-white rounded-3xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform shadow-inner">
-                              <span className="material-symbols-outlined text-4xl">edit_document</span>
-                           </div>
-                           <h4 className="text-2xl font-black text-white uppercase tracking-tight mb-3">Build From Scratch</h4>
-                           <p className="text-sm font-medium text-white/80 leading-relaxed max-w-xs mx-auto mb-10">Select a premium template and fill in your details step-by-step for the best results.</p>
-                           
-                           <div className="px-10 py-4 bg-white text-primary rounded-2xl text-[12px] font-black uppercase tracking-[0.2em] shadow-xl group-hover:bg-indigo-50 transition-colors flex items-center gap-2">
-                              Start Building <span className="material-symbols-outlined text-lg">arrow_forward</span>
-                           </div>
-                        </motion.button>
-                    </div>
-                 </motion.div>
-              )}
-
-              {flowState === 'TEMPLATES' && (
+               {flowState === 'TEMPLATES' && (
                  <motion.div 
                    key="selection"
                    initial={{ opacity: 0, x: -20 }}
