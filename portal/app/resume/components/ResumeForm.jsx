@@ -520,28 +520,13 @@ export default function ResumeForm({ user, formData, setFormData, setFlowState }
   return (
     <div className="flex flex-col h-full bg-white relative">
       
-      {/* Top Progress Sidebar for Desktop / Steps indicator for Mobile */}
-      <div className="mb-8 px-6 md:px-8 mt-4">
-        {/* Mobile View: Simple progress */}
-        <div className="lg:hidden flex justify-between items-center bg-slate-50 border border-slate-200 rounded-2xl p-4">
-           <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-black shadow-lg shadow-primary/20">
-                 {currentStep}
-              </div>
-              <div>
-                 <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Step {currentStep} of {STEPS.length}</h4>
-                 <h3 className="text-sm font-black text-slate-900 uppercase tracking-tight">{STEPS[currentStep-1].title}</h3>
-              </div>
-           </div>
-        </div>
-
-        {/* Desktop View: Interactive Steps */}
-        <div className="hidden lg:flex overflow-x-auto gap-2 pb-2 custom-scrollbar">
+      <div className="mb-6 px-6 md:px-8 mt-4">
+        <div className="flex overflow-x-auto gap-2 pb-2 custom-scrollbar -mx-2 px-2 md:-mx-4 md:px-4">
            {STEPS.map((step) => (
              <button 
                key={step.id}
                onClick={() => setCurrentStep(step.id)}
-               className={`flex-shrink-0 px-4 py-2.5 rounded-xl border flex items-center gap-2 transition-all font-bold text-[11px] uppercase tracking-widest ${
+               className={`shrink-0 px-4 py-2.5 rounded-xl border flex items-center gap-2 transition-all font-bold text-[11px] uppercase tracking-widest ${
                  currentStep === step.id 
                  ? 'bg-primary border-primary text-white shadow-lg shadow-primary/20' 
                  : currentStep > step.id 

@@ -177,8 +177,8 @@ export default function ResumePage() {
                 <span className="material-symbols-outlined">menu</span>
              </button>
              <div className="flex items-center gap-3">
-               <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
-               <h2 className="text-[10px] md:text-xs font-black text-slate-900 tracking-tight uppercase italic">Placement-Ready <span className="text-primary">Resume Builder</span></h2>
+               <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
+               <h2 className="hidden sm:block text-[10px] md:text-xs font-black text-slate-900 tracking-tight uppercase italic">Placement-Ready <span className="text-primary">Resume Builder</span></h2>
              </div>
           </div>
           
@@ -291,15 +291,15 @@ export default function ResumePage() {
               )}
 
               {flowState === 'BUILDER' && (
-                 <motion.div 
-                   key="builder"
-                   initial={{ opacity: 0, x: 20 }}
-                   animate={{ opacity: 1, x: 0 }}
-                   exit={{ opacity: 0, x: -20 }}
-                   className="h-full flex flex-col lg:flex-row overflow-hidden"
-                 >
+                  <motion.div 
+                    key="builder"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    className="flex flex-col lg:flex-row overflow-y-auto lg:overflow-hidden min-h-screen"
+                  >
                     {/* Left: Editor */}
-                    <div className="w-full lg:w-[450px] xl:w-[500px] border-r border-slate-200 bg-white flex flex-col p-0">
+                    <div className="w-full lg:w-[450px] xl:w-[500px] border-r border-slate-200 bg-white flex flex-col p-0 lg:h-full lg:overflow-hidden shrink-0">
                        <div className="flex items-center justify-between p-6 md:p-8 pb-0 shrink-0 mb-4">
                           <div className="flex items-center gap-3">
                              <div className="w-9 h-9 bg-primary/10 text-primary rounded-xl flex items-center justify-center border border-primary/20">
@@ -313,17 +313,17 @@ export default function ResumePage() {
                           <ATSScore formData={formData} selectedTemplateId={selectedTemplateId} />
                        </div>
                        
-                       <div className="flex-1 overflow-hidden relative">
+                       <div className="flex-1 lg:overflow-hidden relative flex flex-col">
                           <ResumeForm user={user} formData={formData} setFormData={setFormData} />
                        </div>
                        
-                       <div className="hidden lg:block shrink-0 bg-white/95 backdrop-blur-md pt-4 pb-4 px-6 md:px-8 border-t border-slate-100 shadow-[0_-10px_20px_rgba(0,0,0,0.02)] z-10">
+                       <div className="shrink-0 bg-white/95 backdrop-blur-md pt-4 pb-4 px-6 md:px-8 border-t border-slate-100 shadow-[0_-10px_20px_rgba(0,0,0,0.02)] z-10 hidden lg:block">
                           <DownloadButton formData={formData} selectedTemplateId={selectedTemplateId} />
                        </div>
                     </div>
 
                     {/* Right: Preview */}
-                    <div className="flex-1 bg-slate-50/50 overflow-y-auto overflow-x-hidden p-4 md:p-12 lg:p-16 flex flex-col items-center custom-scrollbar pb-32 lg:pb-16 w-full">
+                    <div className="flex-1 bg-slate-50/50 overflow-y-auto p-4 md:p-12 lg:p-16 flex flex-col items-center custom-scrollbar pb-16 w-full lg:h-full">
                        <div className="lg:hidden w-full mb-8 flex justify-center">
                           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-full shadow-sm">
                              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
@@ -340,21 +340,12 @@ export default function ResumePage() {
                              <ResumePreview formData={formData} selectedTemplateId={selectedTemplateId} />
                           </motion.div>
                        </div>
-                    </div>
-
-                    {/* Mobile Floating Actions */}
-                    <div className="lg:hidden fixed bottom-0 left-0 right-0 p-4 bg-white/80 backdrop-blur-xl border-t border-slate-200 z-[80] flex gap-3">
-                       <button 
-                         onClick={() => setFlowState('TEMPLATES')}
-                         className="w-12 h-12 flex items-center justify-center rounded-xl bg-slate-100 text-slate-600 border border-slate-200 shadow-sm"
-                       >
-                          <span className="material-symbols-outlined">style</span>
-                       </button>
-                       <div className="flex-1">
+                       
+                       <div className="lg:hidden mt-8 w-full">
                           <DownloadButton formData={formData} selectedTemplateId={selectedTemplateId} />
                        </div>
                     </div>
-                 </motion.div>
+                  </motion.div>
               )}
            </AnimatePresence>
         </div>
