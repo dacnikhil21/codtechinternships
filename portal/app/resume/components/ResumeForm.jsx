@@ -556,7 +556,7 @@ export default function ResumeForm({ user, formData, setFormData, setFlowState }
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto overflow-x-hidden pb-32 px-6 md:px-8 custom-scrollbar">
+      <div className="flex-1 overflow-y-auto overflow-x-hidden p-6 md:p-8 custom-scrollbar">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentStep}
@@ -571,7 +571,7 @@ export default function ResumeForm({ user, formData, setFormData, setFlowState }
       </div>
 
       {/* Sticky Bottom Navigation */}
-      <div className="absolute bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-slate-200 p-4 px-6 md:px-8 flex items-center justify-between z-10 shadow-[0_-10px_20px_rgba(0,0,0,0.02)]">
+      <div className="shrink-0 bg-white/90 backdrop-blur-md border-t border-slate-200 p-4 px-6 md:px-8 flex items-center justify-between z-10">
         <button 
           onClick={prevStep} 
           disabled={currentStep === 1}
