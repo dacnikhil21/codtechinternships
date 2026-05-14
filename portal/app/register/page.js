@@ -6,6 +6,12 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
 
+const TYPO_DOMAINS = [
+  'gm6ail.com', 'gmaiil.com', 'gmal.com', 'yaho.co', 'yahu.com', 'outlook.con',
+  'gmil.com', 'gmale.com', 'gnail.com', 'gmaill.com', 'gmaik.com', 'gmai.com',
+  'gweifmail.com', 'gmil.co', 'gmeil.com'
+];
+
 const DOMAINS = [
   "React.js Web Development Intern", "Mern Stack Web Development Intern", ".Net Web Development Intern",
   "Figma Web Development Intern", "Figma App Development Intern", "Full Stack Web Development Intern",
@@ -24,6 +30,12 @@ function RegisterForm() {
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState("");
+  
+  // Controlled States to prevent auto-fill and ensure empty initialization
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   useEffect(() => {
     const course = searchParams.get('course');
@@ -40,6 +52,15 @@ function RegisterForm() {
       return;
     }
 
+    // Strict Email Validation
+    const emailLower = email.toLowerCase().trim();
+    const domain = emailLower.split('@')[1];
+    
+    if (TYPO_DOMAINS.includes(domain) || !domain.includes('.')) {
+      toast.error(`"${domain || 'Email'}" looks invalid or has a typo. Please check.`);
+      return;
+    }
+
     if (!selectedCourse) {
       toast.error('Please select an internship domain');
       return;
@@ -47,8 +68,8 @@ function RegisterForm() {
 
     setLoading(true);
     const payload = {
-      name: e.target.fullName.value,
-      email: e.target.email.value,
+      name: fullName,
+      email: emailLower,
       password,
       course: selectedCourse
     };
@@ -123,14 +144,34 @@ function RegisterForm() {
                 <label className="text-[9px] font-black text-slate-500 uppercase tracking-[0.3em] mb-2 block ml-1" htmlFor="fullName">Full Name</label>
                 <div className="relative">
                   <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-indigo-400 transition-colors text-lg">person</span>
-                  <input className="w-full pl-12 pr-4 py-4 rounded-2xl outline-none text-white placeholder:text-slate-700 bg-white/5 border border-white/5 focus:border-indigo-500/50 focus:bg-white/[0.08] transition-all duration-300 font-medium text-sm" id="fullName" required placeholder="Alexander Pierce" type="text" name="fullName"/>
+                  <input 
+                    className="w-full pl-12 pr-4 py-4 rounded-2xl outline-none text-white placeholder:text-slate-700 bg-white/5 border border-white/5 focus:border-indigo-500/50 focus:bg-white/[0.08] transition-all duration-300 font-medium text-sm" 
+                    id="fullName" 
+                    required 
+                    placeholder="Alexander Pierce" 
+                    type="text" 
+                    name="fullName"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    autoComplete="off"
+                  />
                 </div>
               </div>
               <div className="group">
                 <label className="text-[9px] font-black text-slate-500 uppercase tracking-[0.3em] mb-2 block ml-1" htmlFor="email">Email</label>
                 <div className="relative">
                   <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-indigo-400 transition-colors text-lg">mail</span>
-                  <input className="w-full pl-12 pr-4 py-4 rounded-2xl outline-none text-white placeholder:text-slate-700 bg-white/5 border border-white/5 focus:border-indigo-500/50 focus:bg-white/[0.08] transition-all duration-300 font-medium text-sm" id="email" required placeholder="alex@codtech.edu" type="email" name="email"/>
+                  <input 
+                    className="w-full pl-12 pr-4 py-4 rounded-2xl outline-none text-white placeholder:text-slate-700 bg-white/5 border border-white/5 focus:border-indigo-500/50 focus:bg-white/[0.08] transition-all duration-300 font-medium text-sm" 
+                    id="email" 
+                    required 
+                    placeholder="alex@codtech.edu" 
+                    type="email" 
+                    name="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    autoComplete="off"
+                  />
                 </div>
               </div>
             </div>
@@ -159,14 +200,36 @@ function RegisterForm() {
                 <label className="text-[9px] font-black text-slate-500 uppercase tracking-[0.3em] mb-2 block ml-1" htmlFor="password">Security</label>
                 <div className="relative">
                   <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-indigo-400 transition-colors text-lg">lock</span>
-                  <input className="w-full pl-12 pr-4 py-4 rounded-2xl outline-none text-white placeholder:text-slate-700 bg-white/5 border border-white/5 focus:border-indigo-500/50 focus:bg-white/[0.08] transition-all duration-300 font-medium text-sm" id="password" required placeholder="••••••••" type="password" minLength="6" name="password"/>
+                  <input 
+                    className="w-full pl-12 pr-4 py-4 rounded-2xl outline-none text-white placeholder:text-slate-700 bg-white/5 border border-white/5 focus:border-indigo-500/50 focus:bg-white/[0.08] transition-all duration-300 font-medium text-sm" 
+                    id="password" 
+                    required 
+                    placeholder="••••••••" 
+                    type="password" 
+                    minLength="6" 
+                    name="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    autoComplete="new-password"
+                  />
                 </div>
               </div>
               <div className="group">
                 <label className="text-[9px] font-black text-slate-500 uppercase tracking-[0.3em] mb-2 block ml-1" htmlFor="confirmPassword">Verify</label>
                 <div className="relative">
                   <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-indigo-400 transition-colors text-lg">lock_reset</span>
-                  <input className="w-full pl-12 pr-4 py-4 rounded-2xl outline-none text-white placeholder:text-slate-700 bg-white/5 border border-white/5 focus:border-indigo-500/50 focus:bg-white/[0.08] transition-all duration-300 font-medium text-sm" id="confirmPassword" required placeholder="••••••••" type="password" minLength="6" name="confirmPassword"/>
+                  <input 
+                    className="w-full pl-12 pr-4 py-4 rounded-2xl outline-none text-white placeholder:text-slate-700 bg-white/5 border border-white/5 focus:border-indigo-500/50 focus:bg-white/[0.08] transition-all duration-300 font-medium text-sm" 
+                    id="confirmPassword" 
+                    required 
+                    placeholder="••••••••" 
+                    type="password" 
+                    minLength="6" 
+                    name="confirmPassword"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    autoComplete="new-password"
+                  />
                 </div>
               </div>
             </div>
