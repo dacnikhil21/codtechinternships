@@ -253,6 +253,7 @@ export default function Dashboard() {
             { name: 'Job Hunting', icon: 'work' },
             { name: 'Resume Builder', icon: 'description', path: '/resume' },
             { name: 'LinkedIn Profile', icon: 'person_search' },
+            ...(user?.role === 'admin' ? [{ name: 'Admin Panel', icon: 'admin_panel_settings', path: '/admin' }] : []),
           ].map((item) => (
             <button 
               key={item.name} 
