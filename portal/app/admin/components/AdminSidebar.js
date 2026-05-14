@@ -43,7 +43,19 @@ export default function AdminSidebar({ currentTab, onTabChange }) {
 
       <div className="p-6 border-t border-white/5">
         <button 
-          onClick={() => router.push('/dashboard')}
+          onClick={async () => {
+            try {
+              const res = await fetch('/api/auth/me');
+              const data = await res.json();
+              if (data.success) {
+                router.push('/dashboard');
+              } else {
+                router.push('/login?error=session_expired');
+              }
+            } catch (e) {
+              router.push('/login?error=session_expired');
+            }
+          }}
           className="w-full py-4 rounded-xl border border-white/10 text-[10px] font-black text-slate-500 hover:text-white hover:border-white/20 transition-all uppercase tracking-widest flex items-center justify-center gap-2"
         >
           <span className="material-symbols-outlined text-sm">arrow_back</span>

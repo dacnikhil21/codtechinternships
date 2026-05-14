@@ -151,14 +151,15 @@ export default function Dashboard() {
           }
           
         } else {
-          router.push('/login');
+          toast.error('Session expired. Please login again.', { id: 'session-expired' });
+          router.push('/login?error=session_expired');
           return;
         }
 
         if (tasksData.success) setTasks(tasksData.data);
       } catch (err) {
-        toast.error('Failed to load session');
-        router.push('/login');
+        toast.error('Failed to load session. Please login again.');
+        router.push('/login?error=session_expired');
       } finally {
         setLoading(false);
       }

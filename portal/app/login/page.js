@@ -1,7 +1,7 @@
 'use client';
 import '../globals.css';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useEffect, useState, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import toast, { Toaster } from 'react-hot-toast';
@@ -11,11 +11,24 @@ const TYPO_DOMAINS = [
   'gmil.com', 'gmale.com', 'gnail.com', 'gmaill.com', 'gmaik.com', 'gmai.com'
 ];
 
-export default function Login() {
+function LoginContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    const error = searchParams.get('error');
+    if (error === 'session_expired') {
+      toast.error('Session expired. Please login again.', {
+        id: 'session-expired',
+        duration: 5000,
+      });
+      // Clean up URL
+      router.replace('/login');
+    }
+  }, [searchParams, router]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -159,6 +172,14 @@ export default function Login() {
           </motion.div>
         </section>
       </div>
-    </div>
+  );
+}
+
+export default function Login() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-slate-950 flex items-center justify-center text-white font-black uppercase tracking-widest">Initialising Connection...</div>}>
+      <LoginContent />
+      <Toaster position="top-center" />
+    </Suspense>
   );
 }
