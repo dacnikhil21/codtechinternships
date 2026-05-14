@@ -451,15 +451,16 @@ export default function Dashboard() {
                   </div>
                </div>
 
-               {/* URGENT IMPORTANT NOTE */}
-               <div className="bg-red-50 border border-red-200 rounded-2xl p-4 md:p-5 flex items-start gap-4 relative overflow-hidden">
-                  <div className="w-10 h-10 bg-red-500 text-white rounded-xl flex items-center justify-center shrink-0 shadow-md shadow-red-200">
-                     <span className="material-symbols-outlined text-xl">priority_high</span>
+               {/* 📘 IMPORTANT PROJECT GUIDANCE */}
+               <div className="bg-indigo-50 border border-indigo-100 rounded-2xl p-4 md:p-5 flex items-start gap-4 relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 rounded-full blur-2xl pointer-events-none"></div>
+                  <div className="w-10 h-10 bg-indigo-600 text-white rounded-xl flex items-center justify-center shrink-0 shadow-md shadow-indigo-100/50">
+                     <span className="material-symbols-outlined text-xl">info</span>
                   </div>
-                  <div className="flex-1">
-                     <h4 className="text-[13px] font-black text-red-700 uppercase tracking-tight mb-1 flex items-center gap-2">🚨 Important Project Note <span className="px-2 py-0.5 rounded-full bg-red-500 text-white text-[8px] tracking-widest font-black uppercase">Must Read</span></h4>
-                     <p className="text-[12px] md:text-[13px] text-red-800 font-semibold leading-relaxed">
-                        We have just provided the <span className="font-black underline underline-offset-2">title of the project</span>. The complete development approach is up to you — whether you build it as a <span className="font-black">basic, intermediate, or advanced-level project</span>, everything is acceptable.
+                  <div className="flex-1 relative z-10">
+                     <h4 className="text-[13px] font-black text-indigo-900 uppercase tracking-tight mb-1 flex items-center gap-2">📋 Important Project Note <span className="px-2 py-0.5 rounded-full bg-indigo-600 text-white text-[8px] tracking-widest font-black uppercase">Guidance</span></h4>
+                     <p className="text-[12px] md:text-[13px] text-indigo-800/90 font-semibold leading-relaxed">
+                        We have just provided the <span className="font-black underline underline-offset-2 decoration-indigo-300">title of the project</span>. The complete development approach is up to you — whether you build it as a <span className="font-black">basic, intermediate, or advanced-level project</span>, everything is acceptable.
                      </p>
                   </div>
                </div>
