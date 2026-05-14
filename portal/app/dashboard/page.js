@@ -488,30 +488,35 @@ export default function Dashboard() {
         )}
 
         {activeTab === 'Materials' && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-8 relative min-h-[70vh] rounded-[3rem] overflow-hidden">
-            <div className="absolute inset-0 z-0 opacity-25 pointer-events-none">
-              <img src="/materials_bg.png" alt="" className="w-full h-full object-cover blur-[1px]" />
-              <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-transparent to-white"></div>
-            </div>
-            
-            <div className="relative z-10 space-y-8 p-4 md:p-8">
-            {/* Materials Header - PREMIUM */}
-            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 py-4 px-2 text-center md:text-left">
-               <div className="w-full lg:w-auto">
-                  <div className="flex items-center justify-center md:justify-start gap-2 mb-2">
-                     <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></div>
-                     <span className="text-[9px] font-black text-red-500 uppercase tracking-[0.4em]">Official Resources</span>
-                  </div>
-                  <h3 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tighter uppercase leading-tight italic italic-shorthand">Learning <span className="text-red-500">Materials</span></h3>
-                  <p className="text-[13px] md:text-[14px] text-slate-400 font-medium mt-3 max-w-lg mx-auto md:mx-0">Curated study materials for your {user?.course} internship.</p>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-8 min-h-[70vh]">
+            {/* Materials Header - BANNER */}
+            <div className="relative w-full min-h-[200px] md:min-h-[240px] rounded-[2rem] overflow-hidden flex flex-col justify-center p-6 md:p-10 shadow-sm border border-slate-100/50 mb-8 mt-2">
+               {/* Banner Background */}
+               <div className="absolute inset-0 z-0 pointer-events-none">
+                  <img src="/materials_header_banner.png" alt="" className="w-full h-full object-cover" />
+                  {/* Overlay to ensure text readability on the left */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/70 to-transparent"></div>
                </div>
-               <div className="w-full lg:w-auto flex items-center justify-center gap-6 bg-white p-6 rounded-3xl border border-slate-100 shadow-xl shadow-red-100/10">
-                  <div className="text-center">
-                     <p className="text-[9px] font-black text-slate-300 uppercase tracking-widest mb-1">Available PDFs</p>
-                     <p className="text-2xl font-black text-slate-900 tracking-tighter">{materials.length}</p>
+               
+               <div className="relative z-10 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 w-full">
+                  <div className="w-full lg:w-auto text-left">
+                     <div className="flex items-center justify-start gap-2 mb-2">
+                        <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></div>
+                        <span className="text-[9px] font-black text-red-600 uppercase tracking-[0.4em]">Official Resources</span>
+                     </div>
+                     <h3 className="text-2xl md:text-4xl font-black text-slate-900 tracking-tighter uppercase leading-tight italic">Materials & <span className="text-red-500">Resources</span></h3>
+                     <p className="text-[12px] md:text-[14px] text-slate-700 font-medium mt-2 max-w-sm md:max-w-md">Curated study materials for your {user?.course} internship.</p>
+                  </div>
+                  <div className="w-full lg:w-auto flex items-center justify-center gap-6 bg-white/60 backdrop-blur-md p-5 md:p-6 rounded-3xl border border-white/50 shadow-xl shadow-red-100/20">
+                     <div className="text-center">
+                        <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-1">Available PDFs</p>
+                        <p className="text-2xl font-black text-slate-900 tracking-tighter">{materials.length}</p>
+                     </div>
                   </div>
                </div>
             </div>
+
+            <div className="relative z-10 space-y-8 px-4 md:px-0">
 
             {/* PDF Cards Grid - COMPACT PREMIUM */}
             {materials.length > 0 ? (
@@ -750,12 +755,8 @@ export default function Dashboard() {
         )}
 
         {activeTab === 'Job Hunting' && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-12 max-w-6xl mx-auto py-6 md:py-10 px-2 md:px-0 relative min-h-[60vh]">
-             <div className="absolute inset-0 z-0 opacity-10 pointer-events-none rounded-[3rem] overflow-hidden">
-               <img src="/job_hunting_bg.png" alt="" className="w-full h-full object-cover blur-[2px]" />
-               <div className="absolute inset-0 bg-gradient-to-b from-white/50 to-white"></div>
-             </div>
-             <div className="relative z-10 space-y-12">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-12 max-w-6xl mx-auto py-6 md:py-10 px-2 md:px-0 min-h-[60vh]">
+             <div className="space-y-12">
              
              {/* Header Section */}
              <div className="text-center space-y-4 px-4 mb-10">
@@ -831,23 +832,28 @@ export default function Dashboard() {
           </motion.div>
         )}
          {activeTab === 'LinkedIn Profile' && (
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-8 max-w-5xl mx-auto px-2 md:px-0 relative min-h-[70vh] rounded-[3rem] overflow-hidden">
-            <div className="absolute inset-0 z-0 opacity-30 pointer-events-none">
-              <img src="/linkedin_profile_bg.png" alt="" className="w-full h-full object-cover blur-[1px]" />
-              <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-transparent to-white"></div>
-            </div>
-            <div className="relative z-10 space-y-8 p-4 md:p-8">
-            {/* LinkedIn Header */}
-            <div className="flex flex-col items-center text-center space-y-4 py-6 md:py-8">
-               <div className="w-14 h-14 md:w-16 md:h-16 bg-[#0077b5] text-white rounded-2xl md:rounded-[1.5rem] flex items-center justify-center shadow-xl shadow-blue-200/50 border-4 border-white">
-                  <span className="material-symbols-outlined text-2xl md:text-3xl">person_search</span>
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-8 max-w-5xl mx-auto px-2 md:px-0 min-h-[70vh]">
+            
+            {/* LinkedIn Header BANNER */}
+            <div className="relative w-full min-h-[200px] md:min-h-[240px] rounded-[2rem] overflow-hidden flex flex-col justify-center shadow-sm border border-slate-100/50 p-6 md:p-10 mb-8 mt-2">
+               <div className="absolute inset-0 z-0 pointer-events-none">
+                  <img src="/linkedin_header_banner.png" alt="" className="w-full h-full object-cover" />
+                  {/* Overlay to ensure text readability on the left */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/80 to-transparent"></div>
                </div>
-               <div className="px-4">
-                  <h3 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tighter uppercase leading-tight italic">LinkedIn <span className="text-[#0077b5]">Optimization</span></h3>
-                  <p className="text-[13px] md:text-[14px] text-slate-400 font-medium mt-2">Transform your profile into an <span className="text-[#0077b5] font-bold underline underline-offset-4 decoration-2">opportunity magnet</span>.</p>
+               
+               <div className="relative z-10 flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-4 md:gap-6">
+                  <div className="w-14 h-14 md:w-16 md:h-16 bg-[#0077b5] text-white rounded-2xl md:rounded-[1.5rem] flex items-center justify-center shadow-xl shadow-blue-200/50 border-2 border-white/50 shrink-0">
+                     <span className="material-symbols-outlined text-2xl md:text-3xl">person_search</span>
+                  </div>
+                  <div className="max-w-md">
+                     <h3 className="text-2xl md:text-4xl font-black text-slate-900 tracking-tighter uppercase leading-tight italic">LinkedIn <span className="text-[#0077b5]">Optimization</span></h3>
+                     <p className="text-[12px] md:text-[14px] text-slate-700 font-medium mt-2">Transform your profile into an <span className="text-[#0077b5] font-bold underline underline-offset-4 decoration-2">opportunity magnet</span>.</p>
+                  </div>
                </div>
             </div>
 
+            <div className="space-y-8">
             {/* Video Container - PREMIUM */}
             <div className="bg-white rounded-[1.5rem] md:rounded-[2.5rem] border border-slate-200/60 shadow-2xl overflow-hidden group relative">
                <div className="p-4 md:p-6 border-b border-slate-100 flex flex-col md:flex-row items-center justify-between bg-slate-50/50 gap-3">
