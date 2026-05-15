@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import toast, { Toaster } from 'react-hot-toast';
 import AdminSidebar from './components/AdminSidebar';
+import ProjectManager from './components/ProjectManager';
 
 export default function AdminDashboard() {
   const router = useRouter();
@@ -215,6 +216,12 @@ export default function AdminDashboard() {
                   </tbody>
                 </table>
               </div>
+            </motion.div>
+          )}
+
+          {activeTab === 'projects' && (
+            <motion.div key="projects" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
+              <ProjectManager />
             </motion.div>
           )}
 

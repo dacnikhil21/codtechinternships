@@ -71,7 +71,13 @@ export async function GET() {
 
     // 2. Fetch projects for this domain only (30 projects)
     const [projects] = await pool.execute(
-      'SELECT id, name as title, description, difficulty as level FROM projects WHERE domain_id = ? ORDER BY id ASC',
+      `SELECT 
+        id, name as title, description, difficulty as level, 
+        technologies, duration, github_requirement, 
+        learning_outcome, project_scope, image_url, instructions 
+      FROM projects 
+      WHERE domain_id = ? 
+      ORDER BY id ASC`,
       [domainId]
     );
 

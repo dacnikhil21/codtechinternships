@@ -7,6 +7,7 @@ export default function AdminSidebar({ currentTab, onTabChange }) {
   const menuItems = [
     { name: 'Overview', icon: 'dashboard', id: 'overview' },
     { name: 'Students', icon: 'group', id: 'students' },
+    { name: 'Manage Projects', icon: 'assignment', id: 'projects' },
     { name: 'Profile Settings', icon: 'manage_accounts', id: 'settings' },
   ];
 
