@@ -81,7 +81,7 @@ export default function Dashboard() {
     if (xp >= 501) return { name: 'INTERMEDIATE', icon: 'military_tech', color: 'text-primary bg-primary/5 border-primary/10' };
     return { name: 'BEGINNER', icon: 'stadium', color: 'text-slate-500 bg-slate-50 border-slate-200/60' };
   };
-
+  useEffect(() => {
     if (typeof window !== 'undefined' && user?.id) {
       const savedProj = localStorage.getItem(`selected_projects_${user.id}`);
       if (savedProj) {
