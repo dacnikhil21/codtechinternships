@@ -997,7 +997,7 @@ export default function Dashboard() {
                            Complete all 4 internship projects to unlock your Internship Certificate.
                         </p>
                         <div className="w-full bg-slate-100 h-3 rounded-full overflow-hidden mt-6 mb-8 relative">
-                           <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/diagonal-stripes.png')] opacity-20"></div>
+                           <div className="absolute inset-0 bg-[url(https://www.transparenttextures.com/patterns/diagonal-stripes.png)] opacity-20"></div>
                            <motion.div 
                               initial={{ width: 0 }} 
                               animate={{ width: `${(Math.min(completedProjects.length, 4) / 4) * 100}%` }} 
@@ -1014,7 +1014,6 @@ export default function Dashboard() {
                      </div>
                   )}
                </div>
-            </div>
             </div>
           </motion.div>
         )}
