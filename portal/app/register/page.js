@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
+import AnimatedLogo from '@/app/components/AnimatedLogo';
 
 const TYPO_DOMAINS = [
   'gm6ail.com', 'gmaiil.com', 'gmal.com', 'yaho.co', 'yahu.com', 'outlook.con',
@@ -112,11 +113,8 @@ function RegisterForm() {
       <section className="hidden lg:flex lg:col-span-5 p-12 xl:p-16 flex-col justify-between bg-gradient-to-br from-indigo-600 to-violet-800 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20" />
         <div className="relative z-10">
-          <div className="flex items-center gap-3 mb-12">
-            <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center">
-              <span className="material-symbols-outlined text-indigo-600 text-xl font-black">terminal</span>
-            </div>
-            <span className="text-white font-black tracking-tight text-lg uppercase italic">Codtech</span>
+          <div className="mb-12 origin-left scale-75 md:scale-100">
+            <AnimatedLogo />
           </div>
           <h3 className="text-4xl xl:text-5xl font-black text-white leading-[0.9] mb-8 tracking-tighter uppercase italic">Start Your <br /> Mission.</h3>
           <p className="text-indigo-100/70 font-medium leading-relaxed max-w-xs">Access elite projects and industry-standard learning materials.</p>
@@ -137,11 +135,8 @@ function RegisterForm() {
       {/* Right Side: Form */}
       <section className="col-span-1 lg:col-span-7 flex flex-col justify-center p-6 md:p-12 lg:p-16 bg-transparent">
         <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
-          <div className="flex lg:hidden items-center gap-3 mb-8">
-            <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
-              <span className="material-symbols-outlined text-white text-xl font-black">terminal</span>
-            </div>
-            <span className="text-white font-black tracking-widest text-lg uppercase italic">CODTECH INTERN</span>
+          <div className="flex lg:hidden mb-8 origin-left scale-75">
+            <AnimatedLogo />
           </div>
           <div className="mb-8">
             <h2 className="text-2xl md:text-4xl font-black text-white mb-2 tracking-tight uppercase leading-tight">Create Elite Account</h2>

@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
+import AnimatedLogo from '@/app/components/AnimatedLogo';
 
 const TYPO_DOMAINS = [
   'gm6ail.com', 'gmaiil.com', 'gmal.com', 'yaho.co', 'yahu.com', 'outlook.con',
@@ -81,11 +82,8 @@ function LoginContent() {
         <section className="hidden lg:flex lg:col-span-6 p-12 flex-col justify-between bg-gradient-to-br from-indigo-600 to-violet-800 relative">
           <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20" />
           <div className="relative z-10">
-            <div className="flex items-center gap-3 mb-12">
-              <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-2xl">
-                <span className="material-symbols-outlined text-indigo-600 text-xl font-black">terminal</span>
-              </div>
-              <span className="text-white font-black tracking-tight text-lg uppercase italic">CODTECH INTERN</span>
+            <div className="mb-12 origin-left scale-75 md:scale-100">
+              <AnimatedLogo />
             </div>
             <h1 className="text-4xl font-black text-white mb-6 tracking-tighter leading-tight uppercase">
               Fuel Your <br /> 
@@ -102,11 +100,8 @@ function LoginContent() {
 
         <section className="col-span-1 lg:col-span-6 p-8 md:p-12 bg-transparent flex flex-col justify-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-            <div className="flex lg:hidden items-center gap-3 mb-8">
-              <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
-                <span className="material-symbols-outlined text-white text-xl font-black">terminal</span>
-              </div>
-              <span className="text-white font-black tracking-widest text-lg uppercase italic">CODTECH INTERN</span>
+            <div className="flex lg:hidden mb-8 origin-left scale-75">
+              <AnimatedLogo />
             </div>
             <div className="mb-8">
               <h2 className="text-3xl font-black text-white mb-1 tracking-tight uppercase">Login</h2>
