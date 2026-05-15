@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
+import AnimatedLogo from '@/app/components/AnimatedLogo';
 
 export default function Login() {
   const router = useRouter();
@@ -52,11 +53,8 @@ export default function Login() {
         <section className="hidden lg:flex lg:col-span-6 p-12 flex-col justify-between bg-gradient-to-br from-indigo-600 to-violet-800 relative">
           <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20" />
           <div className="relative z-10">
-            <div className="flex items-center gap-3 mb-20">
-              <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-2xl">
-                <span className="material-symbols-outlined text-indigo-600 text-2xl font-black">terminal</span>
-              </div>
-              <span className="text-white font-black tracking-tight text-xl uppercase italic">Codtech Intern</span>
+            <div className="mb-20 origin-left scale-75 md:scale-100">
+              <AnimatedLogo />
             </div>
             <h1 className="text-4xl font-black text-white mb-6 tracking-tighter leading-[0.95] uppercase">
               Fuel Your <br /> 
@@ -77,6 +75,9 @@ export default function Login() {
         {/* Right Side: Form */}
         <section className="col-span-1 lg:col-span-6 p-10 md:p-20 bg-transparent flex flex-col justify-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+            <div className="flex lg:hidden mb-10 origin-left scale-75">
+              <AnimatedLogo />
+            </div>
             <div className="mb-10">
               <h2 className="text-2xl font-black text-white mb-1 tracking-tight uppercase">Login</h2>
               <p className="text-slate-500 font-bold uppercase text-[9px] tracking-[0.2em]">Credentials Required</p>
