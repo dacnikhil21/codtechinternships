@@ -85,7 +85,7 @@ function LoginContent() {
               <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-2xl">
                 <span className="material-symbols-outlined text-indigo-600 text-xl font-black">terminal</span>
               </div>
-              <span className="text-white font-black tracking-tight text-lg uppercase italic">Codtech</span>
+              <span className="text-white font-black tracking-tight text-lg uppercase italic">CODTECH INTERN</span>
             </div>
             <h1 className="text-4xl font-black text-white mb-6 tracking-tighter leading-tight uppercase">
               Fuel Your <br /> 
@@ -106,7 +106,7 @@ function LoginContent() {
               <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
                 <span className="material-symbols-outlined text-white text-xl font-black">terminal</span>
               </div>
-              <span className="text-white font-black tracking-widest text-lg uppercase italic">CODTECH</span>
+              <span className="text-white font-black tracking-widest text-lg uppercase italic">CODTECH INTERN</span>
             </div>
             <div className="mb-8">
               <h2 className="text-3xl font-black text-white mb-1 tracking-tight uppercase">Login</h2>
