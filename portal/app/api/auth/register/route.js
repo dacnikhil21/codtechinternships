@@ -5,10 +5,10 @@ import { login } from '@/lib/auth';
 
 export async function POST(req) {
   try {
-    const { name, email, password, course } = await req.json();
+    const { name, email, password, course, intern_id } = await req.json();
 
-    if (!name || !email || !password || !course) {
-      return NextResponse.json({ success: false, message: 'Please provide all fields' }, { status: 400 });
+    if (!name || !email || !password || !course || !intern_id) {
+      return NextResponse.json({ success: false, message: 'Please provide all fields including CODTECH Intern ID' }, { status: 400 });
     }
 
     const cleanEmail = email.toLowerCase().trim();
@@ -32,11 +32,11 @@ export async function POST(req) {
 
     // Create user
     const [result] = await pool.execute(
-      'INSERT INTO user (name, email, password, course, role, xp, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW())',
-      [name, cleanEmail, hashedPassword, course, 'student', 0]
+      'INSERT INTO user (name, email, password, course, role, xp, intern_id, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), NOW())',
+      [name, cleanEmail, hashedPassword, course, 'student', 0, intern_id]
     );
 
-    const user = { id: result.insertId, name, email: cleanEmail, course, role: 'student', xp: 0 };
+    const user = { id: result.insertId, name, email: cleanEmail, course, role: 'student', xp: 0, intern_id };
 
     // Create session
     await login(user);

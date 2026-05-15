@@ -36,6 +36,7 @@ function RegisterForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [internId, setInternId] = useState("");
 
   useEffect(() => {
     const course = searchParams.get('course');
@@ -49,6 +50,7 @@ function RegisterForm() {
     const emailValue = formData.get('email').toLowerCase().trim();
     const passwordValue = formData.get('password');
     const confirmPasswordValue = formData.get('confirmPassword');
+    const internIdValue = formData.get('internId');
 
     if (passwordValue !== confirmPasswordValue) {
       toast.error('Passwords do not match');
@@ -78,7 +80,8 @@ function RegisterForm() {
       name: fullNameValue,
       email: emailValue,
       password: passwordValue,
-      course: selectedCourse
+      course: selectedCourse,
+      intern_id: internIdValue
     };
 
     try {
@@ -239,6 +242,25 @@ function RegisterForm() {
                   />
                 </div>
               </div>
+            </div>
+            
+            <div className="group">
+              <label className="text-[9px] font-black text-slate-500 uppercase tracking-[0.3em] mb-2 block ml-1" htmlFor="internId">CODTECH Intern ID</label>
+              <div className="relative">
+                <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-indigo-400 transition-colors text-lg">badge</span>
+                <input 
+                  className="w-full pl-12 pr-4 py-4 rounded-2xl outline-none text-white placeholder:text-slate-700 bg-white/5 border border-white/5 focus:border-indigo-500/50 focus:bg-white/[0.08] transition-all duration-300 font-medium text-sm" 
+                  id="internId" 
+                  required 
+                  placeholder="Enter your CODTECH Intern ID" 
+                  type="text" 
+                  name="internId"
+                  value={internId}
+                  onChange={(e) => setInternId(e.target.value)}
+                  autoComplete="off"
+                />
+              </div>
+              <p className="mt-2 ml-1 text-[11px] text-slate-400 font-medium">Get your CODTECH Intern ID from your Offer Letter and enter it here.</p>
             </div>
 
             <button disabled={loading} className="w-full bg-white text-slate-900 font-black py-4 rounded-2xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 mt-4 uppercase text-[12px] tracking-[0.2em] shadow-2xl shadow-white/10" type="submit">
