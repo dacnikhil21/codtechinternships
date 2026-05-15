@@ -271,6 +271,7 @@ export default function Dashboard() {
             { name: 'Job Hunting', icon: 'work' },
             { name: 'Resume Builder', icon: 'description', path: '/resume' },
             { name: 'LinkedIn Profile', icon: 'person_search' },
+            { name: 'Certificate', icon: 'workspace_premium' },
             ...(user?.role === 'admin' ? [{ name: 'Admin Panel', icon: 'admin_panel_settings', path: '/admin' }] : []),
           ].map((item) => (
             <button 
@@ -978,9 +979,13 @@ export default function Dashboard() {
                ))}
             </div>
             </div>
+          </motion.div>
+        )}
 
+        {activeTab === 'Certificate' && (
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-8 max-w-5xl mx-auto px-2 md:px-0">
             {/* NEW SECTION: Internship Certificate */}
-            <div className="bg-white rounded-[2rem] border border-slate-200/60 shadow-xl overflow-hidden mt-12 mb-8">
+            <div className="bg-white rounded-[2rem] border border-slate-200/60 shadow-xl overflow-hidden mt-4 mb-8">
                <div className="p-6 md:p-8 border-b border-slate-100 bg-slate-50/50 flex flex-col md:flex-row items-center justify-between gap-4">
                   <div className="flex items-center gap-4 text-center md:text-left">
                      <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 shadow-inner ${completedProjects.length >= 4 ? 'bg-indigo-600 text-white shadow-indigo-200' : 'bg-slate-200 text-slate-400'}`}>
