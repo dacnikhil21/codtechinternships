@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import TemplateGallery from '@/app/resume/components/TemplateGallery';
 import ResumeForm from '@/app/resume/components/ResumeForm';
 import ATSScore from '@/app/resume/components/ATSScore';
@@ -110,7 +110,6 @@ export default function ResumePage() {
 
   return (
     <div className="min-h-screen bg-[#FDFDFF] flex w-full font-inter overflow-x-hidden text-slate-900 relative">
-      <Toaster position="top-center" toastOptions={{ duration: 5000 }} />
       
       {/* Navigation Sidebar (Shared) */}
       <aside className={`w-64 bg-white border-r border-slate-200/60 flex flex-col fixed h-full z-[100] transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>

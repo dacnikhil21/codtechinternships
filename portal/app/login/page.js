@@ -4,7 +4,7 @@ import { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 const TYPO_DOMAINS = [
   'gm6ail.com', 'gmaiil.com', 'gmal.com', 'yaho.co', 'yahu.com', 'outlook.con',
@@ -170,7 +170,6 @@ export default function Login() {
   return (
     <Suspense fallback={<div className="min-h-screen bg-slate-950 flex items-center justify-center text-white font-black uppercase tracking-widest">Initialising Connection...</div>}>
       <LoginContent />
-      <Toaster position="top-center" />
     </Suspense>
   );
 }

@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import AdminSidebar from './components/AdminSidebar';
 import ProjectManager from './components/ProjectManager';
 
@@ -105,7 +105,6 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-white flex">
-      <Toaster position="top-right" />
       <AdminSidebar currentTab={activeTab} onTabChange={setActiveTab} />
 
       <main className="flex-1 ml-64 p-12 overflow-y-auto">
