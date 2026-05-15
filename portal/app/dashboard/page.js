@@ -587,12 +587,23 @@ export default function Dashboard() {
 
         {activeTab === 'Placement Hub' && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-12 max-w-5xl mx-auto py-6 md:py-10 px-2 md:px-0">
-             <div className="text-center space-y-4 px-4">
-                <div className="w-16 h-16 md:w-20 md:h-20 bg-indigo-600 text-white rounded-2xl md:rounded-[2rem] flex items-center justify-center mx-auto shadow-2xl shadow-indigo-200 mb-6">
-                   <span className="material-symbols-outlined text-3xl md:text-4xl">hub</span>
+             {/* Placement Hub Header - BANNER */}
+             <div className="relative w-full min-h-[200px] md:min-h-[240px] rounded-[2rem] overflow-hidden flex flex-col justify-center shadow-sm border border-slate-100/50 p-6 md:p-10 mb-8 mt-2">
+                <div className="absolute inset-0 z-0 pointer-events-none">
+                   <img src="/materials_bg.png" alt="" className="w-full h-full object-cover" />
+                   {/* Overlay to ensure text readability on the left */}
+                   <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/80 to-transparent"></div>
                 </div>
-                <h3 className="text-2xl md:text-3xl font-black text-slate-900 uppercase tracking-tighter italic">Placement <span className="text-indigo-600">Command Center</span></h3>
-                <p className="text-slate-400 text-[13px] md:text-sm font-medium max-w-md mx-auto">Your portal to top-tier internship and job opportunities in the tech industry.</p>
+                
+                <div className="relative z-10 flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-4 md:gap-6">
+                   <div className="w-14 h-14 md:w-16 md:h-16 bg-indigo-600 text-white rounded-2xl md:rounded-[1.5rem] flex items-center justify-center shadow-xl shadow-indigo-200/50 border-2 border-white/50 shrink-0">
+                      <span className="material-symbols-outlined text-2xl md:text-3xl">hub</span>
+                   </div>
+                   <div className="max-w-md">
+                      <h3 className="text-2xl md:text-4xl font-black text-slate-900 tracking-tighter uppercase leading-tight italic">Placement <span className="text-indigo-600">Command Center</span></h3>
+                      <p className="text-[12px] md:text-[14px] text-slate-700 font-medium mt-2">Your portal to top-tier <span className="text-indigo-600 font-bold underline underline-offset-4 decoration-2">internship and job</span> opportunities.</p>
+                   </div>
+                </div>
              </div>
              
              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 px-2 md:px-0">
@@ -774,12 +785,23 @@ export default function Dashboard() {
              <div className="space-y-12">
              
              {/* Header Section */}
-             <div className="text-center space-y-4 px-4 mb-10">
-                <div className="w-16 h-16 md:w-20 md:h-20 bg-indigo-600 text-white rounded-2xl md:rounded-[2rem] flex items-center justify-center mx-auto shadow-2xl shadow-indigo-200 mb-6">
-                   <span className="material-symbols-outlined text-3xl md:text-4xl">work</span>
+             {/* Job Hunting Header - BANNER */}
+             <div className="relative w-full min-h-[200px] md:min-h-[240px] rounded-[2rem] overflow-hidden flex flex-col justify-center shadow-sm border border-slate-100/50 p-6 md:p-10 mb-8 mt-2">
+                <div className="absolute inset-0 z-0 pointer-events-none">
+                   <img src="/job_hunting_bg.png" alt="" className="w-full h-full object-cover" />
+                   {/* Overlay to ensure text readability on the left */}
+                   <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/80 to-transparent"></div>
                 </div>
-                <h3 className="text-2xl md:text-4xl font-black text-slate-900 uppercase tracking-tighter italic">Job <span className="text-indigo-600">Hunting</span></h3>
-                <p className="text-slate-400 text-[12px] md:text-sm font-medium max-w-xl mx-auto leading-relaxed">Find internships, fresher jobs, off-campus drives, and placement opportunities from trusted hiring platforms.</p>
+                
+                <div className="relative z-10 flex flex-col md:flex-row items-center md:items-start text-center md:text-left gap-4 md:gap-6">
+                   <div className="w-14 h-14 md:w-16 md:h-16 bg-indigo-600 text-white rounded-2xl md:rounded-[1.5rem] flex items-center justify-center shadow-xl shadow-indigo-200/50 border-2 border-white/50 shrink-0">
+                      <span className="material-symbols-outlined text-2xl md:text-3xl">work</span>
+                   </div>
+                   <div className="max-w-md">
+                      <h3 className="text-2xl md:text-4xl font-black text-slate-900 tracking-tighter uppercase leading-tight italic">Job <span className="text-indigo-600">Hunting</span></h3>
+                      <p className="text-[12px] md:text-[14px] text-slate-700 font-medium mt-2">Find internships, fresher jobs, and <span className="text-indigo-600 font-bold underline underline-offset-4 decoration-2">off-campus drives</span> from trusted platforms.</p>
+                   </div>
+                </div>
              </div>
 
              {/* Platform Grid */}
