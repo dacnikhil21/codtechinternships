@@ -413,35 +413,74 @@ export default function Dashboard() {
                  </div>
                </div>
 
-               <div className="bg-white p-6 rounded-3xl border border-slate-200/60 shadow-sm relative overflow-hidden group">
-                  <div className="flex justify-between items-start">
+               {/* Card 1: Project Progress */}
+               <div className="bg-white p-6 rounded-3xl border border-slate-200/60 shadow-sm relative overflow-hidden flex flex-col justify-between group md:col-span-1">
+                  <div className="flex justify-between items-start relative z-10 mb-4">
                      <div>
-                        <h4 className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Time Remaining</h4>
-                        <p className="text-base font-black text-slate-900 uppercase tracking-tight">Project <span className="text-indigo-600">Deadline</span></p>
+                        <h4 className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Real-Time Tracking</h4>
+                        <p className="text-base font-black text-slate-900 uppercase tracking-tight">Project <span className="text-indigo-600">Progress</span></p>
                      </div>
                      <div className="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center">
-                        <span className="material-symbols-outlined text-xl">schedule</span>
+                        <span className="material-symbols-outlined text-xl">monitoring</span>
                      </div>
                   </div>
-                  <div className="mt-4 flex items-center gap-3">
-                     <span className="text-2xl font-black text-slate-900 tracking-tighter italic">{countdown}</span>
-                     <span className="text-[10px] text-slate-300 font-black tracking-widest uppercase">remaining</span>
+                  <div className="flex flex-col relative z-10">
+                     <div className="flex items-baseline gap-1 mb-2">
+                        <span className="text-3xl font-black text-slate-900 tracking-tighter italic">{completedProjects.length}</span>
+                        <span className="text-[12px] text-slate-400 font-black tracking-widest uppercase">/4 Completed</span>
+                     </div>
+                     <p className="text-[11px] font-medium text-slate-500 mb-4 h-8 leading-tight">
+                        {completedProjects.length >= 4 
+                           ? "Excellent! You have successfully completed all 4 internship projects. Your certificate is now unlocked."
+                           : "Complete all 4 internship projects to unlock your Internship Certificate."}
+                     </p>
+                     <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden mb-2">
+                        <motion.div initial={{ width: 0 }} animate={{ width: `${(Math.min(completedProjects.length, 4) / 4) * 100}%` }} className="h-full bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500" />
+                     </div>
+                     <span className="text-[10px] font-black uppercase tracking-widest text-indigo-600">
+                        {completedProjects.length === 0 ? "Not Started" :
+                         completedProjects.length === 1 ? "Great Start 🚀" :
+                         completedProjects.length === 2 ? "Halfway There 💪" :
+                         completedProjects.length === 3 ? "Almost Done 🎯" :
+                         "Completed Successfully ✅"}
+                     </span>
                   </div>
                </div>
 
+               {/* Card 2: Internship Certificate */}
                <div className="bg-white p-6 rounded-3xl border border-slate-200/60 shadow-sm relative overflow-hidden group md:col-span-2 lg:col-span-1">
-                  <div className="flex justify-between items-start">
+                  <div className="flex justify-between items-start relative z-10 mb-4">
                      <div>
-                        <h4 className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Learning Status</h4>
-                        <p className="text-base font-black text-slate-900 uppercase tracking-tight">Module <span className="text-indigo-600">Mastery</span></p>
+                        <h4 className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Final Reward</h4>
+                        <p className="text-base font-black text-slate-900 uppercase tracking-tight">Internship <span className="text-indigo-600">Certificate</span></p>
                      </div>
-                     <div className="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center">
-                        <span className="material-symbols-outlined text-xl">menu_book</span>
+                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${completedProjects.length >= 4 ? 'bg-indigo-50 text-indigo-600' : 'bg-slate-50 text-slate-400'}`}>
+                        <span className="material-symbols-outlined text-xl">{completedProjects.length >= 4 ? 'workspace_premium' : 'lock'}</span>
                      </div>
                   </div>
-                  <div className="mt-4 flex items-center gap-3">
-                     <span className="text-2xl font-black text-slate-900 tracking-tighter italic">{completedLessons.length}</span>
-                     <span className="text-[10px] text-slate-300 font-black tracking-widest uppercase">Units Complete</span>
+                  <div className="flex flex-col relative z-10 h-full justify-between">
+                     {completedProjects.length >= 4 ? (
+                        <>
+                           <h5 className="text-[13px] font-black text-slate-900 tracking-tight leading-tight uppercase mb-2 mt-2">🎓 Certificate Unlocked</h5>
+                           <p className="text-[11px] font-medium text-slate-500 mb-6">Congratulations! You are now eligible to receive your Internship Certificate.</p>
+                           <button onClick={() => setIsCertificateModalOpen(true)} className="w-full bg-indigo-600 text-white py-3 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-indigo-500/20 hover:bg-indigo-700 transition-all flex items-center justify-center gap-2">
+                              Get Internship Certificate
+                           </button>
+                        </>
+                     ) : (
+                        <div className="relative mt-2">
+                           <div className="flex flex-col items-center justify-center opacity-40 filter blur-[1px]">
+                              <h5 className="text-[13px] font-black text-slate-900 tracking-tight leading-tight uppercase mb-2">🔒 Locked</h5>
+                              <p className="text-[11px] font-medium text-slate-500 text-center mb-6">Complete all 4 projects to unlock certificate access.</p>
+                           </div>
+                           <div className="absolute inset-0 flex items-center justify-center pointer-events-none -mt-4">
+                              <span className="material-symbols-outlined text-3xl text-slate-400 drop-shadow-md">lock</span>
+                           </div>
+                           <button disabled className="w-full bg-slate-50 text-slate-400 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest border border-slate-200 mt-2 flex items-center justify-center gap-2">
+                              Complete 4 Projects to Unlock
+                           </button>
+                        </div>
+                     )}
                   </div>
                </div>
             </div>
