@@ -431,7 +431,7 @@ export default function Dashboard() {
                 </h2>
                 <div className="flex items-center gap-2 mt-1.5">
                    <div className="w-1.5 h-1.5 rounded-full bg-indigo-600 animate-pulse"></div>
-                   <span className="text-[9px] font-black text-slate-400 uppercase tracking-[0.3em]">{activeTab}</span>
+                   <span className="text-[9px] font-black text-slate-400 uppercase tracking-[0.3em]">Dashboard / {activeTab}</span>
                 </div>
              </div>
           </div>
