@@ -130,20 +130,6 @@ export default function ProjectManager() {
     }
   };
 
-  const runMigration = async () => {
-    try {
-      const res = await fetch('/api/admin/setup-db');
-      const data = await res.json();
-      if (data.success) {
-        toast.success(data.message);
-      } else {
-        toast.error(data.message);
-      }
-    } catch (err) {
-      toast.error('Migration failed. Check console.');
-    }
-  };
-
   return (
     <div className="space-y-8">
       <header className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
@@ -152,13 +138,6 @@ export default function ProjectManager() {
           <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">Configure real-time internship tasks</p>
         </div>
         <div className="flex flex-wrap gap-4">
-          <button 
-            onClick={runMigration}
-            className="flex-1 lg:flex-none px-6 py-4 rounded-2xl border border-white/5 bg-white/5 hover:bg-white/10 transition-all text-[10px] font-black uppercase tracking-widest text-slate-400 flex items-center justify-center gap-2"
-          >
-            <span className="material-symbols-outlined text-lg">database</span>
-            Sync DB
-          </button>
           <button 
             onClick={() => handleOpenModal()}
             className="flex-1 lg:flex-none bg-indigo-600 hover:bg-indigo-500 text-white px-8 py-4 rounded-2xl font-black text-[12px] uppercase tracking-widest flex items-center justify-center gap-3 transition-all shadow-xl shadow-indigo-600/20"
