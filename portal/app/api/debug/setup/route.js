@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 import mysql from 'mysql2/promise';
 import { MASTER_PROJECTS } from '@/lib/masterProjects';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export async function GET() {
   const DATABASE_URL = process.env.DATABASE_URL;
 
