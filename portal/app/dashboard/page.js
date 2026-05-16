@@ -462,10 +462,6 @@ export default function Dashboard() {
             {/* Greeting - COMPACT */}
             <div className="py-4 px-2 flex flex-col md:flex-row justify-between items-end gap-6">
                <div>
-                  <div className="flex items-center gap-2 mb-3">
-                     <div className="w-1.5 h-1.5 rounded-full bg-indigo-600 animate-pulse"></div>
-                     <span className="text-[9px] md:text-[10px] font-black text-indigo-600 uppercase tracking-[0.2em]">Domain: {user?.course || 'Tech'} Internship</span>
-                  </div>
                   <h3 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tighter mb-1 leading-tight uppercase italic">{getGreeting()}, {user?.name?.split(' ')[0]}</h3>
                   <p className="text-[13px] md:text-[14px] text-slate-400 font-medium tracking-tight">Step into your <span className="text-indigo-600 font-bold">{user?.course || 'professional'}</span> roadmap and complete your tasks.</p>
                </div>
