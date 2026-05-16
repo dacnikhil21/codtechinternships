@@ -17,19 +17,52 @@ export async function POST(req) {
     }
 
     // Save to Database
-    const [result] = await pool.execute(
-      'INSERT INTO support_requests (fullName, email, internId, subject, message, status, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW())',
-      [fullName, email, internId, subject, message, 'Pending']
-    );
+    try {
+      const [result] = await pool.execute(
+        'INSERT INTO support_requests (fullName, email, internId, subject, message, status, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW())',
+        [fullName, email, internId, subject, message, 'Pending']
+      );
+      
+      return NextResponse.json({ 
+        success: true, 
+        message: 'Support Request Submitted Successfully',
+        requestId: result.insertId 
+      }, { status: 201 });
 
-    return NextResponse.json({ 
-      success: true, 
-      message: 'Support Request Submitted Successfully',
-      requestId: result.insertId 
-    }, { status: 201 });
+    } catch (dbError) {
+      // If table doesn't exist, create it and retry
+      if (dbError.errno === 1146 || dbError.code === 'ER_NO_SUCH_TABLE') {
+        await pool.execute(`
+          CREATE TABLE IF NOT EXISTS support_requests (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            fullName VARCHAR(255) NOT NULL,
+            email VARCHAR(255) NOT NULL,
+            internId VARCHAR(100) NOT NULL,
+            subject VARCHAR(255) NOT NULL,
+            message TEXT NOT NULL,
+            status ENUM('Pending', 'In Progress', 'Resolved') DEFAULT 'Pending',
+            createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+            updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+          )
+        `);
+        
+        const [retryResult] = await pool.execute(
+          'INSERT INTO support_requests (fullName, email, internId, subject, message, status, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW())',
+          [fullName, email, internId, subject, message, 'Pending']
+        );
+
+        return NextResponse.json({ 
+          success: true, 
+          message: 'Support Request Submitted Successfully',
+          requestId: retryResult.insertId 
+        }, { status: 201 });
+      }
+      
+      throw dbError;
+    }
 
   } catch (error) {
     console.error('SUPPORT SUBMISSION ERROR:', error.message);
-    return NextResponse.json({ success: false, message: 'Failed to submit request. Please try again later.' }, { status: 500 });
+    return NextResponse.json({ success: false, message: 'Failed to submit request: ' + error.message }, { status: 500 });
   }
 }
