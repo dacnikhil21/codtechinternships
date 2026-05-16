@@ -93,21 +93,6 @@ export default function Dashboard() {
     if (xp >= 501) return { name: 'INTERMEDIATE', icon: 'military_tech', color: 'text-primary bg-primary/5 border-primary/10' };
     return { name: 'BEGINNER', icon: 'stadium', color: 'text-slate-500 bg-slate-50 border-slate-200/60' };
   };
-
-  const getTabIcon = (tab) => {
-    const icons = {
-      'Projects': 'grid_view',
-      'Materials': 'menu_book',
-      'Preparation': 'psychology',
-      'Placement Hub': 'hub',
-      'Job Hunting': 'work',
-      'Resume Builder': 'description',
-      'LinkedIn Profile': 'person_search',
-      'Certificate': 'workspace_premium',
-      'Contact Support': 'support_agent'
-    };
-    return icons[tab] || 'dashboard';
-  };
   useEffect(() => {
     if (typeof window !== 'undefined' && user?.id) {
       const savedProj = localStorage.getItem(`selected_projects_${user.id}`);
@@ -420,20 +405,10 @@ export default function Dashboard() {
       <main className={`flex-1 transition-all lg:ml-64 p-4 md:p-8 lg:p-10 pt-24 lg:pt-10 min-h-screen max-w-full overflow-x-hidden`}>
         
         {/* Header - REFINED & COMPACT */}
-        <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12 relative pb-6 border-b border-slate-100">
-          <div className="flex items-center gap-4">
-             <div className="w-12 h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center shadow-xl shadow-indigo-200/50 border border-indigo-400/20">
-                <span className="material-symbols-outlined text-2xl">{getTabIcon(activeTab)}</span>
-             </div>
-             <div>
-                <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tighter uppercase italic leading-none">
-                   {activeTab.split(' ')[0]} <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">{activeTab.split(' ').slice(1).join(' ')}</span>
-                </h2>
-                <div className="flex items-center gap-2 mt-1.5">
-                   <div className="w-1.5 h-1.5 rounded-full bg-indigo-600 animate-pulse"></div>
-                   <span className="text-[9px] font-black text-slate-400 uppercase tracking-[0.3em]">Dashboard / {activeTab}</span>
-                </div>
-             </div>
+        <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+          <div className="flex items-center gap-3">
+             <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
+             <h2 className="text-[10px] md:text-sm font-black text-slate-400 tracking-widest uppercase">{activeTab}</h2>
           </div>
           
           <div className="flex flex-wrap items-center gap-2">
@@ -603,12 +578,12 @@ export default function Dashboard() {
             <section className="bg-white p-6 rounded-3xl border border-slate-200/60 shadow-sm space-y-6">
                <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
                   <div className="flex items-center gap-4">
-                     <div className="w-12 h-12 bg-indigo-600 text-white rounded-xl flex items-center justify-center shadow-lg shadow-indigo-100 border border-indigo-400/20 shrink-0">
-                        <span className="material-symbols-outlined text-2xl">terminal</span>
+                     <div className="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-lg flex items-center justify-center border border-indigo-100 shrink-0">
+                        <span className="material-symbols-outlined text-xl">terminal</span>
                      </div>
                      <div>
-                        <h3 className="text-xl font-black text-slate-900 tracking-tight uppercase italic leading-none">Project <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">Workspace</span></h3>
-                        <p className="text-[11px] text-slate-400 font-bold uppercase tracking-widest mt-1">Select 4 core projects for your domain.</p>
+                        <h3 className="text-lg font-black text-slate-900 tracking-tight uppercase italic leading-none">Project <span className="text-indigo-600">Workspace</span></h3>
+                        <p className="text-[11px] text-slate-400 font-medium mt-1">Select 4 core projects for your domain.</p>
                      </div>
                   </div>
                   <div className="flex gap-2 w-full lg:w-auto">
@@ -691,7 +666,7 @@ export default function Dashboard() {
                         <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></div>
                         <span className="text-[9px] font-black text-red-600 uppercase tracking-[0.4em]">Official Resources</span>
                      </div>
-                     <h3 className="text-2xl md:text-4xl font-black text-slate-900 tracking-tighter uppercase leading-tight italic">Materials & <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-600">Resources</span></h3>
+                     <h3 className="text-2xl md:text-4xl font-black text-slate-900 tracking-tighter uppercase leading-tight italic">Materials & <span className="text-red-500">Resources</span></h3>
                      <p className="text-[12px] md:text-[14px] text-slate-700 font-medium mt-2 max-w-sm md:max-w-md">Curated study materials for your {user?.course} internship.</p>
                   </div>
                   <div className="w-full lg:w-auto flex items-center justify-center gap-6 bg-white/60 backdrop-blur-md p-5 md:p-6 rounded-3xl border border-white/50 shadow-xl shadow-red-100/20">
@@ -772,7 +747,7 @@ export default function Dashboard() {
                       <span className="material-symbols-outlined text-2xl md:text-3xl">hub</span>
                    </div>
                    <div className="max-w-md">
-                      <h3 className="text-2xl md:text-4xl font-black text-slate-900 tracking-tighter uppercase leading-tight italic">Placement <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">Command Center</span></h3>
+                      <h3 className="text-2xl md:text-4xl font-black text-slate-900 tracking-tighter uppercase leading-tight italic">Placement <span className="text-indigo-600">Command Center</span></h3>
                       <p className="text-[12px] md:text-[14px] text-slate-700 font-medium mt-2">Your portal to top-tier <span className="text-indigo-600 font-bold underline underline-offset-4 decoration-2">internship and job</span> opportunities.</p>
                    </div>
                 </div>
@@ -970,7 +945,7 @@ export default function Dashboard() {
                       <span className="material-symbols-outlined text-2xl md:text-3xl">work</span>
                    </div>
                    <div className="max-w-md">
-                      <h3 className="text-2xl md:text-4xl font-black text-slate-900 tracking-tighter uppercase leading-tight italic">Job <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">Hunting</span></h3>
+                      <h3 className="text-2xl md:text-4xl font-black text-slate-900 tracking-tighter uppercase leading-tight italic">Job <span className="text-indigo-600">Hunting</span></h3>
                       <p className="text-[12px] md:text-[14px] text-slate-700 font-medium mt-2">Find internships, fresher jobs, and <span className="text-indigo-600 font-bold underline underline-offset-4 decoration-2">off-campus drives</span> from trusted platforms.</p>
                    </div>
                 </div>
