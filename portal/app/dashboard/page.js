@@ -93,6 +93,21 @@ export default function Dashboard() {
     if (xp >= 501) return { name: 'INTERMEDIATE', icon: 'military_tech', color: 'text-primary bg-primary/5 border-primary/10' };
     return { name: 'BEGINNER', icon: 'stadium', color: 'text-slate-500 bg-slate-50 border-slate-200/60' };
   };
+
+  const getTabMeta = (tab) => {
+    const meta = {
+      'Projects':        { icon: 'grid_view',        label: 'Your Internship Projects' },
+      'Materials':       { icon: 'menu_book',         label: 'Study Resources & PDFs' },
+      'Preparation':     { icon: 'psychology',        label: 'Interview Prep Guide' },
+      'Placement Hub':   { icon: 'hub',               label: 'Placement Channels & Networks' },
+      'Job Hunting':     { icon: 'work',              label: 'Internship & Job Platforms' },
+      'Resume Builder':  { icon: 'description',       label: 'Build Your Professional Resume' },
+      'LinkedIn Profile':{ icon: 'person_search',     label: 'Optimize Your LinkedIn' },
+      'Certificate':     { icon: 'workspace_premium', label: 'Internship Certificate' },
+      'Contact Support': { icon: 'support_agent',     label: 'Get Help from CodTech Team' },
+    };
+    return meta[tab] || { icon: 'dashboard', label: 'CodTech Internship Portal' };
+  };
   useEffect(() => {
     if (typeof window !== 'undefined' && user?.id) {
       const savedProj = localStorage.getItem(`selected_projects_${user.id}`);
@@ -404,11 +419,16 @@ export default function Dashboard() {
 
       <main className={`flex-1 transition-all lg:ml-64 p-4 md:p-8 lg:p-10 pt-24 lg:pt-10 min-h-screen max-w-full overflow-x-hidden`}>
         
-        {/* Header - REFINED & COMPACT */}
+        {/* Header - PREMIUM SECTION HEADING */}
         <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
           <div className="flex items-center gap-3">
-             <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
-             <h2 className="text-[10px] md:text-sm font-black text-slate-400 tracking-widest uppercase">{activeTab}</h2>
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-200/50 shrink-0">
+              <span className="material-symbols-outlined text-white text-[20px]">{getTabMeta(activeTab).icon}</span>
+            </div>
+            <div>
+              <h2 className="text-lg md:text-xl font-black tracking-tight leading-none" style={{background:'linear-gradient(90deg,#1e293b 0%,#4f46e5 100%)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>{activeTab.toUpperCase()}</h2>
+              <p className="text-[10px] text-slate-400 font-semibold mt-0.5 tracking-wide">{getTabMeta(activeTab).label}</p>
+            </div>
           </div>
           
           <div className="flex flex-wrap items-center gap-2">
