@@ -107,8 +107,8 @@ export default function SupportManager() {
       </header>
 
       <div className="bg-slate-900 border border-white/5 rounded-[2.5rem] overflow-hidden shadow-2xl">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left">
+        <div className="overflow-x-auto scrollbar-hide">
+          <table className="w-full text-left min-w-[800px]">
             <thead>
               <tr className="border-b border-white/5">
                 <th className="px-8 py-6 text-[10px] font-black text-slate-500 uppercase tracking-widest">Student Info</th>
@@ -190,9 +190,9 @@ export default function SupportManager() {
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="relative w-full max-w-2xl bg-slate-900 border border-white/10 rounded-[3rem] shadow-2xl overflow-hidden"
+              className="relative w-full max-w-2xl bg-slate-900 border border-white/10 rounded-[2.5rem] md:rounded-[3rem] shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
             >
-              <div className="p-12">
+              <div className="p-6 md:p-12 overflow-y-auto scrollbar-hide">
                 <div className="flex justify-between items-start mb-10">
                   <div>
                     <span className={`px-4 py-1.5 rounded-full border text-[10px] font-black uppercase tracking-[0.2em] mb-4 inline-block ${getStatusColor(selectedRequest.status)}`}>

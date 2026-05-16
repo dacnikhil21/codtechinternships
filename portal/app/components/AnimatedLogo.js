@@ -29,7 +29,7 @@ export default function AnimatedLogo({ className = '', onAnimationComplete }) {
     },
     visible: {
       opacity: [0, 1, 1, 1],
-      x: [120, 40, -20, -50], // Moves from right to left
+      x: [120, 40, -20, -75], // Moves from right to left
       z: [-150, 150, 50, 0],   // Comes forward then settles
       rotateY: [-720, -360, -180, 0], // Spins 3D
       scale: [0.8, 1.2, 1.1, 1],
@@ -55,7 +55,7 @@ export default function AnimatedLogo({ className = '', onAnimationComplete }) {
     },
     visible: {
       opacity: [0, 0.6, 0.3, 0],
-      x: [120, 40, -20, -50], 
+      x: [120, 40, -20, -75], 
       z: [-150, 150, 50, 0],   
       rotateY: [-720, -360, -180, 0], 
       scale: [0.8, 1.2, 1.1, 1],
@@ -118,7 +118,7 @@ export default function AnimatedLogo({ className = '', onAnimationComplete }) {
           className="absolute z-10 text-7xl md:text-8xl font-black italic"
           style={{ 
             left: '50%', 
-            transform: 'translateX(-20%)',
+            transform: 'translateX(15%)', // Slightly right of center
             color: '#E5E7EB',
             textShadow: '0 0 20px rgba(255,255,255,0.3), 2px 2px 4px rgba(0,0,0,0.8), -1px -1px 1px rgba(255,255,255,0.8)',
             background: 'linear-gradient(to bottom, #ffffff 0%, #a1a1aa 50%, #3f3f46 100%)',

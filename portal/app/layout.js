@@ -4,6 +4,10 @@ import { Toaster } from 'react-hot-toast'
 export const metadata = {
   title: 'Codtech Intern',
   description: 'The Official Codtech Internship Portal.',
+  icons: {
+    icon: '/favicon.png',
+    apple: '/favicon.png',
+  }
 }
 
 export default function RootLayout({ children }) {

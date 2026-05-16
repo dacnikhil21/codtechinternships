@@ -146,25 +146,25 @@ export default function ProjectManager() {
 
   return (
     <div className="space-y-8">
-      <header className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <header className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
         <div>
-          <h2 className="text-4xl font-black tracking-tighter uppercase italic mb-2">Project <span className="text-indigo-500">Management</span></h2>
+          <h2 className="text-3xl md:text-4xl font-black tracking-tighter uppercase italic mb-2">Project <span className="text-indigo-500">Management</span></h2>
           <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">Configure real-time internship tasks</p>
         </div>
-        <div className="flex gap-4">
+        <div className="flex flex-wrap gap-4">
           <button 
             onClick={runMigration}
-            className="px-6 py-4 rounded-2xl border border-white/5 bg-white/5 hover:bg-white/10 transition-all text-[10px] font-black uppercase tracking-widest text-slate-400 flex items-center gap-2"
+            className="flex-1 lg:flex-none px-6 py-4 rounded-2xl border border-white/5 bg-white/5 hover:bg-white/10 transition-all text-[10px] font-black uppercase tracking-widest text-slate-400 flex items-center justify-center gap-2"
           >
             <span className="material-symbols-outlined text-lg">database</span>
-            Sync DB Schema
+            Sync DB
           </button>
           <button 
             onClick={() => handleOpenModal()}
-            className="bg-indigo-600 hover:bg-indigo-500 text-white px-8 py-4 rounded-2xl font-black text-[12px] uppercase tracking-widest flex items-center gap-3 transition-all shadow-xl shadow-indigo-600/20"
+            className="flex-1 lg:flex-none bg-indigo-600 hover:bg-indigo-500 text-white px-8 py-4 rounded-2xl font-black text-[12px] uppercase tracking-widest flex items-center justify-center gap-3 transition-all shadow-xl shadow-indigo-600/20"
           >
             <span className="material-symbols-outlined text-lg">add</span>
-            Add New Project
+            New Project
           </button>
         </div>
       </header>
@@ -205,7 +205,8 @@ export default function ProjectManager() {
 
       {/* Table */}
       <div className="bg-slate-900 border border-white/5 rounded-[2.5rem] overflow-hidden shadow-2xl">
-        <table className="w-full text-left">
+        <div className="overflow-x-auto scrollbar-hide">
+          <table className="w-full text-left min-w-[900px]">
           <thead>
             <tr className="border-b border-white/5 bg-white/[0.02]">
               <th className="px-8 py-6 text-[10px] font-black text-slate-500 uppercase tracking-widest">Project Name</th>
@@ -282,7 +283,7 @@ export default function ProjectManager() {
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="relative w-full max-w-4xl bg-slate-900 border border-white/10 rounded-[3rem] shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
+              className="relative w-full max-w-4xl bg-slate-900 border border-white/10 rounded-[2.5rem] md:rounded-[3rem] shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
             >
               <header className="p-8 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
                 <div>

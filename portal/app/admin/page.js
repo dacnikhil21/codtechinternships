@@ -14,6 +14,7 @@ export default function AdminDashboard() {
   const [users, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [activeTab, setActiveTab] = useState('overview');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   // Profile Form State
   const [profile, setProfile] = useState({ name: '', email: '', password: '' });
@@ -105,10 +106,27 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white flex">
-      <AdminSidebar currentTab={activeTab} onTabChange={setActiveTab} />
+    <div className="min-h-screen bg-slate-950 text-white flex overflow-x-hidden">
+      <AdminSidebar 
+        currentTab={activeTab} 
+        onTabChange={(tab) => { setActiveTab(tab); setIsSidebarOpen(false); }} 
+        isOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
+      />
 
-      <main className="flex-1 ml-64 p-12 overflow-y-auto">
+      <main className={`flex-1 transition-all duration-300 ${isSidebarOpen ? 'ml-0' : 'ml-0 lg:ml-64'} p-4 md:p-8 lg:p-12 overflow-y-auto w-full`}>
+        {/* Mobile Header */}
+        <div className="lg:hidden flex items-center justify-between mb-8 bg-slate-900/50 p-4 rounded-2xl border border-white/5">
+           <div className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
+                 <span className="material-symbols-outlined text-white text-sm">admin_panel_settings</span>
+              </div>
+              <span className="text-xs font-black uppercase tracking-widest">Admin Panel</span>
+           </div>
+           <button onClick={() => setIsSidebarOpen(true)} className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center">
+              <span className="material-symbols-outlined">menu</span>
+           </button>
+        </div>
         
         <AnimatePresence mode="wait">
           {activeTab === 'overview' && (
@@ -137,10 +155,10 @@ export default function AdminDashboard() {
               </section>
 
               {/* Quick Table in Overview */}
-              <div className="bg-slate-900 border border-white/5 rounded-[2rem] p-8">
-                 <h4 className="text-lg font-black uppercase tracking-tight mb-6">Recent Registrations</h4>
-                 <div className="overflow-hidden">
-                   <table className="w-full text-left">
+               <div className="bg-slate-900 border border-white/5 rounded-[2rem] p-6 md:p-8">
+                  <h4 className="text-lg font-black uppercase tracking-tight mb-6">Recent Registrations</h4>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left min-w-[500px]">
                      <thead>
                        <tr className="text-slate-500 text-[10px] font-black uppercase tracking-widest border-b border-white/5">
                          <th className="pb-4">Name</th>
@@ -164,7 +182,7 @@ export default function AdminDashboard() {
           )}
 
           {activeTab === 'students' && (
-            <motion.div key="students" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
+            <motion.div key="students" initial={{ opacity: 0, scale: 0.95, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 20 }}>
               <div className="flex flex-col md:flex-row items-end md:items-center justify-between gap-6 mb-12">
                 <div>
                   <h2 className="text-4xl font-black tracking-tighter uppercase italic mb-2">Student <span className="text-indigo-500">Directory</span></h2>
@@ -182,8 +200,9 @@ export default function AdminDashboard() {
                 </div>
               </div>
 
-              <div className="bg-slate-900 border border-white/5 rounded-[2.5rem] overflow-hidden shadow-2xl">
-                <table className="w-full text-left">
+               <div className="bg-slate-900 border border-white/5 rounded-[2.5rem] overflow-hidden shadow-2xl">
+                <div className="overflow-x-auto scrollbar-hide">
+                  <table className="w-full text-left min-w-[800px]">
                   <thead>
                     <tr className="border-b border-white/5">
                       <th className="px-8 py-6 text-[10px] font-black text-slate-500 uppercase tracking-widest">Student</th>

@@ -29,4 +29,11 @@
   .sidebar-gradient {
     background: linear-gradient(180deg, #faf8ff 0%, #ffffff 100%);
   }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
