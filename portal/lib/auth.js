@@ -19,6 +19,7 @@ export async function decrypt(input) {
     });
     return payload;
   } catch (err) {
+    console.error('[AUTH] Decrypt failed:', err.message);
     return null;
   }
 }
@@ -26,7 +27,7 @@ export async function decrypt(input) {
 export async function login(user) {
   const expires = new Date(Date.now() + 24 * 60 * 60 * 1000);
   const session = await encrypt({ 
-    id: user.id, // Fixed: Using prisma id
+    id: user.id,
     email: user.email, 
     role: user.role,
     course: user.course,
@@ -37,10 +38,11 @@ export async function login(user) {
   cookies().set('session', session, { 
     expires, 
     httpOnly: true, 
-    secure: false, // Changed to false for maximum compatibility on new hosting
+    secure: true, // MUST be true for HTTPS on most modern browsers
     sameSite: 'lax',
     path: '/'
   });
+  console.log('[AUTH] Session cookie set for user:', user.email);
 }
 
 export async function logout() {
@@ -48,7 +50,11 @@ export async function logout() {
 }
 
 export async function getSession() {
-  const session = cookies().get('session')?.value;
-  if (!session) return null;
+  const cookieStore = cookies();
+  const session = cookieStore.get('session')?.value;
+  if (!session) {
+    console.log('[AUTH] No session cookie found in request');
+    return null;
+  }
   return await decrypt(session);
 }
