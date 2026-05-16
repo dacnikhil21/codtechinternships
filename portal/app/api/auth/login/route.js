@@ -33,13 +33,24 @@ export async function POST(req) {
     }
 
     // Create session
-    await login(user);
+    const session = await login(user);
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       success: true,
       message: 'Login successful',
       data: { name: user.name, email: user.email, course: user.course, role: user.role }
     });
+
+    // Explicitly set cookie on the response object as a secondary measure
+    response.cookies.set('session', session, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'lax',
+      path: '/',
+      maxAge: 60 * 60 * 24 // 24 hours
+    });
+
+    return response;
 
   } catch (error) {
     console.error('LOGIN ERROR:', error);

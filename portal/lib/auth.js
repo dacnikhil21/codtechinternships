@@ -35,14 +35,16 @@ export async function login(user) {
     expires 
   });
 
-  cookies().set('session', session, { 
+  const cookieStore = cookies();
+  cookieStore.set('session', session, { 
     expires, 
     httpOnly: true, 
-    secure: true, // MUST be true for HTTPS on most modern browsers
+    secure: true, 
     sameSite: 'lax',
     path: '/'
   });
-  console.log('[AUTH] Session cookie set for user:', user.email);
+
+  return session; // Return for explicit setting if needed
 }
 
 export async function logout() {
