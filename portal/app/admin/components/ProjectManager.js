@@ -268,8 +268,9 @@ export default function ProjectManager() {
           </tbody>
         </table>
       </div>
+    </div>
 
-      {/* Modal */}
+    {/* Modal */}
       <AnimatePresence>
         {isModalOpen && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-12">
