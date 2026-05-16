@@ -440,7 +440,11 @@ export default function Dashboard() {
                 <span className="material-symbols-outlined text-sm text-emerald-500">verified</span>
                 {user?.xp || 0} XP
              </div>
-             <button className="bg-primary text-white px-4 py-1.5 rounded-lg font-black text-[9px] tracking-tight uppercase shadow-lg shadow-primary/20 hover:bg-primary-dark transition-all flex items-center gap-2">
+             <button 
+               onClick={() => setActiveTab('Certificate')}
+               className="bg-primary text-white px-3 py-1.5 rounded-lg font-black text-[9px] tracking-tight uppercase shadow-sm hover:bg-primary-dark transition-all flex items-center gap-2"
+             >
+                <span className="material-symbols-outlined text-sm">workspace_premium</span>
                 Get Certified
              </button>
           </div>
@@ -552,8 +556,8 @@ export default function Dashboard() {
                   </div>
                </div>
 
-               {/* Card 2: Internship Certificate */}
-               <div className="bg-white p-6 rounded-3xl border border-slate-200/60 shadow-sm relative overflow-hidden group md:col-span-2 lg:col-span-1">
+               {/* Card 3: Internship Certificate */}
+               <div className="bg-white p-6 rounded-3xl border border-slate-200/60 shadow-sm relative overflow-hidden flex flex-col justify-between group md:col-span-2 lg:col-span-1">
                   <div className="flex justify-between items-start relative z-10 mb-4">
                      <div>
                         <h4 className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Final Reward</h4>
