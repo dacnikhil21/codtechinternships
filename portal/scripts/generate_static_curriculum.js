@@ -19,7 +19,8 @@ async function generateJson() {
   }
   getFiles(baseDir);
 
-  const allCurriculum = {};
+  const outputDir = './lib/curriculum_data';
+  if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
 
   for (const filePath of files) {
     const fileName = path.basename(filePath, '.pdf').trim();
@@ -28,14 +29,15 @@ async function generateJson() {
       const dataBuffer = fs.readFileSync(filePath);
       const data = await pdf(dataBuffer);
       const structured = parsePdfTextToCurriculum(data.text);
-      allCurriculum[fileName.toUpperCase()] = structured;
+      
+      const safeName = fileName.toLowerCase().replace(/[^a-z0-9]/g, '_') + '.json';
+      fs.writeFileSync(path.join(outputDir, safeName), JSON.stringify(structured, null, 2));
+      console.log(`✅ Saved lib/curriculum_data/${safeName}`);
     } catch (err) {
       console.error(`❌ Error parsing ${fileName}:`, err.message);
     }
   }
-
-  fs.writeFileSync('./lib/real_curriculum.json', JSON.stringify(allCurriculum, null, 2));
-  console.log('✅ Real curriculum JSON generated at lib/real_curriculum.json');
+  console.log('✅ All domain curriculum files generated.');
 }
 
 generateJson().catch(console.error);

@@ -42,53 +42,63 @@ export async function GET() {
       }
     }
 
-    // 2. Fallback to Static JSON (Real Content from PDFs)
-    const jsonPath = path.join(process.cwd(), 'lib', 'real_curriculum.json');
+    // 2. Fallback to Static JSON (Optimized: Lazy Load Domain Specific File)
+    const normalize = (str) => str.toLowerCase().replace(/[^a-z0-9]/g, '');
+    const userCourseNorm = normalize(userCourse);
+    
+    // Domain mapping for files
+    const fileOverrides = {
+      'dotnet': '___net',
+      'backend': 'backend__web_development___1_',
+      'dataanalytics': 'data_analyst',
+      'powerbi': 'powerbi',
+      'blockchain': 'block_chain_technology',
+      'bigdata': 'bigdata',
+      'uiux': 'uiux_design___1_',
+      'artificialintelligence': 'aiml',
+      'machinelearning': 'aiml',
+      'cybersec': 'cybersecurity_and_ethical_hacking',
+      'softwaredevelopment': 'software_development___1_',
+      'mern': 'mern_stack_web_development',
+      'fullstack': 'full_stack_web_development'
+    };
+
+    let targetFile = '';
+    
+    // Check overrides first
+    for (const [key, val] of Object.entries(fileOverrides)) {
+      if (userCourseNorm.includes(key)) {
+        targetFile = val;
+        break;
+      }
+    }
+
+    if (!targetFile) {
+      targetFile = userCourseNorm;
+    }
+
+    const jsonPath = path.join(process.cwd(), 'lib', 'curriculum_data', `${targetFile}.json`);
+    
     if (fs.existsSync(jsonPath)) {
-      const allData = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
-      
-      const normalize = (str) => str.toLowerCase().replace(/[^a-z0-9]/g, '');
-      const userCourseNorm = normalize(userCourse);
-      
-      const overrides = {
-        'dotnet': '_.net',
-        'backend': 'backend  web development  (1)',
-        'dataanalytics': 'data analyst',
-        'powerbi': 'powerbi',
-        'blockchain': 'block chain technology',
-        'bigdata': 'bigdata',
-        'uiux': 'uiux design  (1)',
-        'artificialintelligence': 'aiml',
-        'machinelearning': 'aiml',
-        'cybersec': 'cybersecurity and ethical hacking',
-        'softwaredevelopment': 'software development  (1)'
-      };
+      const domainData = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
+      return NextResponse.json({ 
+        success: true, 
+        data: domainData, 
+        source: 'static_json_optimized' 
+      });
+    }
 
-      let matchingKey = Object.keys(allData).find(key => 
-        userCourse.includes(key) || key.includes(userCourse) || normalize(key) === userCourseNorm
-      );
-
-      if (!matchingKey) {
-        for (const [key, val] of Object.entries(overrides)) {
-          if (userCourseNorm.includes(key)) {
-            matchingKey = Object.keys(allData).find(k => k.toLowerCase() === val.toLowerCase());
-            if (matchingKey) break;
-          }
-        }
-      }
-      
-      if (!matchingKey) {
-        const coursePrefix = userCourse.split(/[ /]/)[0].toLowerCase();
-        if (coursePrefix.length > 2) {
-           matchingKey = Object.keys(allData).find(k => k.toLowerCase().includes(coursePrefix));
-        }
-      }
-      
-      if (matchingKey) {
+    // Secondary fallback: Try searching in the directory
+    const dataDir = path.join(process.cwd(), 'lib', 'curriculum_data');
+    if (fs.existsSync(dataDir)) {
+      const files = fs.readdirSync(dataDir);
+      const matched = files.find(f => f.includes(targetFile) || targetFile.includes(f.replace('.json', '')));
+      if (matched) {
+        const domainData = JSON.parse(fs.readFileSync(path.join(dataDir, matched), 'utf8'));
         return NextResponse.json({ 
           success: true, 
-          data: allData[matchingKey], 
-          source: 'static_json' 
+          data: domainData, 
+          source: 'static_json_fuzzy' 
         });
       }
     }
