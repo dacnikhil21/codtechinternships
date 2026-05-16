@@ -1,10 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   poweredByHeader: false,
-  trailingSlash: true,
+  trailingSlash: false,
+  output: 'standalone',
   generateBuildId: async () => {
-    // Generate a unique ID per build to force cache invalidation
-    return `build-${Date.now()}`
+    return 'codtech-production-stable-v1';
   },
   async headers() {
     return [
@@ -19,7 +19,7 @@ const nextConfig = {
     ]
   },
   experimental: {
-    serverComponentsExternalPackages: ['mongoose', 'mongodb-memory-server'],
+    serverComponentsExternalPackages: ['mysql2'],
     webpackBuildWorker: false,
   },
   productionBrowserSourceMaps: false,

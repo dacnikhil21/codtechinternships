@@ -37,10 +37,18 @@ async function setup() {
       course VARCHAR(255) NOT NULL,
       role VARCHAR(50) NOT NULL DEFAULT 'student',
       xp INT NOT NULL DEFAULT 0,
+      intern_id VARCHAR(100) DEFAULT NULL,
       createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
       updatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     )
   `);
+  
+  // Ensure intern_id exists even if table was already created
+  try {
+    await conn.execute('ALTER TABLE user ADD COLUMN intern_id VARCHAR(100) DEFAULT NULL');
+  } catch (err) {
+    // Ignore error if column already exists
+  }
   console.log('✅ user table ready.');
  
   // Create task table (Legacy)
