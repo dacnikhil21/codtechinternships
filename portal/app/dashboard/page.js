@@ -561,8 +561,6 @@ export default function Dashboard() {
                </div>
             </div>
 
-            </div>
-
             {/* PROJECT WORKSPACE - COMPACT & FUNCTIONAL */}
             <section className="bg-white p-6 rounded-3xl border border-slate-200/60 shadow-sm space-y-6">
                <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
