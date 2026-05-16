@@ -180,6 +180,13 @@ export default function Dashboard() {
       }
     };
     fetchDashboardData();
+    if (!localStorage.getItem('support_notice_shown')) {
+      toast.success('Need help? New Contact Support feature is now live!', {
+        icon: '📞',
+        duration: 6000
+      });
+      localStorage.setItem('support_notice_shown', 'true');
+    }
   }, [router]);
 
   useEffect(() => {
@@ -335,6 +342,7 @@ export default function Dashboard() {
             { name: 'Resume Builder', icon: 'description', path: '/resume' },
             { name: 'LinkedIn Profile', icon: 'person_search' },
             { name: 'Certificate', icon: 'workspace_premium' },
+            { name: 'Contact Support', icon: 'support_agent', isSupport: true },
             ...(user?.role === 'admin' ? [{ name: 'Admin Panel', icon: 'admin_panel_settings', path: '/admin' }] : []),
           ].map((item) => (
             <button 
@@ -345,6 +353,10 @@ export default function Dashboard() {
                   setIsMobileMenuOpen(false);
                 } else if (item.path) {
                   router.push(item.path);
+                } else if (item.isSupport) {
+                   generateCaptcha();
+                   setIsSupportModalOpen(true);
+                   setIsMobileMenuOpen(false);
                 } else {
                   setActiveTab(item.name); 
                   setIsMobileMenuOpen(false);
