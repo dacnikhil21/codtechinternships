@@ -3,6 +3,7 @@ import pool from '@/lib/db';
 import { MASTER_PROJECTS } from '@/lib/masterProjects';
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 // Normalize domain names for fuzzy matching
 const normalize = (str) => str.toLowerCase().replace(/[^a-z0-9]/g, '');

@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 import pool from '@/lib/db';
 import { isAdmin } from '@/lib/adminCheck';
 import { getSession } from '@/lib/auth';
+
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 import bcrypt from 'bcryptjs';
 
 export async function GET() {

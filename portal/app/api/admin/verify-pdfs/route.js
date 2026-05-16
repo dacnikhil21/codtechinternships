@@ -3,6 +3,7 @@ import path from 'path';
 import { NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 // All expected domain PDF mappings (mirrors DOMAIN_TO_PDF from pdfs/route.js)
 const EXPECTED_PDFS = {

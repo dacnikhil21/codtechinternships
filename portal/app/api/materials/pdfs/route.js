@@ -3,6 +3,7 @@ import path from 'path';
 import { NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 // STRICT 1-to-1 Domain Mapping
 // This ensures students ONLY see the PDF for their specific internship.

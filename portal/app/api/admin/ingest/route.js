@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 import mysql from 'mysql2/promise';
 import pdf from 'pdf-parse';
 import { parsePdfTextToCurriculum } from '@/lib/pdfParser';
