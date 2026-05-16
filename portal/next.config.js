@@ -6,6 +6,17 @@ const nextConfig = {
   generateBuildId: async () => {
     return 'codtech-production-stable-v1';
   },
+  
+  // Hostinger Resource Optimization
+  // Cloud Startup plan has 2GB RAM. Next.js build can spike to 1.5GB+.
+  // Limiting parallelism prevents the build from hitting 100% CPU/RAM.
+  webpack: (config, { dev, isServer }) => {
+    if (!dev) {
+      config.parallelism = 1; // Strict 1-thread build to save RAM
+    }
+    return config;
+  },
+
   async headers() {
     return [
       {
@@ -20,7 +31,8 @@ const nextConfig = {
   },
   experimental: {
     serverComponentsExternalPackages: ['mysql2'],
-    webpackBuildWorker: false,
+    webpackBuildWorker: false, // Prevents separate processes for build tasks
+    cpus: 1, // Limit worker pool to 1 CPU core
   },
   productionBrowserSourceMaps: false,
 };
