@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import toast from 'react-hot-toast';
 import AdminSidebar from './components/AdminSidebar';
 import ProjectManager from './components/ProjectManager';
+import SupportManager from './components/SupportManager';
 
 export default function AdminDashboard() {
   const router = useRouter();
@@ -221,6 +222,12 @@ export default function AdminDashboard() {
           {activeTab === 'projects' && (
             <motion.div key="projects" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
               <ProjectManager />
+            </motion.div>
+          )}
+
+          {activeTab === 'support' && (
+            <motion.div key="support" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
+              <SupportManager />
             </motion.div>
           )}
 

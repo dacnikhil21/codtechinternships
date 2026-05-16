@@ -187,6 +187,22 @@ async function setup() {
   `);
   console.log('✅ curriculum_lessons table ready.');
 
+  // Create support_requests table
+  await conn.execute(`
+    CREATE TABLE IF NOT EXISTS support_requests (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      fullName VARCHAR(255) NOT NULL,
+      email VARCHAR(255) NOT NULL,
+      internId VARCHAR(255) NOT NULL,
+      subject VARCHAR(255) NOT NULL,
+      message TEXT NOT NULL,
+      status VARCHAR(50) NOT NULL DEFAULT 'Pending',
+      createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      updatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    )
+  `);
+  console.log('✅ support_requests table ready.');
+
   await conn.end();
   console.log('🚀 Database setup complete.');
 }

@@ -29,6 +29,17 @@ export default function Dashboard() {
   const [completedLessons, setCompletedLessons] = useState([]);
   const [completedProjects, setCompletedProjects] = useState([]);
   const [isCertificateModalOpen, setIsCertificateModalOpen] = useState(false);
+  const [isSupportModalOpen, setIsSupportModalOpen] = useState(false);
+  const [isSupportSuccess, setIsSupportSuccess] = useState(false);
+  const [supportForm, setSupportForm] = useState({
+    fullName: '',
+    email: '',
+    internId: '',
+    subject: '',
+    message: '',
+    captchaAnswer: ''
+  });
+  const [captchaNums, setCaptchaNums] = useState({ n1: 0, n2: 0 });
   const [countdown, setCountdown] = useState('');
   
   // Learning Portal States
@@ -170,6 +181,58 @@ export default function Dashboard() {
     };
     fetchDashboardData();
   }, [router]);
+
+  useEffect(() => {
+    if (user) {
+      setSupportForm(prev => ({
+        ...prev,
+        fullName: user.name || '',
+        email: user.email || '',
+        internId: user.id ? `CT-${user.id}` : ''
+      }));
+    }
+  }, [user]);
+
+  const generateCaptcha = () => {
+    setCaptchaNums({
+      n1: Math.floor(Math.random() * 10) + 1,
+      n2: Math.floor(Math.random() * 10) + 1
+    });
+  };
+
+  const handleSupportSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (parseInt(supportForm.captchaAnswer) !== (captchaNums.n1 + captchaNums.n2)) {
+      return toast.error('Verification failed. 4 + 3 = ?');
+    }
+
+    const loadingToast = toast.loading('Submitting request...');
+    try {
+      const res = await fetch('/api/support', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...supportForm,
+          num1: captchaNums.n1,
+          num2: captchaNums.n2
+        })
+      });
+      const data = await res.json();
+      toast.dismiss(loadingToast);
+      
+      if (data.success) {
+        setIsSupportSuccess(true);
+        setIsSupportModalOpen(false);
+        setSupportForm(prev => ({ ...prev, subject: '', message: '', captchaAnswer: '' }));
+      } else {
+        toast.error(data.message || 'Submission failed');
+      }
+    } catch (err) {
+      toast.dismiss(loadingToast);
+      toast.error('Network error. Please try again.');
+    }
+  };
 
   const handleLogout = async () => {
     try {
@@ -486,7 +549,27 @@ export default function Dashboard() {
                </div>
             </div>
 
-
+            {/* NEW SECTION: Contact Support */}
+            <section className="bg-white p-8 rounded-[2rem] border border-slate-200/60 shadow-xl relative overflow-hidden group">
+               <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-50/50 rounded-full blur-3xl pointer-events-none -mr-32 -mt-32 transition-all group-hover:bg-indigo-100/50"></div>
+               <div className="flex flex-col md:flex-row justify-between items-center gap-8 relative z-10">
+                  <div className="flex items-center gap-6">
+                     <div className="w-16 h-16 bg-indigo-600 text-white rounded-2xl flex items-center justify-center shadow-2xl shadow-indigo-200 shrink-0">
+                        <span className="material-symbols-outlined text-3xl">support_agent</span>
+                     </div>
+                     <div>
+                        <h3 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight uppercase italic leading-none mb-2">📞 Contact <span className="text-indigo-600">Support</span></h3>
+                        <p className="text-[12px] md:text-[13px] text-slate-500 font-medium max-w-md">Facing any internship or technical issue? Reach out to the CODTECH team for assistance.</p>
+                     </div>
+                  </div>
+                  <button 
+                    onClick={() => { generateCaptcha(); setIsSupportModalOpen(true); }}
+                    className="w-full md:w-auto bg-slate-900 text-white px-10 py-4 rounded-xl font-black text-[11px] uppercase tracking-[0.2em] shadow-xl shadow-slate-200 hover:bg-indigo-600 hover:scale-105 active:scale-95 transition-all"
+                  >
+                     Open Support Form
+                  </button>
+               </div>
+            </section>
 
             {/* PROJECT WORKSPACE - COMPACT & FUNCTIONAL */}
             <section className="bg-white p-6 rounded-3xl border border-slate-200/60 shadow-sm space-y-6">
@@ -1203,7 +1286,145 @@ export default function Dashboard() {
                  </motion.div>
               </div>
            )}
-        </AnimatePresence>
+         </AnimatePresence>
+
+         {/* SUPPORT MODAL */}
+         <AnimatePresence>
+            {isSupportModalOpen && (
+               <div className="fixed inset-0 z-[100] flex items-center justify-center p-5 bg-slate-900/80 backdrop-blur-md">
+                  <motion.div initial={{ opacity: 0, scale: 0.95, y: 10 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 10 }} className="bg-white w-full max-w-2xl rounded-[2.5rem] shadow-2xl overflow-y-auto max-h-[90vh] border border-slate-200/60 relative custom-scrollbar">
+                     <div className="p-8 md:p-12">
+                        <div className="flex justify-between items-start mb-8">
+                           <div>
+                              <h4 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight uppercase italic mb-2">📞 Support <span className="text-indigo-600">Form</span></h4>
+                              <p className="text-[12px] md:text-[13px] text-slate-500 font-medium">Please fill out the form below to reach the CODTECH team.</p>
+                           </div>
+                           <button onClick={() => setIsSupportModalOpen(false)} className="w-10 h-10 rounded-xl bg-slate-50 text-slate-400 hover:bg-slate-100 transition-all flex items-center justify-center">
+                              <span className="material-symbols-outlined">close</span>
+                           </button>
+                        </div>
+
+                        <form onSubmit={handleSupportSubmit} className="space-y-6">
+                           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                              <div className="space-y-2">
+                                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Full Name *</label>
+                                 <input 
+                                   required
+                                   type="text"
+                                   placeholder="Your Name"
+                                   value={supportForm.fullName}
+                                   onChange={(e) => setSupportForm({...supportForm, fullName: e.target.value})}
+                                   className="w-full bg-slate-50 border border-slate-200 rounded-xl px-5 py-3.5 text-sm font-bold focus:outline-none focus:border-indigo-500 transition-all"
+                                 />
+                              </div>
+                              <div className="space-y-2">
+                                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Email Address *</label>
+                                 <input 
+                                   required
+                                   type="email"
+                                   placeholder="your@email.com"
+                                   value={supportForm.email}
+                                   onChange={(e) => setSupportForm({...supportForm, email: e.target.value})}
+                                   className="w-full bg-slate-50 border border-slate-200 rounded-xl px-5 py-3.5 text-sm font-bold focus:outline-none focus:border-indigo-500 transition-all"
+                                 />
+                              </div>
+                           </div>
+
+                           <div className="space-y-2">
+                              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">CODTECH Intern ID *</label>
+                              <input 
+                                required
+                                type="text"
+                                placeholder="CT-XXXX"
+                                value={supportForm.internId}
+                                onChange={(e) => setSupportForm({...supportForm, internId: e.target.value})}
+                                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-5 py-3.5 text-sm font-bold focus:outline-none focus:border-indigo-500 transition-all"
+                              />
+                              <p className="text-[9px] font-bold text-indigo-500 uppercase tracking-widest ml-1">You can find your CODTECH Intern ID in your Offer Letter.</p>
+                           </div>
+
+                           <div className="space-y-2">
+                              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Subject / Issue Type *</label>
+                              <select 
+                                required
+                                value={supportForm.subject}
+                                onChange={(e) => setSupportForm({...supportForm, subject: e.target.value})}
+                                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-5 py-3.5 text-sm font-bold focus:outline-none focus:border-indigo-500 transition-all text-slate-700"
+                              >
+                                 <option value="" disabled>Select Issue Type</option>
+                                 <option value="Internship Issue">Internship Issue</option>
+                                 <option value="Project Submission Issue">Project Submission Issue</option>
+                                 <option value="Certificate Issue">Certificate Issue</option>
+                                 <option value="College Verification Issue">College Verification Issue</option>
+                                 <option value="Technical Problem">Technical Problem</option>
+                                 <option value="Login / Account Problem">Login / Account Problem</option>
+                                 <option value="Other">Other</option>
+                              </select>
+                           </div>
+
+                           <div className="space-y-2">
+                              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Message / Problem Description *</label>
+                              <textarea 
+                                required
+                                rows="4"
+                                placeholder="Explain your issue clearly so our team can assist you faster."
+                                value={supportForm.message}
+                                onChange={(e) => setSupportForm({...supportForm, message: e.target.value})}
+                                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-5 py-3.5 text-sm font-bold focus:outline-none focus:border-indigo-500 transition-all resize-none"
+                              ></textarea>
+                           </div>
+
+                           <div className="bg-indigo-50/50 p-6 rounded-2xl border border-indigo-100 flex flex-col md:flex-row items-center justify-between gap-4">
+                              <div className="flex items-center gap-4">
+                                 <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center border border-indigo-100 shadow-sm">
+                                    <span className="material-symbols-outlined text-indigo-600 text-lg">verified_user</span>
+                                 </div>
+                                 <div>
+                                    <p className="text-[10px] font-black text-indigo-600 uppercase tracking-widest">Verification Question</p>
+                                    <p className="text-sm font-black text-slate-900">{captchaNums.n1} + {captchaNums.n2} = ?</p>
+                                 </div>
+                              </div>
+                              <input 
+                                required
+                                type="number"
+                                placeholder="Answer"
+                                value={supportForm.captchaAnswer}
+                                onChange={(e) => setSupportForm({...supportForm, captchaAnswer: e.target.value})}
+                                className="w-full md:w-32 bg-white border border-indigo-200 rounded-xl px-4 py-3 text-sm font-bold text-center focus:outline-none focus:border-indigo-500 transition-all"
+                              />
+                           </div>
+
+                           <button type="submit" className="w-full bg-indigo-600 text-white py-5 rounded-2xl text-[12px] font-black uppercase tracking-[0.3em] shadow-xl shadow-indigo-200 hover:bg-indigo-700 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-3">
+                              Submit Request <span className="material-symbols-outlined text-lg">send</span>
+                           </button>
+                        </form>
+                     </div>
+                  </motion.div>
+               </div>
+            )}
+         </AnimatePresence>
+
+         {/* SUPPORT SUCCESS MODAL */}
+         <AnimatePresence>
+            {isSupportSuccess && (
+               <div className="fixed inset-0 z-[110] flex items-center justify-center p-5 bg-slate-900/60 backdrop-blur-md">
+                  <motion.div initial={{ opacity: 0, scale: 0.95, y: 10 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 10 }} className="bg-white w-full max-w-md rounded-[2rem] shadow-2xl overflow-hidden border border-slate-200/60 relative">
+                     <div className="p-10 text-center flex flex-col items-center">
+                        <div className="w-20 h-20 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center mb-6 border-4 border-emerald-100">
+                           <span className="material-symbols-outlined text-5xl">check_circle</span>
+                        </div>
+                        <h4 className="text-2xl font-black text-slate-900 mb-2 tracking-tight uppercase italic">✅ Support Request Submitted Successfully</h4>
+                        <p className="text-[13px] text-slate-500 font-medium leading-relaxed mb-8">
+                           Thank you! Your request has been submitted successfully. Our CODTECH team will review your issue and get back to you soon.
+                        </p>
+                        <button onClick={() => setIsSupportSuccess(false)} className="w-full bg-slate-900 text-white py-4 rounded-xl text-[11px] font-black uppercase tracking-widest shadow-lg shadow-slate-200 hover:bg-indigo-600 transition-all">
+                           Close
+                        </button>
+                     </div>
+                  </motion.div>
+               </div>
+            )}
+         </AnimatePresence>
 
       </main>
     </div>
