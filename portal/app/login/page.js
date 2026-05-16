@@ -100,8 +100,8 @@ function LoginContent() {
 
         <section className="col-span-1 lg:col-span-6 p-8 md:p-12 bg-transparent flex flex-col justify-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-            <div className="flex lg:hidden mb-12 flex-col items-center w-full">
-              <div className="scale-75 md:scale-100 flex justify-center">
+            <div className="flex lg:hidden pt-8 mb-16 flex-col items-center w-full">
+              <div className="scale-[0.8] md:scale-100 flex justify-center origin-center">
                 <AnimatedLogo />
               </div>
             </div>
