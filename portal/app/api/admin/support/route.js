@@ -37,7 +37,18 @@ export async function GET(req) {
 
     sql += ' ORDER BY createdAt DESC';
 
-    const [requests] = await pool.execute(sql, params);
+    let requests = [];
+    try {
+      [requests] = await pool.execute(sql, params);
+    } catch (dbError) {
+      // If the table doesn't exist yet (no student has submitted a request),
+      // just return an empty array instead of crashing the admin panel with a 500 error.
+      if (dbError.errno === 1146 || dbError.code === 'ER_NO_SUCH_TABLE') {
+        requests = [];
+      } else {
+        throw dbError; // rethrow if it's a real database error
+      }
+    }
 
     return NextResponse.json({
       success: true,
