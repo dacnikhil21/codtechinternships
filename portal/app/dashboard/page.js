@@ -561,27 +561,7 @@ export default function Dashboard() {
                </div>
             </div>
 
-            {/* NEW SECTION: Contact Support */}
-            <section className="bg-white p-8 rounded-[2rem] border border-slate-200/60 shadow-xl relative overflow-hidden group">
-               <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-50/50 rounded-full blur-3xl pointer-events-none -mr-32 -mt-32 transition-all group-hover:bg-indigo-100/50"></div>
-               <div className="flex flex-col md:flex-row justify-between items-center gap-8 relative z-10">
-                  <div className="flex items-center gap-6">
-                     <div className="w-16 h-16 bg-indigo-600 text-white rounded-2xl flex items-center justify-center shadow-2xl shadow-indigo-200 shrink-0">
-                        <span className="material-symbols-outlined text-3xl">support_agent</span>
-                     </div>
-                     <div>
-                        <h3 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight uppercase italic leading-none mb-2">📞 Contact <span className="text-indigo-600">Support</span></h3>
-                        <p className="text-[12px] md:text-[13px] text-slate-500 font-medium max-w-md">Facing any internship or technical issue? Reach out to the CODTECH team for assistance.</p>
-                     </div>
-                  </div>
-                  <button 
-                    onClick={() => { generateCaptcha(); setIsSupportModalOpen(true); }}
-                    className="w-full md:w-auto bg-slate-900 text-white px-10 py-4 rounded-xl font-black text-[11px] uppercase tracking-[0.2em] shadow-xl shadow-slate-200 hover:bg-indigo-600 hover:scale-105 active:scale-95 transition-all"
-                  >
-                     Open Support Form
-                  </button>
-               </div>
-            </section>
+            </div>
 
             {/* PROJECT WORKSPACE - COMPACT & FUNCTIONAL */}
             <section className="bg-white p-6 rounded-3xl border border-slate-200/60 shadow-sm space-y-6">
