@@ -284,10 +284,14 @@ export default function Dashboard() {
       {/* Mobile Top Bar - NEW */}
       <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-white border-b border-slate-200/60 z-[80] flex items-center justify-between px-6 backdrop-blur-md bg-white/80">
         <div className="flex items-center gap-2.5">
-          <div className="scale-[0.25] origin-left -mr-40 -ml-16">
-            <AnimatedLogo />
+          <div className="w-8 h-8 bg-slate-950 rounded-lg flex items-center justify-center shadow-md shadow-blue-500/10 border border-white/5 relative overflow-hidden">
+            <div className="absolute inset-0 bg-blue-500/10 blur-sm"></div>
+            <span className="font-black italic text-[11px] tracking-tighter relative z-10">
+              <span className="text-blue-500">C</span>
+              <span className="text-white">T</span>
+            </span>
           </div>
-          <h1 className="text-slate-900 font-bold text-[11px] tracking-tight uppercase relative z-10">Codtech</h1>
+          <h1 className="text-slate-900 font-bold text-[11px] tracking-tight uppercase">Codtech</h1>
         </div>
         <button 
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -312,18 +316,29 @@ export default function Dashboard() {
       
       <aside className={`w-64 bg-white border-r border-slate-200/60 flex flex-col fixed h-full z-[70] transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'} lg:left-0`}>
         <div className="p-6 mb-2 hidden lg:block">
-          <div className="flex flex-col items-center justify-center scale-[0.35] origin-top -mb-16 -mt-8">
-            <AnimatedLogo />
+          <div className="flex items-center gap-2.5">
+            <div className="w-9 h-9 bg-slate-950 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20 border border-white/10 relative overflow-hidden">
+              <div className="absolute inset-0 bg-blue-500/10 blur-sm"></div>
+              <span className="font-black italic text-[14px] tracking-tighter relative z-10">
+                <span className="text-blue-500">C</span>
+                <span className="text-white">T</span>
+              </span>
+            </div>
+            <h1 className="text-slate-900 font-black text-[13px] tracking-tighter uppercase">Codtech Intern</h1>
           </div>
         </div>
 
         {/* Mobile Header in Sidebar */}
         <div className="p-6 lg:hidden flex items-center justify-between border-b border-slate-50 mb-4">
            <div className="flex items-center gap-3">
-              <div className="scale-[0.25] origin-left -mr-44 -ml-16">
-                 <AnimatedLogo />
+              <div className="w-8 h-8 bg-slate-950 rounded-lg flex items-center justify-center shadow-md shadow-blue-500/10 border border-white/5 relative overflow-hidden">
+                <div className="absolute inset-0 bg-blue-500/10 blur-sm"></div>
+                <span className="font-black italic text-[11px] tracking-tighter relative z-10">
+                  <span className="text-blue-500">C</span>
+                  <span className="text-white">T</span>
+                </span>
               </div>
-              <span className="font-black text-[11px] uppercase tracking-tight relative z-10">Navigation</span>
+              <span className="font-black text-[11px] uppercase tracking-tight">Navigation</span>
            </div>
            <button onClick={() => setIsMobileMenuOpen(false)} className="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center text-slate-400">
               <span className="material-symbols-outlined text-sm">close</span>
@@ -405,22 +420,8 @@ export default function Dashboard() {
                 <span className="material-symbols-outlined text-sm text-emerald-500">verified</span>
                 {user?.xp || 0} XP
              </div>
-             <button 
-               disabled={completedProjects.length < 4}
-               onClick={() => completedProjects.length >= 4 && setIsCertificateModalOpen(true)}
-               className={`flex flex-col items-center justify-center min-w-[140px] h-[42px] px-4 rounded-lg font-black transition-all shadow-lg shadow-primary/20 group relative overflow-hidden ${
-                 completedProjects.length >= 4 
-                   ? 'bg-primary text-white hover:bg-primary-dark cursor-pointer' 
-                   : 'bg-slate-50 text-slate-400 border border-slate-200/60 cursor-not-allowed'
-               }`}
-             >
-                <div className="flex items-center gap-2">
-                   <span className="material-symbols-outlined text-[14px]">{completedProjects.length >= 4 ? 'workspace_premium' : 'lock'}</span>
-                   <span className="text-[9px] tracking-tight uppercase">{completedProjects.length >= 4 ? 'Claim Certificate' : 'Certificate Locked'}</span>
-                </div>
-                {completedProjects.length < 4 && (
-                   <span className="text-[7px] font-bold uppercase tracking-widest opacity-60">Complete 4 Projects</span>
-                )}
+             <button className="bg-primary text-white px-4 py-1.5 rounded-lg font-black text-[9px] tracking-tight uppercase shadow-lg shadow-primary/20 hover:bg-primary-dark transition-all flex items-center gap-2">
+                Get Certified
              </button>
           </div>
         </header>
