@@ -18,15 +18,6 @@ export default function PdfViewer({ pdf, onClose }) {
     }
   };
 
-  const handleDownload = () => {
-    const link = document.createElement('a');
-    link.href = `/api/materials/file?file=${encodeURIComponent(pdf.filename)}`;
-    link.download = pdf.filename;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
   const [viewerUrl, setViewerUrl] = useState('');
 
   useEffect(() => {
@@ -73,14 +64,6 @@ export default function PdfViewer({ pdf, onClose }) {
 
             <div className="flex items-center gap-2">
               <button
-                onClick={handleDownload}
-                className="w-8 h-8 flex items-center justify-center rounded-lg text-slate-500 hover:bg-slate-50 hover:text-primary transition-colors tooltip-trigger"
-                title="Download PDF"
-              >
-                <span className="material-symbols-outlined text-sm font-bold">download</span>
-              </button>
-              
-              <button
                 onClick={toggleFullscreen}
                 className="w-8 h-8 flex items-center justify-center rounded-lg text-slate-500 hover:bg-slate-50 hover:text-primary transition-colors hidden lg:flex"
                 title="Toggle Fullscreen"
@@ -111,7 +94,7 @@ export default function PdfViewer({ pdf, onClose }) {
                 title={pdf.name}
                 style={{ backgroundColor: '#f1f5f9' }}
               >
-                <p>Your browser does not support PDFs. <a href={`/api/materials/file?file=${encodeURIComponent(pdf.filename)}`}>Download the PDF</a>.</p>
+                <p>Your browser does not support PDFs. Please use a desktop browser to view this material.</p>
               </iframe>
             )}
           </div>
