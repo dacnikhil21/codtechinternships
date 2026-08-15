@@ -155,12 +155,18 @@ function LoginContent() {
               </button>
             </form>
 
-            <div className="mt-12 pt-8 border-t border-white/5 flex flex-col items-center gap-4">
-              <p className="text-[10px] text-slate-500 font-black uppercase tracking-[0.2em]">New to the platform?</p>
-              <Link href="/register" className="text-white hover:text-indigo-400 transition-all font-black uppercase text-[11px] tracking-[0.3em]">
-                Create Elite Account
-              </Link>
-            </div>
+             <div className="mt-6 flex justify-center">
+                <Link href="/forgot-password" className="text-indigo-400 hover:text-indigo-300 transition-colors font-black uppercase text-[11px] tracking-[0.25em] flex items-center gap-2">
+                  <span className="material-symbols-outlined text-sm">lock_reset</span> Forgot Password?
+                </Link>
+              </div>
+
+              <div className="mt-8 pt-6 border-t border-white/5 flex flex-col items-center gap-3">
+                <p className="text-[10px] text-slate-500 font-black uppercase tracking-[0.2em]">New to the platform?</p>
+                <Link href="/register" className="text-white hover:text-indigo-400 transition-all font-black uppercase text-[11px] tracking-[0.3em]">
+                  Create Elite Account
+                </Link>
+              </div>
           </motion.div>
         </section>
       </div>
