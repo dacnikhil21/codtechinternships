@@ -1,5 +1,5 @@
 'use client';
-import '../globals.css';
+import '@/app/globals.css';
 import { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
