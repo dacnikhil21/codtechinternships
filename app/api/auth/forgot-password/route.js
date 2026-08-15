@@ -14,21 +14,49 @@ export async function POST(req) {
     }
 
     const cleanEmail = email.toLowerCase().trim();
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (!emailRegex.test(cleanEmail)) {
-      return NextResponse.json({ success: false, message: 'Invalid email address format' }, { status: 400 });
+
+    // 1. Exact match with LOWER and TRIM
+    let rows = [];
+    try {
+      const [res] = await pool.execute(
+        'SELECT id, name, email FROM user WHERE LOWER(TRIM(email)) = ? LIMIT 1',
+        [cleanEmail]
+      );
+      rows = res;
+    } catch (err) {
+      console.warn('Query on user table failed:', err.message);
     }
 
-    // Check if user exists in database
-    const [rows] = await pool.execute(
-      'SELECT id, name, email FROM user WHERE email = ? LIMIT 1',
-      [cleanEmail]
-    );
+    // 2. Fallback: Check 'users' table if 'user' table returned no rows
+    if (!rows || rows.length === 0) {
+      try {
+        const [res] = await pool.execute(
+          'SELECT id, name, email FROM users WHERE LOWER(TRIM(email)) = ? LIMIT 1',
+          [cleanEmail]
+        );
+        rows = res;
+      } catch (err) {
+        // Table 'users' may not exist, ignore
+      }
+    }
 
-    if (rows.length === 0) {
+    // 3. Fallback: Fuzzy LIKE search if exact match returned no rows
+    if (!rows || rows.length === 0) {
+      try {
+        const [res] = await pool.execute(
+          'SELECT id, name, email FROM user WHERE LOWER(email) LIKE ? LIMIT 1',
+          [`%${cleanEmail}%`]
+        );
+        rows = res;
+      } catch (err) {
+        // Ignore
+      }
+    }
+
+    if (!rows || rows.length === 0) {
       return NextResponse.json({ 
         success: false, 
-        message: 'No account found with this email address. Please check for typos or create a new account.' 
+        message: `No account found for "${cleanEmail}". Please check your email spelling or create a new account.` 
       }, { status: 404 });
     }
 
@@ -43,11 +71,11 @@ export async function POST(req) {
   } catch (error) {
     console.error('FORGOT PASSWORD ERROR:', error.message);
     
-    // Local dev mode fallback if MySQL is not running on 127.0.0.1 locally
+    // Local dev mode fallback if MySQL is offline locally
     if (error.message.includes('ECONNREFUSED') || error.message.includes('ETIMEDOUT')) {
       return NextResponse.json({
         success: true,
-        message: 'Local Dev Mode: Account verified for testing (Live DB connects automatically when pushed to Hostinger)',
+        message: 'Local Dev Mode: Account verified for testing',
         data: { name: 'Intern User', email: email }
       });
     }
