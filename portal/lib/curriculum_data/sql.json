@@ -1,0 +1,1274 @@
+[
+  {
+    "title": "Certifications",
+    "description": "Comprehensive study material covering Certifications.",
+    "lessons": [
+      {
+        "title": "Structured Query Language",
+        "content": "{\"simpleExplanation\":\"This section covers the fundamental concepts of Structured Query Language. Understanding this is key to mastering the domain.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Structured Query Language\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review Structured Query Language and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      },
+      {
+        "title": "Material INDEX:",
+        "content": "{\"simpleExplanation\":\"This section covers the fundamental concepts of Material INDEX:. Understanding this is key to mastering the domain.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Material INDEX:\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review Material INDEX: and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "2 Restoring Data from Backup",
+    "description": "Comprehensive study material covering 2 Restoring Data from Backup.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"IT SERVICES & IT CONSULTING INTRODUCTION TO SQL: Structured Query Language (SQL) is a powerful programming language used for managing and manipulating relational databases. It allows users to create, retrieve, update, and delete data efficiently. SQL is widely used in various industries, including finance, healthcare, and education, due to its ability to handle large volumes of structured data.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"SQL is widely used in database systems like MySQL, PostgreSQL, SQL Server, and Oracle. Its simplicity, efficiency, and scalability make it an essential tool for developers and data analysts in handling structured data.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "It Services & It Consulting",
+    "description": "Comprehensive study material covering It Services & It Consulting.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"1.DATABASE SCHEMA A  database  schema  is  the  structure  that  defines  how  data  is  organized,  stored,  and  related within  a  database. It  includes  tables,  columns,  data  types,  relationships,  constraints,  and indexing, ensuring efficient data management. A  schema  typically  consists  of  tables,  where  each  table  represents  a  specific  entity,  such  as Students,  Companies,  Job_Postings,  etc.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"They are essential for designing robust database systems in applications like student placements, where structured data management is crucial. Proper schema design enhances data retrieval, security, and scalability in relational databases such as MySQL, PostgreSQL, and SQL Server.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "It Services & It Consulting",
+    "description": "Comprehensive study material covering It Services & It Consulting.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"1.1 STUDENTS TABLE the students table is a crucial part of a database schema in a student placement system. It stores  essential  details  about  students,  ensuring  organized  data  management  for  job applications and placements. Each record in the Students table represents an individual student, identified by a Student_ID (Primary   Key).\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"A Foreign Key can link  the  Students  table  to  other  tables,  such  as  Applications  and  Placements,  enabling seamless data relations. By designing the Students table efficiently, institutions can track student details, manage job applications, and generate reports, improving the overall student placement process within a relational database.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "It Services & It Consulting",
+    "description": "Comprehensive study material covering It Services & It Consulting.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"1.2 COMPANIES TABLE the company table stores details of organizations participating in the hiring process. It plays a crucial role in a student placement system by maintaining company-related information, enabling job postings, and tracking hiring activities. Structure of Companies Table Company_ID (Primary Key) – Unique identifier for each company.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Proper  indexing  on  Company_Name  and  Industry_Type  enhances query  performance. This  table  helps  manage  company  profiles,  track  job  opportunities,  and streamline placement activities efficiently.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "It Services & It Consulting",
+    "description": "Comprehensive study material covering It Services & It Consulting.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"1.3 JOB_POSTINGS TABLE The Job_Postings table stores information about job opportunities provided by companies for student placements. It is a crucial part of the database schema, linking companies with potential candidates. This table typically includes: Job_ID (Primary Key) – A unique identifier for each job.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Job_Description – A detailed overview of the job responsibilities. Required_Skills – Skills necessary for the role.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "It Services & It Consulting",
+    "description": "Comprehensive study material covering It Services & It Consulting.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"1.4 APPLICATIONS TABLE The Applications table stores details of job applications submitted by students for various job postings. It  acts  as  a  bridge  between  the  Students  and  Job_Postings  tables,  tracking  which student has applied for which job. Key Columns in Applications Table: Application_ID (Primary Key) – Unique identifier for each application.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Indexing  the  Student_ID  and  Job_ID  improves  query  performance. The Applications  table  is  crucial  in  student  placement  systems  for  efficient  job  tracking  and management.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "It Services & It Consulting",
+    "description": "Comprehensive study material covering It Services & It Consulting.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"1.5 INTERVIEWS TABLE The Interviews table is a crucial part of a placement management database, storing information about scheduled interviews between students and companies. It helps track interview details, ensuring a smooth hiring process. This table typically includes the following columns: Interview_ID (Primary Key) – A unique identifier for each interview.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Job_ID (Foreign Key) – Associates the interview with a specific job posting. Interview_Date – Stores the scheduled date and time.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "It Services & It Consulting",
+    "description": "Comprehensive study material covering It Services & It Consulting.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"1.6 PLACEMENT TABLE The Placement Table is a crucial part of a student placement database, storing details of students who have secured jobs through campus recruitment. It maintains records of job offers, including the company name, job role, salary package, and joining date. Key columns in the Placement Table: Placement_ID (Primary Key) – Unique identifier for each placement record.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Status – Indicates if the student accepted or rejected the offer. This table helps track placement statistics, generate reports, and analyze hiring trends, making it essential for efficient campus recruitment management.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "It Services & It Consulting",
+    "description": "Comprehensive study material covering It Services & It Consulting.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"1.7  ADMIN TABLE The Admin Table is a crucial component of a database schema that manages administrative users and  their  privileges. It  is  used  to  store  information  about  system  administrators  who  oversee database operations, user management, and security. Structure of the Admin Table The Admin Table typically contains the following columns: Admin_ID (Primary Key) – A unique identifier for each admin.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Data Integrity – Ensures only authorized users modify sensitive data. The Admin Table plays a key role in securing and managing a Student Placement System, preventing unauthorized access while maintaining system integrity.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "It Services & It Consulting",
+    "description": "Comprehensive study material covering It Services & It Consulting.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"2.SQL QUERIES FOR DATA MANAGEMENT Structured Query Language (SQL) is essential for managing relational databases. It allows users to create, manipulate, and retrieve data efficiently.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Creating Tables",
+    "description": "Comprehensive study material covering Creating Tables.",
+    "lessons": [
+      {
+        "title": "CREATE TABLE Employees ( ID INT PRIMARY KEY, Name VARCHAR(100), Age INT,",
+        "content": "{\"simpleExplanation\":\"Department VARCHAR(50) This command defines a table with specific data types and constraints.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: CREATE TABLE Employees ( ID INT PRIMARY KEY, Name VARCHAR(100), Age INT,\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review CREATE TABLE Employees ( ID INT PRIMARY KEY, Name VARCHAR(100), Age INT, and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Inserting Data",
+    "description": "Comprehensive study material covering Inserting Data.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"INSERT INTO Employees (ID, Name, Age, Department) VALUES (1, 'John Doe', 30, 'IT');\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      },
+      {
+        "title": "This adds a new record into the Employees table",
+        "content": "{\"simpleExplanation\":\"This section covers the fundamental concepts of This adds a new record into the Employees table. Understanding this is key to mastering the domain.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: This adds a new record into the Employees table\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review This adds a new record into the Employees table and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Retrieving Data SELECT * FROM Employees WHERE Department = '",
+    "description": "Comprehensive study material covering Retrieving Data SELECT * FROM Employees WHERE Department = 'IT';.",
+    "lessons": [
+      {
+        "title": "Fetches all employees in the IT department",
+        "content": "{\"simpleExplanation\":\"This section covers the fundamental concepts of Fetches all employees in the IT department. Understanding this is key to mastering the domain.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Fetches all employees in the IT department\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review Fetches all employees in the IT department and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Deleting Records DELETE FROM Employees WHERE ID = 1; Removes",
+    "description": "Comprehensive study material covering Deleting Records DELETE FROM Employees WHERE ID = 1; Removes an employee by ID..",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"Aggregating Data SELECT Department, COUNT(*) FROM Employees GROUP BY Department; Counts employees per department.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "It Services & It Consulting",
+    "description": "Comprehensive study material covering It Services & It Consulting.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"2.1 INSERT STUDENT DATA SQL is widely used for managing student databases, allowing efficient storage, retrieval, and manipulation of student records. Below are key SQL queries for student data management.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Creating the Students Table",
+    "description": "Comprehensive study material covering Creating the Students Table.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"CREATE TABLE Students ( StudentID INT PRIMARY KEY, Name VARCHAR(100), Age INT, Grade VARCHAR(10), Major VARCHAR(50) This command creates a structured table to store student details.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Inserting Student Records",
+    "description": "Comprehensive study material covering Inserting Student Records.",
+    "lessons": [
+      {
+        "title": "INSERT INTO Students (StudentID, Name, Age, Grade, Major)",
+        "content": "{\"simpleExplanation\":\"VALUES (1, 'Alice Johnson', 20, 'A', 'Computer Science'), (2, 'Bob Smith', 22, 'B+', 'Mathematics'), (3, 'Charlie Brown', 21, 'A-', 'Physics'); This inserts multiple student records at once. Retrieving Student Data SELECT * FROM Students WHERE Major = 'Computer Science'; Fetches all students majoring in Computer Science. Updating Student Information UPDATE Students SET Grade = 'A+' WHERE StudentID = 1; Modifies a student’s grade.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: INSERT INTO Students (StudentID, Name, Age, Grade, Major)\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review INSERT INTO Students (StudentID, Name, Age, Grade, Major) and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "2 Insert Company  Data",
+    "description": "Comprehensive study material covering 2 Insert Company  Data.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"SQL Queries for Company Data Management Structured Query Language (SQL) is crucial for managing company data efficiently. It enables the creation, modification, and retrieval of data within a database.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Creating a Company Table",
+    "description": "Comprehensive study material covering Creating a Company Table.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"CREATE TABLE Company ( CompanyID INT PRIMARY KEY, Name VARCHAR(100), Location VARCHAR(100), FoundedYear INT, Industry VARCHAR(50) This command defines a table to store company details.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Inserting Company Data",
+    "description": "Comprehensive study material covering Inserting Company Data.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"INSERT INTO Company (CompanyID, Name, Location, FoundedYear, Industry) VALUES (1, 'TechCorp', 'New York', 2005, 'Technology'); INSERT INTO Company (CompanyID, Name, Location, FoundedYear, Industry) VALUES (2, 'HealthPlus', 'Los Angeles', 2010, 'Healthcare'); This inserts company records into the table. Retrieving Company Information SELECT * FROM Company WHERE Industry = 'Technology'; Fetches all technology companies. Updating Company Details UPDATE Company SET Location = 'San Francisco' WHERE CompanyID = 1; Modifies the location of a company.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Updating Company Details UPDATE Company SET Location = 'San Francisco' WHERE CompanyID = 1; Modifies the location of a company. Deleting a Company Record DELETE FROM Company WHERE CompanyID = 2; Removes a company from the database.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "3 Post A Job Opening",
+    "description": "Comprehensive study material covering 3 Post A Job Opening.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"Job Opening: SQL Data Management Specialist We are seeking a skilled SQL Data Management Specialist to join our team. The ideal candidate will be responsible for designing, implementing, and maintaining databases, ensuring data integrity, and optimizing query performance. Key Responsibilities: Develop and maintain relational databases using SQL.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Growth opportunities in a dynamic environment. If  you  have  a  passion  for  data  management  and  SQL,  apply  now!  Send  your  resume  to email@example.com.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "4 Apply For A Job",
+    "description": "Comprehensive study material covering 4 Apply For A Job.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"Subject: Application for SQL Data Management Position Dear [Hiring Manager’s Name], I am writing to express my interest in the [SQL Data Management Position] at [Company Name]. With a  strong  background  in  database  management  and  SQL  query  optimization,  I  am  confident  in  my ability to contribute to your team’s data-driven success. I have [X years] of experience working with SQL databases, where I have designed, optimized, and maintained data structures for efficient storage and retrieval.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"I look forward to your response. Best regards,\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      },
+      {
+        "title": "[Your Name]",
+        "content": "{\"simpleExplanation\":\"This section covers the fundamental concepts of [Your Name]. Understanding this is key to mastering the domain.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: [Your Name]\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review [Your Name] and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      },
+      {
+        "title": "[Your Contact Information]",
+        "content": "{\"simpleExplanation\":\"This section covers the fundamental concepts of [Your Contact Information]. Understanding this is key to mastering the domain.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: [Your Contact Information]\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review [Your Contact Information] and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      },
+      {
+        "title": "[Your LinkedIn (if applicable)]",
+        "content": "{\"simpleExplanation\":\"This section covers the fundamental concepts of [Your LinkedIn (if applicable)]. Understanding this is key to mastering the domain.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: [Your LinkedIn (if applicable)]\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review [Your LinkedIn (if applicable)] and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "It Services & It Consulting",
+    "description": "Comprehensive study material covering It Services & It Consulting.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"2.5 SCHEDULE AN INTERVIEW Managing interview schedules efficiently requires structured database queries. Below are essential SQL queries to handle interview scheduling.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Creating the Interview Schedule Table",
+    "description": "Comprehensive study material covering Creating the Interview Schedule Table.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"CREATE TABLE Interview_Schedule ( InterviewID INT PRIMARY KEY AUTO_INCREMENT, CandidateName VARCHAR(100), InterviewDate DATE, InterviewTime TIME, Interviewer VARCHAR(100), Status VARCHAR(20) DEFAULT 'Scheduled' Defines a table for storing interview details. Inserting an Interview Schedule INSERT INTO Interview_Schedule (CandidateName, InterviewDate, InterviewTime, Interviewer) VALUES ('Alice Johnson', '2024-06-15', '10:00:00', 'John Smith'); Schedules an interview for a candidate.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Updating Interview Details",
+    "description": "Comprehensive study material covering Updating Interview Details.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"UPDATE Interview_Schedule SET InterviewDate = '2024-06-16', InterviewTime = '11:00:00'WHERE InterviewID = 1; Reschedules an interview. Viewing Scheduled Interviews SELECT * FROM Interview_Schedule WHERE Status = 'Scheduled'; Retrieves all upcoming interviews.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Cancelling an Interview",
+    "description": "Comprehensive study material covering Cancelling an Interview.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"tUPDATE Interview_Schedule SET Status = 'Cancelled'WHERE InterviewID = 1; Marks an interview as canceled.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "It Services & It Consulting",
+    "description": "Comprehensive study material covering It Services & It Consulting.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"2.6 UPDATE PLACEMENT STATUS Managing placement status in a database is essential for tracking student employment records. SQL queries help update, retrieve, and analyze placement data efficiently.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Creating a Placement Table",
+    "description": "Comprehensive study material covering Creating a Placement Table.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"CREATE TABLE Placement ( StudentID INT PRIMARY KEY, Name VARCHAR(100), Course VARCHAR(50),\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      },
+      {
+        "title": "Status VARCHAR(20),  -- 'Placed' or 'Not Placed' Company VARCHAR(100),",
+        "content": "{\"simpleExplanation\":\"PlacementDate DATE This table stores student placement details.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Status VARCHAR(20),  -- 'Placed' or 'Not Placed' Company VARCHAR(100),\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review Status VARCHAR(20),  -- 'Placed' or 'Not Placed' Company VARCHAR(100), and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Inserting Placement Data",
+    "description": "Comprehensive study material covering Inserting Placement Data.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"INSERT INTO Placement (StudentID, Name, Course, Status, Company, PlacementDate) VALUES (101, 'Alice Smith', 'Computer Science', 'Placed', 'Google', '2025-03-10'); Adds a record of a placed student.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Updating Placement Status",
+    "description": "Comprehensive study material covering Updating Placement Status.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"UPDATE Placement SET  Status  =  'Placed',  Company  =  'Amazon',  PlacementDate  =  '2025-03-15'WHERE  StudentID  = Marks a student as placed and updates company details. Retrieving Placed Students SELECT * FROM Placement WHERE Status = 'Placed'; Fetches details of all placed students. Deleting a Placement Record DELETE FROM Placement WHERE StudentID = 103;   Removes placement details of a student.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "It Services & It Consulting",
+    "description": "Comprehensive study material covering It Services & It Consulting.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"2.7 DELETE/MODIFY RECORDS Managing data effectively in SQL includes updating existing records and deleting unnecessary ones. These operations help maintain data accuracy and relevance.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Updating Records The UPDATE statement modifies existing reco",
+    "description": "Comprehensive study material covering Updating Records The UPDATE statement modifies existing records based on a condition..",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"UPDATE Employees SET Age = 35, Department = 'HR'WHERE ID = 2; This updates the age and department of the employee with ID 2.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Deleting Specific Records The DELETE statement removes speci",
+    "description": "Comprehensive study material covering Deleting Specific Records The DELETE statement removes specific rows from a table..",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"DELETE FROM Employees WHERE ID = 3; This deletes the employee with ID 3. Deleting All Records To remove all records but keep the table structure: DELETE FROM Employees; To remove records and reset identity values: TRUNCATE TABLE Employees; The TRUNCATE command is faster and more efficient than DELETE for large datasets. Using Transactions for Safety To prevent accidental loss, use transactions: BEGIN TRANSACTION; DELETE FROM Employees WHERE ID = 4; ROLLBACK; -- Undo deletion  COMMIT; -- Finalize changes These commands ensure controlled and secure data modifications.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "It Services & It Consulting",
+    "description": "Comprehensive study material covering It Services & It Consulting.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"3.SQL QUERIES FOR REPORTS AND ANALYTICS SQL  is  essential  for  generating  reports  and  performing  analytics  on  structured  data. It  helps  in summarizing, filtering, and grouping data for better insights. Retrieving Data for Reports SELECT Name, Department, Age FROM Employees WHERE Age > 30; This fetches employees older than 30 for analysis.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Aggregating Data",
+    "description": "Comprehensive study material covering Aggregating Data.",
+    "lessons": [
+      {
+        "title": "SELECT Department, COUNT(*) AS EmployeeCount",
+        "content": "{\"simpleExplanation\":\"FROM Employees GROUP BY Department; Counts employees per department for HR reports.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: SELECT Department, COUNT(*) AS EmployeeCount\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review SELECT Department, COUNT(*) AS EmployeeCount and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Calculating Averages",
+    "description": "Comprehensive study material covering Calculating Averages.",
+    "lessons": [
+      {
+        "title": "SELECT Department, AVG(Age) AS AvgAge",
+        "content": "{\"simpleExplanation\":\"FROM Employees GROUP BY Department; Finds the average age of employees per department.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: SELECT Department, AVG(Age) AS AvgAge\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review SELECT Department, AVG(Age) AS AvgAge and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Sorting Data for Reports",
+    "description": "Comprehensive study material covering Sorting Data for Reports.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"SELECT Name, Age, Department FROM Employees ORDER BY Age DESC; Sorts employees by age in descending order.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Using Joins for Advanced Reports",
+    "description": "Comprehensive study material covering Using Joins for Advanced Reports.",
+    "lessons": [
+      {
+        "title": "SELECT e.Name, d.DepartmentName",
+        "content": "{\"simpleExplanation\":\"FROM Employees e JOIN Departments d ON e.Department = d.ID; Combines employee and department details. SQL  reporting  queries  help  in  decision-making,  trend  analysis,  and  business  intelligence,  making them crucial for organizations.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: SELECT e.Name, d.DepartmentName\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review SELECT e.Name, d.DepartmentName and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "It Services & It Consulting",
+    "description": "Comprehensive study material covering It Services & It Consulting.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"3.1 LIST OF PLACED STUDENTS In a college placement database, tracking placed students is crucial for reporting and analytics. Below are key SQL queries to generate insights:\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Creating the Table",
+    "description": "Comprehensive study material covering Creating the Table.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"REATE TABLE Placed_Students ( Student_ID INT PRIMARY KEY, Name VARCHAR(100), Department VARCHAR(50), Company VARCHAR(100), Package DECIMAL(10,2), Placement_Date DATE This table stores student placement details. Listing All Placed Students SELECT * FROM Placed_Students; Displays the complete list of placed students. Students Placed in a Specific Company SELECT Name, Department FROM Placed_Students WHERE Company = 'Google'; Fetches students placed in Google.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Department-Wise Placement Count",
+    "description": "Comprehensive study material covering Department-Wise Placement Count.",
+    "lessons": [
+      {
+        "title": "SELECT Department, COUNT(*) AS Total_Placements",
+        "content": "{\"simpleExplanation\":\"FROM Placed_Students GROUP BY Department; Shows the number of placements per department.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: SELECT Department, COUNT(*) AS Total_Placements\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review SELECT Department, COUNT(*) AS Total_Placements and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Highest Salary Package Offered",
+    "description": "Comprehensive study material covering Highest Salary Package Offered.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"SELECT Name, Company, Package FROM Placed_Students ORDER BY Package DESC LIMIT 1; Finds the student with the highest salary package.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Monthly Placement Trend",
+    "description": "Comprehensive study material covering Monthly Placement Trend.",
+    "lessons": [
+      {
+        "title": "SELECT MONTH(Placement_Date) AS Month, COUNT(*) AS Placements",
+        "content": "{\"simpleExplanation\":\"FROM Placed_Students GROUP BY Month; Analyzes placement trends over months. These queries help in data-driven decision-making, trend analysis, and performance evaluation in college placements. 3.2 COMPANY-WISE HIRING STATISTICS SQL  queries  are  crucial  for  generating  reports  and  analytics  on  hiring  trends  across  companies.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: SELECT MONTH(Placement_Date) AS Month, COUNT(*) AS Placements\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"3.2 COMPANY-WISE HIRING STATISTICS SQL  queries  are  crucial  for  generating  reports  and  analytics  on  hiring  trends  across  companies. Below are key queries to extract insights from a database containing hiring data.\",\"practiceTask\":\"Review SELECT MONTH(Placement_Date) AS Month, COUNT(*) AS Placements and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Creating the Hiring Table",
+    "description": "Comprehensive study material covering Creating the Hiring Table.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"CREATE TABLE Hiring ( ID INT PRIMARY KEY, Company_Name VARCHAR(100), Candidate_Name VARCHAR(100), Hire_Date DATE, Position VARCHAR(100),\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      },
+      {
+        "title": "Salary DECIMAL(10,2)",
+        "content": "{\"simpleExplanation\":\"This section covers the fundamental concepts of Salary DECIMAL(10,2). Understanding this is key to mastering the domain.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Salary DECIMAL(10,2)\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review Salary DECIMAL(10,2) and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Total Hires Per Company",
+    "description": "Comprehensive study material covering Total Hires Per Company.",
+    "lessons": [
+      {
+        "title": "SELECT Company_Name, COUNT(*) AS Total_Hires",
+        "content": "{\"simpleExplanation\":\"This section covers the fundamental concepts of SELECT Company_Name, COUNT(*) AS Total_Hires. Understanding this is key to mastering the domain.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: SELECT Company_Name, COUNT(*) AS Total_Hires\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review SELECT Company_Name, COUNT(*) AS Total_Hires and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      },
+      {
+        "title": "FROM Hiring",
+        "content": "{\"simpleExplanation\":\"GROUP BY Company_Name ORDER BY Total_Hires DESC; Provides the total number of hires per company.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: FROM Hiring\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review FROM Hiring and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Monthly Hiring Trends Per Company",
+    "description": "Comprehensive study material covering Monthly Hiring Trends Per Company.",
+    "lessons": [
+      {
+        "title": "SELECT Company_Name, MONTH(Hire_Date) AS Hire_Month, COUNT(*) AS Monthly_Hires",
+        "content": "{\"simpleExplanation\":\"This section covers the fundamental concepts of SELECT Company_Name, MONTH(Hire_Date) AS Hire_Month, COUNT(*) AS Monthly_Hires. Understanding this is key to mastering the domain.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: SELECT Company_Name, MONTH(Hire_Date) AS Hire_Month, COUNT(*) AS Monthly_Hires\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review SELECT Company_Name, MONTH(Hire_Date) AS Hire_Month, COUNT(*) AS Monthly_Hires and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      },
+      {
+        "title": "FROM Hiring",
+        "content": "{\"simpleExplanation\":\"GROUP BY Company_Name, MONTH(Hire_Date) ORDER BY Company_Name, Hire_Month; Tracks hiring trends over months.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: FROM Hiring\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review FROM Hiring and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Average Salary Per Company",
+    "description": "Comprehensive study material covering Average Salary Per Company.",
+    "lessons": [
+      {
+        "title": "SELECT Company_Name, AVG(Salary) AS Avg_Salary",
+        "content": "{\"simpleExplanation\":\"FROM Hiring GROUP BY Company_Name; Shows average salary per company.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: SELECT Company_Name, AVG(Salary) AS Avg_Salary\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review SELECT Company_Name, AVG(Salary) AS Avg_Salary and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Top Hiring Companies",
+    "description": "Comprehensive study material covering Top Hiring Companies.",
+    "lessons": [
+      {
+        "title": "SELECT Company_Name, COUNT(*) AS Total_Hires",
+        "content": "{\"simpleExplanation\":\"This section covers the fundamental concepts of SELECT Company_Name, COUNT(*) AS Total_Hires. Understanding this is key to mastering the domain.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: SELECT Company_Name, COUNT(*) AS Total_Hires\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review SELECT Company_Name, COUNT(*) AS Total_Hires and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      },
+      {
+        "title": "FROM Hiring",
+        "content": "{\"simpleExplanation\":\"This section covers the fundamental concepts of FROM Hiring. Understanding this is key to mastering the domain.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: FROM Hiring\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review FROM Hiring and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      },
+      {
+        "title": "GROUP BY Company_Name",
+        "content": "{\"simpleExplanation\":\"ORDER BY Total_Hires DESC These queries help businesses analyze hiring patterns, salaries, and trends for strategic decision-making.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: GROUP BY Company_Name\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review GROUP BY Company_Name and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "It Services & It Consulting",
+    "description": "Comprehensive study material covering It Services & It Consulting.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"3.3 STUDENT-WISE APPLICATION HISTORY To  track  student  applications  and  generate  analytical  reports,  SQL  provides  powerful  querying capabilities.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Creating the Applications Table",
+    "description": "Comprehensive study material covering Creating the Applications Table.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"CREATE TABLE Applications ( ApplicationID INT PRIMARY KEY, StudentID INT, StudentName VARCHAR(100), ProgramApplied VARCHAR(100), Status VARCHAR(50),\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      },
+      {
+        "title": "ApplicationDate DATE",
+        "content": "{\"simpleExplanation\":\"Retrieving Student-wise Application History SELECT * FROM Applications WHERE StudentID = 101; This fetches all applications for a specific student.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: ApplicationDate DATE\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review ApplicationDate DATE and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Counting Total Applications per Student",
+    "description": "Comprehensive study material covering Counting Total Applications per Student.",
+    "lessons": [
+      {
+        "title": "SELECT StudentID, StudentName, COUNT(*) AS TotalApplications",
+        "content": "{\"simpleExplanation\":\"FROM Applications GROUP BY StudentID, StudentName; Gives the number of applications submitted by each student.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: SELECT StudentID, StudentName, COUNT(*) AS TotalApplications\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review SELECT StudentID, StudentName, COUNT(*) AS TotalApplications and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Status-wise Application Breakdown",
+    "description": "Comprehensive study material covering Status-wise Application Breakdown.",
+    "lessons": [
+      {
+        "title": "SELECT StudentID, StudentName, Status, COUNT(*) AS Count",
+        "content": "{\"simpleExplanation\":\"FROM Applications GROUP BY StudentID, StudentName, Status; Shows application statuses like Pending, Approved, Rejected for each student.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: SELECT StudentID, StudentName, Status, COUNT(*) AS Count\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review SELECT StudentID, StudentName, Status, COUNT(*) AS Count and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Recent Applications Report",
+    "description": "Comprehensive study material covering Recent Applications Report.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"SELECT * FROM Applications WHERE ApplicationDate >= DATE_SUB(CURDATE(), INTERVAL 30 DAY); Lists applications submitted in the last 30 days. These  queries  enable  data-driven  insights  for  application  trends,  student  activity,  and  admission analytics. 3.4 JOB OPENINGS WITH MAXIMUM APPLICANTS In  reporting  and  analytics,  SQL  helps  generate  insights  from  job  application  data.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"To  identify  job openings with the highest number of applicants, we assume there are two tables: Jobs (JobID, JobTitle, Company) – Stores job details.1. Applications (AppID, JobID, ApplicantID, AppliedDate) – Tracks applications per job.2.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      },
+      {
+        "title": "SQL Query to Find Job Openings with Maximum Applicants",
+        "content": "{\"simpleExplanation\":\"This section covers the fundamental concepts of SQL Query to Find Job Openings with Maximum Applicants. Understanding this is key to mastering the domain.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: SQL Query to Find Job Openings with Maximum Applicants\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review SQL Query to Find Job Openings with Maximum Applicants and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      },
+      {
+        "title": "SELECT j.JobID, j.JobTitle, j.Company, COUNT(a.AppID) AS ApplicantCount",
+        "content": "{\"simpleExplanation\":\"This section covers the fundamental concepts of SELECT j.JobID, j.JobTitle, j.Company, COUNT(a.AppID) AS ApplicantCount. Understanding this is key to mastering the domain.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: SELECT j.JobID, j.JobTitle, j.Company, COUNT(a.AppID) AS ApplicantCount\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review SELECT j.JobID, j.JobTitle, j.Company, COUNT(a.AppID) AS ApplicantCount and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      },
+      {
+        "title": "FROM Jobs j",
+        "content": "{\"simpleExplanation\":\"This section covers the fundamental concepts of FROM Jobs j. Understanding this is key to mastering the domain.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: FROM Jobs j\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review FROM Jobs j and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      },
+      {
+        "title": "JOIN Applications a ON j.JobID = a.JobID",
+        "content": "{\"simpleExplanation\":\"This section covers the fundamental concepts of JOIN Applications a ON j.JobID = a.JobID. Understanding this is key to mastering the domain.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: JOIN Applications a ON j.JobID = a.JobID\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review JOIN Applications a ON j.JobID = a.JobID and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      },
+      {
+        "title": "GROUP BY j.JobID, j.JobTitle, j.Company",
+        "content": "{\"simpleExplanation\":\"ORDER BY ApplicantCount DESC LIMIT 1; Explanation: JOIN: Links Jobs and Applications using JobID. COUNT(AppID): Counts applicants per job. GROUP BY: Groups results by JobID.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: GROUP BY j.JobID, j.JobTitle, j.Company\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"LIMIT 1: Retrieves the job with the highest applicants. This query helps HR teams and recruiters analyze job popularity and optimize recruitment strategies based on applicant interest.\",\"practiceTask\":\"Review GROUP BY j.JobID, j.JobTitle, j.Company and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "It Services & It Consulting",
+    "description": "Comprehensive study material covering It Services & It Consulting.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"3.5 UPCOMING INTERVIEWS SCHEDULE SQL  is  powerful  for  generating  reports  and  analytics,  helping  organizations  track  and  manage interview schedules efficiently.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Creating the Interviews Table",
+    "description": "Comprehensive study material covering Creating the Interviews Table.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"CREATE TABLE Interviews ( InterviewID INT PRIMARY KEY, CandidateName VARCHAR(100), Position VARCHAR(100), InterviewDate DATE, InterviewTime TIME, Status VARCHAR(50) Defines a table to store interview details.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Fetching Upcoming Interviews",
+    "description": "Comprehensive study material covering Fetching Upcoming Interviews.",
+    "lessons": [
+      {
+        "title": "SELECT * FROM Interviews",
+        "content": "{\"simpleExplanation\":\"WHERE InterviewDate >= CURDATE() ORDER BY InterviewDate, InterviewTime; Retrieves scheduled interviews from today onward, sorted by date and time.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: SELECT * FROM Interviews\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review SELECT * FROM Interviews and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Counting Interviews Per Position",
+    "description": "Comprehensive study material covering Counting Interviews Per Position.",
+    "lessons": [
+      {
+        "title": "SELECT Position, COUNT(*) AS TotalInterviews",
+        "content": "{\"simpleExplanation\":\"This section covers the fundamental concepts of SELECT Position, COUNT(*) AS TotalInterviews. Understanding this is key to mastering the domain.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: SELECT Position, COUNT(*) AS TotalInterviews\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review SELECT Position, COUNT(*) AS TotalInterviews and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      },
+      {
+        "title": "FROM Interviews",
+        "content": "{\"simpleExplanation\":\"WHERE InterviewDate >= CURDATE() GROUP BY Position; Generates a report on the number of interviews per job position.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: FROM Interviews\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review FROM Interviews and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Interview Status Summary",
+    "description": "Comprehensive study material covering Interview Status Summary.",
+    "lessons": [
+      {
+        "title": "SELECT Status, COUNT(*) AS Count",
+        "content": "{\"simpleExplanation\":\"FROM Interviews GROUP BY Status; Analyzes interview outcomes (e.g., Scheduled, Completed, Canceled).\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: SELECT Status, COUNT(*) AS Count\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review SELECT Status, COUNT(*) AS Count and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Identifying Overlapping Interviews",
+    "description": "Comprehensive study material covering Identifying Overlapping Interviews.",
+    "lessons": [
+      {
+        "title": "SELECT CandidateName, InterviewDate, COUNT(*) AS OverlapsFROM Interviews",
+        "content": "{\"simpleExplanation\":\"GROUP BY CandidateName, InterviewDate HAVING COUNT(*) > 1; Detects scheduling conflicts. These queries enhance data-driven decision-making in recruitment.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: SELECT CandidateName, InterviewDate, COUNT(*) AS OverlapsFROM Interviews\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review SELECT CandidateName, InterviewDate, COUNT(*) AS OverlapsFROM Interviews and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "It Services & It Consulting",
+    "description": "Comprehensive study material covering It Services & It Consulting.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"SQL INDEXING AND PERFORMANCE OPTIMIZATION SQL  indexing  is  a  critical  technique  to  enhance  database  performance  by  enabling  faster  data retrieval. An index is a data structure that improves query speed by minimizing the need for full table scans. Proper  indexing  significantly  reduces  query  execution  time  and  enhances  overall  database efficiency.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Effective indexing improves SQL query efficiency, enhances database responsiveness, and ensures scalability  for  large  datasets. Properly  balanced  indexing  leads  to  optimal  read  and  write performance.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "It Services & It Consulting",
+    "description": "Comprehensive study material covering It Services & It Consulting.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"1 CREATING INDEXES FOR FASTER QUERIES Indexes in SQL significantly enhance query performance by reducing the time required to retrieve data. Instead of scanning entire tables, the database engine uses indexes to locate rows efficiently. Proper indexing ensures faster query execution and optimized database performance.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Regular Index Maintenance: Rebuild or reorganize fragmented indexes to sustain efficiency.5. Well-designed  indexes  enhance  SQL  performance  by  minimizing  query  execution  time,  reducing database load, and ensuring efficient data retrieval for large datasets.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "It Services & It Consulting",
+    "description": "Comprehensive study material covering It Services & It Consulting.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"4.2 OPTIMIZING JOINS AND QUERIES Efficient SQL query optimization is essential for improving database performance, particularly when dealing with JOIN operations. Joins combine data from multiple tables, but inefficient joins can lead to  slow  queries  and  high  resource  consumption. Optimizing  queries  ensures  faster  execution  and reduced system load.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Cache frequently accessed data to reduce redundant computations. By  implementing  these  techniques,  SQL  queries  run  more  efficiently,  improving  database performance and scalability.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "It Services & It Consulting",
+    "description": "Comprehensive study material covering It Services & It Consulting.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"4.3 NORMALIZATION AND DATA INTEGRITY Normalization  is  a  fundamental  database  design  process  aimed  at  organizing  data  efficiently  by minimizing  redundancy  and  ensuring  consistency. It  involves  structuring  tables  to  reduce  data duplication  and  improve  maintainability. Normalization  is  typically  applied  through  normal  forms 1st Normal Form (1NF): Ensures atomicity (each column holds single values) and uniqueness.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Improves query performance by avoiding anomalies. By applying normalization and integrity constraints, databases achieve efficient, scalable, and error- free data management.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "It Services & It Consulting",
+    "description": "Comprehensive study material covering It Services & It Consulting.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"DATABASE SECURITY AND ACCESS CONTROL Database  security  protects  data  from  unauthorized  access,  breaches,  and  manipulation. Access control ensures only authorized users can perform specific actions, maintaining data integrity and confidentiality. Key Security Measures: User Authentication and Authorization:1.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Schedule regular backups and implement disaster recovery plans. By enforcing access control, encryption, and security policies, databases remain protected against cyber threats while ensuring data integrity and compliance.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "It Services & It Consulting",
+    "description": "Comprehensive study material covering It Services & It Consulting.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"5.1 ROLE-BASED ACCESS (STUDENTS, COMPANIES, ADMIN) e-Based  Access  Control  (RBAC)  in  SQL  ensures  that  different  user  groups  (Students,  Companies, Admins)  have  specific  permissions  to  interact  with  the  database  securely. By  defining  roles  and assigning  privileges,  organizations  can  enforce  access  restrictions,  improving  security  and  data integrity. Defining User Roles: Student Role:1.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Regularly audit encryption configurations. By implementing encryption and secure connections, SQL databases ensure data confidentiality, integrity, and protection against cyber threats.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "It Services & It Consulting",
+    "description": "Comprehensive study material covering It Services & It Consulting.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"5.3 PREVENTING SQL INJECTION SQL injection is a critical security vulnerability that allows attackers to manipulate SQL queries by injecting  malicious  code. This  can  lead  to  data  breaches,  unauthorized  access,  or  database corruption. Preventing SQL injection is essential for maintaining database security and data integrity.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"These prevent direct injection by treating user input as data, not code. Example (MySQL with Python):\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      },
+      {
+        "title": "python",
+        "content": "{\"simpleExplanation\":\"cursor.execute(\\\"SELECT * FROM users WHERE username = %s\\\", (user_input,)) Use Stored Procedures:2. Encapsulate SQL logic and prevent direct execution of user input. Example (SQL Server): CREATE PROCEDURE GetUser @username NVARCHAR(50) ASSELECT * FROM users WHERE username = @username; Validate and Sanitize User Input:3.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: python\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Detect and block SQL injection attempts in real-time. By  implementing  these  security  measures,  organizations  can  effectively  prevent  SQL  injection attacks, ensuring database security and protecting sensitive data.\",\"practiceTask\":\"Review python and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "It Services & It Consulting",
+    "description": "Comprehensive study material covering It Services & It Consulting.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"BACKUP AND RECOVERY Backup  and  recovery  are  essential  for  protecting  SQL  databases  from  data  loss,  corruption,  or system  failures. A  robust  backup  strategy  ensures  that  data  can  be  restored  quickly,  minimizing downtime and business disruption. Types of SQL Backups: Full Backup:1.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Test restoration procedures periodically. A  strong  backup  and  recovery  plan  ensures  data  protection,  quick  disaster  recovery,  and business continuity in SQL databases.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "It Services & It Consulting",
+    "description": "Comprehensive study material covering It Services & It Consulting.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"6.1 REGULAR DATABASE BACKUPS Regular database backups are crucial for preventing data loss due to accidental deletions, hardware failures, or cyberattacks. A well-structured backup strategy ensures data can be restored quickly, minimizing downtime and maintaining business continuity. Types of SQL Backups: Full Backup:1.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Test restoration procedures regularly to ensure backup integrity. By  implementing  regular  backups,  businesses  can  protect  critical  data,  prevent  loss,  and recover quickly in case of failures.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "It Services & It Consulting",
+    "description": "Comprehensive study material covering It Services & It Consulting.",
+    "lessons": [
+      {
+        "title": "Introduction & Overview",
+        "content": "{\"simpleExplanation\":\"6.2 RESTORING DATA FROM BACKUP Restoring data from a backup is essential for recovering lost, corrupted, or accidentally deleted data in SQL  databases. A  proper  recovery  strategy  ensures  minimal  downtime  and  maintains  business continuity. Types of Restoration Methods: Restoring a Full Backup:1.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Introduction & Overview\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"This method restores the entire database from the last full backup. Example (SQL Server) RESTORE DATABASE myDatabase FROM DISK = 'C:\\\\backup\\\\myDatabase.bak' WITH REPLACE; 2.Restoring a Differential Backup: Requires restoring the last full backup first, followed by the latest differential backup.\",\"practiceTask\":\"Review Introduction & Overview and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      },
+      {
+        "title": "Example",
+        "content": "{\"simpleExplanation\":\"RESTORE  DATABASE  myDatabase  FROM  DISK  =  'C:\\\\backup\\\\myDatabase.bak'  WITH NORECOVERY; RESTORE  DATABASE  myDatabase  FROM  DISK  =  'C:\\\\backup\\\\myDatabase_diff.bak'  WITH RECOVERY; 3.Point-in-Time Recovery (Using Transaction Logs): Restores data to a specific moment using transaction log backups.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Example\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review Example and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      },
+      {
+        "title": "Example",
+        "content": "{\"simpleExplanation\":\"RESTORE  DATABASE  myDatabase  FROM  DISK  =  'C:\\\\backup\\\\myDatabase.bak'  WITH NORECOVERY; RESTORE LOG myDatabase FROM DISK = 'C:\\\\backup\\\\myDatabase_log.trn' WITH STOPAT = '2025-03-14 12:00:00', RECOVERY;\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Example\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review Example and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "It Services & It Consulting",
+    "description": "Comprehensive study material covering It Services & It Consulting.",
+    "lessons": [
+      {
+        "title": "This SQL material is for reference to gain",
+        "content": "{\"simpleExplanation\":\"This section covers the fundamental concepts of This SQL material is for reference to gain. Understanding this is key to mastering the domain.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: This SQL material is for reference to gain\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review This SQL material is for reference to gain and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      },
+      {
+        "title": "basic knowledge about SQL; don't rely solely",
+        "content": "{\"simpleExplanation\":\"This section covers the fundamental concepts of basic knowledge about SQL; don't rely solely. Understanding this is key to mastering the domain.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: basic knowledge about SQL; don't rely solely\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review basic knowledge about SQL; don't rely solely and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      },
+      {
+        "title": "on it, and also refer to other internet",
+        "content": "{\"simpleExplanation\":\"resources for competitive exams. Thank you from CodTech.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: on it, and also refer to other internet\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review on it, and also refer to other internet and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  }
+]
