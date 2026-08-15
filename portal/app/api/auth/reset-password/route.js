@@ -1,16 +1,16 @@
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import pool, { ensureDbSchema } from '@/lib/db';
-import { isOtpVerified, clearOtp } from '@/lib/otpStore';
+import { verifyResetToken, consumeResetToken } from '@/lib/tokenStore';
 
 export async function POST(req) {
   try {
     await ensureDbSchema();
     const body = await req.json();
-    const { email, newPassword, otpCode } = body;
+    const { token, email, newPassword } = body;
 
-    if (!email || !newPassword) {
-      return NextResponse.json({ success: false, message: 'Email and new password are required.' }, { status: 400 });
+    if (!token || !email || !newPassword) {
+      return NextResponse.json({ success: false, message: 'Reset token, email, and new password are required.' }, { status: 400 });
     }
 
     const cleanEmail = String(email).trim().toLowerCase();
@@ -20,13 +20,10 @@ export async function POST(req) {
       return NextResponse.json({ success: false, message: 'New password must be at least 6 characters long.' }, { status: 400 });
     }
 
-    // Verify that OTP was completed for this email
-    const verified = isOtpVerified(cleanEmail);
-    if (!verified) {
-      return NextResponse.json({ 
-        success: false, 
-        message: 'Verification code not confirmed or expired. Please verify your email first.' 
-      }, { status: 403 });
+    // Verify token validity
+    const tokenResult = verifyResetToken(token, cleanEmail);
+    if (!tokenResult.valid) {
+      return NextResponse.json({ success: false, message: tokenResult.message }, { status: 403 });
     }
 
     // Hash the new password with bcrypt (60 chars)
@@ -50,8 +47,8 @@ export async function POST(req) {
       return NextResponse.json({ success: false, message: 'Account not found or password update failed.' }, { status: 404 });
     }
 
-    // Clear OTP from store after successful reset
-    clearOtp(cleanEmail);
+    // Burn token after successful reset
+    consumeResetToken(token);
 
     return NextResponse.json({
       success: true,

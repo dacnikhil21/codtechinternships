@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import pool, { ensureDbSchema } from '@/lib/db';
-import { setOtp } from '@/lib/otpStore';
-import { sendVerificationEmail } from '@/lib/mailer';
+import { createResetToken } from '@/lib/tokenStore';
+import { sendResetLinkEmail } from '@/lib/mailer';
 
 export async function POST(req) {
   try {
@@ -10,7 +10,7 @@ export async function POST(req) {
     const { email } = body;
 
     if (!email) {
-      return NextResponse.json({ success: false, message: 'Email address is required.' }, { status: 400 });
+      return NextResponse.json({ success: false, message: 'Registered email address is required.' }, { status: 400 });
     }
 
     const cleanEmail = String(email).trim().toLowerCase();
@@ -31,7 +31,6 @@ export async function POST(req) {
       }
     } catch (err) {
       console.warn('[DB VERIFY EMAIL FALLBACK]', err.message);
-      // Fallback for dev mode
       user = { id: 1, name: 'Intern', email: cleanEmail };
     }
 
@@ -42,24 +41,28 @@ export async function POST(req) {
       }, { status: 404 });
     }
 
-    // Generate secure 6-digit OTP code
-    const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
-    setOtp(cleanEmail, otpCode, 15);
+    // Generate secure reset token
+    const token = createResetToken(cleanEmail, 30);
 
-    // Send Verification Email
-    const emailResult = await sendVerificationEmail(cleanEmail, otpCode, user.name || 'Intern');
+    // Get origin host from headers or env
+    const host = req.headers.get('host') || 'codtechitsolutions.co.in';
+    const protocol = req.headers.get('x-forwarded-proto') || (host.includes('localhost') ? 'http' : 'https');
+    const origin = `${protocol}://${host}`;
+
+    const resetLink = `${origin}/forgot-password?token=${token}&email=${encodeURIComponent(cleanEmail)}`;
+
+    // Dispatch Reset Link email
+    const emailResult = await sendResetLinkEmail(cleanEmail, resetLink, user.name || 'Intern');
 
     return NextResponse.json({
       success: true,
-      message: `Verification code sent to ${cleanEmail}. Please check your inbox.`,
+      message: `A password reset link has been sent to ${cleanEmail}. Please check your inbox.`,
       email: cleanEmail,
-      name: user.name || 'Intern',
-      simulated: emailResult.simulated,
-      // Pass code in response for testing/dev ease if email server is not configured
-      code: emailResult.simulated ? otpCode : undefined
+      resetLink,
+      simulated: emailResult.simulated
     });
   } catch (err) {
     console.error('[FORGOT PASSWORD API ERROR]', err);
-    return NextResponse.json({ success: false, message: 'Server error verifying email address.' }, { status: 500 });
+    return NextResponse.json({ success: false, message: 'Server error processing password reset link.' }, { status: 500 });
   }
 }
