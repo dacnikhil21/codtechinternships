@@ -1,0 +1,17 @@
+[
+  {
+    "title": "Certifications",
+    "description": "Comprehensive study material covering Certifications.",
+    "lessons": [
+      {
+        "title": "Big Data Material",
+        "content": "{\"simpleExplanation\":\"This section covers the fundamental concepts of Big Data Material. Understanding this is key to mastering the domain.\",\"whyItMatters\":[\"Provides a robust foundation for advanced topics.\",\"Improves system design and code maintainability.\",\"Frequently asked in technical interviews.\"],\"example\":\"// Example Concept: Big Data Material\\n// Apply these principles in your projects to ensure robust functionality.\",\"summary\":\"Mastering this concept will significantly improve your technical execution.\",\"practiceTask\":\"Review Big Data Material and identify 3 real-world applications where this principle is used.\"}",
+        "keyPoints": [
+          "Core Theory",
+          "Practical Application",
+          "Best Practices"
+        ]
+      }
+    ]
+  }
+]
